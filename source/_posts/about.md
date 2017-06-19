@@ -2,10 +2,10 @@
 title: About
 ---
 
-Soy un gran aficionado del fascinante campo de la informática, en concreto del desarrollo de Software, y mi meta personal es aprender tanto como sea posible en dicho arte.
+In computer science I am a fond of this beautiful field and my personal goal are learn so much are possible.
 
-Estoy interesado en el desarrollo de Software desde que tengo 6 años. Ya entonces soñaba con ser diseñador de software informático.
+I’m interested in the computer science and imagine myself in the future as programmer and software designer since I had six years old
 
-Me interesa especialmente el software Open Source. En este campo tuve mi primera experiencia con 12 años, y desde entonces no he parado de experimentar con las diferentes distribuciones de GNU/Linux así cómo muchas otras opciones que ofrece el Software Libre.
+I’m specially interested in Open Source. In that sense my first experience with Open Source world was when I had twelve years old, and since then I never stop to experiment with the different GNU/Linux distributions as well the tonnes of quality Software.
 
-Me considero una persona despierta, dinámica y con ganas de aprender cada día un poco más.
+I consider myself a awaken person, dynamic too and with eager to learn every day too much
