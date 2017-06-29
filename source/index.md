@@ -3,10 +3,9 @@ title: '[genar@localhost ~]$'
 date: 2017-06-29 19:51:14
 ---
 
-In computer science I am a fond of this beautiful field and my personal goal are learn so much are possible.
+Software Libre lover, happy vim user, automatization addict, casual gamer.
 
-I’m interested in the computer science and imagine myself in the future as programmer and software designer since I had six years old
+Eager to learn everything I can about technology; Software design, CD, CI, TDD, Microservices architecture, docker, frontend automatization, devops techniques and every programming language which allows me to play with all those things.
 
-I’m specially interested in Open Source. In that sense my first experience with Open Source world was when I had twelve years old, and since then I never stop to experiment with the different GNU/Linux distributions as well the tonnes of quality Software.
+I really enjoy Sci-FI and cyberpunk stuff.
 
-I consider myself a awaken person, dynamic too and with eager to learn every day too much
