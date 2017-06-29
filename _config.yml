@@ -80,14 +80,14 @@ theme_config:
   slogan: --
 
   menu:
-    - title: Projects
+    - title: '~'
+      url:
+      intro: About me.
+      icon: fa fa-user
+    - title: src/
       url: projects
       intro: All my personal projects.
       icon: fa fa-archive
-    - title: About
-      url: about
-      intro: About me.
-      icon: fa fa-user
 
   links:
     - title: Github
