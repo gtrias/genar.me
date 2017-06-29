@@ -2,6 +2,8 @@
 title: About
 ---
 
+Hi! I'm Genar
+
 In computer science I am a fond of this beautiful field and my personal goal are learn so much are possible.
 
 I’m interested in the computer science and imagine myself in the future as programmer and software designer since I had six years old
