@@ -3,7 +3,7 @@ title: '[genar@localhost src]$ ls'
 date: 2017-06-29 19:50:20
 ---
 
-### Here you can find some of my experiments/projects
+### Here you can find some of my `(experiments|projects)`
 
 ## > [<I class="fa fa-github"></i> opencomponents/oc-client-php ](https://github.com/opencomponents/oc-client-php)
 <div class="badge">PHP</div> <div class="badge">OpenComponents</div>
