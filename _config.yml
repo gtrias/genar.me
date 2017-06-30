@@ -83,17 +83,22 @@ theme_config:
     - title: '~'
       url:
       intro: About me.
-      icon: fa fa-user
+      icon: fa fa-home
     - title: src/
       url: projects
       intro: All my personal projects.
-      icon: fa fa-archive
+      icon: fa fa-folder
+    - title: com/
+      url: com
+      intro: Where I've worked
+      icon: fa fa-folder
+
 
   links:
     - title: Github
       url: http://www.github.com/gtrias
       intro: My Github account.
-      icon: fa fa-github
+      icon: fa fa-github-alt
     - title: My LinkedIn
       url: http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90
       intro: My Linkedin.
@@ -102,6 +107,15 @@ theme_config:
       url: https://twitter.com/genar_tr
       intro: My twitter
       icon: fa fa-twitter
+    - title: 'docker hub'
+      url: https://hub.docker.com/u/gtrias/
+      intro: My docker hub
+      icon: fa fa-docker
+    - title: 'stackoverflow'
+      url: https://stackoverflow.com/users/865222/genar
+      intro: stackoverflow
+      icon: fa fa-stack-overflow
+
 
   widgets:
   - links
