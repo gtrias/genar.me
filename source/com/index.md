@@ -32,6 +32,8 @@ Software Developer
 
 Software Developer
 
+- Development of e-commerce and social networks solutions
+
 ## Pymesoft Valles -> (2007 - 2008)
 
 Computer Technician and Sysadmin

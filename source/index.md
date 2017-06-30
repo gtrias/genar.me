@@ -6,7 +6,9 @@ date: 2017-06-29 19:51:14
 ```
  _______________________________________
 | Check my github if you want to known  |
-| more about me as a programmer         |
+| more about me as a programmer.        |
+| if you want you can send me an email  |
+| to genar[at]acs[dot]li                |
 +---------------------------------------+
    \
     \

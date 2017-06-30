@@ -111,10 +111,15 @@ theme_config:
       url: https://hub.docker.com/u/gtrias/
       intro: My docker hub
       icon: fa fa-docker
-    - title: 'stackoverflow'
+    - title: 'StackOverflow'
       url: https://stackoverflow.com/users/865222/genar
-      intro: stackoverflow
+      intro: StackOverflow
       icon: fa fa-stack-overflow
+    - title: 'Steam'
+      url: http://steamcommunity.com/id/genar_tr/
+      intro: Steam
+      icon: fa fa-steam
+
 
 
   widgets:

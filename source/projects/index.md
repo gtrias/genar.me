@@ -27,7 +27,7 @@ Listen to amqp events and redirect messages to instant messaging system
 Certbot server requesting certficates to letsencrypt feeded with consul
 
 ## > [<i class="fa fa-github"></i> gtrias/tg-downloader-bot](https://github.com/gtrias/tg-downloader-bot)
-<div class="badge">nodejs</div> <div class="badge">Experiment</div>
+<div class="badge">nodejs</div> <div class="badge">telegram-bot</div> <div class="badge">Experiment</div>
 
 Just a bot to download all files that receives as a telegram attachment, supports send .torrent files to transmission
 
