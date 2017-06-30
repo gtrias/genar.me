@@ -98,6 +98,10 @@ theme_config:
       url: http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90
       intro: My Linkedin.
       icon: fa fa-linkedin
+    - title: '@genar_tr'
+      url: https://twitter.com/genar_tr
+      intro: My twitter
+      icon: fa fa-twitter
 
   widgets:
   - links
