@@ -9,3 +9,24 @@ Eager to learn everything I can about technology; Software design, CD, CI, TDD, 
 
 I really enjoy Sci-FI and cyberpunk stuff.
 
+### What things I have done
+
+- Check my projects [> ls src](projects)
+
+ ______
+```
+ _______________________________________
+| Check my github if you want to known  |
+| more about me as a programmer         |
++---------------------------------------+
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+```
+
