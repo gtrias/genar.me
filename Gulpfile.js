@@ -2,7 +2,7 @@ var gulp = require('gulp')
 var removeCode = require('gulp-remove-code')
 
 gulp.task('clean', () => {
-  gulp.src('~/src/orgmode/**/*.md')
+  gulp.src('/home/genar/src/orgmode/**/*.md')
     .pipe(removeCode({
       commentStart: '<!--',
       commentEnd: '-->',
