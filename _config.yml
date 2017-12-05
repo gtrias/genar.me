@@ -92,7 +92,10 @@ theme_config:
       url: com
       intro: Where I've worked
       icon: fa fa-folder
-
+    - title: dev/
+      url: dev
+      intro: My dev notes
+      icon: fa fa-folder
 
   links:
     - title: Github
