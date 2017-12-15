@@ -7,6 +7,7 @@ var hexoIgnore = require('/home/genar/src/orgmode/hexoignore.json')
 gulp.task('clean', () => {
   gulp.src('/home/genar/src/orgmode/**/*.md')
     .pipe(gulpIgnore.exclude(hexoIgnore.ignore))
+    .pipe(gulpIgnore.exclude('**/.*'))
     .pipe(replace('.md', '.html'))
     .pipe(stripCode({
       pattern: /\[start_ignore\][\s\S]*?(?:\[end_ignore\].*\n+?)/g

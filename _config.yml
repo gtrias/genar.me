@@ -96,6 +96,10 @@ theme_config:
       url: dev
       intro: My dev notes
       icon: fa fa-folder
+    - title: blog/
+      url: blog
+      intro: My blog
+      icon: fa fa-folder
 
   links:
     - title: Github
@@ -141,4 +145,4 @@ theme_config:
     siteid:
 
   # Search
-  swiftype_key:
+  swiftype_key: /
