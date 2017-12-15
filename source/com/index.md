@@ -6,11 +6,11 @@ date: 2017-06-30 18:20:23
 ### Where I have been doing amazing things
 
 
-## Cirici New Media / Alvarium -> (2015 - Right now)
+## [Cirici New Media](http://cirici.com) / [Alvarium](http://alvarium.io) -> (2015 - Right now)
 
 Fullstack developer
 
-- microservices development using PHP (almost Symfony framework) and NodeJS
+- microservices development using [PHP](../dev/php.html) (almost Symfony framework) and [NodeJS](../dev/nodejs.html)
 - ReactJS component development to interact with our microservices
 - Continuous Deployment, Continuous Integration and TDD prepulsor
 

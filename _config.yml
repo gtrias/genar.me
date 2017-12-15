@@ -138,8 +138,8 @@ theme_config:
 
   # analytics
   google_analytics:
-    enable: false
-    siteid:
+    enable: true
+    siteid: UA-29504819-1
   baidu_tongji:
     enable: false
     siteid:
