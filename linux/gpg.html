@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="GPGTransparent vim edition of GPG file
+ Test this plugin https://github.com/vim-scripts/gnupg.vim  #135ebb7a
+
+Integrate GPG in nautilus1sudo apt insta">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="genar.me"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1><span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="mypage">
+
+		<!-- title and entry -->
+        
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12">
+	
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="GPG"><a href="#GPG" class="headerlink" title="GPG"></a>GPG</h1><h2 id="Transparent-vim-edition-of-GPG-file"><a href="#Transparent-vim-edition-of-GPG-file" class="headerlink" title="Transparent vim edition of GPG file"></a>Transparent <a href="../vim.html">vim</a> edition of GPG file</h2><ul>
+<li style="list-style: none"><input type="checkbox"> Test this plugin <a href="https://github.com/vim-scripts/gnupg.vim" target="_blank" rel="noopener">https://github.com/vim-scripts/gnupg.vim</a>  #135ebb7a</li>
+</ul>
+<h2 id="Integrate-GPG-in-nautilus"><a href="#Integrate-GPG-in-nautilus" class="headerlink" title="Integrate GPG in nautilus"></a>Integrate GPG in nautilus</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install seahorse-nautilus</span><br></pre></td></tr></table></figure>
+<h2 id="Backup-your-GPG-keys"><a href="#Backup-your-GPG-keys" class="headerlink" title="Backup your GPG keys"></a>Backup your GPG keys</h2><p>Taken from here: <a href="https://gist.github.com/gtrias/3b1682077d4730162ad4bc570c6453d2" target="_blank" rel="noopener">https://gist.github.com/gtrias/3b1682077d4730162ad4bc570c6453d2</a></p>
+<p>Every so often I have to restore my gpg keys and I’m never sure how best to do it.  So, I’ve spent some time playing around with the various ways to export/import (backup/restore) keys.</p>
+<h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method 1"></a>Method 1</h3><h4 id="Backup-the-public-and-secret-keyrings-and-trust-database"><a href="#Backup-the-public-and-secret-keyrings-and-trust-database" class="headerlink" title="Backup the public and secret keyrings and trust database"></a>Backup the public and secret keyrings and trust database</h4><pre><code>cp ~/.gnupg/pubring.gpg /path/to/backups/
+cp ~/.gnupg/secring.gpg /path/to/backups/
+cp ~/.gnupg/trustdb.gpg /path/to/backups/
+# or, instead of backing up trustdb...
+gpg --export-ownertrust &gt; chrisroos-ownertrust-gpg.txt
+</code></pre><p><em>NOTE</em> The <a href="http://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration.html" target="_blank" rel="noopener">GPG manual</a> suggests exporting the ownertrust instead of backing up the trustdb, although it doesn’t explain why.</p>
+<h4 id="Restore-the-public-and-secret-keyrings-and-trust-database"><a href="#Restore-the-public-and-secret-keyrings-and-trust-database" class="headerlink" title="Restore the public and secret keyrings and trust database"></a>Restore the public and secret keyrings and trust database</h4><pre><code>cp /path/to/backups/*.gpg ~/.gnupg/
+# or, if you exported the ownertrust
+gpg --import-ownertrust chrisroos-ownertrust-gpg.txt
+</code></pre><h3 id="Method-2"><a href="#Method-2" class="headerlink" title="Method 2"></a>Method 2</h3><p>This only really works if you don’t mind losing any other keys (than your own).</p>
+<h4 id="Export-public-and-secret-key-and-ownertrust"><a href="#Export-public-and-secret-key-and-ownertrust" class="headerlink" title="Export public and secret key and ownertrust"></a>Export public and secret key and ownertrust</h4><pre><code>gpg -a --export chris@seagul.co.uk &gt; chrisroos-public-gpg.key
+gpg -a --export-secret-keys chris@seagul.co.uk &gt; chrisroos-secret-gpg.key
+gpg --export-ownertrust &gt; chrisroos-ownertrust-gpg.txt
+</code></pre><h4 id="Import-secret-key-which-contains-the-public-key-and-ownertrust"><a href="#Import-secret-key-which-contains-the-public-key-and-ownertrust" class="headerlink" title="Import secret key (which contains the public key) and ownertrust"></a>Import secret key (which contains the public key) and ownertrust</h4><pre><code>gpg --import chrisroos-secret-gpg.key
+gpg --import-ownertrust chrisroos-ownertrust-gpg.txt
+</code></pre><h3 id="Method-3"><a href="#Method-3" class="headerlink" title="Method 3"></a>Method 3</h3><p>This is mainly about trusting my key once I’ve imported it (by either restoring the pubring.gpg and secring.gpg, or by using –import).  This seems to be what I do the most as I either forget to import the trustdb or ownertrust.</p>
+<h4 id="Ultimately-trust-the-imported-key"><a href="#Ultimately-trust-the-imported-key" class="headerlink" title="Ultimately trust the imported key"></a>Ultimately trust the imported key</h4><p>This is so that I can encrypt data using my public key</p>
+<pre><code>gpg --edit-key chris@seagul.co.uk
+gpg&gt; trust
+Your decision? 5 (Ultimate trust)
+</code></pre><p><em>NOTE</em> If I don’t trust the public key then I see the following message when trying to encrypt something with it:</p>
+<pre><code>gpg: &lt;key-id&gt;: There is no assurance this key belongs to the named user
+</code></pre>
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+
+</div><!-- row -->
+
+
+
+
+		</div>
+
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+	
+		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

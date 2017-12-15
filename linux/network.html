@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="Network
+SSH
+
+Download entire web site using wgetFrom http://www.linuxjournal.com/content/downloading-entire-web-site-wget
+12345678910wget \  --recursi">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="genar.me"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1><span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="mypage">
+
+		<!-- title and entry -->
+        
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12">
+	
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h1><ul>
+<li><a href="ssh.html">SSH</a></li>
+</ul>
+<h2 id="Download-entire-web-site-using-wget"><a href="#Download-entire-web-site-using-wget" class="headerlink" title="Download entire web site using wget"></a>Download entire web site using wget</h2><p>From <a href="http://www.linuxjournal.com/content/downloading-entire-web-site-wget" target="_blank" rel="noopener">http://www.linuxjournal.com/content/downloading-entire-web-site-wget</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget \</span><br><span class="line">  --recursive \</span><br><span class="line">  --no-clobber \</span><br><span class="line">  --page-requisites \</span><br><span class="line">  --html-extension \</span><br><span class="line">  --convert-links \</span><br><span class="line">  --restrict-file-names=windows \</span><br><span class="line">  --domains website.org \</span><br><span class="line">  --no-parent \</span><br><span class="line">  www.website.org/tutorials/html/</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>--recursive</code>: download the entire Web site.</li>
+<li><code>--domains website.org</code>: don’t follow links outside website.org.</li>
+<li><code>--no-parent</code>: don’t follow links outside the directory tutorials/html/.</li>
+<li><code>--page-requisites</code>: get all the elements that compose the page (images, CSS and so on).</li>
+<li><code>--html-extension</code>: save files with the .html extension.</li>
+<li><code>--convert-links</code>: convert links so that they work locally, off-line.</li>
+<li><code>--restrict-file-names=windows</code>: modify filenames so that they will work in Windows as well.</li>
+<li><code>--no-clobber</code>: don’t overwrite any existing files (used in case the download is interrupted and resumed).</li>
+</ul>
+<h2 id="See-application-open-ports"><a href="#See-application-open-ports" class="headerlink" title="See application open ports"></a>See application open ports</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -ntpl</span><br></pre></td></tr></table></figure>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+
+</div><!-- row -->
+
+
+
+
+		</div>
+
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+	
+		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="SSLCheck SSL certificate expirationSource
+1openssl x509 -enddate -noout -in file.pem
+Convert p12 to pem file (Useful for APN certificates)1openssl pkc">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="genar.me"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1><span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="mypage">
+
+		<!-- title and entry -->
+        
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12">
+	
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><h2 id="Check-SSL-certificate-expiration"><a href="#Check-SSL-certificate-expiration" class="headerlink" title="Check SSL certificate expiration"></a>Check SSL certificate expiration</h2><p><a href="https://stackoverflow.com/a/21297927/865222" target="_blank" rel="noopener">Source</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -enddate -noout -<span class="keyword">in</span> file.pem</span><br></pre></td></tr></table></figure>
+<h2 id="Convert-p12-to-pem-file-Useful-for-APN-certificates"><a href="#Convert-p12-to-pem-file-Useful-for-APN-certificates" class="headerlink" title="Convert p12 to pem file (Useful for APN certificates)"></a>Convert p12 to pem file (Useful for APN certificates)</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> apns-dev-cert.p12 -out apns-dev-cert.pem -nodes -clcerts</span><br></pre></td></tr></table></figure>
+<h2 id="How-to-test-pem-key"><a href="#How-to-test-pem-key" class="headerlink" title="How to test pem key"></a>How to test pem key</h2><ul>
+<li><a href="https://support.pubnub.com/support/solutions/articles/14000043600-how-do-i-test-my-pem-key-" target="_blank" rel="noopener">Source</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">APNS_HOST = <span class="string">'gateway.push.apple.com'</span></span><br><span class="line">APNS_HOST_SANDBOX = <span class="string">'gateway.sandbox.push.apple.com'</span></span><br><span class="line">APNS_PORT = <span class="number">2195</span></span><br><span class="line"></span><br><span class="line">APNS_ERRORS = &#123;</span><br><span class="line">    <span class="number">1</span>:<span class="string">'Processing error'</span>,</span><br><span class="line">    <span class="number">2</span>:<span class="string">'Missing device token'</span>,</span><br><span class="line">    <span class="number">3</span>:<span class="string">'missing topic'</span>,</span><br><span class="line">    <span class="number">4</span>:<span class="string">'missing payload'</span>,</span><br><span class="line">    <span class="number">5</span>:<span class="string">'invalid token size'</span>,</span><br><span class="line">    <span class="number">6</span>:<span class="string">'invalid topic size'</span>,</span><br><span class="line">    <span class="number">7</span>:<span class="string">'invalid payload size'</span>,</span><br><span class="line">    <span class="number">8</span>:<span class="string">'invalid token'</span>,</span><br><span class="line">    <span class="number">255</span>:<span class="string">'Unknown'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(cert_path, device, sandbox)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(cert_path):</span><br><span class="line">        logging.error(<span class="string">"Invalid certificate path: %s"</span> % cert_path)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    device = device.decode(<span class="string">'hex'</span>)</span><br><span class="line">    expiry = time.time() + <span class="number">3600</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sock = ssl.wrap_socket(</span><br><span class="line">            socket.socket(socket.AF_INET, socket.SOCK_STREAM),</span><br><span class="line">            certfile=cert_path</span><br><span class="line">        )</span><br><span class="line">        host = APNS_HOST_SANDBOX <span class="keyword">if</span> sandbox <span class="keyword">else</span> APNS_HOST</span><br><span class="line">        sock.connect((host, APNS_PORT))</span><br><span class="line">        sock.settimeout(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logging.error(<span class="string">"Failed to connect: %s"</span> % e)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    logging.info(<span class="string">"Connected to APNS\n"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ident <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">4</span>):</span><br><span class="line">        logging.info(<span class="string">"Sending %d of 3 push notifications"</span> % ident)</span><br><span class="line"></span><br><span class="line">        payload = json.dumps(&#123;</span><br><span class="line">            <span class="string">'aps'</span>: &#123;</span><br><span class="line">                <span class="string">'alert'</span>: <span class="string">'Push Test %d: %s'</span> % (ident, str(uuid.uuid4())[:<span class="number">8</span>])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        items = [<span class="number">1</span>, ident, expiry, <span class="number">32</span>, device, len(payload), payload]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            sent = sock.write(struct.pack(<span class="string">'!BIIH32sH%ds'</span>%len(payload), *items))</span><br><span class="line">            <span class="keyword">if</span> sent:</span><br><span class="line">                logging.info(<span class="string">"Message sent\n"</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                logging.error(<span class="string">"Unable to send message\n"</span>)</span><br><span class="line">        <span class="keyword">except</span> socket.error <span class="keyword">as</span> e:</span><br><span class="line">            logging.error(<span class="string">"Socket write error: %s"</span>, e)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># If there was an error sending, we will get a response on socket</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = sock.read(<span class="number">6</span>)</span><br><span class="line">            command, status, failed_ident = struct.unpack(<span class="string">'!BBI'</span>,response[:<span class="number">6</span>])</span><br><span class="line">            logging.info(<span class="string">"APNS Error: %s\n"</span>, APNS_ERRORS.get(status))</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">except</span> socket.timeout:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">except</span> ssl.SSLError:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    sock.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">"Send test APNS notifications to device using cert"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"certificate"</span>, help=<span class="string">"Push certificate"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"device_id"</span>, help=<span class="string">"Device ID"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"-s"</span>, <span class="string">"--sandbox"</span>, action=<span class="string">"store_true"</span>, help=<span class="string">"Use APNS sandbox environment"</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    logging.basicConfig(level=logging.INFO)</span><br><span class="line">    push(args.certificate, args.device_id, args.sandbox)</span><br><span class="line">    logging.info(<span class="string">"Complete\n"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><ul>
+<li><a href="https://stackoverflow.com/a/1762824/865222" target="_blank" rel="noopener">Source</a></li>
+<li><a href="https://stackoverflow.com/questions/21250510/generate-pem-file-used-to-setup-apple-push-notification" target="_blank" rel="noopener">Source2</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH13-SW1" target="_blank" rel="noopener">APNS Errors</a></li>
+<li><a href="https://forums.developer.apple.com/thread/66213" target="_blank" rel="noopener">https://forums.developer.apple.com/thread/66213</a></li>
+<li><a href="https://github.com/dkhamsing/apns-guide" target="_blank" rel="noopener">https://github.com/dkhamsing/apns-guide</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+
+</div><!-- row -->
+
+
+
+
+		</div>
+
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+	
+		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

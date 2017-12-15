@@ -1,0 +1,62 @@
+body {
+    background-color: #1c1c1c;
+    color: rgba(51, 255, 0, 1);
+    text-shadow: 0px 0px 1px #33FF99;
+}
+
+h1 {
+    color: rgba(51, 255, 0, 1);
+    text-transform: lowercase;
+    font-weight: normal;
+}
+
+h1 a, .h1 a, h2 a, .h2 a, h3 a, .h3 a, h4 a, .h4 a, h5 a, .h5 a {
+  color: #33FF00;
+  font-weight: normal;
+  text-shadow: 0px 0px 5px #33FF99;
+ }
+
+ p {
+  text-shadow: 0px 0px 1px #33FF99;
+ }
+
+a:link, a:visited:link {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
+  /*text-shadow: none;*/
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    background-image: none;
+    padding: 0 10px;
+    -webkit-box-shadow: 10px 10px 0 #00992e;
+    box-shadow: 10px 10px 0 #00992e;
+    cursor: default;
+    border: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.logo {
+    background-image: none;
+}
+
+.logo h1 {
+    color: #a2a2a2;
+    padding-left: 0;
+}
+
+.mypage,
+.page-header {
+    border-bottom: 2px solid #00992e;
+}
+
+.mypage,
+.widget {
+    border-bottom: none;
+}
