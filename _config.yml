@@ -143,6 +143,7 @@ theme_config:
   baidu_tongji:
     enable: false
     siteid:
+  disqus_shortname: genar-me
 
   # Search
   swiftype_key: /
