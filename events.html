@@ -9,7 +9,10 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Eventsfosdem 2018
+  <meta name="description" content="Events
+CCC
+
+fosdem 2018
 Dates: 3-4 February
 Flight: from 2 to 5 (from 46€ to 70€)skyscanner
 
@@ -20,7 +23,7 @@ https://hsbxl.be/Bytenight_2018">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -39,10 +42,12 @@ https://hsbxl.be/Bytenight_2018">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -135,7 +140,10 @@ https://hsbxl.be/Bytenight_2018">
 	<div class="mypage">
 	  
 
-	  <h1 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h1><h2 id="fosdem-2018"><a href="#fosdem-2018" class="headerlink" title="fosdem 2018"></a><a href="https://fosdem.org/2018/" target="_blank" rel="noopener">fosdem 2018</a></h2><ul>
+	  <h1 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h1><ul>
+<li><a href="https://www.ccc.de/en/home" target="_blank" rel="noopener">CCC</a></li>
+</ul>
+<h2 id="fosdem-2018"><a href="#fosdem-2018" class="headerlink" title="fosdem 2018"></a><a href="https://fosdem.org/2018/" target="_blank" rel="noopener">fosdem 2018</a></h2><ul>
 <li>Dates: 3-4 February</li>
 <li>Flight: from 2 to 5 (from 46€ to 70€)<br><a href="https://www.skyscanner.es/transporte/vuelos/bcn/brus/180202/180205?adults=1&amp;children=0&amp;adultsv2=1&amp;childrenv2=&amp;infants=0&amp;cabinclass=economy&amp;rtn=1&amp;preferdirects=false&amp;outboundaltsenabled=false&amp;inboundaltsenabled=false&amp;ref=home#results" target="_blank" rel="noopener">skyscanner</a></li>
 </ul>
@@ -160,8 +168,6 @@ https://hsbxl.be/Bytenight_2018">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -173,9 +179,18 @@ https://hsbxl.be/Bytenight_2018">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -196,7 +211,7 @@ https://hsbxl.be/Bytenight_2018">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -208,7 +223,7 @@ https://hsbxl.be/Bytenight_2018">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -226,7 +241,7 @@ https://hsbxl.be/Bytenight_2018">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -234,7 +249,7 @@ https://hsbxl.be/Bytenight_2018">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -243,6 +258,18 @@ https://hsbxl.be/Bytenight_2018">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

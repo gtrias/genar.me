@@ -6,19 +6,19 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost dev]$ syncthing | genar.me</title>
+  <title>Syncthing | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Syncthing
- Look a syncthing configuration to allow syncronization even when kelycube is down.  #fc52cdc0
+[X] Look a syncthing configuration to allow syncronization even when kelycube is down.  #fc52cdc0
 how-does-syncing-among-3-devices
-I shoul look">
+I shoul l">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost dev]$ syncthing"/>
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="Syncthing"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -37,10 +37,12 @@ I shoul look">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -134,7 +136,7 @@ I shoul look">
 	  
 
 	  <h1 id="Syncthing"><a href="#Syncthing" class="headerlink" title="Syncthing"></a>Syncthing</h1><ul>
-<li style="list-style: none"><input type="checkbox"> Look a syncthing configuration to allow syncronization even when <a href="../kelycube.html">kelycube</a> is down.  #fc52cdc0<ul>
+<li>[X] Look a syncthing configuration to allow syncronization even when <a href="../kelycube.html">kelycube</a> is down.  #fc52cdc0<ul>
 <li><a href="https://forum.syncthing.net/t/how-does-syncing-among-3-or-more-devices-work/2181" target="_blank" rel="noopener">how-does-syncing-among-3-devices</a></li>
 <li>I shoul look for introducer nodes</li>
 </ul>
@@ -165,8 +167,6 @@ I shoul look">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -178,9 +178,18 @@ I shoul look">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -201,7 +210,7 @@ I shoul look">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -213,7 +222,7 @@ I shoul look">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -231,7 +240,7 @@ I shoul look">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -239,7 +248,7 @@ I shoul look">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -248,6 +257,18 @@ I shoul look">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

@@ -6,18 +6,18 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@work com]$ ls | genar.me</title>
+  <title>Experience | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Where I have been doing amazing thingsCirici New Media / Alvarium -&amp;gt; (2015 - Right now)Fullstack developer
+  <meta name="description" content="Work experienceCirici New Media / Alvarium -&amp;gt; (2015 - Right now)Fullstack developer
 
-microservices development using PHP (al">
+microservices development using PHP (almost Symfony framework)">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@work com]$ ls"/>
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="Experience"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -36,10 +36,12 @@ microservices development using PHP (al">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -132,7 +134,7 @@ microservices development using PHP (al">
 	<div class="mypage">
 	  
 
-	  <h3 id="Where-I-have-been-doing-amazing-things"><a href="#Where-I-have-been-doing-amazing-things" class="headerlink" title="Where I have been doing amazing things"></a>Where I have been doing amazing things</h3><h2 id="Cirici-New-Media-Alvarium-gt-2015-Right-now"><a href="#Cirici-New-Media-Alvarium-gt-2015-Right-now" class="headerlink" title="Cirici New Media / Alvarium -&gt; (2015 - Right now)"></a><a href="http://cirici.com" target="_blank" rel="noopener">Cirici New Media</a> / <a href="http://alvarium.io" target="_blank" rel="noopener">Alvarium</a> -&gt; (2015 - Right now)</h2><p>Fullstack developer</p>
+	  <h1 id="Work-experience"><a href="#Work-experience" class="headerlink" title="Work experience"></a>Work experience</h1><h2 id="Cirici-New-Media-Alvarium-gt-2015-Right-now"><a href="#Cirici-New-Media-Alvarium-gt-2015-Right-now" class="headerlink" title="Cirici New Media / Alvarium -&gt; (2015 - Right now)"></a><a href="http://cirici.com" target="_blank" rel="noopener">Cirici New Media</a> / <a href="http://alvarium.io" target="_blank" rel="noopener">Alvarium</a> -&gt; (2015 - Right now)</h2><p>Fullstack developer</p>
 <ul>
 <li>microservices development using <a href="../dev/php.html">PHP</a> (almost Symfony framework) and <a href="../dev/nodejs.html">NodeJS</a></li>
 <li>ReactJS component development to interact with our microservices</li>
@@ -171,8 +173,6 @@ microservices development using PHP (al">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -184,9 +184,18 @@ microservices development using PHP (al">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -207,7 +216,7 @@ microservices development using PHP (al">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -219,7 +228,7 @@ microservices development using PHP (al">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -237,7 +246,7 @@ microservices development using PHP (al">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -245,7 +254,7 @@ microservices development using PHP (al">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -254,6 +263,18 @@ microservices development using PHP (al">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

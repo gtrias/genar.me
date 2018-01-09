@@ -1,7 +1,7 @@
 body {
     background-color: #1c1c1c;
-    color: rgba(51, 255, 0, 1);
-    text-shadow: 0px 0px 1px #33FF99;
+    color: #4d94aa;
+    text-shadow: 0px 0px 0px #4d94aa;
 }
 
 h1 {
@@ -13,12 +13,51 @@ h1 {
 h1 a, .h1 a, h2 a, .h2 a, h3 a, .h3 a, h4 a, .h4 a, h5 a, .h5 a {
   color: #33FF00;
   font-weight: normal;
-  text-shadow: 0px 0px 5px #33FF99;
- }
+  text-shadow: 0px 0px 5px #4d94aa;
+}
 
- p {
-  text-shadow: 0px 0px 1px #33FF99;
- }
+h2, h3, h4, h5, h6 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h2 {
+    padding-top: 20px;
+    margin-top: 0;
+}
+
+h2:after {
+    content: " ]";
+}
+h2:before {
+    content: "[ ";
+}
+
+h3:after,
+h3:before {
+    content: "";
+}
+
+p {
+  text-shadow: 0px 0px 0px #4d94aa;
+}
+
+h2,
+a {
+  outline: 0;
+}
 
 a:link, a:visited:link {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
@@ -46,17 +85,49 @@ a:link, a:visited:link {
     background-image: none;
 }
 
+.page-header h1,
 .logo h1 {
     color: #a2a2a2;
+    color: #00992e;
+    color: rgba(51, 255, 0, 1);
     padding-left: 0;
+    margin-bottom: 14px;
+}
+
+.page-header > h1 {
+    font-size: 1.5em;
+    line-height: 2.0em;
+}
+
+.page-header {
+    background-color: #000;
 }
 
 .mypage,
 .page-header {
-    border-bottom: 2px solid #00992e;
+    border-bottom: 2px solid #4d94aa;
 }
 
 .mypage,
 .widget {
     border-bottom: none;
+}
+
+.affix {
+    top: 48px;
+}
+
+.toc {
+    position: relative;
+    padding: 0;
+    background: transparent;
+    overflow-y: hidden;
+}
+
+@media(max-width:767px){
+   .affix {
+     position: static;
+     width: auto;
+     top: 0;
+    }
 }

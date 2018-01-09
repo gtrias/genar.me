@@ -9,14 +9,17 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="PythonRegular expressions
-https://docs.python.org/2/howto/regex.html">
+  <meta name="description" content="PythonMy projects
+wkhtmltopdf-flask-aas - Wkhtmltopdf Flask As a Service
+ansible-wordpress-migration - Ansible routines to migrate Wordpress setups
+
+R">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -35,10 +38,12 @@ https://docs.python.org/2/howto/regex.html">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -131,7 +136,11 @@ https://docs.python.org/2/howto/regex.html">
 	<div class="mypage">
 	  
 
-	  <h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="Regular-expressions"><a href="#Regular-expressions" class="headerlink" title="Regular expressions"></a>Regular expressions</h2><ul>
+	  <h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="My-projects"><a href="#My-projects" class="headerlink" title="My projects"></a>My projects</h2><ul>
+<li><a href="https://github.com/ciricihq/wkhtmltopdf-flask-aas" target="_blank" rel="noopener">wkhtmltopdf-flask-aas</a> - Wkhtmltopdf Flask As a Service</li>
+<li><a href="https://github.com/gtrias/ansible-wordpress-migration" target="_blank" rel="noopener">ansible-wordpress-migration</a> - Ansible routines to migrate Wordpress setups</li>
+</ul>
+<h2 id="Regular-expressions"><a href="#Regular-expressions" class="headerlink" title="Regular expressions"></a>Regular expressions</h2><ul>
 <li><a href="https://docs.python.org/2/howto/regex.html" target="_blank" rel="noopener">https://docs.python.org/2/howto/regex.html</a></li>
 </ul>
 
@@ -152,8 +161,6 @@ https://docs.python.org/2/howto/regex.html">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -165,9 +172,18 @@ https://docs.python.org/2/howto/regex.html">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -188,7 +204,7 @@ https://docs.python.org/2/howto/regex.html">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -200,7 +216,7 @@ https://docs.python.org/2/howto/regex.html">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -218,7 +234,7 @@ https://docs.python.org/2/howto/regex.html">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -226,7 +242,7 @@ https://docs.python.org/2/howto/regex.html">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -235,6 +251,18 @@ https://docs.python.org/2/howto/regex.html">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

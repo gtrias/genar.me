@@ -9,13 +9,13 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="WebpackEmbed css styles in webpack prod files12345// config/webpack.config.prod.js...        test: /\.css$/,        loader: &#39;style-loader!css-loader&#39;.">
+  <meta name="description" content="WebpackInclude other projects modules (reduers, actions, components, etc)When you are working with ejected create-react-app code you can setup webpack">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -34,10 +34,12 @@
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -130,7 +132,18 @@
 	<div class="mypage">
 	  
 
-	  <h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><h2 id="Embed-css-styles-in-webpack-prod-files"><a href="#Embed-css-styles-in-webpack-prod-files" class="headerlink" title="Embed css styles in webpack prod files"></a>Embed css styles in webpack prod files</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.prod.js</span></span><br><span class="line">...</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        loader: <span class="string">'style-loader!css-loader'</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+	  <h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><h2 id="Include-other-projects-modules-reduers-actions-components-etc"><a href="#Include-other-projects-modules-reduers-actions-components-etc" class="headerlink" title="Include other projects modules (reduers, actions, components, etc)"></a>Include other projects modules (reduers, actions, components, etc)</h2><p>When you are working with ejected create-react-app code you can setup webpack to load other node modules to use in your project.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.prod.js and webpack.config.dev.js</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">...</span><br><span class="line">          <span class="comment">// Process JS with Babel.</span></span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">            include: [</span><br><span class="line">              paths.appSrc,</span><br><span class="line">              fs.realpathSync(path.resolve(paths.appNodeModules, <span class="string">'./some-package/src'</span>)),</span><br><span class="line">              fs.realpathSync(path.resolve(paths.appNodeModules, <span class="string">'./some-other-package/src'</span>))</span><br><span class="line">            ],</span><br><span class="line">            loader: <span class="built_in">require</span>.resolve(<span class="string">'babel-loader'</span>),</span><br><span class="line">            options: &#123;</span><br><span class="line">              compact: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Then you can include a module from this package, for example a reducer:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> someReducer <span class="keyword">from</span> <span class="string">'../../node_modules/some-package/src/reducers/someReducer'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h3><ul>
+<li><p>When you try to import a component you get this error in test environment:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SyntaxError: Unexpected token import</span><br></pre></td></tr></table></figure>
+<p>If you are including modules with ES6 code you have to tell jest to un-ignore this files, you can do it modifying package.json jest properties</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> "jest": &#123;</span><br><span class="line">  "transformIgnorePatterns": [</span><br><span class="line">    <span class="string">"[/\\\\]node_modules[/\\\\](?!some-package).+\\.(js|jsx|mjs)$"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Embed-css-styles-in-webpack-prod-files"><a href="#Embed-css-styles-in-webpack-prod-files" class="headerlink" title="Embed css styles in webpack prod files"></a>Embed css styles in webpack prod files</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.prod.js</span></span><br><span class="line">...</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        loader: <span class="string">'style-loader!css-loader'</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h2 id="How-to-use-sass-in-create-react-app-projects"><a href="#How-to-use-sass-in-create-react-app-projects" class="headerlink" title="How to use sass in create-react-app projects"></a>How to use <a href="sass.html">sass</a> in <em>create-react-app</em> projects</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.dev.js</span></span><br><span class="line">...</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">            use: [&#123;</span><br><span class="line">                loader: <span class="string">"style-loader"</span> <span class="comment">// creates style nodes from JS strings</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"css-loader"</span> <span class="comment">// translates CSS into CommonJS</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"sass-loader"</span> <span class="comment">// compiles Sass to CSS</span></span><br><span class="line">            &#125;]</span><br><span class="line">          &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.prod.js</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">            test: <span class="regexp">/\.s?css$/</span>,</span><br><span class="line">...</span><br><span class="line">                    &#123;</span><br><span class="line">                      loader: <span class="built_in">require</span>.resolve(<span class="string">'sass-loader'</span>),</span><br><span class="line">                    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">...</span><br><span class="line">    "node-sass": "^4.6.1",</span><br><span class="line">    "sass-loader": "^6.0.6",</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
@@ -155,8 +168,6 @@
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -168,9 +179,18 @@
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -191,7 +211,7 @@
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -203,7 +223,7 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -221,7 +241,7 @@
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -229,7 +249,7 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -238,6 +258,18 @@
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

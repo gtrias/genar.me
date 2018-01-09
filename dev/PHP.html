@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost ~]$ php -S 127.0.0.1:8000 | genar.me</title>
+  <title>PHP | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="PHPMy projects
@@ -15,17 +15,14 @@ oc-client-php
 
 Frameworks
 Symfony
- Test Symfony 4.0  #29785098
 
-
-
-ComposerUpdate only one dependencyYou has to sp">
+ComposerUpdate only one dependencyYou has to specify the package name after up">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost ~]$ php -S 127.0.0.1:8000"/>
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="PHP"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -44,10 +41,12 @@ ComposerUpdate only one dependencyYou has to sp">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -145,16 +144,11 @@ ComposerUpdate only one dependencyYou has to sp">
 <li><a href="https://github.com/AltCtrlSupr/ACSPanel-Standard" target="_blank" rel="noopener">(deprecated) ACSPanel</a></li>
 </ul>
 <h2 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h2><ul>
-<li>Symfony<ul>
-<li style="list-style: none"><input type="checkbox"> Test Symfony 4.0  #29785098</li>
-</ul>
-</li>
+<li><a href="Symfony.html">Symfony</a></li>
 </ul>
 <h2 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h2><h3 id="Update-only-one-dependency"><a href="#Update-only-one-dependency" class="headerlink" title="Update only one dependency"></a>Update only one dependency</h3><p>You has to specify the package name after update command.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer.phar update doctrine/doctrine-fixtures-bundle</span><br></pre></td></tr></table></figure>
-<h2 id="Bundles"><a href="#Bundles" class="headerlink" title="Bundles"></a>Bundles</h2><h3 id="Push-notifications"><a href="#Push-notifications" class="headerlink" title="Push notifications"></a>Push notifications</h3><ul>
-<li><a href="https://github.com/richsage/RMSPushNotificationsBundle" target="_blank" rel="noopener">RMSPushNotificationsBundle</a>: Slightly maintained</li>
-</ul>
+<h3 id="Determine-why-a-package-is-installed"><a href="#Determine-why-a-package-is-installed" class="headerlink" title="Determine why a package is installed"></a>Determine why a package is installed</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer why &lt;package-name&gt;</span><br></pre></td></tr></table></figure>
 
 	</div>
 
@@ -173,8 +167,6 @@ ComposerUpdate only one dependencyYou has to sp">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -186,9 +178,18 @@ ComposerUpdate only one dependencyYou has to sp">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -209,7 +210,7 @@ ComposerUpdate only one dependencyYou has to sp">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -221,7 +222,7 @@ ComposerUpdate only one dependencyYou has to sp">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -239,7 +240,7 @@ ComposerUpdate only one dependencyYou has to sp">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -247,7 +248,7 @@ ComposerUpdate only one dependencyYou has to sp">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -256,6 +257,18 @@ ComposerUpdate only one dependencyYou has to sp">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

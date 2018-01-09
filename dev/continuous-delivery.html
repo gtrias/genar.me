@@ -9,17 +9,17 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Continuous DeliveryTools
-Ansible
-Docker
-ansistrano
-gocd">
+  <meta name="description" content="Continuous DeliveryCredentials managerHashiCrop Vault
+Tool for Managing Secrets
+
+Deploymentdocker-compose.yml:
+1234567891011121314151617version: &#39;2&#39;se">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -38,10 +38,12 @@ gocd">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -134,11 +136,26 @@ gocd">
 	<div class="mypage">
 	  
 
-	  <h1 id="Continuous-Delivery"><a href="#Continuous-Delivery" class="headerlink" title="Continuous Delivery"></a>Continuous Delivery</h1><h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Ansible</li>
+	  <h1 id="Continuous-Delivery"><a href="#Continuous-Delivery" class="headerlink" title="Continuous Delivery"></a>Continuous Delivery</h1><h2 id="Credentials-manager"><a href="#Credentials-manager" class="headerlink" title="Credentials manager"></a>Credentials manager</h2><h3 id="HashiCrop-Vault"><a href="#HashiCrop-Vault" class="headerlink" title="HashiCrop Vault"></a>HashiCrop Vault</h3><ul>
+<li>Tool for Managing Secrets</li>
+</ul>
+<h4 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h4><p>docker-compose.yml:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">    vault:</span></span><br><span class="line"><span class="attr">      cap_add:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">IPC_LOCK</span></span><br><span class="line"><span class="attr">      image:</span> <span class="string">sjourdan/vault</span></span><br><span class="line"><span class="attr">      network_mode:</span> <span class="string">host</span></span><br><span class="line"><span class="attr">      dns:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"$PWD/server.hcl:/config/server.hcl"</span></span><br><span class="line"><span class="attr">      ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"8200:8200"</span></span><br><span class="line"><span class="attr">      entrypoint:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">/bin/vault</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">server</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">-config=/config/server.hcl</span></span><br></pre></td></tr></table></figure>
+<p>server.hcl:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">backend &quot;consul&quot; &#123;</span><br><span class="line">  address = &quot;127.0.0.1:8500&quot;</span><br><span class="line">  path = &quot;vault&quot;</span><br><span class="line">  redirect_addr = &quot;http://192.168.50.104:8200&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">listener &quot;tcp&quot; &#123;</span><br><span class="line"> address = &quot;0.0.0.0:8200&quot;</span><br><span class="line"> tls_disable = 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h4><ul>
+<li><a href="https://www.vaultproject.io/" target="_blank" rel="noopener">Official</a></li>
+<li><a href="https://www.hashicorp.com/blog/codifying-vault-policies-and-configuration.html" target="_blank" rel="noopener">Codifying Vault Policies and Configuration</a></li>
+<li><a href="https://github.com/hashicorp/vault-provision-example" target="_blank" rel="noopener">vault-provision-example</a></li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><a href="../linux/ansible.html">Ansible</a></li>
 <li><a href="../linux/docker.html">Docker</a></li>
 <li><a href="https://github.com/ansistrano" target="_blank" rel="noopener">ansistrano</a></li>
 <li><a href="http://www.gocd.org" target="_blank" rel="noopener">gocd</a></li>
+</ul>
+<h2 id="Links-1"><a href="#Links-1" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="noopener">Martin Fowler - Continuous Delivery</a></li>
 </ul>
 
 	</div>
@@ -158,8 +175,6 @@ gocd">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -171,9 +186,18 @@ gocd">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -194,7 +218,7 @@ gocd">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -206,7 +230,7 @@ gocd">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -224,7 +248,7 @@ gocd">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -232,7 +256,7 @@ gocd">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -241,6 +265,18 @@ gocd">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

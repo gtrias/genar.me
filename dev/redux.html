@@ -6,16 +6,19 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>redux | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="reduxTestingSee writing tests">
+  <meta name="description" content="reduxTestingSee writing tests
+Middlewares
+redux-api-middleware - Redux middleware for calling an API.
+Handling API calls in Redux with Redux API middl">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="redux"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -34,10 +37,12 @@
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -107,7 +112,7 @@
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1><span class="blink-fast">∎</span></h1>
+  <h1>[genar@localhost dev]$ cat redux.html<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -131,6 +136,16 @@
 	  
 
 	  <h1 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h1><h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>See <a href="https://redux.js.org/docs/recipes/WritingTests.html" target="_blank" rel="noopener">writing</a> tests</p>
+<h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><ul>
+<li><a href="https://github.com/agraboso/redux-api-middleware" target="_blank" rel="noopener">redux-api-middleware</a> - Redux middleware for calling an API.<ul>
+<li><a href="https://engineering.thetrainline.com/handling-api-calls-in-redux-with-redux-api-middleware-c95c38816e13" target="_blank" rel="noopener">Handling API calls in Redux with Redux API middleware</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Videos"><a href="#Videos" class="headerlink" title="Videos"></a>Videos</h2><ul>
+<li><a href="https://www.youtube.com/playlist?list=PLoYCgNOIyGABj2GQSlDRjgvXtqfDxKm5b" target="_blank" rel="noopener">ReactJS Tutorials</a> - Learning how to use redux</li>
+</ul>
+<h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Execute-several-redux-actions-in-serial-using-Promises"><a href="#Execute-several-redux-actions-in-serial-using-Promises" class="headerlink" title="Execute several redux actions in serial using Promises"></a>Execute several redux actions in serial using Promises</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">handleChange(date) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.resolve(</span><br><span class="line">    <span class="keyword">this</span>.props.dispatch(setApplicationDate(date))</span><br><span class="line">  )</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.props.afterSelect()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 	</div>
 
@@ -149,8 +164,6 @@
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -162,9 +175,18 @@
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -185,7 +207,7 @@
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -197,7 +219,7 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -215,7 +237,7 @@
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -223,7 +245,7 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -232,6 +254,18 @@
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

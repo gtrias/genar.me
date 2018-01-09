@@ -9,29 +9,17 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="HackingInbox
-https://www.youtube.com/watch?v=pf1TZn1YnXA
-
-DNS
-dnstwist
-
-Web inspection tools
-WhatWeb
-
-Security
-GPG
-
-Messaging
-Matrix
-
-Secure email
-pro">
+  <meta name="description" content="# Hacking
+Inbox
+http://arnaucode.com/blog/coffeeminer-hacking-wifi-cryptocurrency-miner.html
+orchidprotocol.com
+https://www.youtube.com/watch?v=pf1TZn">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -50,10 +38,12 @@ pro">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -146,7 +136,10 @@ pro">
 	<div class="mypage">
 	  
 
-	  <h1 id="Hacking"><a href="#Hacking" class="headerlink" title="Hacking"></a>Hacking</h1><h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+	  <p><a href="#">#</a> Hacking</p>
+<h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+<li><a href="http://arnaucode.com/blog/coffeeminer-hacking-wifi-cryptocurrency-miner.html" target="_blank" rel="noopener">http://arnaucode.com/blog/coffeeminer-hacking-wifi-cryptocurrency-miner.html</a></li>
+<li><a href="https://orchidprotocol.com/" target="_blank" rel="noopener">orchidprotocol.com</a></li>
 <li><a href="https://www.youtube.com/watch?v=pf1TZn1YnXA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=pf1TZn1YnXA</a></li>
 </ul>
 <h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
@@ -167,8 +160,8 @@ pro">
 <h2 id="Encryptation"><a href="#Encryptation" class="headerlink" title="Encryptation"></a>Encryptation</h2><ul>
 <li><a href="https://www.veracrypt.fr/en/Home.html" target="_blank" rel="noopener">https://www.veracrypt.fr/en/Home.html</a></li>
 </ul>
-<h2 id="Read-latter"><a href="#Read-latter" class="headerlink" title="Read latter"></a>Read latter</h2><ul>
-<li><a href="https://orchidprotocol.com/" target="_blank" rel="noopener">orchidprotocol.com</a></li>
+<h2 id="Videos"><a href="#Videos" class="headerlink" title="Videos"></a>Videos</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=AKw-w6S9e3g" target="_blank" rel="noopener">The hacker revolution</a></li>
 </ul>
 
 	</div>
@@ -188,8 +181,6 @@ pro">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -201,9 +192,18 @@ pro">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -224,7 +224,7 @@ pro">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -236,7 +236,7 @@ pro">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -254,7 +254,7 @@ pro">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -262,7 +262,7 @@ pro">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -271,6 +271,18 @@ pro">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

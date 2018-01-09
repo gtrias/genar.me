@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost src]$ ls | genar.me</title>
+  <title>Projects | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Here you can find some of my (experiments|projects)&amp;gt;  opencomponents/oc-client-php PHP OpenComponents
@@ -17,8 +17,8 @@ PHP client for OpenComponents
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost src]$ ls"/>
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="Projects"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -37,10 +37,12 @@ PHP client for OpenComponents
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -133,7 +135,7 @@ PHP client for OpenComponents
 	<div class="mypage">
 	  
 
-	  <h3 id="Here-you-can-find-some-of-my-experiments-projects"><a href="#Here-you-can-find-some-of-my-experiments-projects" class="headerlink" title="Here you can find some of my (experiments|projects)"></a>Here you can find some of my <code>(experiments|projects)</code></h3><h2 id="gt-opencomponents-oc-client-php"><a href="#gt-opencomponents-oc-client-php" class="headerlink" title="&gt;  opencomponents/oc-client-php "></a>&gt; <a href="https://github.com/opencomponents/oc-client-php" target="_blank" rel="noopener"><i class="fa fa-github"></i> opencomponents/oc-client-php </a></h2><div class="badge">PHP</div> <div class="badge">OpenComponents</div>
+	  <h1 id="Here-you-can-find-some-of-my-experiments-projects"><a href="#Here-you-can-find-some-of-my-experiments-projects" class="headerlink" title="Here you can find some of my (experiments|projects)"></a>Here you can find some of my <code>(experiments|projects)</code></h1><h2 id="gt-opencomponents-oc-client-php"><a href="#gt-opencomponents-oc-client-php" class="headerlink" title="&gt;  opencomponents/oc-client-php "></a>&gt; <a href="https://github.com/opencomponents/oc-client-php" target="_blank" rel="noopener"><i class="fa fa-github"></i> opencomponents/oc-client-php </a></h2><div class="badge">PHP</div> <div class="badge">OpenComponents</div>
 
 <p>PHP client for OpenComponents</p>
 <h2 id="gt-gtrias-node-consul-template"><a href="#gt-gtrias-node-consul-template" class="headerlink" title="&gt;  gtrias/node-consul-template "></a>&gt; <a href="https://github.com/gtrias/node-consul-template" target="_blank" rel="noopener"><i class="fa fa-github"></i> gtrias/node-consul-template </a></h2><div class="badge">nodejs</div> <div class="badge">consul</div>
@@ -180,8 +182,6 @@ PHP client for OpenComponents
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -193,9 +193,18 @@ PHP client for OpenComponents
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -216,7 +225,7 @@ PHP client for OpenComponents
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -228,7 +237,7 @@ PHP client for OpenComponents
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -246,7 +255,7 @@ PHP client for OpenComponents
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -254,7 +263,7 @@ PHP client for OpenComponents
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -263,6 +272,18 @@ PHP client for OpenComponents
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

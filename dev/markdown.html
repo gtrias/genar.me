@@ -6,19 +6,21 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost dev]$ markserv | genar.me</title>
+  <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="markdown
-[X] Article integration to automatically publish on genar.me  #8c103f8f
-[X] Vim: Set default shiftwidth to 2  #113cc13f
-[X] Check if markdown">
+  <meta name="description" content="markdown[comment]: This is an example of a comment in markdown, most markdown parsers seems to ignore it
+Inbox
+tocbot
+
+Interesting libraries
+tweet.htm">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost dev]$ markserv"/>
-  <meta property="og:site_name" content="genar.me"/>
+  
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -37,10 +39,12 @@
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -133,20 +137,10 @@
 	<div class="mypage">
 	  
 
-	  <h1 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h1><ul>
-<li>[X] Article integration to automatically publish on genar.me  #8c103f8f</li>
-<li>[X] Vim: Set default shiftwidth to 2  #113cc13f</li>
-<li>[X] Check if markdown supports any way to make util annotations  #4cb5b7b1<ul>
-<li><a href="https://hexo.io/docs/front-matter.html" target="_blank" rel="noopener">https://hexo.io/docs/front-matter.html</a></li>
-<li><a href="https://github.com/blog/1647-viewing-yaml-metadata-in-your-documents" target="_blank" rel="noopener">https://github.com/blog/1647-viewing-yaml-metadata-in-your-documents</a></li>
-<li><a href="https://hiltmon.com/blog/2012/06/18/markdown-metadata/" target="_blank" rel="noopener">this</a> should help</li>
-<li><a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide" target="_blank" rel="noopener">https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide</a></li>
-<li><a href="https://stackoverflow.com/a/44222826/865222" target="_blank" rel="noopener">https://stackoverflow.com/a/44222826/865222</a></li>
-<li><a href="https://stackoverflow.com/a/20885980/865222" target="_blank" rel="noopener">https://stackoverflow.com/a/20885980/865222</a></li>
+	  <h1 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h1><p>[comment]: This is an example of a comment in markdown, most markdown parsers seems to ignore it</p>
+<h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+<li><a href="https://tscanlin.github.io/tocbot/" target="_blank" rel="noopener">tocbot</a></li>
 </ul>
-</li>
-</ul>
-<p>[comment]: This is an example of a comment in markdown, most markdown parsers seems to ignore it</p>
 <h2 id="Interesting-libraries"><a href="#Interesting-libraries" class="headerlink" title="Interesting libraries"></a>Interesting libraries</h2><ul>
 <li><a href="https://github.com/silentroach/tweet.html" target="_blank" rel="noopener">tweet.html</a></li>
 </ul>
@@ -176,8 +170,6 @@
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -189,9 +181,18 @@
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -212,7 +213,7 @@
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -224,7 +225,7 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -242,7 +243,7 @@
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -250,7 +251,7 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -259,6 +260,18 @@
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

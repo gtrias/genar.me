@@ -9,25 +9,28 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="MicroservicesMy services
-push service
-
+  <meta name="description" content="# Microservices
 Authentication and AuthorizationJWT
+RFC
 Official
+
+OAuth2
+RFC
 
 Load balancers
 apache
 haproxy
 nginx
 node-consul-template
+traefik
 
-Asynchr">
+Asynch">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -46,10 +49,12 @@ Asynchr">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -142,23 +147,34 @@ Asynchr">
 	<div class="mypage">
 	  
 
-	  <h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="My-services"><a href="#My-services" class="headerlink" title="My services"></a>My services</h2><ul>
-<li>push service</li>
-</ul>
+	  <p><a href="#">#</a> Microservices</p>
 <h2 id="Authentication-and-Authorization"><a href="#Authentication-and-Authorization" class="headerlink" title="Authentication and Authorization"></a>Authentication and Authorization</h2><h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><ul>
+<li><a href="https://tools.ietf.org/html/rfc7519" target="_blank" rel="noopener">RFC</a></li>
 <li><a href="https://jwt.io/" target="_blank" rel="noopener">Official</a></li>
+</ul>
+<h3 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h3><ul>
+<li><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">RFC</a></li>
 </ul>
 <h2 id="Load-balancers"><a href="#Load-balancers" class="headerlink" title="Load balancers"></a>Load balancers</h2><ul>
 <li>apache</li>
 <li>haproxy</li>
 <li>nginx</li>
 <li><a href="https://github.com/gtrias/node-consul-template" target="_blank" rel="noopener">node-consul-template</a></li>
+<li><a href="https://traefik.io/" target="_blank" rel="noopener">traefik</a></li>
 </ul>
 <h2 id="Asynchronous-messaging-protocol"><a href="#Asynchronous-messaging-protocol" class="headerlink" title="Asynchronous messaging protocol"></a>Asynchronous messaging protocol</h2><ul>
 <li>rabbitmq</li>
 </ul>
 <h2 id="Service-discovery"><a href="#Service-discovery" class="headerlink" title="Service discovery"></a>Service discovery</h2><ul>
-<li><a href="https://www.consul.io/" target="_blank" rel="noopener">consul</a></li>
+<li><a href="microservices/consul.html">consul</a></li>
+</ul>
+<h2 id="Logs-management"><a href="#Logs-management" class="headerlink" title="Logs management"></a>Logs management</h2><ul>
+<li>ELK (<a href="elasticsearch.html">elasticsearch</a> + logstash + kibana)</li>
+<li><a href="https://github.com/gliderlabs/logspout" target="_blank" rel="noopener">logspout</a> - Log routing for Docker container logs</li>
+</ul>
+<h2 id="Event-driven-microservices"><a href="#Event-driven-microservices" class="headerlink" title="Event driven microservices"></a>Event driven microservices</h2><ul>
+<li><a href="https://runnable.com/blog/event-driven-microservices-using-rabbitmq" target="_blank" rel="noopener">Event-driven Microservices Using RabbitMQ</a></li>
+<li><a href="http://blog.thedigitalcatonline.com/blog/2013/08/21/some-tips-about-amqp-direct-exchanges/#.Wd5CjR_nhhG" target="_blank" rel="noopener">Some tips about AMQP direct exchanges</a></li>
 </ul>
 <h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2><ul>
 <li><a href="kong.html">kong</a></li>
@@ -166,6 +182,10 @@ Asynchr">
 <h2 id="Stats"><a href="#Stats" class="headerlink" title="Stats"></a>Stats</h2><ul>
 <li><a href="https://github.com/etsy/statsd" target="_blank" rel="noopener">statsd</a></li>
 <li><a href="https://graphiteapp.org/" target="_blank" rel="noopener">graphite</a></li>
+<li><a href="https://prometheus.io/" target="_blank" rel="noopener">prometheus.io</a> - From metrics to insight</li>
+</ul>
+<h2 id="Service-monitoring"><a href="#Service-monitoring" class="headerlink" title="Service monitoring"></a>Service monitoring</h2><ul>
+<li><a href="https://github.com/iloire/watchmen" target="_blank" rel="noopener">watchmen</a> - A simple node.js service monitor</li>
 </ul>
 <h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><ul>
 <li>Container service - <a href="https://aws.amazon.com/es/blogs/aws/aws-fargate/" target="_blank" rel="noopener">aws fargate</a></li>
@@ -174,6 +194,7 @@ Asynchr">
 <li><a href="elasticsearch.html">elasticsearch</a></li>
 </ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Martin Fowler - Microservices</a></li>
 <li><a href="http://microservices.io/index.html" target="_blank" rel="noopener">microservices.io</a></li>
 <li><a href="https://labs.spotify.com/2014/03/27/spotify-engineering-culture-part-1/" target="_blank" rel="noopener">Spotify engineering culture - part1</a></li>
 <li><a href="https://labs.spotify.com/2014/09/20/spotify-engineering-culture-part-2/&lt;Paste" target="_blank" rel="noopener">Spotify engineering culture - part2</a></li>
@@ -196,8 +217,6 @@ Asynchr">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -209,9 +228,18 @@ Asynchr">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -232,7 +260,7 @@ Asynchr">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -244,7 +272,7 @@ Asynchr">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -262,7 +290,7 @@ Asynchr">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -270,7 +298,7 @@ Asynchr">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -279,6 +307,18 @@ Asynchr">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="GPLCan I use GPL libraries in a closed source project if only the output is distributed?
+Source
+
+The GPL is about ownershipThe abstract purpose of GPL">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1><span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="mypage">
+
+		<!-- title and entry -->
+        
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12">
+	
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="GPL"><a href="#GPL" class="headerlink" title="GPL"></a>GPL</h1><h2 id="Can-I-use-GPL-libraries-in-a-closed-source-project-if-only-the-output-is-distributed"><a href="#Can-I-use-GPL-libraries-in-a-closed-source-project-if-only-the-output-is-distributed" class="headerlink" title="Can I use GPL libraries in a closed source project if only the output is distributed?"></a>Can I use GPL libraries in a closed source project if only the output is distributed?</h2><ul>
+<li><a href="https://opensource.stackexchange.com/a/2343" target="_blank" rel="noopener">Source</a></li>
+</ul>
+<h3 id="The-GPL-is-about-ownership"><a href="#The-GPL-is-about-ownership" class="headerlink" title="The GPL is about ownership"></a>The GPL is about ownership</h3><p>The abstract purpose of GPL software is for people to have full ownership of their computers. What I mean is that typically, legally speaking, you (the “end user” of the computer) own the hardware of your computer: you can throw it out of a window or install whatever software you want on it. But you usually don’t own the many pieces of software running on your computer, which follow so-called intellectual property laws. Because of this, the authors of that software can say “Hey: you can’t peek inside of this code that’s running on your computer. You can’t mess around with that.” And I mean anyone can say that but in this case they can back it up with a lawsuit if you don’t listen.</p>
+<p>You will probably never own all of the software that you run, but on a program-by-program basis that is what GPL software is trying to provide. The GPL starts from the following ideological position: “You have this computer with these programs that you have bought, and you should be able to inspect and modify those programs, so that your computer does exactly what you want it to do. You legitimately, fully own it: it’s not on loan from some mega-corporation. You can do whatever you want with this chunk of code: you can debug it, share it with a friend, increment all the bytes by 1 to see what that does, play it as a static-sounding symphony, or print it onto underwear.” (There is a legal corner which you can’t own, which is the ability to strip the copyright and software from their lawful owners: that is pretty much endemic to the system and kind of a non-starter.)</p>
+<p>Software licenses will either get in the way of this full ownership (as proprietary ones often do) or facilitate full ownership (as open-source ones often do). And when they facilitate, they might try to also facilitate other peoples’ full ownership of copies (as copyleft ones like GPL do) or just your full ownership (as non-copyleft ones like BSD, MIT, LGPL do). Non-copyleft licenses are particularly simple and are usually much easier to read. They generally say something like: “Here is this software. We hold the copyright. It is a condition of this license that you promise not to sue us for anything. We promise not to sue you for anything either.”</p>
+<p>Copyleft licenses have to be a little more complicated, they have to say something like “We reserve the right to sue you if you hand a copy of this software to someone else and pretend that you have the right to sue them over it. Don’t do that.” In this sense copyleft licenses use lawsuits defensively to try to reduce the global number of intellectual property lawsuits: they resist attempts to “re-proprietarize” their code. And this is why you are concerned; you are worried that you might fall afoul of this if you share the output of your software.</p>
+<h3 id="The-code-is-the-real-concern"><a href="#The-code-is-the-real-concern" class="headerlink" title="The code is the real concern"></a>The code is the real concern</h3><p>Here’s a common misconception: the GPL emphatically does not say “anyone who modifies the source code must release their modifications for free to the public.” In fact until very recently with the advent of GitHub, publishing software publicly was a really difficult task; and the fact that it’s a little easier now doesn’t stop that from being, in a general sense, a barrier to your ownership of that software. The GPL, which hates those sorts of barriers, does not and would not ever require such a barbarous thing.</p>
+<p>What does it say? It says, “if you hand this program with your modifications to someone else, you have to give them (and only them!) free access to the modified source code under this license, so that they can fully own their computers just the same as you could.” There are two similarities to what most people are expecting; there are also two differences. The similarities are: (1) most people are expecting the source code to be free; (2) most people are expecting that it does not matter whether you send a compiled or source-code form. The differences are: (1) this sharing is not triggered by modification but by transmission and (2) this sharing is not intrinsically public (though you can’t control what the recipient does with it and the recipient can share it publicly). But notice that the publishing burden is now offset because you are already transmitting something to the recipient and this just requires you to also offer to transmit the source code alongside that. Also notice that while the source code must be free the transmission can cost whatever you want: the financial cost of releasing the source to this other person is merely expected to be covered by the amount they paid you for you to hand them the software in the first place.</p>
+<p>Therefore: If this program runs on your server, nobody else’s, and other people only interact with the program by sending packets to your server, usually no source code release is needed. That’s your computer, nobody else’s. Since the GPL code doesn’t execute on anyone else’s machine, they cannot demand to see the source for the running program. There are exceptions but they consist of programs which transmit GPLed parts of their own source code to the client so that the client can run them; these need to satisfy the GPL of course.</p>
+<h3 id="The-GPL-also-allows-a-lot-of-strange-things"><a href="#The-GPL-also-allows-a-lot-of-strange-things" class="headerlink" title="The GPL also allows a lot of strange things"></a>The GPL also allows a lot of strange things</h3><p>Suppose you gave someone else a computer program that you modified as GPL, but you are very worried about them sharing the source code. This is usually an unreasonable concern; Bryan Cantrill (former software engineer at Sun and Oracle working on Solaris, now CTO of Joyent) has pointed out on some occasions that (a) your competitor companies would usually rather die than use your software and that (b) open-source software has the very nice property that it becomes effectively immortal while proprietary software can and will die whenever the proprietors declare “it’s no longer in our financial interests to keep developing and supporting this software; bye!” without open-sourcing that software (which can itself be a mammoth task if parts were contracted out to others).</p>
+<p>But if it is still a concern there are some interesting options. For example some medical devices run a combination of proprietary and GPL software, but make it clear that the hospital who is buying that device is renting it out from the company, perhaps for a one-time fee: the company still owns the device and therefore they do not have to share the source code. Or, in the comments, @perkins suggests that you might hand over the source code but that you also might say “hey, if you DO mess with any of this code, I will refuse to support it or send you any new updates I write.” In this respect someone might desire their working relationship with you more than they desire to use their legal freedoms. Finally, there is an isomorphism between data structures and the control structures that consume them, so very often you may see a “platform” that is GPL but there are totally-optional “plugins” or “modules” which are proprietary.</p>
+<p>Again, this is usually not what you want to do and you are usually underestimating how proud your competitors are. But those options do exist.</p>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+
+		</div>
+
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+	
+		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+        
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+
+
+</body>
+   </html>

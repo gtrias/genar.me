@@ -6,26 +6,22 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost ~]$ docker ps -a | genar.me</title>
+  <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="DockerMy dockerhub
-Docker proxies
+Docker proxies (Load balancer)
 nginx-proxy
 
 Tools
-ctop
-
-docker-composeRecipes
- Add some docker-compose.yml recipes  #4caefb38
-
-Building image witho">
+ctop: Top-like interface for container metrics
+hadolint: Dockerfile linter writte">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost ~]$ docker ps -a"/>
-  <meta property="og:site_name" content="genar.me"/>
+  
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -44,10 +40,12 @@ Building image witho">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -141,14 +139,24 @@ Building image witho">
 	  
 
 	  <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>My <a href="https://hub.docker.com/r/gtrias/" target="_blank" rel="noopener">dockerhub</a></p>
-<h2 id="Docker-proxies"><a href="#Docker-proxies" class="headerlink" title="Docker proxies"></a>Docker proxies</h2><ul>
+<h2 id="Docker-proxies-Load-balancer"><a href="#Docker-proxies-Load-balancer" class="headerlink" title="Docker proxies (Load balancer)"></a>Docker proxies (Load balancer)</h2><ul>
 <li><a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="noopener">nginx-proxy</a></li>
 </ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li><a href="https://github.com/bcicen/ctop" target="_blank" rel="noopener">ctop</a></li>
+<li><a href="https://github.com/bcicen/ctop" target="_blank" rel="noopener">ctop</a>: Top-like interface for container metrics</li>
+<li><a href="https://github.com/hadolint/hadolint" target="_blank" rel="noopener">hadolint</a>: Dockerfile linter written in Haskell</li>
+</ul>
+<h2 id="Web-GUI-management"><a href="#Web-GUI-management" class="headerlink" title="Web GUI management"></a>Web GUI management</h2><ul>
+<li><a href="https://rancher.com/" target="_blank" rel="noopener">Rancher</a>: Complete container management platform</li>
+<li><a href="https://github.com/portainer/portainer" target="_blank" rel="noopener">portainer</a>: Simple management UI for Docker</li>
 </ul>
 <h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><h3 id="Recipes"><a href="#Recipes" class="headerlink" title="Recipes"></a>Recipes</h3><ul>
-<li style="list-style: none"><input type="checkbox"> Add some docker-compose.yml recipes  #4caefb38</li>
+<li>[X] Add some docker-compose.yml recipes  #eeb6c94f</li>
+</ul>
+<h3 id="Override-some-container-environment-vars"><a href="#Override-some-container-environment-vars" class="headerlink" title="Override some container environment vars"></a>Override some container environment vars</h3><p>Just create <code>docker-compose.override.yml</code> and set container overrides like this example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  editor:</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">NODE_ENV=dev</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://docs.docker.com/compose/extends/#understanding-multiple-compose-files" target="_blank" rel="noopener">Documentation</a></li>
 </ul>
 <h3 id="Building-image-without-cache"><a href="#Building-image-without-cache" class="headerlink" title="Building image without cache"></a>Building image without cache</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build --no-cache service1</span><br></pre></td></tr></table></figure>
 <h3 id="Using-default-values-overrideable-by-environment-vars"><a href="#Using-default-values-overrideable-by-environment-vars" class="headerlink" title="Using default values overrideable by environment vars"></a>Using default values overrideable by environment vars</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;VARIABLE:-default&#125; will evaluate to default if VARIABLE is unset or empty in the environment.</span><br></pre></td></tr></table></figure>
@@ -177,8 +185,6 @@ Building image witho">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -190,9 +196,18 @@ Building image witho">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -213,7 +228,7 @@ Building image witho">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -225,7 +240,7 @@ Building image witho">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -243,7 +258,7 @@ Building image witho">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -251,7 +266,7 @@ Building image witho">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -260,6 +275,18 @@ Building image witho">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

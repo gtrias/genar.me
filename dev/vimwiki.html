@@ -6,17 +6,21 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>vimwiki | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="VimwikiCheatsheethttp://thedarnedestthing.com/vimwiki%20cheatsheet
-Wiki management123456789|----------------------|---------------------------------||">
+  <meta name="description" content="Vimwiki
+[ ] Find how to include taskwarrior tasks from title filters  #3c010356
+
+ Check this issue for markdown viewport functionality  #bebc44b2
+
+Hav">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="vimwiki"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -35,10 +39,12 @@ Wiki management123456789|----------------------|--------------------------------
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -108,7 +114,7 @@ Wiki management123456789|----------------------|--------------------------------
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1><span class="blink-fast">∎</span></h1>
+  <h1>[genar@localhost dev]$ nvim<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -131,7 +137,17 @@ Wiki management123456789|----------------------|--------------------------------
 	<div class="mypage">
 	  
 
-	  <h1 id="Vimwiki"><a href="#Vimwiki" class="headerlink" title="Vimwiki"></a>Vimwiki</h1><h2 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h2><p><a href="http://thedarnedestthing.com/vimwiki%20cheatsheet" target="_blank" rel="noopener">http://thedarnedestthing.com/vimwiki%20cheatsheet</a></p>
+	  <h1 id="Vimwiki"><a href="#Vimwiki" class="headerlink" title="Vimwiki"></a>Vimwiki</h1><ul>
+<li><p>[ ] Find how to include taskwarrior tasks from title filters  #3c010356</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> Check this <a href="https://github.com/tbabej/taskwiki/issues/165" target="_blank" rel="noopener">issue</a> for markdown viewport functionality  #bebc44b2</li>
+</ul>
+<p>Having two way syncronization should be a must.</p>
+</li>
+<li><p>[ ] Find a way to automatically include mardkwon partials.  #c46f1ecf<br>Something like <a href="https://github.com/jreese/markdown-pp" target="_blank" rel="noopener">mardkown pp</a> can be the key to achieve this</p>
+</li>
+</ul>
+<h2 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h2><p><a href="http://thedarnedestthing.com/vimwiki%20cheatsheet" target="_blank" rel="noopener">http://thedarnedestthing.com/vimwiki%20cheatsheet</a></p>
 <h3 id="Wiki-management"><a href="#Wiki-management" class="headerlink" title="Wiki management"></a>Wiki management</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|----------------------|---------------------------------|</span><br><span class="line">| Action               | Description                     |</span><br><span class="line">|----------------------|---------------------------------|</span><br><span class="line">| [number] &lt;leader&gt; ww | open wiki index file            |</span><br><span class="line">| [number] &lt;leader&gt; wt | open wiki index file in new tab |</span><br><span class="line">| &lt;leader&gt; ws          | list and select available wikis |</span><br><span class="line">| &lt;leader&gt; wd          | delete wiki page                |</span><br><span class="line">| &lt;leader&gt; wr          | rename wiki page                |</span><br><span class="line">|----------------------|---------------------------------|</span><br></pre></td></tr></table></figure>
 <p><em>number is relative wiki order as defined in .vimrc, default 1.</em></p>
 <h3 id="Diary-management"><a href="#Diary-management" class="headerlink" title="Diary management"></a>Diary management</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|--------------------------------|---------------------------------------------|</span><br><span class="line">| Action                         | Description                                 |</span><br><span class="line">|--------------------------------|---------------------------------------------|</span><br><span class="line">| [number] &lt;leader&gt; wi           | open diary index file for wiki              |</span><br><span class="line">| &lt;leader&gt; w &lt;leader&gt; i          | update current diary index                  |</span><br><span class="line">| [number] &lt;leader&gt; w &lt;leader&gt; w | open today’s diary file for wiki            |</span><br><span class="line">| [number] &lt;leader&gt; w &lt;leader&gt; t | open today’s diary file for wiki in new tab |</span><br><span class="line">| &lt;C-Up&gt;                         | open previous day’s diary                   |</span><br><span class="line">| &lt;C-Down&gt;                       | open next day’s diary                       |</span><br><span class="line">|--------------------------------|---------------------------------------------|</span><br></pre></td></tr></table></figure>
@@ -140,6 +156,7 @@ Wiki management123456789|----------------------|--------------------------------
 <h3 id="Editing-shortcuts"><a href="#Editing-shortcuts" class="headerlink" title="Editing shortcuts"></a>Editing shortcuts</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">|------------|------------------------------------|</span><br><span class="line">| Action     | Description                        |</span><br><span class="line">|------------|------------------------------------|</span><br><span class="line">| &lt;C-Space&gt;  | toggle list item on/off            |</span><br><span class="line">| =          | add header level                   |</span><br><span class="line">| -          | remove header level                |</span><br><span class="line">| +          | create/decorate links              |</span><br><span class="line">| glm        | increase indent of list item       |</span><br><span class="line">| gll        | decrease indent of list item       |</span><br><span class="line">| gl*        | or gl8 switch or insert “*” symbol |</span><br><span class="line">| gl# or gl3 | switch or insert “#” symbol        |</span><br><span class="line">| gl-        | switch or insert “-“ symbol        |</span><br><span class="line">| gl1        | switch or insert “1.” symbol       |</span><br><span class="line">|------------|------------------------------------|</span><br></pre></td></tr></table></figure>
 <h3 id="Table-shortcuts"><a href="#Table-shortcuts" class="headerlink" title="Table shortcuts"></a>Table shortcuts</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|------------|-----------------------------------|</span><br><span class="line">| action     | Description                       |</span><br><span class="line">|------------|-----------------------------------|</span><br><span class="line">| &lt;A-Left&gt;   | move column left                  |</span><br><span class="line">| &lt;A-right&gt;  | move column right                 |</span><br><span class="line">| &lt;CR&gt;       | (insert mode) go down/create cell |</span><br><span class="line">| &lt;Tab&gt;      | (insert mode) go next/create cell |</span><br><span class="line">| gqq or gww | reformat table                    |</span><br><span class="line">|------------|-----------------------------------|</span><br></pre></td></tr></table></figure>
 <h3 id="text-objects"><a href="#text-objects" class="headerlink" title="text objects"></a>text objects</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|--------|-----------------------------------------------------------|</span><br><span class="line">| object | Description                                               |</span><br><span class="line">|--------|-----------------------------------------------------------|</span><br><span class="line">| ah     | section between 2 headings including empty trailing lines |</span><br><span class="line">| ih     | section between 2 headings excluding empty trailing lines |</span><br><span class="line">| a\     | table cell                                                |</span><br><span class="line">| i\     | inner table cell                                          |</span><br><span class="line">| ac     | table column                                              |</span><br><span class="line">| ic     | inner table column                                        |</span><br><span class="line">|--------|-----------------------------------------------------------|</span><br></pre></td></tr></table></figure>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><h3 id="Create-a-table"><a href="#Create-a-table" class="headerlink" title="Create a table"></a>Create a table</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:VimwikiTable</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://github.com/vimwiki/vimwiki" target="_blank" rel="noopener">https://github.com/vimwiki/vimwiki</a></li>
 </ul>
@@ -161,8 +178,6 @@ Wiki management123456789|----------------------|--------------------------------
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -174,9 +189,18 @@ Wiki management123456789|----------------------|--------------------------------
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -197,7 +221,7 @@ Wiki management123456789|----------------------|--------------------------------
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -209,7 +233,7 @@ Wiki management123456789|----------------------|--------------------------------
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -227,7 +251,7 @@ Wiki management123456789|----------------------|--------------------------------
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -235,7 +259,7 @@ Wiki management123456789|----------------------|--------------------------------
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -244,6 +268,18 @@ Wiki management123456789|----------------------|--------------------------------
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

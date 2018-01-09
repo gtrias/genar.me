@@ -9,15 +9,15 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="JestHow to mock a function1const mockedFunc = jest.fn()
-Preparing eslint for jest1npm i --save-dev eslint-plugin-jest
-Then add jest to your .eslintrc ">
+  <meta name="description" content="JestHow to mock a function(Very usefull when you are passing props to component which need dispatch)
+1const mockedFunc = jest.fn()
+Preparing eslint fo">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -36,10 +36,12 @@ Then add jest to your .eslintrc ">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -132,11 +134,13 @@ Then add jest to your .eslintrc ">
 	<div class="mypage">
 	  
 
-	  <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><h2 id="How-to-mock-a-function"><a href="#How-to-mock-a-function" class="headerlink" title="How to mock a function"></a>How to mock a function</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mockedFunc = jest.fn()</span><br></pre></td></tr></table></figure>
-<h2 id="Preparing-eslint-for-jest"><a href="#Preparing-eslint-for-jest" class="headerlink" title="Preparing eslint for jest"></a>Preparing eslint for jest</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev eslint-plugin-jest</span><br></pre></td></tr></table></figure>
+	  <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><h2 id="How-to-mock-a-function"><a href="#How-to-mock-a-function" class="headerlink" title="How to mock a function"></a>How to mock a function</h2><p>(Very usefull when you are passing props to component which need dispatch)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mockedFunc = jest.fn()</span><br></pre></td></tr></table></figure>
+<h2 id="Preparing-eslint-for-jest"><a href="#Preparing-eslint-for-jest" class="headerlink" title="Preparing eslint for jest"></a>Preparing eslint for jest</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev eslint-plugin-jest</span><br></pre></td></tr></table></figure>
 <p>Then add jest to your <code>.eslintrc</code> list of plugins</p>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://facebook.github.io/jest/" target="_blank" rel="noopener">Official site</a></li>
+<li><a href="https://github.com/Raathigesh/majestic" target="_blank" rel="noopener">⚡ Zero config UI for Jest</a></li>
 </ul>
 
 	</div>
@@ -156,8 +160,6 @@ Then add jest to your .eslintrc ">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -169,9 +171,18 @@ Then add jest to your .eslintrc ">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -192,7 +203,7 @@ Then add jest to your .eslintrc ">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -204,7 +215,7 @@ Then add jest to your .eslintrc ">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -222,7 +233,7 @@ Then add jest to your .eslintrc ">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -230,7 +241,7 @@ Then add jest to your .eslintrc ">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -239,6 +250,18 @@ Then add jest to your .eslintrc ">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

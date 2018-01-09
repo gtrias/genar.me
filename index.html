@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost ~]$ echo hello world | genar.me</title>
+  <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Sofware Libre supporter, happy vim user, automatization addict and casual gamer.
@@ -15,8 +15,8 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost ~]$ echo hello world"/>
-  <meta property="og:site_name" content="genar.me"/>
+  
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -35,10 +35,12 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -132,8 +134,8 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 	  
 
 	  <p>Sofware Libre supporter, happy <a href="dev/vim.html">vim</a> user, automatization addict and casual gamer.</p>
-<p>Pasionated about Software design, CD, CI, TDD, Microservices architecture, docker, frontend automatization, devops techniques and every programming language which allows me to play with all those things.</p>
-<p>I mostly write software using <a href="./dev/javascript.html">javascript</a> (<a href="./dev/nodejs.html">Nodejs</a>, <a href="./dev/reactjs.html">React.js</a>) and <a href="./dev/PHP.html">PHP</a> (Symfony).</p>
+<p>Pasionated about Software design, <a href="dev/continuous-delivery.html">CD</a>, <a href="dev/continuous-integration.html">CI</a>, <a href="dev/TDD.html">TDD</a>, <a href="dev/microservices.html">Microservices</a> architecture, <a href="linux/docker.html">docker</a>, frontend automatization, devops techniques and every programming language which allows me to play with all those things.</p>
+<p>I mostly write software using <a href="./dev/javascript.html">javascript</a> (<a href="./dev/nodejs.html">Nodejs</a>, <a href="./dev/reactjs.html">React.js</a>) and <a href="./dev/PHP.html">PHP</a> (<a href="dev/Symfony.html">Symfony</a>).</p>
 <p>I <i class="fa fa-heart"></i> Sci-FI and cyberpunk stuff.</p>
 <h2 id="What-things-I-have-done"><a href="#What-things-I-have-done" class="headerlink" title="What things I have done"></a>What things I have done</h2><ul>
 <li>Check my projects <a href="projects">&gt; ls src</a></li>
@@ -143,10 +145,10 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 <h2 id="What-things-I’m-doing-right-now-2017-winter"><a href="#What-things-I’m-doing-right-now-2017-winter" class="headerlink" title="What things I’m doing right now (2017 winter)"></a>What things I’m doing right now (2017 winter)</h2><ul>
 <li><a href="dev/reactjs.html">ReactJS</a></li>
 <li><a href="dev/nodejs.html">nodejs</a></li>
-<li><p>Frontend components as microservices <a href="http://tech.opentable.co.uk/blog/2016/04/27/opencomponents-microservices-in-the-front-end-world/" target="_blank" rel="noopener">&gt; More info here</a></p>
-<h2 id="My-personal-notes"><a href="#My-personal-notes" class="headerlink" title="My personal notes :)"></a>My personal notes :)</h2></li>
-<li><p><a href="books.html">books</a> &gt; My book list</p>
-</li>
+<li>Frontend components as microservices <a href="http://tech.opentable.co.uk/blog/2016/04/27/opencomponents-microservices-in-the-front-end-world/" target="_blank" rel="noopener">&gt; More info here</a></li>
+</ul>
+<h2 id="My-personal-notes"><a href="#My-personal-notes" class="headerlink" title="My personal notes :)"></a>My personal notes :)</h2><ul>
+<li><a href="books.html">books</a> &gt; My book list</li>
 <li><a href="crypto/index.html">cryptos</a> &gt; Cryptocurrencies notes</li>
 <li><a href="dev/index.html">dev</a> &gt; Development notes</li>
 <li><a href="gaming.html">gaming</a> &gt; My gaming notes</li>
@@ -173,8 +175,6 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -186,9 +186,18 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -209,7 +218,7 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -221,7 +230,7 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -239,7 +248,7 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -247,7 +256,7 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -256,6 +265,18 @@ Pasionated about Software design, CD, CI, TDD, Microservices architec">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@localhost ~]$ uname -a | genar.me</title>
+  <title>GNU/Linux | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="GNU/Linux
@@ -21,13 +21,13 @@ SSH
 vim|neovim
 
 Inbox
-https://github.com/zboxfs/zb">
+bats - Bash Automated Testin">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@localhost ~]$ uname -a"/>
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:title" content="GNU/Linux"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -46,10 +46,12 @@ https://github.com/zboxfs/zb">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -154,8 +156,17 @@ https://github.com/zboxfs/zb">
 <li><a href="../vim.html">vim|neovim</a></li>
 </ul>
 <h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+<li><a href="https://github.com/sstephenson/bats" target="_blank" rel="noopener">bats</a> - Bash Automated Testing System</li>
 <li><a href="https://github.com/zboxfs/zbox" target="_blank" rel="noopener">https://github.com/zboxfs/zbox</a> - Embedable filesystem</li>
 <li><a href="https://github.com/minio/minio" target="_blank" rel="noopener">https://github.com/minio/minio</a> - S3 object storage compatible server</li>
+</ul>
+<h2 id="Web-servers"><a href="#Web-servers" class="headerlink" title="Web servers"></a>Web servers</h2><ul>
+<li><a href="apache.html">Apache</a></li>
+<li><a href="nginx.html">Nginx</a></li>
+</ul>
+<h2 id="Password-managers"><a href="#Password-managers" class="headerlink" title="Password managers"></a>Password managers</h2><ul>
+<li><a href="pass.html">pass</a> - the standard unix password manager</li>
+<li><a href="https://www.passbolt.com/" target="_blank" rel="noopener">passbolt</a> -  The password manager your team was waiting for. Free, open source, self-hosted, extensible, OpenPGP based.</li>
 </ul>
 <h2 id="Linux-shortcuts"><a href="#Linux-shortcuts" class="headerlink" title="Linux shortcuts"></a>Linux shortcuts</h2><ul>
 <li><p>awesomewm<br>config file: <a href="file:/home/genar/.config/awesome/rc.lua" target="_blank" rel="noopener">rc.lua</a></p>
@@ -182,8 +193,6 @@ https://github.com/zboxfs/zb">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -195,9 +204,18 @@ https://github.com/zboxfs/zb">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -218,7 +236,7 @@ https://github.com/zboxfs/zb">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -230,7 +248,7 @@ https://github.com/zboxfs/zb">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -248,7 +266,7 @@ https://github.com/zboxfs/zb">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -256,7 +274,7 @@ https://github.com/zboxfs/zb">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -265,6 +283,18 @@ https://github.com/zboxfs/zb">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

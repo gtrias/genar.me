@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>[genar@work dev]$ nodejs app.js | genar.me</title>
+  <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="nodejsDependency Managers - Package managers
@@ -21,14 +21,13 @@ socket.io
 sockjs
 ws
 
-REST api
-">
+REST API ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[genar@work dev]$ nodejs app.js"/>
-  <meta property="og:site_name" content="genar.me"/>
+  
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -47,10 +46,12 @@ REST api
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -155,8 +156,14 @@ REST api
 <li><a href="ihttps://github.com/sockjs/sockjs-node" target="_blank" rel="noopener">sockjs</a></li>
 <li><a href="https://github.com/websockets/ws" target="_blank" rel="noopener">ws</a></li>
 </ul>
-<h2 id="REST-api"><a href="#REST-api" class="headerlink" title="REST api"></a>REST api</h2><ul>
-<li><a href="https://loopback.io/doc/en/lb3/Installation.html" target="_blank" rel="noopener">loopback</a></li>
+<h2 id="REST-API-frameworks"><a href="#REST-API-frameworks" class="headerlink" title="REST API frameworks"></a>REST API frameworks</h2><ul>
+<li><a href="https://hapijs.com/" target="_blank" rel="noopener">hapijs.com</a></li>
+<li><a href="https://loopback.io" target="_blank" rel="noopener">loopback io</a><ul>
+<li><a href="https://gitter.im/strongloop/loopback" target="_blank" rel="noopener">gitter</a></li>
+<li><a href="https://github.com/BoLaMN/loopback-mongo-aggregate-mixin" target="_blank" rel="noopener">loopback-mongo-aggregate-mixin</a> - Aggregation Pipeline For MongoDB Loopback Connector</li>
+</ul>
+</li>
+<li><a href="https://github.com/fastify/fastify" target="_blank" rel="noopener">fastify</a> - Fast and low overhead web framework, for Node.js</li>
 </ul>
 <h3 id="Expressjs"><a href="#Expressjs" class="headerlink" title="Expressjs"></a>Expressjs</h3><ul>
 <li><a href="https://expressjs.com/" target="_blank" rel="noopener">Official</a></li>
@@ -174,15 +181,14 @@ REST api
 <h2 id="Process-managers"><a href="#Process-managers" class="headerlink" title="Process managers"></a>Process managers</h2><ul>
 <li><a href="https://github.com/Unitech/pm2" target="_blank" rel="noopener">pm2</a></li>
 </ul>
+<h2 id="E-Commerce"><a href="#E-Commerce" class="headerlink" title="E-Commerce"></a>E-Commerce</h2><ul>
+<li><a href="https://github.com/cezerin/cezerin" target="_blank" rel="noopener">cezerin</a> - React and Node.js based e-commerce platform.</li>
+</ul>
 <h2 id="Demos"><a href="#Demos" class="headerlink" title="Demos"></a>Demos</h2><ul>
 <li><a href="https://github.com/automerge/trellis" target="_blank" rel="noopener">trellis</a>: Trello clone / sample app for Automerge Persistance Library</li>
 </ul>
-<h2 id="REST-API-frameworks"><a href="#REST-API-frameworks" class="headerlink" title="REST API frameworks"></a>REST API frameworks</h2><ul>
-<li><a href="https://hapijs.com/" target="_blank" rel="noopener">hapijs.com</a></li>
-<li><a href="https://loopback.io" target="_blank" rel="noopener">loopback io</a><ul>
-<li><a href="https://gitter.im/strongloop/loopback" target="_blank" rel="noopener">gitter</a></li>
-</ul>
-</li>
+<h2 id="Flux-programming"><a href="#Flux-programming" class="headerlink" title="Flux programming"></a>Flux programming</h2><ul>
+<li><a href="https://github.com/ncthbrt/nact" target="_blank" rel="noopener">nact</a> - Redux for backend</li>
 </ul>
 <h2 id="Build-systems"><a href="#Build-systems" class="headerlink" title="Build systems"></a>Build systems</h2><ul>
 <li><a href="gulp.html">gulp</a>: Streaming buils system.</li>
@@ -195,6 +201,7 @@ REST api
 <li><a href="http://node.green/" target="_blank" rel="noopener">node.green</a></li>
 </ul>
 <h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Show-unhandled-erros"><a href="#Show-unhandled-erros" class="headerlink" title="Show unhandled erros"></a>Show unhandled erros</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'unhandledRejection'</span>, (reason, p) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Unhandled Rejection at: Promise'</span>, p, <span class="string">'reason:'</span>, reason);</span><br><span class="line">  <span class="comment">// application specific logging, throwing an error, or other logic here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Standard-nodejs-Dockerfile"><a href="#Standard-nodejs-Dockerfile" class="headerlink" title="Standard nodejs Dockerfile"></a>Standard nodejs Dockerfile</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span> Genar &lt;genar@acs.li&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN yarn install --only=production</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV NODE_ENV production</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"/app/entrypoint.sh"</span>]</span></span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://github.com/sindresorhus/awesome-nodejs" target="_blank" rel="noopener">awesome-nodejs</a></li>
 <li><a href="https://github.com/bnb/awesome-awesome-nodejs" target="_blank" rel="noopener">awesome-awesome-nodejs</a></li>
@@ -218,8 +225,6 @@ REST api
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -231,9 +236,18 @@ REST api
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -254,7 +268,7 @@ REST api
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -266,7 +280,7 @@ REST api
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -284,7 +298,7 @@ REST api
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -292,7 +306,7 @@ REST api
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -301,6 +315,18 @@ REST api
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

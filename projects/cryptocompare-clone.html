@@ -10,14 +10,13 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Cryptocompare clonegobyFrontend React.js SPA to compare your orders.
-goby-apiLoopback REST API to retrieve and calc your orders.
-PortfoliosCryptocompa">
+goby-apiLoopback REST API to retrieve and calc your executed orders from several ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -36,10 +35,12 @@ PortfoliosCryptocompa">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -133,9 +134,8 @@ PortfoliosCryptocompa">
 	  
 
 	  <h1 id="Cryptocompare-clone"><a href="#Cryptocompare-clone" class="headerlink" title="Cryptocompare clone"></a>Cryptocompare clone</h1><h2 id="goby"><a href="#goby" class="headerlink" title="goby"></a><a href="https://github.com/cryptorebels/goby" target="_blank" rel="noopener">goby</a></h2><p>Frontend React.js SPA to compare your orders.</p>
-<h2 id="goby-api"><a href="#goby-api" class="headerlink" title="goby-api"></a><a href="https://github.com/cryptorebels/goby-api" target="_blank" rel="noopener">goby-api</a></h2><p>Loopback REST API to retrieve and calc your orders.</p>
-<h2 id="Portfolios"><a href="#Portfolios" class="headerlink" title="Portfolios"></a>Portfolios</h2><p>Cryptocompare is organized bt portfolios</p>
-<p>Then you should add your orders by hand.</p>
+<h2 id="goby-api"><a href="#goby-api" class="headerlink" title="goby-api"></a><a href="https://github.com/cryptorebels/goby-api" target="_blank" rel="noopener">goby-api</a></h2><p>Loopback REST API to retrieve and calc your executed orders from several APIs (We’ll start our development using bittrex API).</p>
+<h2 id="Portfolios"><a href="#Portfolios" class="headerlink" title="Portfolios"></a>Portfolios</h2><p>Cryptocompare is organized bt portfolios<br>Then you should add your orders by hand.</p>
 
 	</div>
 
@@ -154,8 +154,6 @@ PortfoliosCryptocompa">
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -167,9 +165,18 @@ PortfoliosCryptocompa">
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -190,7 +197,7 @@ PortfoliosCryptocompa">
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -202,7 +209,7 @@ PortfoliosCryptocompa">
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -220,7 +227,7 @@ PortfoliosCryptocompa">
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -228,7 +235,7 @@ PortfoliosCryptocompa">
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -237,6 +244,18 @@ PortfoliosCryptocompa">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 

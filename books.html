@@ -10,16 +10,16 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Books
- Introducing Ethereum and Solidity  #fc176eee
- Building Microservices  #0bc1485f
- Continuous Delivery  #fc1742a6
- La caiguda dels gegants - Ken ">
+Introducing Ethereum and Solidity
+Building Microservices
+Continuous Delivery
+La caiguda dels gegants - Ken Follet">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="genar.me"/>
+  <meta property="og:site_name" content=""/>
 
   
     <meta property="og:image" content=""/>
@@ -38,10 +38,12 @@
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
   <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
 
   <!-- analytics -->
   
@@ -135,10 +137,10 @@
 	  
 
 	  <h1 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h1><ul>
-<li style="list-style: none"><input type="checkbox"> <a href="https://www.apress.com/br/book/9781484225349" target="_blank" rel="noopener">Introducing Ethereum and Solidity</a>  #fc176eee</li>
-<li style="list-style: none"><input type="checkbox"> <a href="https://www.amazon.es/dp/1491950358/_encoding=UTF8?coliid=I16HERNECG7JTR&amp;colid=2ENKG7BWAZ74X&amp;psc=0" target="_blank" rel="noopener">Building Microservices</a>  #0bc1485f</li>
-<li style="list-style: none"><input type="checkbox"> <a href="https://www.amazon.es/dp/B011T6QAC0/_encoding=UTF8?coliid=I2Q0VTUR4003M5&amp;colid=2ENKG7BWAZ74X&amp;psc=0" target="_blank" rel="noopener">Continuous Delivery</a>  #fc1742a6</li>
-<li style="list-style: none"><input type="checkbox"> <a href="https://www.casadellibro.com/libro-la-caiguda-dels-gegants/9788401387746/1805569" target="_blank" rel="noopener">La caiguda dels gegants</a> - Ken Follet  #8e29f701</li>
+<li><a href="https://www.apress.com/br/book/9781484225349" target="_blank" rel="noopener">Introducing Ethereum and Solidity</a></li>
+<li><a href="https://www.amazon.es/dp/1491950358/_encoding=UTF8?coliid=I16HERNECG7JTR&amp;colid=2ENKG7BWAZ74X&amp;psc=0" target="_blank" rel="noopener">Building Microservices</a></li>
+<li><a href="https://www.amazon.es/dp/B011T6QAC0/_encoding=UTF8?coliid=I2Q0VTUR4003M5&amp;colid=2ENKG7BWAZ74X&amp;psc=0" target="_blank" rel="noopener">Continuous Delivery</a></li>
+<li><a href="https://www.casadellibro.com/libro-la-caiguda-dels-gegants/9788401387746/1805569" target="_blank" rel="noopener">La caiguda dels gegants</a> - Ken Follet</li>
 </ul>
 
 	</div>
@@ -158,8 +160,6 @@
 
 	</div> <!-- col-md-9/col-md-12 -->
 
-	
-
 </div><!-- row -->
 
 
@@ -171,9 +171,18 @@
 
 	
 		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
 <div class="widget">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
@@ -194,7 +203,7 @@
 </div>
 
 
-		
+        
 	</div> <!-- sidebar -->
 </div> <!-- col-md-3 -->
 
@@ -206,7 +215,7 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Genar Trias
+  &copy; 2018 Genar Trias
   
 </p>
  </footer>
@@ -224,7 +233,7 @@
 
 
   
-<a id="gotop" href="#">   
+<a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -232,7 +241,7 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -241,6 +250,18 @@
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
 </script>
 
 
