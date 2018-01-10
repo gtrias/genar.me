@@ -129,6 +129,11 @@ a:link, a:visited:link {
     overflow-y: hidden;
 }
 
+.github-emoji img {
+    margin: inherit;
+    display: inline;
+}
+
 @media(max-width:767px){
    .affix {
      position: static;
@@ -138,9 +143,6 @@ a:link, a:visited:link {
 
     .page-header h1 {
         font-size: 18px;
-    }
-
-    h2, h3, h4, h5, h6 {
     }
 
     h2:after {

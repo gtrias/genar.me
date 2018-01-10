@@ -71,7 +71,7 @@ Offi">
 
 </head>
 
- <body>  
+ <body>
   <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -140,7 +140,6 @@ Offi">
 	<!-- cols -->
 	
 	<div class="col-md-12">
-	
 
 	<!-- content -->
 	<div class="mypage">
@@ -287,10 +286,10 @@ Offi">
 </ul>
 <h2 id="Learning"><a href="#Learning" class="headerlink" title="Learning"></a>Learning</h2><ul>
 <li><a href="https://github.com/anders94/blockchain-demo" target="_blank" rel="noopener">blockchain-demo</a></li>
-<li><a href="https://github.com/kasketis/awesome-cryptocurrencies" target="_blank" rel="noopener">awesome-cryptocurrencies</a> - A curated list of awesome cryptocurrencies :tophat:</li>
+<li><a href="https://github.com/kasketis/awesome-cryptocurrencies" target="_blank" rel="noopener">awesome-cryptocurrencies</a> - A curated list of awesome cryptocurrencies <img class="github-emoji" title="tophat" alt="tophat" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f3a9.png?v7" height="20" width="20"></li>
 </ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li><a href="https://github.com/bichenkk/coinmon" target="_blank" rel="noopener">coinmon</a> - :moneybag: The cryptocurrency price tool on CLI. :desktop_computer:</li>
+<li><a href="https://github.com/bichenkk/coinmon" target="_blank" rel="noopener">coinmon</a> - <img class="github-emoji" title="moneybag" alt="moneybag" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4b0.png?v7" height="20" width="20"> The cryptocurrency price tool on CLI. <img class="github-emoji" title="desktop_computer" alt="desktop_computer" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f5a5.png?v7" height="20" width="20"></li>
 <li><a href="https://github.com/JulyIGHOR/QtBitcoinTrader" target="_blank" rel="noopener">https://github.com/JulyIGHOR/QtBitcoinTrader</a></li>
 <li><a href="https://www.walletbuilders.com" target="_blank" rel="noopener">https://www.walletbuilders.com</a></li>
 </ul>
@@ -422,7 +421,22 @@ tocbot.init({
 });
 </script>
 
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
 
 
 </body>
-   </html>
+</html>
