@@ -9,8 +9,7 @@
   <title>Setting up letsencrypt with nginx | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Setting up letsencrypt with nginxInstall certbotAdd backports to apt repositories, just add the next line to /etc/apt/sources.list.d/backports.list:
-1">
+  <meta name="description" content="Setting up letsencrypt with nginxInstall certbotManual installationAdd backports to apt repositories, just add the next line to /etc/apt/sources.list.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -124,23 +123,21 @@
 	<div class="mypage">
 	  
 
-	  <h1 id="Setting-up-letsencrypt-with-nginx"><a href="#Setting-up-letsencrypt-with-nginx" class="headerlink" title="Setting up letsencrypt with nginx"></a>Setting up letsencrypt with nginx</h1><h2 id="Install-certbot"><a href="#Install-certbot" class="headerlink" title="Install certbot"></a>Install certbot</h2><p>Add backports to apt repositories, just add the next line to <code>/etc/apt/sources.list.d/backports.list</code>:</p>
+	  <h1 id="Setting-up-letsencrypt-with-nginx"><a href="#Setting-up-letsencrypt-with-nginx" class="headerlink" title="Setting up letsencrypt with nginx"></a>Setting up letsencrypt with nginx</h1><h2 id="Install-certbot"><a href="#Install-certbot" class="headerlink" title="Install certbot"></a>Install certbot</h2><h3 id="Manual-installation"><a href="#Manual-installation" class="headerlink" title="Manual installation"></a>Manual installation</h3><p>Add backports to apt repositories, just add the next line to <code>/etc/apt/sources.list.d/backports.list</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;deb http://ftp.debian.org/debian jessie-backports main&apos; &gt; /etc/apt/sources.list.d/backports.list</span><br></pre></td></tr></table></figure>
 <p>Then update apt repositories:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install certbot -t jessie-backports</span><br></pre></td></tr></table></figure>
+<h3 id="Using-Ansible-playbook"><a href="#Using-Ansible-playbook" class="headerlink" title="Using Ansible playbook"></a>Using Ansible playbook</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">configure</span> <span class="string">backports</span> <span class="string">apt</span> <span class="string">repository</span></span><br><span class="line"><span class="attr">  apt_repository:</span></span><br><span class="line"><span class="attr">    filename:</span> <span class="string">backports</span></span><br><span class="line"><span class="attr">    repo:</span> <span class="string">"deb http://http.debian.net/debian jessie-backports main"</span></span><br><span class="line"><span class="attr">    update_cache:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">apt</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">backports</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- name:</span> <span class="string">Install</span> <span class="string">certbot</span></span><br><span class="line"><span class="attr">  apt:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">certbot</span></span><br><span class="line"><span class="attr">    update_cache:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    default_release:</span> <span class="string">jessie-backports</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">latest</span></span><br></pre></td></tr></table></figure>
 <h2 id="Setting-up-nginx-to-serve-well-known-verification-requests"><a href="#Setting-up-nginx-to-serve-well-known-verification-requests" class="headerlink" title="Setting up nginx to serve .well-known verification requests"></a>Setting up nginx to serve <code>.well-known</code> verification requests</h2><p>Create the letsencrypt folder:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/www/letsencrypt</span><br></pre></td></tr></table></figure>
 <p>Just add this lines inside your server block:</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">location</span> /.well-known/acme-challenge/ &#123;</span><br><span class="line">        <span class="attribute">allow</span> all;</span><br><span class="line">        <span class="attribute">root</span> /var/www/letsencrypt;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> =<span class="number">404</span>;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Request-your-certificate"><a href="#Request-your-certificate" class="headerlink" title="Request your certificate"></a>Request your certificate</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --webroot -w /var/www/letsencrypt/ -d your-domain.com --renew-by-default</span><br></pre></td></tr></table></figure>
-<h2 id="Add-your-SSL-configuration-to-nginx"><a href="#Add-your-SSL-configuration-to-nginx" class="headerlink" title="Add your SSL configuration to nginx"></a>Add your SSL configuration to nginx</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line">    <span class="attribute">ssl_certificate</span> /etc/letsencrypt/live/your-domain.com/fullchain.pem ;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span> /etc/letsencrypt/live/your-domain.com/privkey.pem;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server_name</span> your-domain.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">      <span class="comment"># your location configuration as you usually do in listen 80 block</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/tiendaelektron.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /var/log/nginx/tiendaelektron.com.<span class="literal">error</span>.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Add-your-SSL-configuration-to-nginx"><a href="#Add-your-SSL-configuration-to-nginx" class="headerlink" title="Add your SSL configuration to nginx"></a>Add your SSL configuration to nginx</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line">    <span class="attribute">ssl_certificate</span> /etc/letsencrypt/live/your-domain.com/fullchain.pem ;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span> /etc/letsencrypt/live/your-domain.com/privkey.pem;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server_name</span> your-domain.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">      <span class="comment"># your location configuration as you usually do in listen 80 block</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/your-domain.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /var/log/nginx/your-domain.com.<span class="literal">error</span>.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Optional-force-http-to-be-redirected-to-https"><a href="#Optional-force-http-to-be-redirected-to-https" class="headerlink" title="(Optional) force http to be redirected to https"></a>(Optional) force http to be redirected to https</h2><p>Just add this line inside server block which is listening to 80 port:</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><ul>
-<li>Error: failed (SSL: error:02001002:system library</li>
-<li>Solution: It can be a permissions issue or mistyped directory.</li>
-</ul>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><h3 id="failed-SSL-error-02001002-system-library"><a href="#failed-SSL-error-02001002-system-library" class="headerlink" title="failed (SSL: error:02001002:system library"></a>failed (SSL: error:02001002:system library</h3><p>Solution: It can be a permissions issue or mistyped directory.</p>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://certbot.eff.org/all-instructions/#debian-8-jessie-nginx" target="_blank" rel="noopener">https://certbot.eff.org/all-instructions/#debian-8-jessie-nginx</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04</a></li>
@@ -154,13 +151,13 @@
 
     
     
-    <a href="/2018/01/10/index/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/2018/02/15/play-cloud-computer-games-from-linux/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Anterior</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2017/12/22/converting-vimwiki-to-hexo/" type="button" class="btn btn-default ">Next<i
+    <a href="/2017/12/22/converting-vimwiki-to-hexo/" type="button" class="btn btn-default ">Próximo<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -173,7 +170,7 @@
 	<!-- comment -->
 	
 <section id="comment">
-    <h2 class="title">Comments</h2>
+    <h2 class="title">Comentários</h2>
 
     
     <div id="disqus_thread" class="ds-thread">
@@ -240,7 +237,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/nginx/">nginx<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/">letsencrypt<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/ssl/">ssl<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/ssl/debian/">debian<span>1</span></a></li>
+    <li><a href="/categories/nginx/">nginx<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/">letsencrypt<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/ssl/">ssl<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/ssl/debian/">debian<span>1</span></a></li> <li><a href="/categories/nginx/letsencrypt/ssl/debian/ansible/">ansible<span>1</span></a></li>
   </li>
 
     </ul>

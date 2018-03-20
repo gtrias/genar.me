@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="# Microservices
+Authentication and AuthorizationJWT
+RFC
+Official
+
+OAuth2
+RFC
+
+Load balancers
+apache
+haproxy
+nginx
+node-consul-template -  Consul gener">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="mypage">
+
+		<!-- title and entry -->
+        
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <p><a href="#">#</a> Microservices</p>
+<h2 id="Authentication-and-Authorization"><a href="#Authentication-and-Authorization" class="headerlink" title="Authentication and Authorization"></a>Authentication and Authorization</h2><h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><ul>
+<li><a href="https://tools.ietf.org/html/rfc7519" target="_blank" rel="noopener">RFC</a></li>
+<li><a href="https://jwt.io/" target="_blank" rel="noopener">Official</a></li>
+</ul>
+<h3 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h3><ul>
+<li><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">RFC</a></li>
+</ul>
+<h2 id="Load-balancers"><a href="#Load-balancers" class="headerlink" title="Load balancers"></a>Load balancers</h2><ul>
+<li>apache</li>
+<li>haproxy</li>
+<li>nginx</li>
+<li><a href="https://github.com/gtrias/node-consul-template" target="_blank" rel="noopener">node-consul-template</a> -  Consul generated templates</li>
+<li><a href="https://traefik.io/" target="_blank" rel="noopener">traefik</a> - Træfik (pronounced like traffic) is a modern HTTP reverse proxy and load balancer made to deploy microservices with ease. It supports several backends (Docker, Swarm mode, Kubernetes, Marathon, Consul, Etcd, Rancher, Amazon ECS, and a lot more) to manage its configuration automatically and dynamically.</li>
+</ul>
+<h2 id="Asynchronous-messaging-protocol"><a href="#Asynchronous-messaging-protocol" class="headerlink" title="Asynchronous messaging protocol"></a>Asynchronous messaging protocol</h2><ul>
+<li>rabbitmq</li>
+</ul>
+<h2 id="Service-discovery"><a href="#Service-discovery" class="headerlink" title="Service discovery"></a>Service discovery</h2><ul>
+<li><a href="/dev/microservices/consul.html">consul</a></li>
+</ul>
+<h2 id="Logs-management"><a href="#Logs-management" class="headerlink" title="Logs management"></a>Logs management</h2><ul>
+<li>ELK (<a href="elasticsearch.html">elasticsearch</a> + logstash + kibana)</li>
+<li><a href="https://github.com/gliderlabs/logspout" target="_blank" rel="noopener">logspout</a> - Log routing for Docker container logs</li>
+</ul>
+<h2 id="APM-Application-Performance-Monitoring"><a href="#APM-Application-Performance-Monitoring" class="headerlink" title="APM - Application Performance Monitoring"></a>APM - Application Performance Monitoring</h2><ul>
+<li><a href="https://www.elastic.co/solutions/apm" target="_blank" rel="noopener">Elastic APM</a></li>
+</ul>
+<h2 id="Event-driven-microservices"><a href="#Event-driven-microservices" class="headerlink" title="Event driven microservices"></a>Event driven microservices</h2><ul>
+<li><a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html" target="_blank" rel="noopener">AMQP 0-9-1 Model Explained</a></li>
+<li><a href="https://runnable.com/blog/event-driven-microservices-using-rabbitmq" target="_blank" rel="noopener">Event-driven Microservices Using RabbitMQ</a></li>
+<li><a href="http://blog.thedigitalcatonline.com/blog/2013/08/21/some-tips-about-amqp-direct-exchanges/#.Wd5CjR_nhhG" target="_blank" rel="noopener">Some tips about AMQP direct exchanges</a></li>
+</ul>
+<h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2><ul>
+<li><a href="kong.html">kong</a></li>
+</ul>
+<h2 id="Stats"><a href="#Stats" class="headerlink" title="Stats"></a>Stats</h2><ul>
+<li><a href="https://github.com/etsy/statsd" target="_blank" rel="noopener">statsd</a></li>
+<li><a href="https://graphiteapp.org/" target="_blank" rel="noopener">graphite</a></li>
+<li><a href="http://grafana.com" target="_blank" rel="noopener">Grafana</a></li>
+<li><a href="https://prometheus.io/" target="_blank" rel="noopener">prometheus.io</a> - From metrics to insight</li>
+<li><a href="http://opencensus.io/" target="_blank" rel="noopener">opencensus.io</a> - A single distribution of libraries that automatically collects traces and metrics from your app, displays them locally, and sends them to any analysis tool.</li>
+</ul>
+<h2 id="Service-monitoring"><a href="#Service-monitoring" class="headerlink" title="Service monitoring"></a>Service monitoring</h2><ul>
+<li><a href="https://github.com/iloire/watchmen" target="_blank" rel="noopener">watchmen</a> - A simple node.js service monitor</li>
+</ul>
+<h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><ul>
+<li>Container service - <a href="https://aws.amazon.com/es/blogs/aws/aws-fargate/" target="_blank" rel="noopener">aws fargate</a></li>
+</ul>
+<h2 id="Log-storage"><a href="#Log-storage" class="headerlink" title="Log storage"></a>Log storage</h2><ul>
+<li><a href="elasticsearch.html">elasticsearch</a></li>
+</ul>
+<h2 id="Secret-management"><a href="#Secret-management" class="headerlink" title="Secret management"></a>Secret management</h2><ul>
+<li><a href="/dev/microservices/vault.html">vault</a></li>
+</ul>
+<h2 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h2><ul>
+<li><a href="https://github.com/henrylee2cn/ant" target="_blank" rel="noopener">ant</a> -  Ant is a simple and flexible microservice framework based on Teleport.</li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Martin Fowler - Microservices</a></li>
+<li><a href="http://microservices.io/index.html" target="_blank" rel="noopener">microservices.io</a></li>
+<li><a href="https://labs.spotify.com" target="_blank" rel="noopener">labs.spotify.com</a><ul>
+<li><a href="https://labs.spotify.com/2014/03/27/spotify-engineering-culture-part-1/" target="_blank" rel="noopener">Spotify engineering culture - part1</a></li>
+<li><a href="https://labs.spotify.com/2014/09/20/spotify-engineering-culture-part-2/&lt;Paste" target="_blank" rel="noopener">Spotify engineering culture - part2</a></li>
+</ul>
+</li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+
+		</div>
+
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        
+            
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+	
+		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+        
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>

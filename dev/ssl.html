@@ -9,9 +9,9 @@
   <title>ssl | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="SSLCheck SSL certificate expirationSource
-1openssl x509 -enddate -noout -in file.pem
-Convert p12 to pem file (Useful for APN certificates)1openssl pkc">
+  <meta name="description" content="SSLIncoming
+dehydrated -  letsencrypt/acme client implemented as a shell-script – just add water https://dehydrated.de
+getssl -  obtain free SSL certi">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -111,7 +111,7 @@ Convert p12 to pem file (Useful for APN certificates)1openssl pkc">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1>[genar@localhost dev]$ openssl<span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost dev]$ openssl∎">[genar@localhost dev]$ openssl<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -133,7 +133,11 @@ Convert p12 to pem file (Useful for APN certificates)1openssl pkc">
 	<div class="mypage">
 	  
 
-	  <h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><h2 id="Check-SSL-certificate-expiration"><a href="#Check-SSL-certificate-expiration" class="headerlink" title="Check SSL certificate expiration"></a>Check SSL certificate expiration</h2><p><a href="https://stackoverflow.com/a/21297927/865222" target="_blank" rel="noopener">Source</a></p>
+	  <h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><h2 id="Incoming"><a href="#Incoming" class="headerlink" title="Incoming"></a>Incoming</h2><ul>
+<li><a href="https://github.com/lukas2511/dehydrated" target="_blank" rel="noopener">dehydrated</a> -  letsencrypt/acme client implemented as a shell-script – just add water <a href="https://dehydrated.de" target="_blank" rel="noopener">https://dehydrated.de</a></li>
+<li><a href="https://github.com/srvrco/getssl" target="_blank" rel="noopener">getssl</a> -  obtain free SSL certificates from letsencrypt ACME server Suitable for automating the process on remote servers.</li>
+</ul>
+<h2 id="Check-SSL-certificate-expiration"><a href="#Check-SSL-certificate-expiration" class="headerlink" title="Check SSL certificate expiration"></a>Check SSL certificate expiration</h2><p><a href="https://stackoverflow.com/a/21297927/865222" target="_blank" rel="noopener">Source</a></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -enddate -noout -<span class="keyword">in</span> file.pem</span><br></pre></td></tr></table></figure>
 <h2 id="Convert-p12-to-pem-file-Useful-for-APN-certificates"><a href="#Convert-p12-to-pem-file-Useful-for-APN-certificates" class="headerlink" title="Convert p12 to pem file (Useful for APN certificates)"></a>Convert p12 to pem file (Useful for APN certificates)</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> apns-dev-cert.p12 -out apns-dev-cert.pem -nodes -clcerts</span><br></pre></td></tr></table></figure>
 <h2 id="How-to-test-pem-key"><a href="#How-to-test-pem-key" class="headerlink" title="How to test pem key"></a>How to test pem key</h2><ul>
@@ -146,6 +150,9 @@ Convert p12 to pem file (Useful for APN certificates)1openssl pkc">
 <li><a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH13-SW1" target="_blank" rel="noopener">APNS Errors</a></li>
 <li><a href="https://forums.developer.apple.com/thread/66213" target="_blank" rel="noopener">https://forums.developer.apple.com/thread/66213</a></li>
 <li><a href="https://github.com/dkhamsing/apns-guide" target="_blank" rel="noopener">https://github.com/dkhamsing/apns-guide</a></li>
+</ul>
+<h2 id="Articles"><a href="#Articles" class="headerlink" title="Articles"></a>Articles</h2><ul>
+<li><a href="https://textslashplain.com/2018/02/14/understanding-the-limitations-of-https/" target="_blank" rel="noopener">Understanding the limitations of HTTPS</a></li>
 </ul>
 
 	</div>

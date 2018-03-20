@@ -113,7 +113,7 @@ Download entire web site using wgetFrom http://www.linuxjournal.com/content/down
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1><span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -151,6 +151,14 @@ Download entire web site using wgetFrom http://www.linuxjournal.com/content/down
 <li><code>--no-clobber</code>: don’t overwrite any existing files (used in case the download is interrupted and resumed).</li>
 </ul>
 <h2 id="See-application-open-ports"><a href="#See-application-open-ports" class="headerlink" title="See application open ports"></a>See application open ports</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -ntpl</span><br></pre></td></tr></table></figure>
+<h2 id="Using-rsync-to-download-remote-server-files"><a href="#Using-rsync-to-download-remote-server-files" class="headerlink" title="Using rsync to download remote server files"></a>Using rsync to download remote server files</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -chavzP --stats user@remote.host:/path/to/copy /path/to/<span class="built_in">local</span>/storage</span><br></pre></td></tr></table></figure>
+<h2 id="Monitor-which-processes-are-using-your-bandwitdh"><a href="#Monitor-which-processes-are-using-your-bandwitdh" class="headerlink" title="Monitor which processes are using your bandwitdh"></a>Monitor which processes are using your bandwitdh</h2><ul>
+<li>You can use <a href="https://github.com/raboof/nethogs" target="_blank" rel="noopener">NetHogs</a>. It will show which processes are using the bandwitdh of your connection.</li>
+</ul>
+<h2 id="VPNs"><a href="#VPNs" class="headerlink" title="VPNs"></a>VPNs</h2><ul>
+<li><a href="https://openvpn.net" target="_blank" rel="noopener">OpenVPN</a></li>
+<li><a href="https://www.zerotier.com/" target="_blank" rel="noopener">zerotier</a></li>
+</ul>
 
 	</div>
 

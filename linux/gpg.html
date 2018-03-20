@@ -112,7 +112,7 @@ Integrate GPG in nautilus1sudo apt insta">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1><span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -141,8 +141,7 @@ Integrate GPG in nautilus1sudo apt insta">
 <h2 id="Backup-your-GPG-keys"><a href="#Backup-your-GPG-keys" class="headerlink" title="Backup your GPG keys"></a>Backup your GPG keys</h2><p>Taken from here: <a href="https://gist.github.com/gtrias/3b1682077d4730162ad4bc570c6453d2" target="_blank" rel="noopener">https://gist.github.com/gtrias/3b1682077d4730162ad4bc570c6453d2</a></p>
 <p>Every so often I have to restore my gpg keys and I’m never sure how best to do it.  So, I’ve spent some time playing around with the various ways to export/import (backup/restore) keys.</p>
 <h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method 1"></a>Method 1</h3><h4 id="Backup-the-public-and-secret-keyrings-and-trust-database"><a href="#Backup-the-public-and-secret-keyrings-and-trust-database" class="headerlink" title="Backup the public and secret keyrings and trust database"></a>Backup the public and secret keyrings and trust database</h4><pre><code>cp ~/.gnupg/pubring.gpg /path/to/backups/
-cp ~/.gnupg/secring.gpg /path/to/backups/
-cp ~/.gnupg/trustdb.gpg /path/to/backups/
+cp ~/.gnupg/secring.gpg /path/to/backups/ cp ~/.gnupg/trustdb.gpg /path/to/backups/
 # or, instead of backing up trustdb...
 gpg --export-ownertrust &gt; chrisroos-ownertrust-gpg.txt
 </code></pre><p><em>NOTE</em> The <a href="http://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration.html" target="_blank" rel="noopener">GPG manual</a> suggests exporting the ownertrust instead of backing up the trustdb, although it doesn’t explain why.</p>
@@ -162,7 +161,10 @@ gpg&gt; trust
 Your decision? 5 (Ultimate trust)
 </code></pre><p><em>NOTE</em> If I don’t trust the public key then I see the following message when trying to encrypt something with it:</p>
 <pre><code>gpg: &lt;key-id&gt;: There is no assurance this key belongs to the named user
-</code></pre>
+</code></pre><h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://github.com/dashohoxha/egpg" target="_blank" rel="noopener">egpg</a> -<br>Easy GnuPG, shell scripts to make GnuPG more accessible and easier to use.</li>
+</ul>
+
 	</div>
 
 	<div>

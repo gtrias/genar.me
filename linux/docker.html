@@ -6,21 +6,20 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>docker | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="DockerMy dockerhub
 Docker proxies (Load balancer)
 nginx-proxy
 
-Tools
-ctop: Top-like interface for container metrics
-hadolint: Dockerfile linter writte">
+SnippetsSee docker containers disk usage1docker ps -s
+Add debian backports from Dockerf">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="docker"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -115,7 +114,7 @@ hadolint: Dockerfile linter writte">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1>[genar@localhost ~]$ docker ps -a<span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost ~]$ docker ps -a∎">[genar@localhost ~]$ docker ps -a<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -141,6 +140,13 @@ hadolint: Dockerfile linter writte">
 <h2 id="Docker-proxies-Load-balancer"><a href="#Docker-proxies-Load-balancer" class="headerlink" title="Docker proxies (Load balancer)"></a>Docker proxies (Load balancer)</h2><ul>
 <li><a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="noopener">nginx-proxy</a></li>
 </ul>
+<h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="See-docker-containers-disk-usage"><a href="#See-docker-containers-disk-usage" class="headerlink" title="See docker containers disk usage"></a>See docker containers disk usage</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -s</span><br></pre></td></tr></table></figure>
+<h3 id="Add-debian-backports-from-Dockerfile"><a href="#Add-debian-backports-from-Dockerfile" class="headerlink" title="Add debian backports from Dockerfile"></a>Add debian backports from Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN printf &quot;deb http://httpredir.debian.org/debian jessie-backports main non-free\ndeb-src http://httpredir.debian.org/debian jessie-backports main non-free&quot; &gt; /etc/apt/sources.list.d/backports.list</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://stackoverflow.com/a/46407052" target="_blank" rel="noopener">Source</a></li>
+</ul>
+<h3 id="Synchronize-container-date-as-the-host-date"><a href="#Synchronize-container-date-as-the-host-date" class="headerlink" title="Synchronize container date as the host date"></a>Synchronize container date as the host date</h3><p>Just mount two volumes for the <code>/etc/timezone</code> and <code>/etc/localtime</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">'/etc/timezone:/etc/timezone:ro'</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">'/etc/localtime:/etc/localtime:ro'</span></span><br></pre></td></tr></table></figure>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://github.com/bcicen/ctop" target="_blank" rel="noopener">ctop</a>: Top-like interface for container metrics</li>
 <li><a href="https://github.com/hadolint/hadolint" target="_blank" rel="noopener">hadolint</a>: Dockerfile linter written in Haskell</li>
@@ -149,15 +155,21 @@ hadolint: Dockerfile linter writte">
 <li><a href="https://rancher.com/" target="_blank" rel="noopener">Rancher</a>: Complete container management platform</li>
 <li><a href="https://github.com/portainer/portainer" target="_blank" rel="noopener">portainer</a>: Simple management UI for Docker</li>
 </ul>
-<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><h3 id="Recipes"><a href="#Recipes" class="headerlink" title="Recipes"></a>Recipes</h3><ul>
-<li>[X] Add some docker-compose.yml recipes  #eeb6c94f</li>
+<h2 id="Orchestration"><a href="#Orchestration" class="headerlink" title="Orchestration"></a>Orchestration</h2><ul>
+<li><a href="https://github.com/v2tec/watchtower" target="_blank" rel="noopener">watchtower</a> -  Automatically update running Docker containers</li>
 </ul>
-<h3 id="Override-some-container-environment-vars"><a href="#Override-some-container-environment-vars" class="headerlink" title="Override some container environment vars"></a>Override some container environment vars</h3><p>Just create <code>docker-compose.override.yml</code> and set container overrides like this example:</p>
+<h3 id="Docker-swarm"><a href="#Docker-swarm" class="headerlink" title="Docker swarm"></a>Docker swarm</h3><ul>
+<li><a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">Official</a></li>
+<li><a href="https://github.com/gianarb/orbiter" target="_blank" rel="noopener">orbiter</a> -  Orbiter is an opensource docker swarm autoscaler</li>
+</ul>
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><h3 id="Override-some-container-environment-vars"><a href="#Override-some-container-environment-vars" class="headerlink" title="Override some container environment vars"></a>Override some container environment vars</h3><p>Just create <code>docker-compose.override.yml</code> and set container overrides like this example:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  editor:</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">NODE_ENV=dev</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><a href="https://docs.docker.com/compose/extends/#understanding-multiple-compose-files" target="_blank" rel="noopener">Documentation</a></li>
 </ul>
 <h3 id="Building-image-without-cache"><a href="#Building-image-without-cache" class="headerlink" title="Building image without cache"></a>Building image without cache</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build --no-cache service1</span><br></pre></td></tr></table></figure>
+<h3 id="Using-echo-to-put-contents-to-file-in-Dockerfile"><a href="#Using-echo-to-put-contents-to-file-in-Dockerfile" class="headerlink" title="Using echo to put contents to file in Dockerfile"></a>Using echo to put contents to file in Dockerfile</h3><p>Sometimes using <code>RUN echo</code> in your Dockerfile you get an error. To solve just run the echo this way:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> bash -c  <span class="string">'echo "    IdentityFile ~/.ssh/id_rsa" &gt;&gt; /etc/ssh/ssh_config'</span> &amp;&amp; \</span></span><br></pre></td></tr></table></figure>
 <h3 id="Using-default-values-overrideable-by-environment-vars"><a href="#Using-default-values-overrideable-by-environment-vars" class="headerlink" title="Using default values overrideable by environment vars"></a>Using default values overrideable by environment vars</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;VARIABLE:-default&#125; will evaluate to default if VARIABLE is unset or empty in the environment.</span><br></pre></td></tr></table></figure>
 <p><em>Example</em>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line">- &quot;$&#123;PORT-8080&#125;:80&quot;</span><br></pre></td></tr></table></figure>

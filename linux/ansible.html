@@ -9,8 +9,8 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="AnsibleLinks
-Official Documentation">
+  <meta name="description" content="AnsibleRun ansible limited to some hostWith --limit you can restrict on which hosts will be executed playbook.
+1ansible-playbook ovh.yml --limit front">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -110,7 +110,7 @@ Official Documentation">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1><span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -132,8 +132,14 @@ Official Documentation">
 	<div class="mypage">
 	  
 
-	  <h1 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h1><h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+	  <h1 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h1><h2 id="Run-ansible-limited-to-some-host"><a href="#Run-ansible-limited-to-some-host" class="headerlink" title="Run ansible limited to some host"></a>Run ansible limited to some host</h2><p>With <code>--limit</code> you can restrict on which hosts will be executed playbook.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook ovh.yml --<span class="built_in">limit</span> front02 --tags nginx --skip-tags apt</span><br></pre></td></tr></table></figure>
+<p>Also with <code>--tags</code> and <code>--skip-tags</code> parameter you can choose which tags will be applied or not.</p>
+<h2 id="Restart-server-and-wait"><a href="#Restart-server-and-wait" class="headerlink" title="Restart server and wait"></a>Restart server and wait</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">reboot</span> <span class="string">the</span> <span class="string">server</span></span><br><span class="line"><span class="attr">  shell:</span> <span class="string">sleep</span> <span class="number">2</span> <span class="string">&amp;&amp;</span> <span class="string">shutdown</span> <span class="bullet">-r</span> <span class="string">now</span></span><br><span class="line"><span class="attr">  async:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  poll:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">Wait</span> <span class="string">for</span> <span class="string">server</span> <span class="string">come</span> <span class="string">back</span></span><br><span class="line"><span class="attr">  wait_for:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">       host=<span class="template-variable">&#123;&#123; inventory_hostname &#125;&#125;</span></span></span><br><span class="line"><span class="string">       port=22</span></span><br><span class="line"><span class="string">       delay=15</span></span><br><span class="line"><span class="string">       timeout=600</span></span><br><span class="line"><span class="string"></span><span class="attr">  delegate_to:</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="http://docs.ansible.com/ansible/latest/index.html" target="_blank" rel="noopener">Official Documentation</a></li>
+<li><a href="http://polemarch.readthedocs.io/en/stable/gui.html" target="_blank" rel="noopener">Polemarch</a> - Polemarch is service for orchestration infrastructure by ansible. Simply WEB gui for orchestration infrastructure by ansible playbooks.</li>
+<li><a href="https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible" target="_blank" rel="noopener">Creating custom dynamic inventories for Ansible</a></li>
 </ul>
 
 	</div>

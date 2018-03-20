@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Create usb pendrive with Arch Linux to boot in several systems | genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="Create usb pendrive with Arch Linux to boot in several systemsMaterial
+128GB USB3 pendrive
+
+Features
+Run Arch Linux in my Udoo system and eventually l">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Create usb pendrive with Arch Linux to boot in several systems"/>
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fa fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fa fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fa fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fa fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fa fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+<div class="col-md-9">
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="Create-usb-pendrive-with-Arch-Linux-to-boot-in-several-systems"><a href="#Create-usb-pendrive-with-Arch-Linux-to-boot-in-several-systems" class="headerlink" title="Create usb pendrive with Arch Linux to boot in several systems"></a>Create usb pendrive with Arch Linux to boot in several systems</h1><h2 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h2><ul>
+<li>128GB USB3 pendrive</li>
+</ul>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+<li>Run Arch Linux in my Udoo system and eventually laptob and other systems.</li>
+<li>Has a data partition to be oponed in all Operating Systems (Formatted in NTFS)</li>
+</ul>
+<h2 id="Disk-partitions"><a href="#Disk-partitions" class="headerlink" title="Disk partitions"></a>Disk partitions</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sdb: 119,2 GiB, 128035323904 bytes, 250068992 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: 74461979-09F8-4B29-B5B4-9C3B96F01190</span><br><span class="line"></span><br><span class="line">Dispositiu     Start     Final   Sectors  Size Tipus</span><br><span class="line">/dev/sdb1       2048 125036543 125034496 59,6G Microsoft basic data</span><br><span class="line">/dev/sdb2  125036544 126265343   1228800  600M EFI System</span><br><span class="line">/dev/sdb3  126265344 250066943 123801600   59G Linux filesystem</span><br></pre></td></tr></table></figure>
+<h3 id="Changing-from-msdos-partition-table-to-gpt-one"><a href="#Changing-from-msdos-partition-table-to-gpt-one" class="headerlink" title="Changing from msdos partition table to gpt one"></a>Changing from msdos partition table to gpt one</h3><p><strong>WARNING</strong> Doing this will remove all data from disk!</p>
+<p>If your partition table is msdos you should change it to gpt running the next command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
+<p>Then press <code>g</code> to create the GPT partition table and <code>w</code> to persist the changes.</p>
+<h3 id="Disabling-journal-in-ext4-partition"><a href="#Disabling-journal-in-ext4-partition" class="headerlink" title="Disabling journal in ext4 / partition"></a>Disabling journal in ext4 / partition</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkfs.ext4 -O <span class="string">"^has_journal"</span> /dev/sdb3</span><br></pre></td></tr></table></figure>
+<h2 id="Prepare-Arch-Linux-system"><a href="#Prepare-Arch-Linux-system" class="headerlink" title="Prepare Arch Linux system"></a>Prepare Arch Linux system</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">curl -O http://ftp.rediris.es/mirror/archlinux/iso/2018.01.01/archlinux-bootstrap-2018.01.01-x86_64.tar.gz</span><br><span class="line">tar xzf archlinux-bootstrap-2018.01.01-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>Enable pacman mirrors:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvim etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<p>Chroot to new system:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/root.x86_64/bin/arch-chroot /tmp/root.x86_64/</span><br></pre></td></tr></table></figure>
+<p>Update sources and install base system:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize packman keys</span></span><br><span class="line">pacman-key --init</span><br><span class="line">pacman -Sy archlinux-keyring</span><br><span class="line">pacman -Syyu</span><br><span class="line"><span class="comment"># Installing base system</span></span><br><span class="line">pacman -S base parted</span><br><span class="line"><span class="comment"># Installing boot loader</span></span><br><span class="line">pacman -S grub</span><br></pre></td></tr></table></figure>
+<p>Follow <a href="https://wiki.archlinux.org/index.php/Installation_guide#Pre-installation" target="_blank" rel="noopener">regular installation instructions</a></p>
+<h2 id="Install-the-prepared-system-to-the-USB-stick"><a href="#Install-the-prepared-system-to-the-USB-stick" class="headerlink" title="Install the prepared system to the USB stick"></a>Install the prepared system to the USB stick</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mount system partition to /tmp folder</span></span><br><span class="line">mount /dev/sdb3 /mnt</span><br><span class="line"><span class="built_in">cd</span> /tmp/root.x86_64/</span><br><span class="line"><span class="comment"># Copy all files from prepared system to its final partition</span></span><br><span class="line">rsync -aAXv --exclude=&#123;<span class="string">"/dev/*"</span>,<span class="string">"/proc/*"</span>,<span class="string">"/sys/*"</span>,<span class="string">"/tmp/*"</span>,<span class="string">"/run/*"</span>,<span class="string">"/mnt/*"</span>,<span class="string">"/media/*"</span>,<span class="string">"/lost+found"</span>&#125; ./ /mnt/</span><br><span class="line"><span class="comment"># Generate fstab</span></span><br><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<h2 id="Setup-bootloader"><a href="#Setup-bootloader" class="headerlink" title="Setup bootloader"></a>Setup bootloader</h2><p>Before creating the initial RAM disk # mkinitcpio -p linux, in /etc/mkinitcpio.conf add the block hook to the hooks array right after udev. This is necessary for appropriate module loading in early userspace.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mount filesystem</span></span><br><span class="line">mount /dev/sdb2 /mnt/boot</span><br><span class="line"><span class="comment"># Chroot new system</span></span><br><span class="line">arch-chroot /mnt/</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --removable --recheck</span><br><span class="line">pacman -S os-prober</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting root password</span></span><br><span class="line">passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reboot to boot with your new brand usb stick</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Install_from_existing_Linux" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/Install_from_existing_Linux</a></li>
+<li><a href="https://gist.github.com/elerch/678941eb670324ffc3f261eabba81310" target="_blank" rel="noopener">https://gist.github.com/elerch/678941eb670324ffc3f261eabba81310</a></li>
+<li><a href="http://valleycat.org/linux/arch-usb.html?i=1" target="_blank" rel="noopener">http://valleycat.org/linux/arch-usb.html?i=1</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Anterior</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/02/23/reactjs-redux-workshop/" type="button" class="btn btn-default ">Próximo<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comentários</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+</div>
+
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="post_meta">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-02-28
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/arch/">arch<span>1</span></a></li> <li><a href="/categories/arch/linux/">linux<span>1</span></a></li> <li><a href="/categories/arch/linux/usb/">usb<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+
+    <hr>
+
+</div>
+
+    </div>
+</div>
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>

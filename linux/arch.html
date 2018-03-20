@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>Arch Linux | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Arch linux tricksPackage management1sudo pacman -Syu
@@ -16,7 +16,7 @@ Just run this with non-r">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Arch Linux"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -111,7 +111,7 @@ Just run this with non-r">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1>[genar@localhost linux]$ cat arch<span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost linux]$ cat arch∎">[genar@localhost linux]$ cat arch<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -139,8 +139,10 @@ Just run this with non-r">
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt package-name</span><br></pre></td></tr></table></figure>
 <h2 id="Check-battery-status-from-commandline"><a href="#Check-battery-status-from-commandline" class="headerlink" title="Check battery status from commandline"></a>Check battery status from commandline</h2><p><a href="https://www.garron.me/en/go2linux/laptop-battery-status-with-linux-console-command-acpi.html" target="_blank" rel="noopener">Source</a></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install acpi</span><br><span class="line">acpi</span><br></pre></td></tr></table></figure>
-<h2 id="Set-evince-as-default-PDF-viewer"><a href="#Set-evince-as-default-PDF-viewer" class="headerlink" title="Set evince as default PDF viewer"></a>Set evince as default PDF viewer</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdg-mime default evince.desktop application/pdf</span><br></pre></td></tr></table></figure>
+<h2 id="Set-default-applications"><a href="#Set-default-applications" class="headerlink" title="Set default applications"></a>Set default applications</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Evince for pdfs</span></span><br><span class="line">xdg-mime default evince.desktop application/pdf</span><br><span class="line"><span class="comment"># Firefox for web</span></span><br><span class="line">xdg-settings <span class="built_in">set</span> default-web-browser firefox.desktop</span><br></pre></td></tr></table></figure>
+<h2 id="Disable-xorg-cursor"><a href="#Disable-xorg-cursor" class="headerlink" title="Disable xorg cursor"></a>Disable xorg cursor</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S unclutter</span><br><span class="line">unclutter &amp;</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key" target="_blank" rel="noopener">Installing Arch Linux on a USB key</a></li>
 <li><a href="https://wiki.archlinux.org/" target="_blank" rel="noopener">https://wiki.archlinux.org/</a></li>
 </ul>
 

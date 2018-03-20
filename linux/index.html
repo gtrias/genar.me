@@ -10,8 +10,8 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="GNU/Linux
- Set up battery widget for awesomwm  #ac58a7b3
 Arch Linux
+Containers
 Debian
 Disks
 Docker
@@ -21,7 +21,8 @@ SSH
 vim|neovim
 
 Inbox
-bats - Bash Automated Testin">
+zbox - Embedable filesystem
+minio - S3 object storage compatible">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -121,7 +122,7 @@ bats - Bash Automated Testin">
   <div class="container">
   	<div class="content">
     	 <div class="page-header logo">
-  <h1>[genar@localhost ~]$ uname -a<span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost ~]$ uname -a∎">[genar@localhost ~]$ uname -a<span class="blink-fast">∎</span></h1>
 </div>
 
 <div class="row page">
@@ -144,8 +145,8 @@ bats - Bash Automated Testin">
 	  
 
 	  <h1 id="GNU-Linux"><a href="#GNU-Linux" class="headerlink" title="GNU/Linux"></a>GNU/Linux</h1><ul>
-<li style="list-style: none"><input type="checkbox"> Set up battery widget for <a href="awesomewm.html">awesomwm</a>  #ac58a7b3</li>
 <li><a href="arch.html">Arch Linux</a></li>
+<li><a href="containers.html">Containers</a></li>
 <li><a href="Debian.html">Debian</a></li>
 <li><a href="disks.html">Disks</a></li>
 <li><a href="docker.html">Docker</a></li>
@@ -155,24 +156,56 @@ bats - Bash Automated Testin">
 <li><a href="../vim.html">vim|neovim</a></li>
 </ul>
 <h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+<li><a href="https://github.com/zboxfs/zbox" target="_blank" rel="noopener">zbox</a> - Embedable filesystem</li>
+<li><a href="https://github.com/minio/minio" target="_blank" rel="noopener">minio</a> - S3 object storage compatible server</li>
+</ul>
+<h2 id="IM"><a href="#IM" class="headerlink" title="IM"></a>IM</h2><ul>
+<li><a href="https://github.com/meetfranz/franz" target="_blank" rel="noopener">franz</a> -  Franz is a free messaging app for services like WhatsApp, Slack, Messenger and many more. <a href="http://meetfranz.com" target="_blank" rel="noopener">http://meetfranz.com</a></li>
+</ul>
+<h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><ul>
+<li><a href="https://www.backblaze.com/" target="_blank" rel="noopener">backblaze</a> -  Cloud storage that’s astonishingly easy and low-cost.</li>
+<li><a href="https://github.com/restic/restic" target="_blank" rel="noopener">restic</a> -  Fast, secure, efficient backup program <a href="https://restic.net" target="_blank" rel="noopener">https://restic.net</a></li>
+</ul>
+<h2 id="BASH"><a href="#BASH" class="headerlink" title="BASH"></a>BASH</h2><ul>
 <li><a href="https://github.com/sstephenson/bats" target="_blank" rel="noopener">bats</a> - Bash Automated Testing System</li>
-<li><a href="https://github.com/zboxfs/zbox" target="_blank" rel="noopener">https://github.com/zboxfs/zbox</a> - Embedable filesystem</li>
-<li><a href="https://github.com/minio/minio" target="_blank" rel="noopener">https://github.com/minio/minio</a> - S3 object storage compatible server</li>
+</ul>
+<h3 id="Replace-line-in-file-using-sed"><a href="#Replace-line-in-file-using-sed" class="headerlink" title="Replace line in file using sed"></a>Replace line in file using sed</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">'/.*text.*/c\replaced by sed'</span> /etc/file-to-change</span><br></pre></td></tr></table></figure>
+<h3 id="Execute-commands-with-the-result-of-find"><a href="#Execute-commands-with-the-result-of-find" class="headerlink" title="Execute commands with the result of find"></a>Execute commands with the result of find</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -iname petvnia-*-x86_64.AppImage -<span class="built_in">exec</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p><a href="https://linuxaria.com/howto/linux-shell-how-to-use-the-exec-option-in-find-with-examples" target="_blank" rel="noopener">https://linuxaria.com/howto/linux-shell-how-to-use-the-exec-option-in-find-with-examples</a></p>
+<h3 id="Detect-memory-leaks-of-a-binary"><a href="#Detect-memory-leaks-of-a-binary" class="headerlink" title="Detect memory leaks of a binary"></a>Detect memory leaks of a binary</h3><p>Use valgrind<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valgrind --leak-check=full process</span><br></pre></td></tr></table></figure></p>
+<p><a href="/dev/javascript/nodejs.html">Nodejs</a> example:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valgrind --leak-check=full node --expose_gc script.js</span><br></pre></td></tr></table></figure>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
+<li><a href="https://stedolan.github.io/jq/" target="_blank" rel="noopener">jq</a> - jq is a lightweight and flexible command-line JSON processor.</li>
+</ul>
+<h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><ul>
+<li><a href="https://github.com/firehol/netdata" target="_blank" rel="noopener">netdata</a> -  Get control of your servers. Simple. Effective. Awesome! <a href="https://my-netdata.io/" target="_blank" rel="noopener">https://my-netdata.io/</a></li>
 </ul>
 <h2 id="Web-servers"><a href="#Web-servers" class="headerlink" title="Web servers"></a>Web servers</h2><ul>
 <li><a href="apache.html">Apache</a></li>
 <li><a href="nginx.html">Nginx</a></li>
 </ul>
+<h2 id="HTTP-analysis-tools"><a href="#HTTP-analysis-tools" class="headerlink" title="HTTP analysis tools"></a>HTTP analysis tools</h2><p><a href="https://github.com/gchaincl/httplab" target="_blank" rel="noopener">httplab</a> - The interactive web server</p>
 <h2 id="Password-managers"><a href="#Password-managers" class="headerlink" title="Password managers"></a>Password managers</h2><ul>
 <li><a href="pass.html">pass</a> - the standard unix password manager</li>
 <li><a href="https://www.passbolt.com/" target="_blank" rel="noopener">passbolt</a> -  The password manager your team was waiting for. Free, open source, self-hosted, extensible, OpenPGP based.</li>
 </ul>
-<h2 id="Linux-shortcuts"><a href="#Linux-shortcuts" class="headerlink" title="Linux shortcuts"></a>Linux shortcuts</h2><ul>
-<li><p>awesomewm<br>config file: <a href="file:/home/genar/.config/awesome/rc.lua" target="_blank" rel="noopener">rc.lua</a></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> Fix dotfiles awesomewm for automated awesome theme installation  #0b9b5f52</li>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><ul>
+<li><a href="https://www.fail2ban.org/wiki/index.php/Main_Page" target="_blank" rel="noopener">fail2ban</a> - Fail2ban scans log files (e.g. /var/log/apache/error_log) and bans IPs that show the malicious signs – too many password failures, seeking for exploits, etc. Generally Fail2Ban is then used to update firewall rules to reject the IP addresses for a specified amount of time, although any arbitrary other action (e.g. sending an email) could also be configured. Out of the box Fail2Ban comes with filters for various services (apache, courier, ssh, etc).</li>
 </ul>
-</li>
+<h2 id="Graphic-cards"><a href="#Graphic-cards" class="headerlink" title="Graphic cards"></a>Graphic cards</h2><h3 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h3><ul>
+<li><a href="https://en.wikipedia.org/wiki/Screen_tearing" target="_blank" rel="noopener">Screen tearing</a></li>
+</ul>
+<h2 id="Terminal-emulators"><a href="#Terminal-emulators" class="headerlink" title="Terminal emulators"></a>Terminal emulators</h2><ul>
+<li><a href="https://github.com/Swordfish90/cool-retro-term" target="_blank" rel="noopener">cool-retro-term</a> - A good looking terminal emulator which mimics the old cathode display…</li>
+<li><a href="https://github.com/Eugeny/terminus" target="_blank" rel="noopener">terminus</a> -  A terminal for a more modern age <a href="https://eugeny.github.io/terminus/" target="_blank" rel="noopener">https://eugeny.github.io/terminus/</a></li>
+</ul>
+<h2 id="Video-transcoding"><a href="#Video-transcoding" class="headerlink" title="Video transcoding"></a>Video transcoding</h2><h3 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h3><ul>
+<li><a href="https://www.ffmpeg.org/" target="_blank" rel="noopener">ffmpeg</a></li>
+</ul>
+<h3 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h3><ul>
+<li><a href="https://handbrake.fr/" target="_blank" rel="noopener">handbrake</a></li>
+<li>transmageddon</li>
 </ul>
 
 	</div>
