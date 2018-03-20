@@ -18,6 +18,9 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://genar.me
 root: '/'
+# IPFS Settings
+# url: https://gateway.ipfs.io/
+# root: '/ipns/Qmey4x3JohZT6nrhGrVsqVKGeDbhZxVWw9hXyCkyASU7fN/'
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -151,6 +154,6 @@ theme_config:
 githubEmojis:
   enable: true
   className: github-emoji
-  unicode: false
+  unicode: true
   styles:
   localEmojis:
