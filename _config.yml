@@ -147,3 +147,10 @@ theme_config:
 
   # Search
   swiftype_key: /
+
+githubEmojis:
+  enable: true
+  className: github-emoji
+  unicode: false
+  styles:
+  localEmojis:

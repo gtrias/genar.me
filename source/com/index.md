@@ -1,26 +1,27 @@
 ---
+seoTitle: 'Experience'
 title: '[genar@work com]$ ls'
 date: 2017-06-30 18:20:23
 ---
 
-### Where I have been doing amazing things
+# Work experience
 
 
 ## [Cirici New Media](http://cirici.com) / [Alvarium](http://alvarium.io) -> (2015 - Right now)
 
 Fullstack developer
 
-- microservices development using [PHP](../dev/php.html) (almost Symfony framework) and [NodeJS](../dev/nodejs.html)
+- microservices development using [PHP](/dev/php/index.html) (almost Symfony framework) and [NodeJS](/dev/javascript/nodejs.html)
 - ReactJS component development to interact with our microservices
 - Continuous Deployment, Continuous Integration and TDD prepulsor
 
-## Picmedia -> (2013 - 2015)
+## [Picmedia](http://picmedia.es) -> (2013 - 2015)
 
 Web developer
 
 - Frontend development of corporative sites
 - Wordpress developer
-- Sysadmin for our production server
+- Sysadmin of our production server
 
 ## Freelance -> (2010 - 2015)
 
