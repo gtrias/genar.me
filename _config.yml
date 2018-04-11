@@ -99,6 +99,10 @@ theme_config:
       url: dev
       intro: My dev notes
       icon: fa fa-folder
+    - title: sys/
+      url: sys
+      intro: Systems notes
+      icon: fa fa-linux
     - title: blog/
       url: blog
       intro: My blog
@@ -135,7 +139,8 @@ theme_config:
   widgets:
   - links
 
-  rss: atom.xml
+  rss: false
+  favicon: false
   fancybox: true
   duoshuo_shortname:
 
