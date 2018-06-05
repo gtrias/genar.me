@@ -22,14 +22,10 @@
   
 
   
-    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
   
 
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
@@ -72,31 +68,37 @@
 		  
 		  <li>
 			<a href="/" title="About me.">
-			  <i class="fa fa-home"></i>~
+			  <i class="fas fa-home"></i>~
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/projects" title="All my personal projects.">
-			  <i class="fa fa-folder"></i>src/
+			  <i class="fas fa-folder"></i>src/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/com" title="Where I've worked">
-			  <i class="fa fa-folder"></i>com/
+			  <i class="fas fa-folder"></i>com/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/dev" title="My dev notes">
-			  <i class="fa fa-folder"></i>dev/
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/blog" title="My blog">
-			  <i class="fa fa-folder"></i>blog/
+			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
 		  
@@ -123,8 +125,8 @@
 	<div class="mypage">
 	  
 
-	  <h1 id="Converting-vimwiki-to-hexo-website"><a href="#Converting-vimwiki-to-hexo-website" class="headerlink" title="Converting vimwiki to hexo website"></a>Converting vimwiki to hexo website</h1><p><a href="../dev/vimwiki.html">Vimwiki</a> allows to create a personal wiki style documents using its own markup or <a href="markdown.html">markdown</a>.<br>In order to have portability between other applications I opted to work using markdown :)<br>Also because I &lt;3 markdown, It’s simple to write and read, it’s just plain text and its the de facto standard writting language in the Developer world to write software documentation.</p>
-<h2 id="Using-gulp-to-move-vimwiki-documents-to-hexo-source-files"><a href="#Using-gulp-to-move-vimwiki-documents-to-hexo-source-files" class="headerlink" title="Using gulp to move vimwiki documents to hexo source files"></a>Using gulp to move vimwiki documents to hexo source files</h2><p>In order to pre-process our <a href="../dev/vimwiki.html">vimwiki</a> to contents ready to be published in your hexo site we’ll use <a href="../dev/gulp.html">gulp</a>.</p>
+	  <h1 id="Converting-vimwiki-to-hexo-website"><a href="#Converting-vimwiki-to-hexo-website" class="headerlink" title="Converting vimwiki to hexo website"></a>Converting vimwiki to hexo website</h1><p><a href="../dev/vimwiki.html">Vimwiki</a> allows to create a personal wiki style documents using its own markup or <a href="/dev/markdown.html">markdown</a>.<br>In order to have portability between other applications I opted to work using markdown :)<br>Also because I &lt;3 markdown, It’s simple to write and read, it’s just plain text and its the de facto standard writting language in the Developer world to write software documentation.</p>
+<h2 id="Using-gulp-to-move-vimwiki-documents-to-hexo-source-files"><a href="#Using-gulp-to-move-vimwiki-documents-to-hexo-source-files" class="headerlink" title="Using gulp to move vimwiki documents to hexo source files"></a>Using gulp to move vimwiki documents to hexo source files</h2><p>In order to pre-process our <a href="/dev/vimwiki.html">vimwiki</a> to contents ready to be published in your hexo site we’ll use <a href="/dev/gulp.html">gulp</a>.</p>
 <p>Just create <code>Gulpfile.js</code> in your hexo site and install gulp itself running <code>npm i --save gulp</code>.</p>
 <h2 id="Ignore-contents-of-vimwiki-markdown"><a href="#Ignore-contents-of-vimwiki-markdown" class="headerlink" title="Ignore contents of vimwiki markdown"></a>Ignore contents of vimwiki markdown</h2><p>Just add this two markdown links between you content to be ignored:<br>(Remove escape characters <code>\</code>)</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\[start_ignore\]: &lt;*&gt;</span><br><span class="line"><span class="section">## My hidden content will be here</span></span><br><span class="line"></span><br><span class="line">\[end_ignore\]: &lt;*&gt;</span><br></pre></td></tr></table></figure>
@@ -150,7 +152,7 @@
 
     
     
-    <a href="/2018/01/09/setting-up-letsencrypt-with-nginx/" type="button" class="btn btn-default"><i
+    <a href="/2018/01/09/setting-up-letsencrypt-with-nginx-and-apache/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Anterior</a>
     
 

@@ -9,10 +9,11 @@
   <title>genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="ElectronPlugins
-electron-store - Simple data persistence for your Electron app or module - Save and load user preferences, app state, cache, etc
+  <meta name="description" content="ElectronRedux
+electron-redux -  Use redux in the main and browser processes in electron
 
-Logg">
+Plugins
+electron-store - Simple data persistence for your Ele">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -25,14 +26,10 @@ Logg">
   
 
   
-    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
   
 
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
@@ -75,31 +72,37 @@ Logg">
 		  
 		  <li>
 			<a href="/" title="About me.">
-			  <i class="fa fa-home"></i>~
+			  <i class="fas fa-home"></i>~
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/projects" title="All my personal projects.">
-			  <i class="fa fa-folder"></i>src/
+			  <i class="fas fa-folder"></i>src/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/com" title="Where I've worked">
-			  <i class="fa fa-folder"></i>com/
+			  <i class="fas fa-folder"></i>com/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/dev" title="My dev notes">
-			  <i class="fa fa-folder"></i>dev/
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/blog" title="My blog">
-			  <i class="fa fa-folder"></i>blog/
+			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
 		  
@@ -134,7 +137,10 @@ Logg">
 	<div class="mypage">
 	  
 
-	  <h1 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a>Electron</h1><h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><ul>
+	  <h1 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a>Electron</h1><h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><ul>
+<li><a href="https://github.com/hardchor/electron-redux" target="_blank" rel="noopener">electron-redux</a> -  Use redux in the main and browser processes in electron</li>
+</ul>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><ul>
 <li><a href="https://github.com/sindresorhus/electron-store" target="_blank" rel="noopener">electron-store</a> - Simple data persistence for your Electron app or module - Save and load user preferences, app state, cache, etc</li>
 </ul>
 <h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><ul>
@@ -153,6 +159,7 @@ Logg">
 <li><a href="https://github.com/ArekSredzki/electron-release-server" target="_blank" rel="noopener">electron-release-server</a> -  A fully featured, self-hosted release server for electron applications, compatible with auto-updater.</li>
 </ul>
 <h3 id="Articles"><a href="#Articles" class="headerlink" title="Articles"></a>Articles</h3><ul>
+<li><a href="https://medium.com/@felixrieseberg/defeating-electron-e1464d075528" target="_blank" rel="noopener">Defeating electron</a></li>
 <li><a href="https://electronjs.org/blog/electron-internals-weak-references" target="_blank" rel="noopener">Electron Internals: Weak References</a></li>
 <li><a href="http://seenaburns.com/debugging-electron-memory-usage/" target="_blank" rel="noopener">Debugging Electron Memory Usage</a></li>
 <li><a href="https://codeburst.io/deep-dive-into-electrons-main-and-renderer-processes-7a9599d5c9e2" target="_blank" rel="noopener">Deep dive into Electron’s main and renderer processes</a></li>
@@ -203,17 +210,19 @@ Logg">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
 	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
 	
-		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
 	
-		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
 	
-		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
 	
-		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
 	
 	</ul>
 </div>

@@ -10,7 +10,8 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="SymfonySymfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony.
-Interesting b">
+Symfony Flex
+">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,14 +24,10 @@ Interesting b">
   
 
   
-    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
   
 
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
@@ -73,31 +70,37 @@ Interesting b">
 		  
 		  <li>
 			<a href="/" title="About me.">
-			  <i class="fa fa-home"></i>~
+			  <i class="fas fa-home"></i>~
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/projects" title="All my personal projects.">
-			  <i class="fa fa-folder"></i>src/
+			  <i class="fas fa-folder"></i>src/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/com" title="Where I've worked">
-			  <i class="fa fa-folder"></i>com/
+			  <i class="fas fa-folder"></i>com/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/dev" title="My dev notes">
-			  <i class="fa fa-folder"></i>dev/
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/blog" title="My blog">
-			  <i class="fa fa-folder"></i>blog/
+			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
 		  
@@ -133,10 +136,16 @@ Interesting b">
 	  
 
 	  <h1 id="Symfony"><a href="#Symfony" class="headerlink" title="Symfony"></a>Symfony</h1><p>Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony.</p>
+<h2 id="Symfony-Flex"><a href="#Symfony-Flex" class="headerlink" title="Symfony Flex"></a>Symfony Flex</h2><ul>
+<li><a href="https://symfony.sh/" target="_blank" rel="noopener">symfony.sh</a> - all Symfony Recipes available</li>
+</ul>
 <h2 id="Interesting-bundles"><a href="#Interesting-bundles" class="headerlink" title="Interesting bundles"></a>Interesting bundles</h2><ul>
 <li><a href="https://github.com/liip/LiipMonitorBundle" target="_blank" rel="noopener">LiipMonitorBundle</a> - This bundle provides a way to run a series of application related health checks.</li>
 <li><a href="https://github.com/php-amqplib/RabbitMqBundle" target="_blank" rel="noopener">RabbitMqBundle</a> - RabbitMQ Bundle for the Symfony2 web framework</li>
-<li><a href="https://github.com/api-platform/api-platform" target="_blank" rel="noopener">api-platform</a> -  Build hypermedia and GraphQL APIs in minutes, generate Progressive Web Apps to consume them. <a href="https://api-platform.com" target="_blank" rel="noopener">https://api-platform.com</a></li>
+<li><a href="https://github.com/api-platform/api-platform" target="_blank" rel="noopener">api-platform</a> -  Build hypermedia and GraphQL APIs in minutes, generate Progressive Web Apps to consume them. <a href="https://api-platform.com" target="_blank" rel="noopener">https://api-platform.com</a><ul>
+<li><a href="https://medium.com/@ro0NL/domain-driven-design-moving-forward-with-api-platform-and-elasticsearch-f1705614f9e2" target="_blank" rel="noopener">Domain-driven-design: Moving forward with API Platform and Elasticsearch</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="FOSRestBundle"><a href="#FOSRestBundle" class="headerlink" title="FOSRestBundle"></a><a href="https://github.com/FriendsOfSymfony/FOSRestBundle" target="_blank" rel="noopener">FOSRestBundle</a></h3><p>This Bundle provides various tools to rapidly develop RESTful API’s with Symfony</p>
 <h4 id="Expose-entity-funcion-result-with-serialized-response"><a href="#Expose-entity-funcion-result-with-serialized-response" class="headerlink" title="Expose entity funcion result with serialized response"></a>Expose entity funcion result with serialized response</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@VirtualProperty</span>()</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@SerializedName</span>("fullName")</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// return name;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -150,6 +159,7 @@ Interesting b">
 <li><a href="https://github.com/liip/LiipFunctionalTestBundle" target="_blank" rel="noopener">LiipFunctionalTestBundle</a> - Some helper classes for writing functional tests in Symfony</li>
 <li><a href="https://github.com/PolishSymfonyCommunity/SymfonyMockerContainer" target="_blank" rel="noopener">SymfonyMockerContainer</a> - Mocker container enables you to mock services in the Symfony dependency injection container. It is particularly useful in functional tests and Behat scenarios.</li>
 <li><a href="https://github.com/docteurklein/TestDoubleBundle" target="_blank" rel="noopener">TestDoubleBundle</a> - A symfony bundle that eases creation of test doubles.</li>
+<li><a href="https://github.com/dunglas/panthere" target="_blank" rel="noopener">panthere</a> -  A browser testing and web crawling library for PHP and Symfony</li>
 </ul>
 <h3 id="Push-notifications"><a href="#Push-notifications" class="headerlink" title="Push notifications"></a>Push notifications</h3><ul>
 <li><a href="https://github.com/richsage/RMSPushNotificationsBundle" target="_blank" rel="noopener">RMSPushNotificationsBundle</a> - Slightly maintained</li>
@@ -187,7 +197,7 @@ Interesting b">
 <li><a href="http://symfony.com/doc/current/reference/forms/types/collection.html#by-reference" target="_blank" rel="noopener">Source</a></li>
 </ul>
 <h2 id="Silencing-phpunit-depreaction-warning"><a href="#Silencing-phpunit-depreaction-warning" class="headerlink" title="Silencing phpunit depreaction warning"></a>Silencing phpunit depreaction warning</h2><p>Add this line in phpunit.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">phpunit</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">php</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">"SYMFONY_DEPRECATIONS_HELPER"</span> <span class="attr">value</span>=<span class="string">"weak"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">php</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">phpunit</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">phpunit</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">php</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">"SYMFONY_DEPRECATIONS_HELPER"</span> <span class="attr">value</span>=<span class="string">"weak"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">php</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">phpunit</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 	</div>
 
@@ -233,17 +243,19 @@ Interesting b">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
 	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
 	
-		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
 	
-		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
 	
-		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
 	
-		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
 	
 	</ul>
 </div>

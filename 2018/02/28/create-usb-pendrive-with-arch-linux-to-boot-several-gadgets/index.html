@@ -26,14 +26,10 @@ Run Arch Linux in my Udoo system and eventually l">
   
 
   
-    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
   
 
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
@@ -76,31 +72,37 @@ Run Arch Linux in my Udoo system and eventually l">
 		  
 		  <li>
 			<a href="/" title="About me.">
-			  <i class="fa fa-home"></i>~
+			  <i class="fas fa-home"></i>~
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/projects" title="All my personal projects.">
-			  <i class="fa fa-folder"></i>src/
+			  <i class="fas fa-folder"></i>src/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/com" title="Where I've worked">
-			  <i class="fa fa-folder"></i>com/
+			  <i class="fas fa-folder"></i>com/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/dev" title="My dev notes">
-			  <i class="fa fa-folder"></i>dev/
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/blog" title="My blog">
-			  <i class="fa fa-folder"></i>blog/
+			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
 		  
@@ -131,14 +133,22 @@ Run Arch Linux in my Udoo system and eventually l">
 <li>128GB USB3 pendrive</li>
 </ul>
 <h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
-<li>Run Arch Linux in my Udoo system and eventually laptob and other systems.</li>
+<li>Run Arch Linux in my Udoo system and eventually laptop and other systems.</li>
 <li>Has a data partition to be oponed in all Operating Systems (Formatted in NTFS)</li>
 </ul>
-<h2 id="Disk-partitions"><a href="#Disk-partitions" class="headerlink" title="Disk partitions"></a>Disk partitions</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sdb: 119,2 GiB, 128035323904 bytes, 250068992 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: 74461979-09F8-4B29-B5B4-9C3B96F01190</span><br><span class="line"></span><br><span class="line">Dispositiu     Start     Final   Sectors  Size Tipus</span><br><span class="line">/dev/sdb1       2048 125036543 125034496 59,6G Microsoft basic data</span><br><span class="line">/dev/sdb2  125036544 126265343   1228800  600M EFI System</span><br><span class="line">/dev/sdb3  126265344 250066943 123801600   59G Linux filesystem</span><br></pre></td></tr></table></figure>
-<h3 id="Changing-from-msdos-partition-table-to-gpt-one"><a href="#Changing-from-msdos-partition-table-to-gpt-one" class="headerlink" title="Changing from msdos partition table to gpt one"></a>Changing from msdos partition table to gpt one</h3><p><strong>WARNING</strong> Doing this will remove all data from disk!</p>
+<h2 id="Disk-partitions"><a href="#Disk-partitions" class="headerlink" title="Disk partitions"></a>Disk partitions</h2><h3 id="Changing-from-msdos-partition-table-to-gpt-one"><a href="#Changing-from-msdos-partition-table-to-gpt-one" class="headerlink" title="Changing from msdos partition table to gpt one"></a>Changing from msdos partition table to gpt one</h3><p>To check if the disk drive is in gpt or dos you should run:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l /dev/sdb</span><br></pre></td></tr></table></figure>
+<p>You will see something like that:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sdb: 931,5 GiB, 1000204886016 bytes, 1953525168 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 4096 bytes</span><br><span class="line">I/O size (minimum/optimal): 4096 bytes / 4096 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0x4f8ae775</span><br></pre></td></tr></table></figure>
+<p>If the <code>Disklabel type</code> is <code>dos</code> you should change to gpt, if is marked as <code>gpt</code> you can continue to next point.</p>
+<p><strong>WARNING</strong> Doing this will remove all data from disk!</p>
 <p>If your partition table is msdos you should change it to gpt running the next command:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
 <p>Then press <code>g</code> to create the GPT partition table and <code>w</code> to persist the changes.</p>
+<h3 id="Creating-schema"><a href="#Creating-schema" class="headerlink" title="Creating schema"></a>Creating schema</h3><p>We want to create the next schema:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sdb: 119,2 GiB, 128035323904 bytes, 250068992 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: 74461979-09F8-4B29-B5B4-9C3B96F01190</span><br><span class="line"></span><br><span class="line">Dispositiu     Start     Final   Sectors  Size Tipus</span><br><span class="line">/dev/sdb1       2048 125036543 125034496 59,6G Microsoft basic data</span><br><span class="line">/dev/sdb2  125036544 126265343   1228800  600M EFI System</span><br><span class="line">/dev/sdb3  126265344 250066943 123801600   59G Linux filesystem</span><br></pre></td></tr></table></figure>
+<p>Just use fdisk or parted to create the partitions you want.</p>
+<h3 id="Format-EFI-partition"><a href="#Format-EFI-partition" class="headerlink" title="Format EFI partition"></a>Format EFI partition</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.fat -F32 /dev/sdb2</span><br></pre></td></tr></table></figure>
 <h3 id="Disabling-journal-in-ext4-partition"><a href="#Disabling-journal-in-ext4-partition" class="headerlink" title="Disabling journal in ext4 / partition"></a>Disabling journal in ext4 / partition</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkfs.ext4 -O <span class="string">"^has_journal"</span> /dev/sdb3</span><br></pre></td></tr></table></figure>
 <h2 id="Prepare-Arch-Linux-system"><a href="#Prepare-Arch-Linux-system" class="headerlink" title="Prepare Arch Linux system"></a>Prepare Arch Linux system</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">curl -O http://ftp.rediris.es/mirror/archlinux/iso/2018.01.01/archlinux-bootstrap-2018.01.01-x86_64.tar.gz</span><br><span class="line">tar xzf archlinux-bootstrap-2018.01.01-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
 <p>Enable pacman mirrors:</p>
@@ -146,9 +156,9 @@ Run Arch Linux in my Udoo system and eventually l">
 <p>Chroot to new system:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/root.x86_64/bin/arch-chroot /tmp/root.x86_64/</span><br></pre></td></tr></table></figure>
 <p>Update sources and install base system:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize packman keys</span></span><br><span class="line">pacman-key --init</span><br><span class="line">pacman -Sy archlinux-keyring</span><br><span class="line">pacman -Syyu</span><br><span class="line"><span class="comment"># Installing base system</span></span><br><span class="line">pacman -S base parted</span><br><span class="line"><span class="comment"># Installing boot loader</span></span><br><span class="line">pacman -S grub</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize packman keys</span></span><br><span class="line">pacman-key --init</span><br><span class="line">pacman-key --populate archlinux</span><br><span class="line">pacman -Sy archlinux-keyring</span><br><span class="line">pacman -Syyu</span><br></pre></td></tr></table></figure>
+<h2 id="Install-the-prepared-system-to-the-USB-stick"><a href="#Install-the-prepared-system-to-the-USB-stick" class="headerlink" title="Install the prepared system to the USB stick"></a>Install the prepared system to the USB stick</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mount system partition to /tmp folder</span></span><br><span class="line">mount /dev/sdb3 /mnt</span><br><span class="line"><span class="built_in">cd</span> /tmp/root.x86_64/</span><br><span class="line"><span class="comment"># Copy all files from prepared system to its final partition</span></span><br><span class="line">rsync -aAXv --exclude=&#123;<span class="string">"/dev/*"</span>,<span class="string">"/proc/*"</span>,<span class="string">"/sys/*"</span>,<span class="string">"/tmp/*"</span>,<span class="string">"/run/*"</span>,<span class="string">"/mnt/*"</span>,<span class="string">"/media/*"</span>,<span class="string">"/lost+found"</span>&#125; ./ /mnt/</span><br><span class="line"><span class="comment"># Generate fstab</span></span><br><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br><span class="line"><span class="comment"># Installing base system</span></span><br><span class="line">arch-chroot /mnt/</span><br><span class="line">pacman -S base parted</span><br><span class="line"><span class="comment"># Installing boot loader</span></span><br><span class="line">pacman -S grub</span><br></pre></td></tr></table></figure>
 <p>Follow <a href="https://wiki.archlinux.org/index.php/Installation_guide#Pre-installation" target="_blank" rel="noopener">regular installation instructions</a></p>
-<h2 id="Install-the-prepared-system-to-the-USB-stick"><a href="#Install-the-prepared-system-to-the-USB-stick" class="headerlink" title="Install the prepared system to the USB stick"></a>Install the prepared system to the USB stick</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mount system partition to /tmp folder</span></span><br><span class="line">mount /dev/sdb3 /mnt</span><br><span class="line"><span class="built_in">cd</span> /tmp/root.x86_64/</span><br><span class="line"><span class="comment"># Copy all files from prepared system to its final partition</span></span><br><span class="line">rsync -aAXv --exclude=&#123;<span class="string">"/dev/*"</span>,<span class="string">"/proc/*"</span>,<span class="string">"/sys/*"</span>,<span class="string">"/tmp/*"</span>,<span class="string">"/run/*"</span>,<span class="string">"/mnt/*"</span>,<span class="string">"/media/*"</span>,<span class="string">"/lost+found"</span>&#125; ./ /mnt/</span><br><span class="line"><span class="comment"># Generate fstab</span></span><br><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
 <h2 id="Setup-bootloader"><a href="#Setup-bootloader" class="headerlink" title="Setup bootloader"></a>Setup bootloader</h2><p>Before creating the initial RAM disk # mkinitcpio -p linux, in /etc/mkinitcpio.conf add the block hook to the hooks array right after udev. This is necessary for appropriate module loading in early userspace.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mount filesystem</span></span><br><span class="line">mount /dev/sdb2 /mnt/boot</span><br><span class="line"><span class="comment"># Chroot new system</span></span><br><span class="line">arch-chroot /mnt/</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --removable --recheck</span><br><span class="line">pacman -S os-prober</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting root password</span></span><br><span class="line">passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reboot to boot with your new brand usb stick</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
@@ -166,7 +176,8 @@ Run Arch Linux in my Udoo system and eventually l">
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Anterior</a>
+    <a href="/2018/03/22/preparing-react-app-for-opencomponents/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Anterior</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>

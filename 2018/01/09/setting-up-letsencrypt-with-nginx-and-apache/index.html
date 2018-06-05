@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Setting up letsencrypt with nginx and apache | genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="Setting up letsencrypt with nginx and ApacheInstall certbotManual installationAdd backports to apt repositories, just add the next line to /etc/apt/so">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Setting up letsencrypt with nginx and apache"/>
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fas fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fas fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fas fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/blog" title="My blog">
+			  <i class="fas fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+<div class="col-md-9">
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="Setting-up-letsencrypt-with-nginx-and-Apache"><a href="#Setting-up-letsencrypt-with-nginx-and-Apache" class="headerlink" title="Setting up letsencrypt with nginx and Apache"></a>Setting up letsencrypt with nginx and Apache</h1><h2 id="Install-certbot"><a href="#Install-certbot" class="headerlink" title="Install certbot"></a>Install certbot</h2><h3 id="Manual-installation"><a href="#Manual-installation" class="headerlink" title="Manual installation"></a>Manual installation</h3><p>Add backports to apt repositories, just add the next line to <code>/etc/apt/sources.list.d/backports.list</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;deb http://ftp.debian.org/debian jessie-backports main&apos; &gt; /etc/apt/sources.list.d/backports.list</span><br></pre></td></tr></table></figure>
+<p>Then update apt repositories:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install certbot -t jessie-backports</span><br></pre></td></tr></table></figure>
+<h3 id="Using-Ansible-playbook"><a href="#Using-Ansible-playbook" class="headerlink" title="Using Ansible playbook"></a>Using Ansible playbook</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">configure</span> <span class="string">backports</span> <span class="string">apt</span> <span class="string">repository</span></span><br><span class="line"><span class="attr">  apt_repository:</span></span><br><span class="line"><span class="attr">    filename:</span> <span class="string">backports</span></span><br><span class="line"><span class="attr">    repo:</span> <span class="string">"deb http://http.debian.net/debian jessie-backports main"</span></span><br><span class="line"><span class="attr">    update_cache:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">apt</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">backports</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- name:</span> <span class="string">Install</span> <span class="string">certbot</span></span><br><span class="line"><span class="attr">  apt:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">certbot</span></span><br><span class="line"><span class="attr">    update_cache:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    default_release:</span> <span class="string">jessie-backports</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">latest</span></span><br></pre></td></tr></table></figure>
+<h3 id="Create-the-letsencrypt-folder"><a href="#Create-the-letsencrypt-folder" class="headerlink" title="Create the letsencrypt folder"></a>Create the letsencrypt folder</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/www/letsencrypt</span><br></pre></td></tr></table></figure>
+<h2 id="Setting-up-webserver-to-serve-well-known-verification-requests"><a href="#Setting-up-webserver-to-serve-well-known-verification-requests" class="headerlink" title="Setting up webserver to serve .well-known verification requests"></a>Setting up webserver to serve <code>.well-known</code> verification requests</h2><p>You have to redirect letsencrypt verification requests to proper folder in order to check the property of a domain.</p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>Just add this lines inside your server block:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">location</span> /.well-known/acme-challenge/ &#123;</span><br><span class="line">        <span class="attribute">allow</span> all;</span><br><span class="line">        <span class="attribute">root</span> /var/www/letsencrypt;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> =<span class="number">404</span>;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reload nginx to apply this changes:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx reload</span><br></pre></td></tr></table></figure>
+<h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><p>Add this lines to your vhost configuration file. It should be inside the <code>&lt;VirtualHost *:80&gt;</code> tag.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Alias</span> /.well-known/acme-challenge/ /var/www/letsencrypt/.well-known/acme-challenge/</span><br><span class="line"><span class="section">&lt;Directory "/var/www/letsencrypt/.well-known/acme-challenge/"&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> None</span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="attribute">ForceType</span> text/plain</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Reload apache to apply this changes:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service apache2 reload</span><br></pre></td></tr></table></figure>
+<h2 id="Request-your-certificate"><a href="#Request-your-certificate" class="headerlink" title="Request your certificate"></a>Request your certificate</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --webroot -w /var/www/letsencrypt/ -d your-domain.com --renew-by-default</span><br></pre></td></tr></table></figure>
+<h2 id="Configure-your-web-server-to-serve-SSL"><a href="#Configure-your-web-server-to-serve-SSL" class="headerlink" title="Configure your web server to serve SSL"></a>Configure your web server to serve SSL</h2><h3 id="Nginx-1"><a href="#Nginx-1" class="headerlink" title="Nginx"></a>Nginx</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line">    <span class="attribute">ssl_certificate</span> /etc/letsencrypt/live/your-domain.com/fullchain.pem ;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span> /etc/letsencrypt/live/your-domain.com/privkey.pem;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server_name</span> your-domain.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">      <span class="comment"># your location configuration as you usually do in listen 80 block</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/your-domain.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /var/log/nginx/your-domain.com.<span class="literal">error</span>.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Restart nginx to apply the changes</p>
+<h4 id="Optional-force-http-to-be-redirected-to-https"><a href="#Optional-force-http-to-be-redirected-to-https" class="headerlink" title="(Optional) force http to be redirected to https"></a>(Optional) force http to be redirected to https</h4><p>Just add this line inside server block which is listening to 80 port:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Apache-1"><a href="#Apache-1" class="headerlink" title="Apache"></a>Apache</h3><p>Just add this block in the virtual host configuration file just next to the <code>&lt;VirtualHost *:80&gt;</code> block.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;VirtualHost *:443&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">ServerName</span></span> your-domain.com</span><br><span class="line">    <span class="attribute"><span class="nomarkup">DocumentRoot</span></span> /your-web-document-root</span><br><span class="line"></span><br><span class="line">    <span class="section">&lt;Directory /your-web-document-root&gt;</span></span><br><span class="line">        <span class="attribute"><span class="nomarkup">Options</span></span> FollowSymLinks</span><br><span class="line">        <span class="attribute">AllowOverride</span> <span class="literal">All</span></span><br><span class="line">        <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line">    <span class="section">&lt;/Directory&gt;</span></span><br><span class="line">    <span class="attribute">CustomLog</span> /var/log/apache2/your-domain.com.access.log combined</span><br><span class="line">    <span class="attribute">ErrorLog</span> /var/log/apache2/your-domain.com.error.log</span><br><span class="line"></span><br><span class="line">    <span class="attribute">SSLEngine</span> <span class="literal">on</span></span><br><span class="line">    <span class="attribute">SSLCertificateFile</span>    /etc/letsencrypt/live/your-domain.com/cert.pem</span><br><span class="line">    <span class="attribute">SSLCertificateKeyFile</span> /etc/letsencrypt/live/your-domain.com/privkey.pem</span><br><span class="line">    <span class="attribute">SSLCertificateChainFile</span> /etc/letsencrypt/live/your-domain.com/fullchain.pem</span><br><span class="line"></span><br><span class="line">    <span class="attribute">BrowserMatch</span> <span class="string">"MSIE [2-6]"</span> \</span><br><span class="line">    <span class="attribute">nokeepalive</span> ssl-unclean-shutdown \</span><br><span class="line">    <span class="attribute">downgrade</span>-1.0 force-response-1.0</span><br><span class="line">    <span class="attribute">BrowserMatch</span> <span class="string">"MSIE [17-9]"</span> ssl-unclean-shutdown</span><br><span class="line"><span class="section">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Restart apache2 to apply the changes</p>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><h3 id="failed-SSL-error-02001002-system-library"><a href="#failed-SSL-error-02001002-system-library" class="headerlink" title="failed (SSL: error:02001002:system library"></a>failed (SSL: error:02001002:system library</h3><p>Solution: It can be a permissions issue or mistyped directory.</p>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://certbot.eff.org/all-instructions/#debian-8-jessie-nginx" target="_blank" rel="noopener">https://certbot.eff.org/all-instructions/#debian-8-jessie-nginx</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2018/01/09/setting-up-letsencrypt-with-nginx/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Anterior</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/12/22/converting-vimwiki-to-hexo/" type="button" class="btn btn-default ">Próximo<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comentários</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+</div>
+
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="post_meta">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-01-09
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/nginx/">nginx<span>2</span></a></li> <li><a href="/categories/nginx/apache/">apache<span>1</span></a></li> <li><a href="/categories/nginx/apache/letsencrypt/">letsencrypt<span>1</span></a></li> <li><a href="/categories/nginx/apache/letsencrypt/ssl/">ssl<span>1</span></a></li> <li><a href="/categories/nginx/apache/letsencrypt/ssl/debian/">debian<span>1</span></a></li> <li><a href="/categories/nginx/apache/letsencrypt/ssl/debian/ansible/">ansible<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+
+    <hr>
+
+</div>
+
+    </div>
+</div>
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>

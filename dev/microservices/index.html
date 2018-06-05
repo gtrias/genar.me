@@ -34,14 +34,10 @@ node-consul-template -  Consul gener">
   
 
   
-    <link rel="alternative" href="/atom.xml" title="genar.me" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
   
 
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
@@ -84,31 +80,37 @@ node-consul-template -  Consul gener">
 		  
 		  <li>
 			<a href="/" title="About me.">
-			  <i class="fa fa-home"></i>~
+			  <i class="fas fa-home"></i>~
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/projects" title="All my personal projects.">
-			  <i class="fa fa-folder"></i>src/
+			  <i class="fas fa-folder"></i>src/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/com" title="Where I've worked">
-			  <i class="fa fa-folder"></i>com/
+			  <i class="fas fa-folder"></i>com/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/dev" title="My dev notes">
-			  <i class="fa fa-folder"></i>dev/
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/blog" title="My blog">
-			  <i class="fa fa-folder"></i>blog/
+			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
 		  
@@ -158,9 +160,6 @@ node-consul-template -  Consul gener">
 <li><a href="https://github.com/gtrias/node-consul-template" target="_blank" rel="noopener">node-consul-template</a> -  Consul generated templates</li>
 <li><a href="https://traefik.io/" target="_blank" rel="noopener">traefik</a> - Træfik (pronounced like traffic) is a modern HTTP reverse proxy and load balancer made to deploy microservices with ease. It supports several backends (Docker, Swarm mode, Kubernetes, Marathon, Consul, Etcd, Rancher, Amazon ECS, and a lot more) to manage its configuration automatically and dynamically.</li>
 </ul>
-<h2 id="Asynchronous-messaging-protocol"><a href="#Asynchronous-messaging-protocol" class="headerlink" title="Asynchronous messaging protocol"></a>Asynchronous messaging protocol</h2><ul>
-<li>rabbitmq</li>
-</ul>
 <h2 id="Service-discovery"><a href="#Service-discovery" class="headerlink" title="Service discovery"></a>Service discovery</h2><ul>
 <li><a href="/dev/microservices/consul.html">consul</a></li>
 </ul>
@@ -168,38 +167,29 @@ node-consul-template -  Consul gener">
 <li>ELK (<a href="elasticsearch.html">elasticsearch</a> + logstash + kibana)</li>
 <li><a href="https://github.com/gliderlabs/logspout" target="_blank" rel="noopener">logspout</a> - Log routing for Docker container logs</li>
 </ul>
-<h2 id="APM-Application-Performance-Monitoring"><a href="#APM-Application-Performance-Monitoring" class="headerlink" title="APM - Application Performance Monitoring"></a>APM - Application Performance Monitoring</h2><ul>
-<li><a href="https://www.elastic.co/solutions/apm" target="_blank" rel="noopener">Elastic APM</a></li>
+<h2 id="Log-storage"><a href="#Log-storage" class="headerlink" title="Log storage"></a>Log storage</h2><ul>
+<li><a href="elasticsearch.html">elasticsearch</a></li>
+</ul>
+<h2 id="Asynchronous-messaging-protocol"><a href="#Asynchronous-messaging-protocol" class="headerlink" title="Asynchronous messaging protocol"></a>Asynchronous messaging protocol</h2><ul>
+<li>rabbitmq</li>
 </ul>
 <h2 id="Event-driven-microservices"><a href="#Event-driven-microservices" class="headerlink" title="Event driven microservices"></a>Event driven microservices</h2><ul>
 <li><a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html" target="_blank" rel="noopener">AMQP 0-9-1 Model Explained</a></li>
 <li><a href="https://runnable.com/blog/event-driven-microservices-using-rabbitmq" target="_blank" rel="noopener">Event-driven Microservices Using RabbitMQ</a></li>
-<li><a href="http://blog.thedigitalcatonline.com/blog/2013/08/21/some-tips-about-amqp-direct-exchanges/#.Wd5CjR_nhhG" target="_blank" rel="noopener">Some tips about AMQP direct exchanges</a></li>
-</ul>
-<h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2><ul>
-<li><a href="kong.html">kong</a></li>
-</ul>
-<h2 id="Stats"><a href="#Stats" class="headerlink" title="Stats"></a>Stats</h2><ul>
-<li><a href="https://github.com/etsy/statsd" target="_blank" rel="noopener">statsd</a></li>
-<li><a href="https://graphiteapp.org/" target="_blank" rel="noopener">graphite</a></li>
-<li><a href="http://grafana.com" target="_blank" rel="noopener">Grafana</a></li>
-<li><a href="https://prometheus.io/" target="_blank" rel="noopener">prometheus.io</a> - From metrics to insight</li>
-<li><a href="http://opencensus.io/" target="_blank" rel="noopener">opencensus.io</a> - A single distribution of libraries that automatically collects traces and metrics from your app, displays them locally, and sends them to any analysis tool.</li>
-</ul>
-<h2 id="Service-monitoring"><a href="#Service-monitoring" class="headerlink" title="Service monitoring"></a>Service monitoring</h2><ul>
-<li><a href="https://github.com/iloire/watchmen" target="_blank" rel="noopener">watchmen</a> - A simple node.js service monitor</li>
+<li><p><a href="http://blog.thedigitalcatonline.com/blog/2013/08/21/some-tips-about-amqp-direct-exchanges/#.Wd5CjR_nhhG" target="_blank" rel="noopener">Some tips about AMQP direct exchanges</a></p>
+<h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2></li>
+<li><p><a href="kong.html">kong</a></p>
+</li>
 </ul>
 <h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><ul>
-<li>Container service - <a href="https://aws.amazon.com/es/blogs/aws/aws-fargate/" target="_blank" rel="noopener">aws fargate</a></li>
-</ul>
-<h2 id="Log-storage"><a href="#Log-storage" class="headerlink" title="Log storage"></a>Log storage</h2><ul>
-<li><a href="elasticsearch.html">elasticsearch</a></li>
-</ul>
-<h2 id="Secret-management"><a href="#Secret-management" class="headerlink" title="Secret management"></a>Secret management</h2><ul>
-<li><a href="/dev/microservices/vault.html">vault</a></li>
+<li><p>Container service - <a href="https://aws.amazon.com/es/blogs/aws/aws-fargate/" target="_blank" rel="noopener">aws fargate</a></p>
+<h2 id="Secret-management"><a href="#Secret-management" class="headerlink" title="Secret management"></a>Secret management</h2></li>
+<li><p><a href="/dev/microservices/vault.html">vault</a></p>
+</li>
 </ul>
 <h2 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h2><ul>
 <li><a href="https://github.com/henrylee2cn/ant" target="_blank" rel="noopener">ant</a> -  Ant is a simple and flexible microservice framework based on Teleport.</li>
+<li><a href="https://github.com/istio/istio" target="_blank" rel="noopener">istio</a> -  An open platform to connect, manage, and secure microservices. <a href="https://istio.io" target="_blank" rel="noopener">https://istio.io</a></li>
 </ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Martin Fowler - Microservices</a></li>
@@ -255,17 +245,19 @@ node-consul-template -  Consul gener">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
 	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
 	
-		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
 	
-		<li><i class="fa fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
 	
-		<li><i class="fa fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
 	
-		<li><i class="fa fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
 	
 	</ul>
 </div>
