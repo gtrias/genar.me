@@ -86,53 +86,57 @@ theme_config:
     - title: '~'
       url:
       intro: About me.
-      icon: fa fa-home
+      icon: fas fa-home
     - title: src/
       url: projects
       intro: All my personal projects.
-      icon: fa fa-folder
+      icon: fas fa-folder
     - title: com/
       url: com
       intro: Where I've worked
-      icon: fa fa-folder
+      icon: fas fa-folder
     - title: dev/
       url: dev
       intro: My dev notes
-      icon: fa fa-folder
+      icon: fas fa-folder
     - title: sys/
       url: sys
       intro: Systems notes
-      icon: fa fa-linux
+      icon: fab fa-linux
     - title: blog/
       url: blog
       intro: My blog
-      icon: fa fa-folder
+      icon: fas fa-folder
 
   links:
     - title: Github
       url: http://www.github.com/gtrias
       intro: My Github account.
-      icon: fa fa-github-alt
+      icon: fab fa-github-alt
+    - title: Gitlab
+      url: https://gitlab.com/gtrias
+      intro: My Gitlab account.
+      icon: fab fa-gitlab
     - title: My LinkedIn
       url: http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90
       intro: My Linkedin.
-      icon: fa fa-linkedin
+      icon: fab fa-linkedin
     - title: '@genar_tr'
       url: https://twitter.com/genar_tr
       intro: My twitter
-      icon: fa fa-twitter
+      icon: fab fa-twitter
     - title: 'docker hub'
       url: https://hub.docker.com/u/gtrias/
       intro: My docker hub
-      icon: fa fa-docker
+      icon: fab fa-docker
     - title: 'StackOverflow'
       url: https://stackoverflow.com/users/865222/genar
       intro: StackOverflow
-      icon: fa fa-stack-overflow
+      icon: fab fa-stack-overflow
     - title: 'Steam'
       url: http://steamcommunity.com/id/genar_tr/
       intro: Steam
-      icon: fa fa-steam
+      icon: fab fa-steam
 
 
 
