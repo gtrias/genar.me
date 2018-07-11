@@ -117,7 +117,7 @@ theme_config:
       url: https://gitlab.com/gtrias
       intro: My Gitlab account.
       icon: fab fa-gitlab
-    - title: My LinkedIn
+    - title: LinkedIn
       url: http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90
       intro: My Linkedin.
       icon: fab fa-linkedin
@@ -137,8 +137,6 @@ theme_config:
       url: http://steamcommunity.com/id/genar_tr/
       intro: Steam
       icon: fab fa-steam
-
-
 
   widgets:
   - links
