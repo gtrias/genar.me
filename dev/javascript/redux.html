@@ -184,6 +184,8 @@ Reduc">
 </ul>
 <h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Execute-several-redux-actions-in-serial-using-Promises"><a href="#Execute-several-redux-actions-in-serial-using-Promises" class="headerlink" title="Execute several redux actions in serial using Promises"></a>Execute several redux actions in serial using Promises</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">handleChange(date) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.resolve(</span><br><span class="line">    <span class="keyword">this</span>.props.dispatch(setApplicationDate(date))</span><br><span class="line">  )</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.afterSelect()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://engineering.haus.com/so-youve-screwed-up-your-redux-store-or-why-redux-makes-refactoring-easy-400e19606c71" target="_blank" rel="noopener">So you’ve screwed up your Redux store — or, why Redux makes refactoring easy</a></li>
+<li><a href="https://egghead.io/lessons/javascript-redux-refactoring-the-reducers" target="_blank" rel="noopener">Redux: Refactoring the reducers</a></li>
 <li><a href="https://daveceddia.com/what-does-redux-do/" target="_blank" rel="noopener">https://daveceddia.com/what-does-redux-do/</a></li>
 </ul>
 
@@ -228,7 +230,7 @@ Reduc">
         
             
 <div class="widget">
-	<h4>Links</h4>
+	<h4>鏈接</h4>
 	<ul class="blogroll list-unstyled">
 	
 		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
