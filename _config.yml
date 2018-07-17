@@ -21,7 +21,7 @@ root: '/'
 # IPFS Settings
 # url: https://gateway.ipfs.io/
 # root: '/ipns/Qmey4x3JohZT6nrhGrVsqVKGeDbhZxVWw9hXyCkyASU7fN/'
-permalink: :year/:month/:day/:title/
+permalink: :title.html
 permalink_defaults:
 
 # Directory
@@ -104,7 +104,7 @@ theme_config:
       intro: Systems notes
       icon: fab fa-linux
     - title: blog/
-      url: blog
+      url: categories/blog
       intro: My blog
       icon: fas fa-folder
 
