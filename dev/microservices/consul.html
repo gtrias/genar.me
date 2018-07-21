@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>Consul | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="ConsulService Discovery and Configuration Made Easy
@@ -15,14 +15,12 @@ Service Discovery
 Failure Detection
 DNS Query interface
 Key Value Storage
-
-Registrators
-r">
+Multi datacente">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Consul"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -105,7 +103,7 @@ r">
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -118,22 +116,14 @@ r">
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -147,6 +137,7 @@ r">
 <li>Failure Detection</li>
 <li>DNS Query interface</li>
 <li>Key Value Storage</li>
+<li>Multi datacenter</li>
 </ul>
 <h2 id="Registrators"><a href="#Registrators" class="headerlink" title="Registrators"></a>Registrators</h2><ul>
 <li><a href="https://github.com/gliderlabs/registrator" target="_blank" rel="noopener">registrator</a> - Service registry bridge for Docker with pluggable adapters</li>
@@ -167,12 +158,17 @@ r">
 <h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><ul>
 <li><a href="https://github.com/tczekajlo/kube-consul-register" target="_blank" rel="noopener">kube-consul-register</a></li>
 </ul>
+<h2 id="Multi-datacenter"><a href="#Multi-datacenter" class="headerlink" title="Multi datacenter"></a>Multi datacenter</h2><ul>
+<li><a href="https://github.com/hashicorp/consul/issues/1914" target="_blank" rel="noopener">Issue about multi dc configuration</a></li>
+</ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://www.consul.io/" target="_blank" rel="noopener">Official</a></li>
 <li><a href="https://werner-dijkerman.nl/2017/05/27/monitoring-consul-with-statsd-exporter-and-prometheus/" target="_blank" rel="noopener">Monitoring Consul with statsd exporter and Prometheus</a></li>
 <li><a href="http://www.smartjava.org/content/service-discovery-docker-and-consul-part-1" target="_blank" rel="noopener">Service Discovery with Docker and Consul: part 1</a></li>
 <li><a href="http://www.devtech101.com/2017/08/31/using-consul-service-discovery-multiple-data-centers-part-1/" target="_blank" rel="noopener">Using Consul for Service Discovery In Multiple Data Centers</a></li>
 <li><a href="https://www.mauras.ch/securing-consul.html" target="_blank" rel="noopener">Securing Consul</a></li>
+<li><a href="https://sitano.github.io/2015/10/06/abt-consul-outage/" target="_blank" rel="noopener">What you have to know about Consul and how to beat the outage problem</a></li>
+<li><a href="https://www.datadoghq.com/blog/engineering/consul-at-datadog/" target="_blank" rel="noopener">Consul at Datadog</a></li>
 </ul>
 
 	</div>
@@ -182,6 +178,18 @@ r">
 	<div class="pagination">
 
     
+    
+    <a href="/dev/microservices/vault.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/dev/microservices/index.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
     </center>
@@ -189,6 +197,37 @@ r">
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -196,14 +235,10 @@ r">
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -213,37 +248,52 @@ r">
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/microservices/">microservices<span>3</span></a></li> <li><a href="/tags/golang/">golang<span>3</span></a></li> <li><a href="/tags/service-discovery/">service discovery<span>1</span></a></li> <li><a href="/tags/kv-database/">kv database<span>1</span></a></li> <li><a href="/tags/dns/">dns<span>1</span></a></li> <li><a href="/tags/hashicorp/">hashicorp<span>2</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>

@@ -99,7 +99,7 @@ Symfony Flex
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -112,22 +112,14 @@ Symfony Flex
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="[genar@localhost dev]$ bin/console server:run∎">[genar@localhost dev]$ bin/console server:run<span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -198,12 +190,27 @@ Symfony Flex
 </ul>
 <h2 id="Silencing-phpunit-depreaction-warning"><a href="#Silencing-phpunit-depreaction-warning" class="headerlink" title="Silencing phpunit depreaction warning"></a>Silencing phpunit depreaction warning</h2><p>Add this line in phpunit.xml</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">phpunit</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">php</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">"SYMFONY_DEPRECATIONS_HELPER"</span> <span class="attr">value</span>=<span class="string">"weak"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">php</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">phpunit</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://knpuniversity.com/screencast/symfony3-upgrade/new-dir-structure" target="_blank" rel="noopener">Upgrading to the Symfony 3.0 Directory Structure</a></li>
+</ul>
 
 	</div>
 
 	<div>
   	<center>
 	<div class="pagination">
+
+    
+    
+    <a href="/dev/php/behat.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/dev/patterns/SOLID.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
 
     
 </div>
@@ -213,6 +220,37 @@ Symfony Flex
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -220,14 +258,10 @@ Symfony Flex
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -237,37 +271,52 @@ Symfony Flex
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/php/">php<span>9</span></a></li> <li><a href="/tags/symfony/">symfony<span>2</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>

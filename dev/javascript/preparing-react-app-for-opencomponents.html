@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Preparing Reactjs app to be deployed to OpenComponents registry | genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="Preparing Reactjs app to be deployed to OpenComponents registryPrepare opencomponents needed filesIn order to use a React.js application as a opencomp">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Preparing Reactjs app to be deployed to OpenComponents registry"/>
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fas fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fas fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fas fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories/blog" title="My blog">
+			  <i class="fas fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+<div class="col-md-9">
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="Preparing-Reactjs-app-to-be-deployed-to-OpenComponents-registry"><a href="#Preparing-Reactjs-app-to-be-deployed-to-OpenComponents-registry" class="headerlink" title="Preparing Reactjs app to be deployed to OpenComponents registry"></a>Preparing Reactjs app to be deployed to OpenComponents registry</h1><h2 id="Prepare-opencomponents-needed-files"><a href="#Prepare-opencomponents-needed-files" class="headerlink" title="Prepare opencomponents needed files"></a>Prepare opencomponents needed files</h2><p>In order to use a React.js application as a opencomponent you have to create two files, the <code>oc-server.js</code> and <code>template.html</code>.</p>
+<h3 id="The-oc-server-js"><a href="#The-oc-server-js" class="headerlink" title="The oc-server.js"></a>The oc-server.js</h3><p>The <code>oc-server.js</code> will be processed by opencomponent registry. You have access to all plugins registered in the registry and code executed here is not exposed to public domain.</p>
+<p>The server file has access to all parameters passed to your component from the application who is including it.</p>
+<p>The <code>oc-server.js</code> file should look as the next one:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.data = <span class="function"><span class="keyword">function</span> (<span class="params">context, callback</span>) </span>&#123;</span><br><span class="line">  callback(<span class="literal">null</span>, &#123;</span><br><span class="line">    staticPath: context.staticPath,</span><br><span class="line">    params: context.params,</span><br><span class="line">    paramsStr: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Also you can use plugins and add yout params defaults or any logic you need:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.data = <span class="function"><span class="keyword">function</span> (<span class="params">context, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> defaultParameters = &#123;</span><br><span class="line">    disableSteps: <span class="literal">false</span>,</span><br><span class="line">    disableResumeFirstPayment: <span class="literal">false</span>,</span><br><span class="line">    disableResumeMonthly: <span class="literal">false</span>,</span><br><span class="line">    disableEmails: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  context.plugins.getSettings(<span class="string">'feeswidget_settings'</span>, context.params.apikey, <span class="function"><span class="keyword">function</span> (<span class="params">err, settings</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// If there's an error we'll load the widget anyway to keep backwards compatibility</span></span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">const</span> params = <span class="built_in">Object</span>.assign(defaultParameters, context.params)</span><br><span class="line">      <span class="keyword">return</span> callback(<span class="literal">null</span>, &#123;</span><br><span class="line">        staticPath: context.staticPath,</span><br><span class="line">        params: params,</span><br><span class="line">        paramsStr: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> params = <span class="built_in">Object</span>.assign(defaultParameters, settings, context.params)</span><br><span class="line"></span><br><span class="line">    callback(<span class="literal">null</span>, &#123;</span><br><span class="line">      staticPath: context.staticPath,</span><br><span class="line">      params: params,</span><br><span class="line">      paramsStr: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Create yours in a specific folder in the project root. I.e <code>./oc</code></p>
+<h3 id="The-template-html"><a href="#The-template-html" class="headerlink" title="The template.html"></a>The template.html</h3><p>The <code>template.html</code> is the file which will call the reactjs application. It is responsible to load the needed javascripts and stylesheets. Its functionality should be equivalent to the react’s included <code>index.html</code>. This file is a template which will be rendered by any template engine supported by the opencomponents registry. You have access to all parameters provided by the <code>oc-server.js</code> file.</p>
+<p>An example template instantiating a UMD build reactjs application should look as follows (using handlebars template engine):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//Following is to guarantee this works if either this is client-side rendered</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// or server-side rendered - so if the oc namespace is available already or not</span></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.oc = <span class="built_in">window</span>.oc || &#123;&#125;;</span></span><br><span class="line"><span class="undefined">  oc.cmd = oc.cmd || [];</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// You have access here to built javascript uploaded by opencomponents to S3</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> mainScript = <span class="string">"&#123;&#123; staticPath &#125;&#125;build/static/js/main.js"</span>;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// Here you require the 2 files in the right order</span></span></span><br><span class="line"><span class="javascript">  oc.cmd.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    oc.require(mainScript, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#123;&#123;#if params.selector &#125;&#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// Instantiating widget, passing the selector where</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// you want to render it, and som parameters to configure it</span></span></span><br><span class="line"><span class="undefined">        YourWidget.default.Signup.new(&#123;&#123;&#123; paramsStr &#125;&#125;&#125;).render();</span></span><br><span class="line"><span class="javascript">    &#123;&#123;/<span class="keyword">if</span>&#125;&#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;&#123;#if params.googleMapsApikey &#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"https://maps.googleapis.com/maps/api/js?language=es&amp;key=&#123;&#123;params.googleMapsApikey&#125;&#125;&amp;libraries=places"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;&#123;/if&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>Note the <code>staticPath</code> definition to load the main.js file. This variable is provided by the server to be able to reach the deployed files of your component.</p>
+<p>Create yours in the same folder of the <code>oc-server.js</code> . I.e <code>./oc</code></p>
+<h2 id="Setting-up-opencomponent-settings-in-package-json"><a href="#Setting-up-opencomponent-settings-in-package-json" class="headerlink" title="Setting up opencomponent settings in package.json"></a>Setting up opencomponent settings in <code>package.json</code></h2><p>In order to tell to opencomponents where should go for this files you have to add some configurations in <code>package.json</code>.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">"oc": &#123;</span><br><span class="line">  "minify": false,</span><br><span class="line">  "files": &#123;</span><br><span class="line">    "template": &#123;</span><br><span class="line">      "type": "handlebars",</span><br><span class="line">      "src": "oc/template.html"</span><br><span class="line">    &#125;,</span><br><span class="line">    "static": [</span><br><span class="line">      <span class="string">"build/static"</span></span><br><span class="line">    ],</span><br><span class="line">    "data": "oc/server.js"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><em>NOTE</em>: For react.js already built application it’s important to disable opencomponents minify which can break your application.</p>
+<p><em>NOTE</em>: Due how opencomponents deployment works you should move all the dependencies to devDependencies. If not, oc will try to require all them again and it will fail to deploy your component.</p>
+<p>All oc’s <code>package.json</code> possible configurations can be checked <a href="https://github.com/opencomponents/oc/wiki/package.json-structure" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="Setting-up-Gitlab-ci-to-automatically-deploy-your-component-when-a-new-tag-version-is-created-in-git"><a href="#Setting-up-Gitlab-ci-to-automatically-deploy-your-component-when-a-new-tag-version-is-created-in-git" class="headerlink" title="Setting up Gitlab-ci to automatically deploy your component when a new tag (version) is created in git"></a>Setting up Gitlab-ci to automatically deploy your component when a new tag (version) is created in git</h2><p>You want to automatize the deployment process any time you publish new version of your react app. So let’s tell gitlab-ci to do the dirty work for us.<br>In resume the steps to deploy our component are:</p>
+<ul>
+<li>Test: We should ensure our new version is stable enough to be deployed.</li>
+<li>Build: When we know the application is stable enough we can proceed to build process which will generate the production js to be consumed by the component.</li>
+<li>Deploy: Upload the application to our opencomponents <a href="registry.">registry</a></li>
+</ul>
+<p>Your <code>.gitlab-ci.yml</code> should look as follows:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">test</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">node</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span> <span class="string">test</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">ciricihq/node:lts-oc</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">tags</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">triggers</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">oc</span> <span class="string">registry</span> <span class="string">add</span> <span class="attr">https://your-registry-url.com</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">'NODE_ENV=production oc publish . --username adminusername --password $REGISTRY_PASSWORD'</span></span><br></pre></td></tr></table></figure>
+<p>Note that publish ask for <code>$REGISTRY_PASSWORD</code>. You should ask your administrator the registry password and set up in your gitlab-ci.</p>
+<h2 id="Locally-testing-your-component"><a href="#Locally-testing-your-component" class="headerlink" title="Locally testing your component"></a>Locally testing your component</h2><ol>
+<li>Move the component to a folder without any other component</li>
+<li>Enter the component folder and execute <code>yarn</code>, and then <code>yarn build</code></li>
+<li>Go back to parent folder and execute <code>NODE_ENV=production oc dev .</code></li>
+</ol>
+<h2 id="Include-your-new-opencomponent-into-a-website"><a href="#Include-your-new-opencomponent-into-a-website" class="headerlink" title="Include your new opencomponent into a website"></a>Include your new opencomponent into a website</h2><p>You can render opencomponent in frontend or backend. The easier way is using frontend. To do so just add the <code>&lt;oc-component&gt;</code> tag and the oc-client script in your page.</p>
+<p>The minimal working example should look like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;&lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;oc-component href=&quot;//my-components-registry.mydomain.com/hello-world/1.X.X&quot;&gt;&lt;/oc-component&gt;</span><br><span class="line">    &lt;script src=&quot;//my-components-registry.mydomain.com/oc-client/client.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">&lt;html&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>NOTE</strong>: The previous example won’t work if you open directly the file in your browser. You should serve the html using a webserver. I.e <a href="https://www.npmjs.com/package/serve" target="_blank" rel="noopener">serve</a>.</p>
+<ul>
+<li><a href="https://github.com/opencomponents/oc/wiki/Client-side-rendering" target="_blank" rel="noopener">Client side rendering</a></li>
+<li><a href="https://github.com/opencomponents/oc/wiki/Server-side-rendering" target="_blank" rel="noopener">Server side rendering</a></li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://github.com/opencomponents/oc/wiki" target="_blank" rel="noopener">oc wiki</a></li>
+<li><a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">gitlab-ci articles</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/dev/php/api-platform-change-swagger-api-basepath.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/sys/linux/create-usb-pendrive-with-arch-linux-to-boot-several-gadgets.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+</div>
+
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="post_meta">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-03-22
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/blog/">blog<span>6</span></a></li> <li><a href="/categories/blog/dev/">dev<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/javascript/">javascript<span>13</span></a></li> <li><a href="/tags/opencomponents/">opencomponents<span>2</span></a></li> <li><a href="/tags/reactjs/">reactjs<span>5</span></a></li>
+    </ul>
+	</div>
+	
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+
+    <hr>
+
+</div>
+
+    </div>
+</div>
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>

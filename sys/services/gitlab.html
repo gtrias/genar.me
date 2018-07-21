@@ -6,16 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>gitlab | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="GitlabDefine an image from a private Container Registry
-https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-from-a-private-c">
+  <meta name="description" content="GitlabDefine gitlab-ci yaml aliases to reuse blocks between pipes12345678910111213141516171819202122232425262728293031323334stages:- test- analysis- d">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="gitlab"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -98,7 +97,7 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -111,22 +110,14 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -134,8 +125,15 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 	<div class="mypage">
 	  
 
-	  <h1 id="Gitlab"><a href="#Gitlab" class="headerlink" title="Gitlab"></a>Gitlab</h1><h2 id="Define-an-image-from-a-private-Container-Registry"><a href="#Define-an-image-from-a-private-Container-Registry" class="headerlink" title="Define an image from a private Container Registry"></a>Define an image from a private Container Registry</h2><ul>
+	  <h1 id="Gitlab"><a href="#Gitlab" class="headerlink" title="Gitlab"></a>Gitlab</h1><h2 id="Define-gitlab-ci-yaml-aliases-to-reuse-blocks-between-pipes"><a href="#Define-gitlab-ci-yaml-aliases-to-reuse-blocks-between-pipes" class="headerlink" title="Define gitlab-ci yaml aliases to reuse blocks between pipes"></a>Define gitlab-ci yaml aliases to reuse blocks between pipes</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">test</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">analysis</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Define yaml template, `&amp;before-script` is the anchor</span></span><br><span class="line"><span class="string">.before:</span> <span class="string">&amp;before-script</span></span><br><span class="line"><span class="attr">  before_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'which ssh-agent || ( apt-get update -y &amp;&amp; apt-get install openssh-client -y )'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">eval</span> <span class="string">$(ssh-agent</span> <span class="bullet">-s)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ssh-add</span> <span class="string">&lt;(echo</span> <span class="string">"$SSH_PRIVATE_KEY"</span><span class="string">)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">mkdir</span> <span class="bullet">-p</span> <span class="string">~/.ssh</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'[[ -f /.dockerenv ]] &amp;&amp; echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">yarn</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:8.9</span></span><br><span class="line"><span class="attr">  coverage:</span> <span class="string">'/All files([^|]*\|)&#123;4&#125;[^\d]+([\d|\.]+)/'</span></span><br><span class="line">  <span class="comment">## Including yaml template</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="string">*before-script</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span> <span class="string">test</span> <span class="bullet">--coverage</span> <span class="bullet">--verbose</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">ciricihq/node:lts-oc</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">tags</span></span><br><span class="line">  <span class="comment">## Including yaml template</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="string">*before-script</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">yarn</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">"NODE_ENV=production oc publish . --username lefunker --password $REGISTRY_PASSWORD"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="http://yaml.org/spec/1.2/spec.html" target="_blank" rel="noopener">YAML specs</a></li>
+</ul>
+<h2 id="Define-an-image-from-a-private-Container-Registry"><a href="#Define-an-image-from-a-private-Container-Registry" class="headerlink" title="Define an image from a private Container Registry"></a>Define an image from a private Container Registry</h2><ul>
 <li><a href="https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-from-a-private-container-registry" target="_blank" rel="noopener">https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-from-a-private-container-registry</a></li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://dev.to/livioribeiro/deploying-gitlab-on-docker-swarm-1fb1" target="_blank" rel="noopener">Deploying gitlab on Docker Swarm</a></li>
 </ul>
 
 	</div>
@@ -145,6 +143,18 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 	<div class="pagination">
 
     
+    
+    <a href="/sys/shell/index.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/sys/network/index.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
     </center>
@@ -152,6 +162,37 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -159,14 +200,10 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -176,37 +213,52 @@ https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-an-image-fr
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/self-hosted/">self-hosted<span>3</span></a></li> <li><a href="/tags/services/">services<span>1</span></a></li> <li><a href="/tags/git/">git<span>1</span></a></li> <li><a href="/tags/gitlab/">gitlab<span>1</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>

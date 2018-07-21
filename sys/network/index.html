@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>Network | genar.me</title>
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="NetworkHosts
@@ -20,7 +20,7 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Network"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -103,7 +103,7 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -116,22 +116,14 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -143,7 +135,7 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 <li><a href="https://github.com/alphabetum/hosts" target="_blank" rel="noopener">hosts</a> -  A command line tool for managing hosts file entries.</li>
 </ul>
 <h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><ul>
-<li><a href="ssh.html">SSH</a></li>
+<li><a href="/sys/ssh.html">SSH</a></li>
 </ul>
 <h2 id="Download-entire-web-site-using-wget"><a href="#Download-entire-web-site-using-wget" class="headerlink" title="Download entire web site using wget"></a>Download entire web site using wget</h2><p>From <a href="http://www.linuxjournal.com/content/downloading-entire-web-site-wget" target="_blank" rel="noopener">http://www.linuxjournal.com/content/downloading-entire-web-site-wget</a></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget \</span><br><span class="line">  --recursive \</span><br><span class="line">  --no-clobber \</span><br><span class="line">  --page-requisites \</span><br><span class="line">  --html-extension \</span><br><span class="line">  --convert-links \</span><br><span class="line">  --restrict-file-names=windows \</span><br><span class="line">  --domains website.org \</span><br><span class="line">  --no-parent \</span><br><span class="line">  www.website.org/tutorials/html/</span><br></pre></td></tr></table></figure>
@@ -182,6 +174,18 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 	<div class="pagination">
 
     
+    
+    <a href="/sys/services/gitlab.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/sys/monitoring/index.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
     </center>
@@ -189,6 +193,37 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -196,14 +231,10 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -213,37 +244,52 @@ Download entire web site using wgetFrom http://www.linuxjournal.c">
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/linux/">linux<span>21</span></a></li> <li><a href="/tags/network/">network<span>1</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>

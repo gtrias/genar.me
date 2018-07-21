@@ -10,9 +10,9 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="Vimwiki
-[ ] Find how to include taskwarrior tasks from title filters  #3c010356
+[ ] Find how to include taskwarrior tasks from title filters  #ff0a7f33
 
- Check this issue for markdown viewport functionality  #bebc44b2
+ Check this issue for markdown viewport functionality  #32288bd0
 
 Hav">
   
@@ -102,7 +102,7 @@ Hav">
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -115,22 +115,14 @@ Hav">
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="[genar@localhost dev]$ nvim∎">[genar@localhost dev]$ nvim<span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -139,13 +131,13 @@ Hav">
 	  
 
 	  <h1 id="Vimwiki"><a href="#Vimwiki" class="headerlink" title="Vimwiki"></a>Vimwiki</h1><ul>
-<li><p>[ ] Find how to include taskwarrior tasks from title filters  #3c010356</p>
+<li><p>[ ] Find how to include taskwarrior tasks from title filters  #ff0a7f33</p>
 <ul>
-<li style="list-style: none"><input type="checkbox"> Check this <a href="https://github.com/tbabej/taskwiki/issues/165" target="_blank" rel="noopener">issue</a> for markdown viewport functionality  #bebc44b2</li>
+<li style="list-style: none"><input type="checkbox"> Check this <a href="https://github.com/tbabej/taskwiki/issues/165" target="_blank" rel="noopener">issue</a> for markdown viewport functionality  #32288bd0</li>
 </ul>
 <p>Having two way syncronization should be a must.</p>
 </li>
-<li><p>[ ] Find a way to automatically include mardkwon partials.  #c46f1ecf<br>Something like <a href="https://github.com/jreese/markdown-pp" target="_blank" rel="noopener">mardkown pp</a> can be the key to achieve this</p>
+<li><p>[ ] Find a way to automatically include mardkwon partials.  #0e0bbf42<br>Something like <a href="https://github.com/jreese/markdown-pp" target="_blank" rel="noopener">mardkown pp</a> can be the key to achieve this</p>
 </li>
 </ul>
 <h2 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h2><p><a href="http://thedarnedestthing.com/vimwiki%20cheatsheet" target="_blank" rel="noopener">http://thedarnedestthing.com/vimwiki%20cheatsheet</a></p>
@@ -169,6 +161,18 @@ Hav">
 	<div class="pagination">
 
     
+    
+    <a href="/gaming/emulators.html" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/dev/vim.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
     </center>
@@ -176,6 +180,37 @@ Hav">
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -183,14 +218,10 @@ Hav">
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -200,37 +231,52 @@ Hav">
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/vim/">vim<span>2</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>

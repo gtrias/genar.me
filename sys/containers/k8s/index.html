@@ -6,21 +6,18 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>kubernetes | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="KubernetesStatefulSets
-StatefulSet is the workload API object used to manage stateful applications.
+  <meta name="description" content="Kubernetes
+Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.
 
-
-statefulset
-
-See current events associated with ">
+Kubernetes ObjectsMo">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="kubernetes"/>
   <meta property="og:site_name" content=""/>
 
   
@@ -103,7 +100,7 @@ See current events associated with ">
 		  </li>
 		  
 		  <li>
-			<a href="/blog" title="My blog">
+			<a href="/categories/blog" title="My blog">
 			  <i class="fas fa-folder"></i>blog/
 			</a>
 		  </li>
@@ -116,22 +113,14 @@ See current events associated with ">
 
   <div class="container">
   	<div class="content">
-    	 <div class="page-header logo">
-  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
-</div>
+    	 
 
-<div class="row page">
+<div class="col-md-9">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="mypage">
-
-		<!-- title and entry -->
-        
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
+	
+	<div id="top_meta"></div>
 	
 	<div class="col-md-12">
 
@@ -139,29 +128,84 @@ See current events associated with ">
 	<div class="mypage">
 	  
 
-	  <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><h2 id="StatefulSets"><a href="#StatefulSets" class="headerlink" title="StatefulSets"></a>StatefulSets</h2><blockquote>
-<p>StatefulSet is the workload API object used to manage stateful applications.</p>
+	  <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><blockquote>
+<p>Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
 </blockquote>
+<h2 id="Kubernetes-Objects"><a href="#Kubernetes-Objects" class="headerlink" title="Kubernetes Objects"></a>Kubernetes Objects</h2><p><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#resource-objects" target="_blank" rel="noopener">More information</a></p>
+<h3 id="Resource-categories"><a href="#Resource-categories" class="headerlink" title="Resource categories"></a>Resource categories</h3><p>The kubernetes objects are grouped by the next hight level types of resources:</p>
 <ul>
-<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/" target="_blank" rel="noopener">statefulset</a></li>
+<li>Workloads</li>
+<li>Discovery &amp; LB</li>
+<li>Config &amp; Storage</li>
+<li>Cluster</li>
+<li>Metadata</li>
 </ul>
-<h2 id="See-current-events-associated-with-a-pod"><a href="#See-current-events-associated-with-a-pod" class="headerlink" title="See current events associated with a pod"></a>See current events associated with a pod</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pods</span><br></pre></td></tr></table></figure>
+<h3 id="Resource-Objects"><a href="#Resource-Objects" class="headerlink" title="Resource Objects"></a>Resource Objects</h3><ul>
+<li>ResourceSpec: Filled by the user. Describes the desired state of system.</li>
+<li>ResourceStatus: Filled by the server. Reports the current state of the system.</li>
+<li>Resource ObjectMeta: This is metadatada about the resource, such as its name, type, api veresion, annotations, and labels. May be updated both by the end user and the system.</li>
+</ul>
+<h3 id="Workloads"><a href="#Workloads" class="headerlink" title="Workloads"></a>Workloads</h3><ul>
+<li>Containers: A single application container that you want to run within a pod.</li>
+<li>CronJob: CronJob represents the configuration of a single cron job.</li>
+<li>DaemonSet: Represents the configuration of a daemon set.</li>
+<li>Deployments: for stateless persistent apps (e.g. http servers)</li>
+<li>Jobs: for run-to-completion apps (e.g. batch jobs)</li>
+<li>Pod: Collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.</li>
+<li>ReplicaSet: ReplicaSet ensures that a specified number of pod replicas are running at any given time.</li>
+<li>ReplicationController: Represents the configuration of a replication controller.</li>
+<li>StatefulSets: for stateful persistent apps (e.g. databases)</li>
+</ul>
+<h3 id="Discovery-amp-Load-Balancing"><a href="#Discovery-amp-Load-Balancing" class="headerlink" title="Discovery &amp; Load Balancing"></a>Discovery &amp; Load Balancing</h3><ul>
+<li>Endpoints</li>
+<li>Ingress</li>
+<li>Service</li>
+</ul>
+<h3 id="Config-amp-Storage"><a href="#Config-amp-Storage" class="headerlink" title="Config &amp; Storage"></a>Config &amp; Storage</h3><ul>
+<li>ConfigMap</li>
+<li>Secret</li>
+<li>PersistentVolumeClaim</li>
+<li>StorageClass</li>
+<li>Volume</li>
+<li>VolumeAttachment</li>
+</ul>
+<h3 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h3><ul>
+<li>ControllerRevision</li>
+<li>CustomResourceDefinition</li>
+<li>Event</li>
+<li>LimitRange</li>
+<li>HorizontalPodAutoscaler</li>
+<li>…</li>
+</ul>
+<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3><ul>
+<li>…</li>
+</ul>
+<h2 id="Kubernetes-Dashboard"><a href="#Kubernetes-Dashboard" class="headerlink" title="Kubernetes Dashboard"></a>Kubernetes Dashboard</h2><p>To access your kubernetes dashboard just open a proxy typing <code>kubectl proxy</code> and open <a href="http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/" target="_blank" rel="noopener">http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</a></p>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><ul>
+<li><a href="https://blog.heptio.com/on-securing-the-kubernetes-dashboard-16b09b1b7aca" target="_blank" rel="noopener">On Securing the Kubernetes Dashboard</a></li>
+</ul>
 <h2 id="kubectl"><a href="#kubectl" class="headerlink" title="kubectl"></a>kubectl</h2><ul>
 <li><a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank" rel="noopener">kubectl</a> - kubectl is a command line interface for running commands against Kubernetes clusters.</li>
 <li><a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/" target="_blank" rel="noopener">cheatsheet</a></li>
 </ul>
+<h3 id="See-current-events-associated-with-a-pod"><a href="#See-current-events-associated-with-a-pod" class="headerlink" title="See current events associated with a pod"></a>See current events associated with a pod</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pods</span><br></pre></td></tr></table></figure>
 <h2 id="Package-Managers"><a href="#Package-Managers" class="headerlink" title="Package Managers"></a>Package Managers</h2><h3 id="Helm"><a href="#Helm" class="headerlink" title="Helm"></a>Helm</h3><blockquote>
 <p>The package manager for Kubernetes</p>
 <p>Helm is the best way to find, share, and use software built for Kubernetes.</p>
 </blockquote>
 <ul>
 <li><a href="https://helm.sh/" target="_blank" rel="noopener">helm.sh</a></li>
+<li><a href="https://github.com/kubernetes/charts" target="_blank" rel="noopener">charts</a> -  Curated applications for Kubernetes</li>
+<li><a href="https://blog.risingstack.com/packing-a-kubernetes-microservices-with-helm/" target="_blank" rel="noopener">Packing a Kubernetes Microservices App with Helm</a></li>
 </ul>
 <h2 id="Testing-k8s"><a href="#Testing-k8s" class="headerlink" title="Testing k8s"></a>Testing k8s</h2><h3 id="minikube"><a href="#minikube" class="headerlink" title="minikube"></a><a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener">minikube</a></h3><p>Run Kubernetes locally</p>
 <h4 id="Stop-minikube"><a href="#Stop-minikube" class="headerlink" title="Stop minikube"></a>Stop minikube</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop localkube</span><br><span class="line">docker rm -f $(docker ps -aq --filter name=k8s)</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://codelabs.developers.google.com/codelabs/k8s-kickstart/index.html?index=..%2F..%2Fcloud#0" target="_blank" rel="noopener">Kubernetes Kickstart</a></li>
 <li><a href="https://github.com/kelseyhightower/consul-on-kubernetes" target="_blank" rel="noopener">consul-on-kubernetes</a></li>
+<li><a href="https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0" target="_blank" rel="noopener">Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?</a></li>
+<li><a href="https://itnext.io/use-helm-to-deploy-openvpn-in-kubernetes-to-access-pods-and-services-217dec344f13" target="_blank" rel="noopener">Use Helm to Install OpenVPN in Kubernetes to access pods and services</a></li>
+<li><a href="https://medium.com/@nqbao/exposing-kubernetes-cluster-over-vpn-7a97267b320a" target="_blank" rel="noopener">Exposing Kubernetes cluster over VPN</a></li>
 </ul>
 
 	</div>
@@ -171,6 +215,17 @@ See current events associated with ">
 	<div class="pagination">
 
     
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/events/fosdem/2018/urban-spaces-as-nodes-of-a-decentralized-internet.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
     </center>
@@ -178,6 +233,37 @@ See current events associated with ">
 
 	<!-- comment -->
 	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 
@@ -185,14 +271,10 @@ See current events associated with ">
 
 
 
+</div>
 
-		</div>
-
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+<div class="col-md-3">
+    <div id="side_meta" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
                 <div class="toc">
             <h4>TOC</h4>
             <div>
@@ -202,37 +284,52 @@ See current events associated with ">
         </div>
 
 
-        
-            
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+        <div id="post_meta">
+
+	<!-- date -->
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-21
+	</div>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+  </li>
+
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">My LinkedIn</a></li>
+
+	<!-- tags -->
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/linux/">linux<span>21</span></a></li> <li><a href="/tags/cloud/">cloud<span>3</span></a></li> <li><a href="/tags/orchestration/">orchestration<span>3</span></a></li> <li><a href="/tags/kubernetes/">kubernetes<span>1</span></a></li>
+    </ul>
+	</div>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+
+	<!-- toc -->
+	<div class="meta-widget">
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
-	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
-	
-	</ul>
+	</div>
+
+    <hr>
+
 </div>
 
-
-        
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
+    </div>
+</div>
 
 	</div>
   </div>
