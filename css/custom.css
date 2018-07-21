@@ -14,6 +14,26 @@ a {
     font-family: DOS,SimHei,Monaco,Menlo,Consolas,'Courier New',monospace;
 }
 
+a[target="_blank"]::after{
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-family: "Font Awesome 5 Free";
+    content: "\f360";
+    padding-left: 10px;
+    font-weight: 900;
+    font-size: 80%;
+    opacity: 0.6;
+}
+
+.blogroll a[target="_blank"]::after{
+    content: "";
+}
+
 h1 {
     color: rgba(51, 255, 0, 1);
     text-transform: lowercase;
