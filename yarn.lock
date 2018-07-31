@@ -898,6 +898,12 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
 
+deep-assign@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/deep-assign/-/deep-assign-2.0.0.tgz#ebe06b1f07f08dae597620e3dd1622f371a1c572"
+  dependencies:
+    is-obj "^1.0.0"
+
 deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
@@ -1785,6 +1791,12 @@ hexo-deployer-git@^0.3.0:
     moment "^2.18.0"
     swig "^1.4.2"
 
+hexo-filter-flowchart@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/hexo-filter-flowchart/-/hexo-filter-flowchart-1.0.4.tgz#5b213126a02771df260ed0d5c6e04613486f9ccf"
+  dependencies:
+    deep-assign "^2.0.0"
+
 hexo-filter-github-emojis@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/hexo-filter-github-emojis/-/hexo-filter-github-emojis-1.4.4.tgz#9a4012d2b578fe8c10d80c37268c3a0971f5ea62"
@@ -1792,6 +1804,12 @@ hexo-filter-github-emojis@^1.4.4:
     lodash "^4.17.4"
     random-ua "0.0.6"
     request "^2.83.0"
+
+hexo-filter-sequence@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/hexo-filter-sequence/-/hexo-filter-sequence-1.0.3.tgz#5a0cd2dd47a60a356599cdfa96fa8c4155344ce8"
+  dependencies:
+    deep-assign "^2.0.0"
 
 hexo-front-matter@^0.2.2:
   version "0.2.3"
@@ -2216,6 +2234,10 @@ is-number@^3.0.0:
 is-number@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-4.0.0.tgz#0026e37f5454d73e356dfe6564699867c6a7f0ff"
+
+is-obj@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
 
 is-odd@^2.0.0:
   version "2.0.0"
