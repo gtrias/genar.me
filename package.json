@@ -10,7 +10,7 @@
     "gulp-replace": "^0.6.1",
     "hexo": "^3.7.1",
     "hexo-browsersync": "^0.3.0",
-    "hexo-deployer-git": "^0.3.0",
+    "hexo-deployer-git": "^0.3.1",
     "hexo-filter-flowchart": "^1.0.4",
     "hexo-filter-github-emojis": "^1.4.4",
     "hexo-filter-sequence": "^1.0.3",
