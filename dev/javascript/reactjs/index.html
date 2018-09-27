@@ -1,0 +1,561 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>React.js | genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="react.jsA JavaScript library for building user interfaces
+
+
+
+Inbox
+why-did-you-update - &amp;#x1f4a5; Puts your console on blast when React is making unne">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="React.js"/>
+  <meta property="og:site_name" content=""/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fas fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fas fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fas fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories/blog" title="My blog">
+			  <i class="fas fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+
+
+<div class="page-header logo">
+  <h1 class="glitch" data-text="[genar@localhost dev]$ create-react-app my-app∎">[genar@localhost dev]$ create-react-app my-app<span class="blink-fast">∎</span></h1>
+</div>
+
+
+<div class="col-md-9">
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h1 id="react-js"><a href="#react-js" class="headerlink" title="react.js"></a>react.js</h1><p>A JavaScript library for building user interfaces</p>
+<p><div style="width: 100%; overflow: hidden; background-color: white; max-height: 200px;" id="root"></div></p>
+<script src="https://gtrias.github.io/gameoflife-canvas/static/js/main.c4dae402.js"></script>
+
+<h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
+<li><a href="https://github.com/maicki/why-did-you-update" target="_blank" rel="noopener">why-did-you-update</a> - <span class="github-emoji" title="boom" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png?v8">&#x1f4a5;</span> Puts your console on blast when React is making unnecessary updates.</li>
+<li><a href="https://github.com/styleguidist/react-styleguidist" target="_blank" rel="noopener">react-styleguidist</a> -  Isolated React component development environment with a living style guide <a href="https://react-styleguidist.js.org/" target="_blank" rel="noopener">https://react-styleguidist.js.org/</a></li>
+<li><a href="https://github.com/soska/react-keyboardist" target="_blank" rel="noopener">react-keyboardist</a> - An easy and declarative way to add keyboard shortcuts to your React app.</li>
+<li><a href="https://github.com/facebookincubator/create-react-app/issues/578" target="_blank" rel="noopener">Compiled config vs runtime config</a></li>
+<li><a href="https://egghead.io/lessons/react-introducing-advanced-react-component-patterns?utm_content=buffer70102&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer" target="_blank" rel="noopener">https://egghead.io/lessons/react-introducing-advanced-react-component-patterns?utm_content=buffer70102&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer</a></li>
+<li><a href="https://github.com/joshwnj/react-visibility-sensor" target="_blank" rel="noopener">react-visibility-sensor</a></li>
+<li><a href="https://github.com/jxnblk/micro-react" target="_blank" rel="noopener">micro-react</a></li>
+</ul>
+<h2 id="My-public-reactjs-side-projects"><a href="#My-public-reactjs-side-projects" class="headerlink" title="My public reactjs side projects"></a>My public reactjs side projects</h2><ul>
+<li><a href="https://github.com/gtrias/gameoflife-canvas" target="_blank" rel="noopener">gameoflife-canvas</a></li>
+<li><a href="https://gitlab.com/gtrias/photowall" target="_blank" rel="noopener">photowall</a> - Just a photo wall gallery made with &lt;3 and reactjs</li>
+</ul>
+<h2 id="Quickstart-generators"><a href="#Quickstart-generators" class="headerlink" title="Quickstart generators"></a>Quickstart generators</h2><ul>
+<li><a href="https://github.com/alidcastano/rogue" target="_blank" rel="noopener">rogue</a> -  SSR for React that’s invisible (zero config! - only needs an App.js) and quick (no Webpack! - Parcel &lt;3)</li>
+<li><a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener">create-react-app</a> - Create React apps with no build configuration.</li>
+<li><a href="https://github.com/insin/nwb" target="_blank" rel="noopener">nwb</a> - A toolkit for React, Preact, Inferno &amp; vanilla JS apps, React libraries and other npm modules for the web, with no configuration (until you need it)</li>
+<li><a href="https://neutrino.js.org/" target="_blank" rel="noopener">neutrino</a> - Create and build modern JavaScript projects with zero initial configuration. <a href="https://neutrino.js.org" target="_blank" rel="noopener">https://neutrino.js.org</a></li>
+<li><a href="https://github.com/barbar/vortigern" target="_blank" rel="noopener">vortigern</a> - A universal boilerplate for building web applications w/ TypeScript, React, Redux, Server Side Rendering and more. <a href="https://barbar.github.io/vortigern" target="_blank" rel="noopener">https://barbar.github.io/vortigern</a></li>
+</ul>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a><a href="/dev/javascript/typescript/index.html">TypeScript</a></h2><ul>
+<li><a href="https://github.com/Microsoft/TypeScript-React-Starter" target="_blank" rel="noopener">TypeScript-React-Starter</a> - A starter template for TypeScript and React with a detailed README describing how to use the two together.</li>
+<li><a href="https://github.com/niieani/typescript-vs-flowtype" target="_blank" rel="noopener">typescript-vs-flowtype</a> - Differences between Flowtype and TypeScript – syntax and usability</li>
+</ul>
+<h2 id="Websockets"><a href="#Websockets" class="headerlink" title="Websockets"></a>Websockets</h2><ul>
+<li><a href="https://github.com/itaylor/redux-socket.io" target="_blank" rel="noopener">redux-socket.io</a></li>
+<li><a href="https://medium.com/dailyjs/combining-react-with-socket-io-for-real-time-goodness-d26168429a34" target="_blank" rel="noopener">Combine react with socket.io for real time godness</a></li>
+</ul>
+<h2 id="React-frameworks"><a href="#React-frameworks" class="headerlink" title="React frameworks"></a>React frameworks</h2><ul>
+<li><a href="https://github.com/zeit/next.js/" target="_blank" rel="noopener">next.js</a> - Next.js is a minimalistic framework for server-rendered React applications.</li>
+<li><a href="https://github.com/vadimdemedes/ink/" target="_blank" rel="noopener">ink</a> - <span class="github-emoji" title="rainbow" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f308.png?v8">&#x1f308;</span> React for interactive command-line apps<ul>
+<li><a href="https://github.com/yardnsm/ink-text-animation" target="_blank" rel="noopener">ink-text-animation</a> -  A text animation component for Ink</li>
+</ul>
+</li>
+</ul>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
+<li><a href="https://github.com/react-tools/react-table" target="_blank" rel="noopener">react-table</a> - Tables made with reactjs</li>
+<li><a href="https://github.com/JedWatson/react-select" target="_blank" rel="noopener">react-select</a> - Select2 reactjs widget</li>
+<li>[react-alert](<a href="https://github.com/schiehll/react-alert" target="_blank" rel="noopener">https://github.com/schiehll/react-alert</a> - Show toaster style notifications</li>
+<li><a href="https://github.com/reactjs/react-modal" target="_blank" rel="noopener">react-modal</a> - Accessible modal dialog component for React</li>
+<li><a href="https://github.com/brunnolou/react-morph" target="_blank" rel="noopener">react-morph</a> - Morphing Ui transitions made simple <a href="https://brunnolou.github.io/react-mor…" target="_blank" rel="noopener">https://brunnolou.github.io/react-mor…</a></li>
+<li><a href="https://github.com/FormidableLabs/spectacle" target="_blank" rel="noopener">spectacle</a> - ReactJS based Presentation Library <a href="http://formidable.com/open-source/spectacle/" target="_blank" rel="noopener">http://formidable.com/open-source/spectacle/</a></li>
+<li><a href="https://github.com/CookPete/react-player" target="_blank" rel="noopener">react-player</a> - A React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia and DailyMotion <a href="https://cookpete.com/react-player" target="_blank" rel="noopener">https://cookpete.com/react-player</a></li>
+<li><a href="https://github.com/yuanyan/halogen" target="_blank" rel="noopener">halogen</a> - A collection of loading spinners with React.js <a href="http://madscript.com/halogen" target="_blank" rel="noopener">http://madscript.com/halogen</a></li>
+<li><a href="https://github.com/Flipkart/recyclerlistview" target="_blank" rel="noopener">recyclerlistview</a> - High performance listview for React Native and web!</li>
+<li><a href="https://github.com/dvtng/react-loading-skeleton" target="_blank" rel="noopener">react-loading-skeleton</a> - Create skeleton screens that automatically adapt to your app!</li>
+<li><a href="https://github.com/camwest/react-slot-fill" target="_blank" rel="noopener">react-slot-fill</a> - Slot &amp; Fill component for merging React subtrees together. Portal on steroids. <a href="https://camwest.github.io/react-slot-fill" target="_blank" rel="noopener">https://camwest.github.io/react-slot-fill</a></li>
+<li><a href="https://github.com/react-component/switch" target="_blank" rel="noopener">switch</a> - React Switch <a href="http://react-component.github.io/switch/" target="_blank" rel="noopener">http://react-component.github.io/switch/</a></li>
+<li><a href="https://github.com/pascalw/dashbling" target="_blank" rel="noopener">dashbling</a> - Hackable React based dashboards for developers, inspired by Dashing <a href="https://dashbling.herokuapp.com/" target="_blank" rel="noopener">https://dashbling.herokuapp.com/</a></li>
+</ul>
+<h3 id="Logic-control-using-components"><a href="#Logic-control-using-components" class="headerlink" title="Logic control using components"></a>Logic control using components</h3><ul>
+<li><a href="https://github.com/AlexGilleran/jsx-control-statements" target="_blank" rel="noopener">jsx-control-statements</a> -  Neater If and For for React JSX <a href="https://www.npmjs.com/package/jsx-control-statements" target="_blank" rel="noopener">https://www.npmjs.com/package/jsx-control-statements</a></li>
+<li><a href="https://github.com/sospedra/mayre" target="_blank" rel="noopener">mayre</a> - Maybe render a React component, maybe not</li>
+</ul>
+<h3 id="Audio-players"><a href="#Audio-players" class="headerlink" title="Audio players"></a>Audio players</h3><ul>
+<li><a href="https://github.com/wenliangdai/react-audioplayer" target="_blank" rel="noopener">react-audioplayer</a> -  A customizable HTML5 audio player for React.js</li>
+</ul>
+<h3 id="Calendars"><a href="#Calendars" class="headerlink" title="Calendars"></a>Calendars</h3><ul>
+<li><a href="http://ui.toast.com/tui-calendar/" target="_blank" rel="noopener">tui-calendar</a> - TOAST UI Calendar is a full-featured calendar. Experience various view types, default popups, dragging or resizing schedules and customizable theme which is easy to use.</li>
+</ul>
+<h3 id="Datepickers"><a href="#Datepickers" class="headerlink" title="Datepickers"></a>Datepickers</h3><ul>
+<li><a href="http://projects.wojtekmaj.pl/react-date-picker/" target="_blank" rel="noopener">react-date-picker</a> - A date picker for your React app.  by Wojciech Maj</li>
+<li><a href="https://github.com/Hacker0x01/react-datepicker" target="_blank" rel="noopener">react-datepicker</a>: React datepicker</li>
+<li><a href="http://github.com/airbnb/react-dates" target="_blank" rel="noopener">react-dates</a> - An easily internationalizable, mobile-friendly datepicker library for the web <a href="http://airbnb.io/react-dates" target="_blank" rel="noopener">http://airbnb.io/react-dates</a></li>
+</ul>
+<h3 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h3><ul>
+<li><a href="https://github.com/ReactTraining/react-router" target="_blank" rel="noopener">react-router</a> - Declarative routing for React <a href="https://reacttraining.com/react-router/" target="_blank" rel="noopener">https://reacttraining.com/react-router/</a></li>
+</ul>
+<h5 id="Passing-state-when-using-Link-component"><a href="#Passing-state-when-using-Link-component" class="headerlink" title="Passing state when using Link component"></a>Passing state when using Link component</h5><p>Passing state key within to property allows to pass state to the referenced route</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link</span><br><span class="line">  type=<span class="string">'submit'</span></span><br><span class="line">  to=&#123;&#123;<span class="attr">pathname</span>: <span class="string">'/buy-tickets'</span>, <span class="attr">state</span>: <span class="keyword">this</span>.props&#125;&#125;</span><br><span class="line">  className=<span class="string">'btn btn-block btn-lg btn-primary'</span></span><br><span class="line">  disabled=&#123;!<span class="keyword">this</span>.props.tickets.selectedCount&#125;</span><br><span class="line">&gt;</span><br><span class="line">  Confirm</span><br><span class="line">&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h5><ul>
+<li><a href="https://tylermcginnis.com/react-router-programmatically-navigate/" target="_blank" rel="noopener">Programmatically navigate with React Router</a></li>
+</ul>
+<h3 id="Forms"><a href="#Forms" class="headerlink" title="Forms"></a>Forms</h3><ul>
+<li><a href="https://github.com/davidkpiano/react-redux-form" target="_blank" rel="noopener">react-redux-form</a> - Create forms easily in React with Redux. <a href="https://davidkpiano.github.io/react-redux-form/" target="_blank" rel="noopener">https://davidkpiano.github.io/react-redux-form/</a></li>
+<li><a href="https://github.com/jaredpalmer/formik" target="_blank" rel="noopener">formik</a> - Build forms in React, without the tears <span class="github-emoji" title="sob" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f62d.png?v8">&#x1f62d;</span> <a href="https://npm.im/formik" target="_blank" rel="noopener">https://npm.im/formik</a></li>
+<li><a href="https://github.com/ismaelga/react-json-editor" target="_blank" rel="noopener">react-json-editor</a> - A dynamic form component for react using JSON-Schema. <a href="https://ismaelga.github.io/react-json-editor" target="_blank" rel="noopener">https://ismaelga.github.io/react-json-editor</a></li>
+<li><a href="https://github.com/mozilla-services/react-jsonschema-form" target="_blank" rel="noopener">react-jsonschema-form</a> - A React component for building Web forms from JSON Schema. <a href="https://mozilla-services.github.io/react-jsonschema-form/" target="_blank" rel="noopener">https://mozilla-services.github.io/react-jsonschema-form/</a></li>
+</ul>
+<h3 id="Charts"><a href="#Charts" class="headerlink" title="Charts"></a>Charts</h3><ul>
+<li><a href="https://github.com/FormidableLabs/victory" target="_blank" rel="noopener">victory</a> - A collection of composable React components for building interactive data visualizations .<ul>
+<li>it uses d3</li>
+<li>Supports candlestick charts</li>
+<li>easy to implement</li>
+</ul>
+</li>
+<li><a href="http://www.reactd3.org/" target="_blank" rel="noopener">reactd3</a> - A Javascript Library For Building Composable And Declarative Charts</li>
+<li><a href="https://github.com/reactjs/react-chartjs" target="_blank" rel="noopener">react-chartjs</a> - rich interactive react charting components using chart.js (<em>NOTE</em> This is a CommonJS component only)</li>
+<li><a href="https://github.com/recharts/recharts" target="_blank" rel="noopener">recharts</a> -  Redefined chart library built with React and D3 <a href="http://recharts.org" target="_blank" rel="noopener">http://recharts.org</a></li>
+</ul>
+<h3 id="Diagrams"><a href="#Diagrams" class="headerlink" title="Diagrams"></a>Diagrams</h3><ul>
+<li><a href="https://github.com/projectstorm/react-diagrams" target="_blank" rel="noopener">react-diagrams</a> -  a super simple, no-nonsense diagramming library written in react that just works</li>
+</ul>
+<h3 id="i18n"><a href="#i18n" class="headerlink" title="i18n"></a>i18n</h3><ul>
+<li><a href="https://github.com/artisavotins/react-redux-i18n" target="_blank" rel="noopener">react-redux-i18n</a> - binding for redux and react-i18nify<ul>
+<li><strong>WARNING</strong> This bundle includes momentjs which increases the built bundle size a lot.</li>
+</ul>
+</li>
+<li><a href="https://github.com/airbnb/polyglot.js" target="_blank" rel="noopener">polyglot.js</a> - Give your JavaScript the ability to speak many languages. <a href="http://airbnb.github.io/polyglot.js" target="_blank" rel="noopener">http://airbnb.github.io/polyglot.js</a></li>
+</ul>
+<h2 id="High-order-components"><a href="#High-order-components" class="headerlink" title="High order components"></a>High order components</h2><ul>
+<li><a href="https://reactjs.org/docs/higher-order-components.html" target="_blank" rel="noopener">Higher-Order Components</a></li>
+</ul>
+<h3 id="Differences-between-containers-and-HOC"><a href="#Differences-between-containers-and-HOC" class="headerlink" title="Differences between containers and HOC"></a>Differences between containers and HOC</h3><blockquote>
+<p>Higher-Order Components (HOC) and Container Components are different. They have different use cases and solve similar, but different problems.</p>
+</blockquote>
+<blockquote>
+<p>HOC are like mixins. They are used to compose functionality that the decorated component is aware of. This is opposed to Container Components that wrap children and allow the children to be dumb (or not aware of the Container’s decorated functionality).</p>
+</blockquote>
+<blockquote>
+<p>It is true when transferring props, that Containers can add functionality to their children. But, this is usually in the form of props being passed down to the children. In Containers, this is also awkward because of the limitation that you cannot simply add props to an already created Element:</p>
+</blockquote>
+<blockquote>
+<p>So, if you wanted to add a new prop to a child from this.props.children, you would have to use cloneElement. This is not as efficient because it means you have to re-create the elements.</p>
+</blockquote>
+<blockquote>
+<p>Also, HOC is simply a way (factory) for creating Components. So, this can happen outside the render.</p>
+</blockquote>
+<ul>
+<li><a href="https://stackoverflow.com/a/36970073/865222" target="_blank" rel="noopener">Link</a></li>
+</ul>
+<h2 id="Functional-stateless-components"><a href="#Functional-stateless-components" class="headerlink" title="Functional stateless components"></a>Functional stateless components</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Username = <span class="function">(<span class="params">&#123; username &#125;</span>) =&gt;</span> &lt;p&gt;The logged <span class="keyword">in</span> user is: &#123;username&#125;&lt;<span class="regexp">/p&gt;;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://javascriptplayground.com/functional-stateless-components-react/" target="_blank" rel="noopener">Functional Stateless Components in React</a></li>
+</ul>
+<h2 id="State-management"><a href="#State-management" class="headerlink" title="State management"></a>State management</h2><ul>
+<li><a href="/dev/javascript/redux.html">redux</a></li>
+<li><a href="https://github.com/mobxjs/mobx" target="_blank" rel="noopener">mobx</a></li>
+<li><a href="https://github.com/jamiebuilds/unstated" target="_blank" rel="noopener">unstated</a> - State so simple, it goes without saying <a href="http://unstated.io" target="_blank" rel="noopener">http://unstated.io</a></li>
+<li><a href="https://github.com/developit/unistore" target="_blank" rel="noopener">unistore</a></li>
+</ul>
+<h2 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h2><ul>
+<li><a href="https://github.com/styled-components/styled-theming" target="_blank" rel="noopener">styled-theming</a> - Create themes for your app using styled-components</li>
+</ul>
+<h2 id="Animations"><a href="#Animations" class="headerlink" title="Animations"></a>Animations</h2><ul>
+<li><a href="https://github.com/madou/yubaba" target="_blank" rel="noopener">yubaba</a> - is an element to element animation orchestrator for React.js sparkles <a href="https://madou.github.io/yubaba/?selectedKind=Animations%2FCrossFadeMove&amp;selectedStory=square%20to%20square&amp;full=0&amp;addons=0&amp;stories=1&amp;panelRight=0" target="_blank" rel="noopener">https://madou.github.io/yubaba/?selectedKind=Animations%2FCrossFadeMove&amp;selectedStory=square%20to%20square&amp;full=0&amp;addons=0&amp;stories=1&amp;panelRight=0</a></li>
+</ul>
+<h2 id="Static-sites-generator"><a href="#Static-sites-generator" class="headerlink" title="Static sites generator"></a>Static sites generator</h2><ul>
+<li><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">gatsbyjs.org</a> - Blazing-fast static site generator for React<ul>
+<li><a href="https://www.gatsbyjs.org/blog/2017-11-09-why-i-created-my-blog-with-gatsby-and-contentful/" target="_blank" rel="noopener">https://www.gatsbyjs.org/blog/2017-11-09-why-i-created-my-blog-with-gatsby-and-contentful/</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/nozzle/react-static" target="_blank" rel="noopener">react-static</a> - <span class="github-emoji" title="atom_symbol" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/269b.png?v8">&#x269b;</span> <span class="github-emoji" title="rocket" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f680.png?v8">&#x1f680;</span> A progressive static-site generator for React.</li>
+</ul>
+<h2 id="Static-content-server"><a href="#Static-content-server" class="headerlink" title="Static content server"></a>Static content server</h2><ul>
+<li><a href="https://github.com/zeit/serve" target="_blank" rel="noopener">serve</a> - Static file serving and directory listing</li>
+</ul>
+<h2 id="Desktop-app-frameworks"><a href="#Desktop-app-frameworks" class="headerlink" title="Desktop app frameworks"></a>Desktop app frameworks</h2><ul>
+<li><a href="https://github.com/kusti8/proton-native" target="_blank" rel="noopener">proton-native</a> - A React environment for cross platform native desktop apps <a href="https://proton-native.js.org" target="_blank" rel="noopener">https://proton-native.js.org</a></li>
+</ul>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><ul>
+<li><a href="jest.html">jest</a></li>
+<li><a href="https://codesandbox.io/" target="_blank" rel="noopener">codesandbox.io</a></li>
+<li><a href="https://semaphoreci.com/community/tutorials/getting-started-with-tdd-in-react" target="_blank" rel="noopener">Getting Started with TDD in React</a></li>
+<li><a href="https://bambielli.com/til/2018-03-04-directly-test-react-component-methods/" target="_blank" rel="noopener">How to Directly Test React Component Methods with Enzyme</a></li>
+</ul>
+<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><ul>
+<li><a href="https://github.com/Nozbe/WatermelonDB" target="_blank" rel="noopener">WatermelonDB</a> - <span class="github-emoji" title="watermelon" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f349.png?v8">&#x1f349;</span> Next-gen database for powerful React and React Native apps that scales to 10,000s of records and remains fast zap</li>
+</ul>
+<h2 id="GraphQL"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</h2><ul>
+<li><a href="https://github.com/hasura/awesome-react-graphql" target="_blank" rel="noopener">awesome-react-graphql</a> -  A curated collection of resources, clients and tools that make working with <code>GraphQL and React/React Native</code> awesome</li>
+</ul>
+<h2 id="Performance-testing"><a href="#Performance-testing" class="headerlink" title="Performance testing"></a>Performance testing</h2><ul>
+<li><a href="https://github.com/vaheqelyan/react-perftool" target="_blank" rel="noopener">react-perftool</a> -  A browser developer tool extension, which will help you to inspect the performance of React Js components.</li>
+<li><a href="https://github.com/amsul/react-performance" target="_blank" rel="noopener">react-performance</a> - Helpers to debug and record component render performance</li>
+</ul>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li>Always make https API calls<ul>
+<li>Read <a href="https://jeremywagner.me/blog/stop-using-the-protocol-relative-url/" target="_blank" rel="noopener">Some notes why not to use protocol relative urls</a>  #13072951</li>
+</ul>
+</li>
+</ul>
+<h2 id="Demos"><a href="#Demos" class="headerlink" title="Demos"></a>Demos</h2><ul>
+<li><a href="https://github.com/Pau1fitz/react-spotify" target="_blank" rel="noopener">react-spotify</a> -  A Spotify client built with React / Redux microphonetrumpetguitarsaxophone <a href="https://pau1fitz.github.io/react-spotify" target="_blank" rel="noopener">https://pau1fitz.github.io/react-spotify</a></li>
+<li><a href="https://github.com/mariodev12/coinmarketcap" target="_blank" rel="noopener">coinmarketcap</a> -  What if coinmarketcap was made with reactjs?</li>
+<li><a href="https://github.com/agrcrobles/react-native-blockchain-poll" target="_blank" rel="noopener">react-native-blockchain-poll</a> -  curly_loop A decentralized mobile app on React Native and Ethereum to rank your favorite cryptopunks <a href="https://hackernoon.com/bringing-the-blockchain-to-react-native-98b76e15d44d" target="_blank" rel="noopener">https://hackernoon.com/bringing-the-blockchain-to-react-native-98b76e15d44d</a></li>
+<li><a href="https://github.com/reactioncommerce/reaction" target="_blank" rel="noopener">reaction</a> -  Reaction is a customizable, real-time reactive, JavaScript commerce platform. <a href="https://reactioncommerce.com/" target="_blank" rel="noopener">https://reactioncommerce.com/</a></li>
+</ul>
+<h2 id="Feature-toggle"><a href="#Feature-toggle" class="headerlink" title="Feature toggle"></a>Feature toggle</h2><ul>
+<li><a href="https://github.com/tdeekens/flopflip" target="_blank" rel="noopener">flopflip</a> - :level_sliderFlip: or flop features in your React application in real-time backed by flag provider of your choice <span class="github-emoji" title="vertical_traffic_light" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a6.png?v8">&#x1f6a6;</span> <a href="https://techblog.commercetools.com/em…" target="_blank" rel="noopener">https://techblog.commercetools.com/em…</a></li>
+</ul>
+<h2 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h2><ul>
+<li><a href="https://github.com/krasimir/react-in-patterns" target="_blank" rel="noopener">React in Patterns</a> - <span class="github-emoji" title="books" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4da.png?v8">&#x1f4da;</span> A free book that talks about design patterns/techniques used while developing with React.</li>
+</ul>
+<h2 id="Links-1"><a href="#Links-1" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://reactjs.org/" target="_blank" rel="noopener">Official</a></li>
+<li><a href="https://github.com/diegohaz/awesome-react-context" target="_blank" rel="noopener">awesome-react-context</a> - <span class="github-emoji" title="sunglasses" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f60e.png?v8">&#x1f60e;</span> A curated list of stuff related to the new React Context API</li>
+<li><a href="https://medium.freecodecamp.org/designing-reusable-react-components-1cbeb897b048" target="_blank" rel="noopener">Designing Reusable React Components</a></li>
+<li><a href="https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce" target="_blank" rel="noopener">How to create a React component and publish it on NPM</a></li>
+<li><a href="https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage" target="_blank" rel="noopener">Redux: Persisting the State to the Local Storage</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/sys/containers/k8s/index.html" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+</div>
+
+
+    <div class="col-md-3">
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="post_meta">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-09-28
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/javascript/">javascript<span>19</span></a></li> <li><a href="/tags/frontend/">frontend<span>5</span></a></li> <li><a href="/tags/reactjs/">reactjs<span>5</span></a></li>
+    </ul>
+	</div>
+	
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+
+    <hr>
+
+</div>
+
+
+        
+            
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+	
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">LinkedIn</a></li>
+	
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+	
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+	
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+	
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+        
+
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>

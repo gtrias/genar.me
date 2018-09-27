@@ -9,11 +9,9 @@
   <title>golang | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="GolangWeb development
-buffalo -  Rapid Web Development w/ Go http://gobuffalo.io
-
-Servers
-gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
+  <meta name="description" content="GolangTestingRun all tests in your project1go test ./...
+In order to run it forever watching changes run the next snippet:
+1234while truedo    inotify">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -120,7 +118,7 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 
 
 <div class="page-header logo">
-  <h1 class="glitch" data-text="golang∎">golang<span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost ~]$ go build∎">[genar@localhost ~]$ go build<span class="blink-fast">∎</span></h1>
 </div>
 
 
@@ -137,7 +135,15 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 	<div class="mypage">
 	  
 
-	  <h1 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h1><h2 id="Web-development"><a href="#Web-development" class="headerlink" title="Web development"></a>Web development</h2><ul>
+	  <h1 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h1><h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><h3 id="Run-all-tests-in-your-project"><a href="#Run-all-tests-in-your-project" class="headerlink" title="Run all tests in your project"></a>Run all tests in your project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test ./...</span><br></pre></td></tr></table></figure>
+<p>In order to run it forever watching changes run the next snippet:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    inotifywait -qq -r -e create,close_write,modify,move,delete ./ &amp;&amp; go <span class="built_in">test</span> ./...</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>You will need <em>inotify-tools</em> (<code>sudo pacman -S inotify-tools</code>)</p>
+<p><a href="https://github.com/golang/go/issues/23449" target="_blank" rel="noopener">source</a></p>
+<h3 id="DDD"><a href="#DDD" class="headerlink" title="DDD"></a>DDD</h3><ul>
+<li><a href="https://github.com/marcusolsson/goddd" target="_blank" rel="noopener">goddd</a> - Exploring DDD in Go</li>
+</ul>
+<h2 id="Web-development"><a href="#Web-development" class="headerlink" title="Web development"></a>Web development</h2><ul>
 <li><a href="https://github.com/gobuffalo/buffalo" target="_blank" rel="noopener">buffalo</a> -  Rapid Web Development w/ Go <a href="http://gobuffalo.io" target="_blank" rel="noopener">http://gobuffalo.io</a></li>
 </ul>
 <h2 id="Servers"><a href="#Servers" class="headerlink" title="Servers"></a>Servers</h2><ul>
@@ -155,6 +161,7 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 </ul>
 <h2 id="Task-runners"><a href="#Task-runners" class="headerlink" title="Task runners"></a>Task runners</h2><ul>
 <li><a href="https://github.com/go-task/task" target="_blank" rel="noopener">task</a> -  A task runner / simpler Make alternative written in Go</li>
+<li><a href="https://github.com/cespare/reflex" target="_blank" rel="noopener">reflex</a> - Run a command when files change</li>
 </ul>
 <h2 id="Log-management-sytem"><a href="#Log-management-sytem" class="headerlink" title="Log management sytem"></a>Log management sytem</h2><ul>
 <li><a href="https://github.com/oklog/oklog" target="_blank" rel="noopener">oklog</a> -  A distributed and coördination-free log management system</li>
@@ -162,8 +169,14 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 <h2 id="Videos"><a href="#Videos" class="headerlink" title="Videos"></a>Videos</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=R2HaxH7Et64&amp;list=PL_QKjHDgmNzpckLNciogFQ79csbL4JtzN&amp;index=22" target="_blank" rel="noopener">Creating GopherJS Apps with gRPC-Web</a></li>
 </ul>
+<h2 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h2><ul>
+<li><a href="https://leanpub.com/golang-tdd/read" target="_blank" rel="noopener">Test-driven development with Go (free)</a></li>
+</ul>
 <h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><ul>
 <li><a href="https://github.com/arsham/figurine" target="_blank" rel="noopener">figurine</a> -  Print your name in style</li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">Effective Go</a></li>
 </ul>
 
 	</div>
@@ -174,13 +187,13 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 
     
     
-    <a href="/dev/javascript/babel.html" type="button" class="btn btn-default"><i
+    <a href="/dev/javascript/index.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/frontend/index.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/frontend/opencomponents.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -250,7 +263,7 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -261,7 +274,7 @@ gliderlabs/ssh -  Easy SSH servers in Golang https://godoc.o">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
   </li>
 
     </ul>

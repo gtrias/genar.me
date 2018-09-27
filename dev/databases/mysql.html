@@ -15,7 +15,7 @@ Nodejs Client
 Backups
 docker-mysql-backup-cron - Mysql backup every 8 hours with S3 upload.
 
-Importing large dumpsThe first step is remo">
+Use search in JSON field in UPDATE statemen">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -122,7 +122,7 @@ Importing large dumpsThe first step is remo">
 
 
 <div class="page-header logo">
-  <h1 class="glitch" data-text="[genar@work dev]$ ∎">[genar@work dev]$ <span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="mysql&gt; SELECT * FROM mysql ∎">mysql&gt; SELECT * FROM mysql <span class="blink-fast">∎</span></h1>
 </div>
 
 
@@ -145,13 +145,15 @@ Importing large dumpsThe first step is remo">
 <h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><ul>
 <li><a href="https://github.com/CANDY-LINE/docker-mysql-backup-cron" target="_blank" rel="noopener">docker-mysql-backup-cron</a> - Mysql backup every 8 hours with S3 upload.</li>
 </ul>
+<h2 id="Use-search-in-JSON-field-in-UPDATE-statement"><a href="#Use-search-in-JSON-field-in-UPDATE-statement" class="headerlink" title="Use search in JSON field in UPDATE statement"></a>Use search in JSON field in UPDATE statement</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UPDATE membership</span><br><span class="line">  SET account = CASE</span><br><span class="line">    WHEN(JSON_EXTRACT(payload, &quot;$.pack.account&quot;) IS NOT NULL)</span><br><span class="line">    THEN JSON_EXTRACT(payload, &quot;$.pack.account&quot;)</span><br><span class="line">    ELSE account</span><br><span class="line">  END</span><br></pre></td></tr></table></figure>
 <h2 id="Importing-large-dumps"><a href="#Importing-large-dumps" class="headerlink" title="Importing large dumps"></a>Importing large dumps</h2><p>The first step is remove every <code>CREATE DATABASE</code> and <code>USE db_name</code> instruction. If the dump is very large the best way to achieve this is using sed since opening a large dump in a text editor is a very bad idea.</p>
 <p>Example:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;/CREATE DATABASE.*/c\&apos; dump.sql</span><br><span class="line">sed -i &apos;/USE whatever.*/c\&apos; dump.sql</span><br></pre></td></tr></table></figure>
 <p>Sometimes when you are importing large dumps you get errors like <code>Can&#39;t connect to the server</code> and <code>ERROR 2047 (HY000): Wrong or unknown protocol</code>.<br>To try to mitigate this issue you can set some mysql parameters:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> global net_buffer_length=1000000; --Set network buffer length to a large byte number</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> global max_allowed_packet=1000000000; --Set maximum allowed packet size to a large byte number</span><br><span class="line"></span><br><span class="line">SET foreign_key_checks = 0; --Disable foreign key checking to avoid delays,errors and unwanted behaviour</span><br><span class="line"></span><br><span class="line">-- Create new schema to import the dump</span><br><span class="line">CREATE DATABASE my_schema;</span><br><span class="line"></span><br><span class="line">-- Select the new created database</span><br><span class="line">USE my_schema;</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> file.sql --Import your sql dump file</span><br><span class="line"></span><br><span class="line">SET foreign_key_checks = 1; --Remember to <span class="built_in">enable</span> foreign key checks when procedure is complete!</span><br></pre></td></tr></table></figure>
 <h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><ul>
-<li><a href="https://cmanios.wordpress.com/2013/03/19/import-a-large-sql-dump-file-to-a-mysql-database-from-command-line/" target="_blank" rel="noopener">https://cmanios.wordpress.com/2013/03/19/import-a-large-sql-dump-file-to-a-mysql-database-from-command-line/</a></li>
+<li><a href="https://manios.org/2013/03/19/import-a-large-sql-dump-file-to-a-mysql-database-from-command-line" target="_blank" rel="noopener">Import a large sql dump file to a MySQL database from command line</a></li>
+<li><a href="https://scotch.io/tutorials/working-with-json-in-mysql" target="_blank" rel="noopener">Working with JSON in MySQL</a></li>
 </ul>
 
 	</div>
@@ -162,13 +164,13 @@ Importing large dumpsThe first step is remo">
 
     
     
-    <a href="/dev/databases/postgresql.html" type="button" class="btn btn-default"><i
+    <a href="/dev/databases/mongodb.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/databases/mongodb.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/databases/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -238,7 +240,7 @@ Importing large dumpsThe first step is remo">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -249,7 +251,7 @@ Importing large dumpsThe first step is remo">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
   </li>
 
     </ul>
@@ -262,7 +264,7 @@ Importing large dumpsThe first step is remo">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/databases/">databases<span>5</span></a></li>
+  <li><a href="/tags/databases/">databases<span>8</span></a></li> <li><a href="/tags/mysql/">mysql<span>1</span></a></li>
     </ul>
 	</div>
 	

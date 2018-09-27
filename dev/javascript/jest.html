@@ -9,9 +9,8 @@
   <title>Jest | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="JestHow to mock a function(Very usefull when you are passing props to component which need dispatch)
-1const mockedFunc = jest.fn()
-Preparing eslint fo">
+  <meta name="description" content="Jest
+Jest is used by Facebook to test all JavaScript code including React applications. One of Jest’s philosophies is to provide an integrated “zero-c">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -135,14 +134,20 @@ Preparing eslint fo">
 	<div class="mypage">
 	  
 
-	  <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><h2 id="How-to-mock-a-function"><a href="#How-to-mock-a-function" class="headerlink" title="How to mock a function"></a>How to mock a function</h2><p>(Very usefull when you are passing props to component which need dispatch)</p>
+	  <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><blockquote>
+<p>Jest is used by Facebook to test all JavaScript code including React applications. One of Jest’s philosophies is to provide an integrated “zero-configuration” experience. We observed that when engineers are provided with ready-to-use tools, they end up writing more tests, which in turn results in more stable and healthy code bases.</p>
+</blockquote>
+<h2 id="How-to-mock-a-function"><a href="#How-to-mock-a-function" class="headerlink" title="How to mock a function"></a>How to mock a function</h2><p>(Very usefull when you are passing props to component which need dispatch)</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mockedFunc = jest.fn()</span><br></pre></td></tr></table></figure>
 <h2 id="Preparing-eslint-for-jest"><a href="#Preparing-eslint-for-jest" class="headerlink" title="Preparing eslint for jest"></a>Preparing eslint for jest</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev eslint-plugin-jest</span><br></pre></td></tr></table></figure>
 <p>Then add jest to your <code>.eslintrc</code> list of plugins</p>
+<h2 id="Utils"><a href="#Utils" class="headerlink" title="Utils"></a>Utils</h2><ul>
+<li><a href="https://github.com/atlassian/jest-in-case" target="_blank" rel="noopener">jest-in-case</a> - Jest utility for creating variations of the same test <a href="https://jamie.build/jest-in-case.html" target="_blank" rel="noopener">https://jamie.build/jest-in-case.html</a></li>
+</ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://facebook.github.io/jest/" target="_blank" rel="noopener">Official site</a></li>
 <li><a href="https://github.com/sapegin/jest-cheat-sheet" target="_blank" rel="noopener">jest-cheat-sheet</a></li>
-<li><a href="https://github.com/jest-community/awesome-jest" target="_blank" rel="noopener">awesome-jest</a> - <span class="github-emoji" title="dark_sunglasses" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f576.png?v7">&#x1f576;</span> Awesome Jest packages and resources <a href="https://facebook.github.io/jest/" target="_blank" rel="noopener">https://facebook.github.io/jest/</a></li>
+<li><a href="https://github.com/jest-community/awesome-jest" target="_blank" rel="noopener">awesome-jest</a> - <span class="github-emoji" title="dark_sunglasses" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f576.png?v8">&#x1f576;</span> Awesome Jest packages and resources <a href="https://facebook.github.io/jest/" target="_blank" rel="noopener">https://facebook.github.io/jest/</a></li>
 <li><a href="https://github.com/Raathigesh/majestic" target="_blank" rel="noopener">majestic</a> - ⚡Zero config UI for Jest <a href="https://majestic.debuggable.io/" target="_blank" rel="noopener">https://majestic.debuggable.io/</a></li>
 <li><a href="https://github.com/Raathigesh/majestic" target="_blank" rel="noopener">⚡ Zero config UI for Jest</a></li>
 <li><a href="https://medium.com/@deanslamajr/jest-fn-all-the-things-d26f3b929986" target="_blank" rel="noopener">jest.fn() All the Things</a></li>
@@ -156,13 +161,13 @@ Preparing eslint fo">
 
     
     
-    <a href="/dev/javascript/index.html" type="button" class="btn btn-default"><i
+    <a href="/dev/javascript/mocha.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/electron.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/javascript/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -232,7 +237,7 @@ Preparing eslint fo">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -243,7 +248,7 @@ Preparing eslint fo">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
   </li>
 
     </ul>
@@ -256,7 +261,7 @@ Preparing eslint fo">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/tdd/">tdd<span>3</span></a></li> <li><a href="/tags/testing/">testing<span>5</span></a></li> <li><a href="/tags/javascript/">javascript<span>13</span></a></li> <li><a href="/tags/unit-test/">unit-test<span>2</span></a></li> <li><a href="/tags/reactjs/">reactjs<span>5</span></a></li>
+  <li><a href="/tags/tdd/">tdd<span>3</span></a></li> <li><a href="/tags/testing/">testing<span>5</span></a></li> <li><a href="/tags/javascript/">javascript<span>19</span></a></li> <li><a href="/tags/unit-test/">unit-test<span>2</span></a></li> <li><a href="/tags/reactjs/">reactjs<span>5</span></a></li>
     </ul>
 	</div>
 	

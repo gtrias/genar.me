@@ -13,9 +13,8 @@
 Docker proxies (Load balancer)
 nginx-proxy
 
-Tools
-ctop - Top-like interface for container metrics
-hadolint - Dockerfile linter writ">
+Storage
+rexray - REX-Ray is a container storage orchestration engine enabling persisten">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -143,6 +142,9 @@ hadolint - Dockerfile linter writ">
 <h2 id="Docker-proxies-Load-balancer"><a href="#Docker-proxies-Load-balancer" class="headerlink" title="Docker proxies (Load balancer)"></a>Docker proxies (Load balancer)</h2><ul>
 <li><a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="noopener">nginx-proxy</a></li>
 </ul>
+<h2 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h2><ul>
+<li><a href="https://github.com/rexray/rexray" target="_blank" rel="noopener">rexray</a> - REX-Ray is a container storage orchestration engine enabling persistence for cloud native workloads <a href="http://rexray.io" target="_blank" rel="noopener">http://rexray.io</a></li>
+</ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://github.com/bcicen/ctop" target="_blank" rel="noopener">ctop</a> - Top-like interface for container metrics</li>
 <li><a href="https://github.com/hadolint/hadolint" target="_blank" rel="noopener">hadolint</a> - Dockerfile linter written in Haskell</li>
@@ -170,6 +172,10 @@ hadolint - Dockerfile linter writ">
 <li><a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">Official</a></li>
 <li><a href="https://github.com/gianarb/orbiter" target="_blank" rel="noopener">orbiter</a> -  Orbiter is an opensource docker swarm autoscaler</li>
 </ul>
+<h2 id="Convert-build-args-to-environment-variables"><a href="#Convert-build-args-to-environment-variables" class="headerlink" title="Convert build args to environment variables"></a>Convert build args to environment variables</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> buildtime_variable=default_value</span><br><span class="line"><span class="keyword">ENV</span> env_var_name=$buildtime_variable</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://vsupalov.com/docker-arg-env-variable-guide/" target="_blank" rel="noopener">Docker ARG, ENV and .env - a Complete Guide</a></li>
+</ul>
 <h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><h3 id="Override-some-container-environment-vars"><a href="#Override-some-container-environment-vars" class="headerlink" title="Override some container environment vars"></a>Override some container environment vars</h3><p>Just create <code>docker-compose.override.yml</code> and set container overrides like this example:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  editor:</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">NODE_ENV=dev</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -185,6 +191,9 @@ hadolint - Dockerfile linter writ">
 <ul>
 <li><a href="https://docs.docker.com/compose/compose-file/#variable-substitution" target="_blank" rel="noopener">https://docs.docker.com/compose/compose-file/#variable-substitution</a></li>
 <li><a href="https://docs.docker.com/compose/env-file/#syntax-rules" target="_blank" rel="noopener">https://docs.docker.com/compose/env-file/#syntax-rules</a></li>
+</ul>
+<h3 id="Docker-with-cronjob"><a href="#Docker-with-cronjob" class="headerlink" title="Docker with cronjob"></a>Docker with cronjob</h3><ul>
+<li><a href="https://gitlab.com/gtrias/docker-cron-example" target="_blank" rel="noopener">Example</a></li>
 </ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://runnable.com/blog/distributing-docker-cache-across-hosts" target="_blank" rel="noopener">Distributing Docker Cache across Hosts</a></li>
@@ -206,7 +215,7 @@ hadolint - Dockerfile linter writ">
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/sys/arch.html" type="button" class="btn btn-default ">Next<i
+    <a href="/sys/ansible.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -276,7 +285,7 @@ hadolint - Dockerfile linter writ">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -287,7 +296,7 @@ hadolint - Dockerfile linter writ">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+    <li><a href="/categories/sys/">sys<span>28</span></a></li>
   </li>
 
     </ul>

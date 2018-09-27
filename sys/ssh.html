@@ -142,6 +142,18 @@ The tunnels are useful to connect to remote services li">
 </ul>
 </li>
 </ul>
+<h2 id="SSH-Proxy-Command"><a href="#SSH-Proxy-Command" class="headerlink" title="SSH Proxy Command"></a>SSH Proxy Command</h2><p>If you want to reach a non exposed host from a one which is exposed you can make use of SSH ProxyComman.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    +--------+       +----------+      +-----------------+</span><br><span class="line">    | Laptop | &lt;---&gt; | home NAS | &lt;--&gt; | my-private-host |</span><br><span class="line">    +--------+       +----------+      +-----------------+</span><br><span class="line"></span><br><span class="line">              OR</span><br><span class="line"></span><br><span class="line">    +--------+       +----------+      +-----------------+</span><br><span class="line">    | Laptop | &lt;---&gt; | Firewall | &lt;--&gt; | my-private-host |</span><br><span class="line">    +--------+       +----------+      +-----------------+</span><br><span class="line">192.168.1.5        121.1.2.3         10.10.29.68</span><br></pre></td></tr></table></figure>
+<p>Just add this lines in your <code>.ssh/config</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">host *.my-private-host</span><br><span class="line">    user root</span><br><span class="line">    ProxyCommand ssh root@my-exposed-host -W %h:%p</span><br></pre></td></tr></table></figure>
+<p><strong>NOTE</strong> The proxy host must be able to resolve the host passed (in this case <code>*.my-private-host</code> which could be <code>tv.myhome</code>). You can add the host and ip definition in the <code>/etc/hosts</code> file.</p>
+<ul>
+<li><a href="SSH ProxyCommand example: Going through one host to reach another server&lt;Paste">More information</a></li>
+<li><a href="https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Proxies_and_Jump_Hosts" target="_blank" rel="noopener">OpenSSH/Cookbook/Proxies and Jump Hosts</a></li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><a href="https://github.com/moul/advanced-ssh-config" target="_blank" rel="noopener">advanced-ssh-config</a> - <span class="github-emoji" title="computer" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4bb.png?v8">&#x1f4bb;</span> make your ssh client smarter</li>
+</ul>
 
 	</div>
 
@@ -157,7 +169,7 @@ The tunnels are useful to connect to remote services li">
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/sys/pass.html" type="button" class="btn btn-default ">Next<i
+    <a href="/sys/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -227,7 +239,7 @@ The tunnels are useful to connect to remote services li">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -238,7 +250,7 @@ The tunnels are useful to connect to remote services li">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+    <li><a href="/categories/sys/">sys<span>28</span></a></li>
   </li>
 
     </ul>
@@ -251,7 +263,7 @@ The tunnels are useful to connect to remote services li">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/linux/">linux<span>21</span></a></li> <li><a href="/tags/remote-access/">remote access<span>1</span></a></li> <li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+  <li><a href="/tags/linux/">linux<span>24</span></a></li> <li><a href="/tags/remote-access/">remote access<span>1</span></a></li> <li><a href="/tags/ssh/">ssh<span>1</span></a></li>
     </ul>
 	</div>
 	

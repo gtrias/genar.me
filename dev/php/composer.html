@@ -9,8 +9,12 @@
   <title>composer | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="ComposerTools
-satis -  Simple static Composer repository generator https://gitter.im/composer/satis">
+  <meta name="description" content="ComposerCheck outdated packages1composer outdated
+Plugins
+composer-versions-check
+
+Tools
+satis -  Simple static Composer repository generator https://">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -134,8 +138,22 @@ satis -  Simple static Composer repository generator https://gitter.im/composer/
 	<div class="mypage">
 	  
 
-	  <h1 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h1><h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+	  <h1 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h1><h2 id="Check-outdated-packages"><a href="#Check-outdated-packages" class="headerlink" title="Check outdated packages"></a>Check outdated packages</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer outdated</span><br></pre></td></tr></table></figure>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><ul>
+<li><a href="https://github.com/Soullivaneuh/composer-versions-check" target="_blank" rel="noopener">composer-versions-check</a></li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://github.com/composer/satis" target="_blank" rel="noopener">satis</a> -  Simple static Composer repository generator <a href="https://gitter.im/composer/satis" target="_blank" rel="noopener">https://gitter.im/composer/satis</a></li>
+</ul>
+<h2 id="Update-only-one-dependency"><a href="#Update-only-one-dependency" class="headerlink" title="Update only one dependency"></a>Update only one dependency</h2><p>You has to specify the package name after update command.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer update doctrine/doctrine-fixtures-bundle</span><br></pre></td></tr></table></figure>
+<p>If you have dependencies issues try to run with <code>--with-dependencies</code> parameter.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer update doctrine/doctrine-fixtures-bundle --with-dependencies</span><br></pre></td></tr></table></figure>
+<h2 id="Determine-why-a-package-is-installed"><a href="#Determine-why-a-package-is-installed" class="headerlink" title="Determine why a package is installed"></a>Determine why a package is installed</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer why &lt;package-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Disable-memory-limit-for-composer"><a href="#Disable-memory-limit-for-composer" class="headerlink" title="Disable memory limit for composer"></a>Disable memory limit for composer</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMPOSER_MEMORY_LIMIT=-1 composer ...</span><br></pre></td></tr></table></figure>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://www.engineyard.com/blog/composer-continuous-integration" target="_blank" rel="noopener">Composer &amp; Continuous Integration</a></li>
+<li><a href="https://www.binpress.com/tutorial/better-project-skeletons-with-composer/157" target="_blank" rel="noopener">Building better project skeletons with Composer</a></li>
 </ul>
 
 	</div>
@@ -146,13 +164,13 @@ satis -  Simple static Composer repository generator https://gitter.im/composer/
 
     
     
-    <a href="/dev/php/doctrine.html" type="button" class="btn btn-default"><i
+    <a href="/dev/php/laravel.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/php/behat.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/php/api-platform.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -222,7 +240,7 @@ satis -  Simple static Composer repository generator https://gitter.im/composer/
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -233,7 +251,7 @@ satis -  Simple static Composer repository generator https://gitter.im/composer/
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
   </li>
 
     </ul>
@@ -246,7 +264,7 @@ satis -  Simple static Composer repository generator https://gitter.im/composer/
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/php/">php<span>9</span></a></li>
+  <li><a href="/tags/php/">php<span>10</span></a></li> <li><a href="/tags/package-manager/">package manager<span>1</span></a></li>
     </ul>
 	</div>
 	

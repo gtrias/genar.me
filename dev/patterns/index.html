@@ -11,12 +11,14 @@
   
   <meta name="description" content="Patterns
 SOLID Principle
+Event Sourcing
 Concurrency and Parallelism
 Action-Domain-Responder
 Mode-View-Controller
+Sagas
 
-OOP (Object-oriented programming)SingletonLinks
-Why">
+Oberserver pattern
+The observe">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -142,10 +144,15 @@ Why">
 
 	  <h1 id="Patterns"><a href="#Patterns" class="headerlink" title="Patterns"></a>Patterns</h1><ul>
 <li><a href="SOLID.html">SOLID</a> Principle</li>
+<li><a href="/dev/patterns/event-sourcing.html">Event Sourcing</a></li>
 <li><a href="http://davidvedvick.info/notes/2017/01/20/concurrency-vs-parallelism" target="_blank" rel="noopener">Concurrency and Parallelism</a></li>
 <li><a href="https://github.com/pmjones/adr" target="_blank" rel="noopener">Action-Domain-Responder</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="noopener">Mode-View-Controller</a></li>
+<li><a href="/dev/patterns/sagas.html">Sagas</a></li>
 </ul>
+<h2 id="Oberserver-pattern"><a href="#Oberserver-pattern" class="headerlink" title="Oberserver pattern"></a><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">Oberserver pattern</a></h2><blockquote>
+<p>The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.</p>
+</blockquote>
 <h2 id="OOP-Object-oriented-programming"><a href="#OOP-Object-oriented-programming" class="headerlink" title="OOP (Object-oriented programming)"></a>OOP (Object-oriented programming)</h2><h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><h4 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h4><ul>
 <li><a href="https://stackoverflow.com/questions/137975/what-is-so-bad-about-singletons" target="_blank" rel="noopener">Why is so bad about singletons?</a></li>
 <li><a href="https://whydoesitsuck.com/why-the-singleton-pattern-sucks-and-you-should-avoid-it/" target="_blank" rel="noopener">»Why The Singleton Pattern Sucks and You Should Avoid It«</a></li>
@@ -154,9 +161,6 @@ Why">
 <p>Subtyping, a form of polymorphism, is when calling code can be agnostic as to whether an object belongs to a parent class or one of its descendants. For example, a function might call “make_full_name()” on an object, which will work whether the object is of class Person or class Employee. This is another type of abstraction which simplifies code external to the class hierarchy and enables strong separation of concerns.</p>
 </blockquote>
 <p><a href="https://en.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">Wikipedia</a></p>
-<ul>
-<li>Interface segregation</li>
-</ul>
 <h3 id="Encapsulation"><a href="#Encapsulation" class="headerlink" title="Encapsulation"></a>Encapsulation</h3><blockquote>
 <p>Encapsulation is an object-oriented programming concept that binds together the data and functions that manipulate the data, and that keeps both safe from outside interference and misuse. Data encapsulation led to the important OOP concept of data hiding.</p>
 </blockquote>
@@ -167,8 +171,7 @@ Why">
 <h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3><blockquote>
 <p>The interface-segregation principle (ISP) states that no client should be forced to depend on methods it does not use.[1] ISP splits interfaces that are very large into smaller and more specific ones so that clients will only have to know about the methods that are of interest to them. Such shrunken interfaces are also called role interfaces.[2] ISP is intended to keep a system decoupled and thus easier to refactor, change, and redeploy. ISP is one of the five SOLID principles of object-oriented design, similar to the High Cohesion Principle of GRASP.[3]</p>
 </blockquote>
-<p>[Wikipedia-interface-segregation]</p>
-<p>[Wikipedia-interface-segregation]</p>
+<p><a href="https://en.wikipedia.org/wiki/Interface_segregation_principle" target="_blank" rel="noopener">Wikipedia-interface-segregation</a></p>
 
 	</div>
 
@@ -178,13 +181,13 @@ Why">
 
     
     
-    <a href="/dev/patterns/SOLID.html" type="button" class="btn btn-default"><i
+    <a href="/dev/patterns/sagas.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/p2p/index.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/patterns/event-sourcing.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -254,7 +257,7 @@ Why">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -265,7 +268,7 @@ Why">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>58</span></a></li>
+    <li><a href="/categories/dev/">dev<span>87</span></a></li>
   </li>
 
     </ul>
@@ -278,7 +281,7 @@ Why">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/architecture/">architecture<span>3</span></a></li> <li><a href="/tags/software-design/">software design<span>2</span></a></li> <li><a href="/tags/patterns/">patterns<span>1</span></a></li>
+  <li><a href="/tags/architecture/">architecture<span>5</span></a></li> <li><a href="/tags/software-design/">software design<span>3</span></a></li> <li><a href="/tags/software-architecture/">software architecture<span>3</span></a></li> <li><a href="/tags/patterns/">patterns<span>3</span></a></li>
     </ul>
 	</div>
 	

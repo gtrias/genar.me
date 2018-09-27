@@ -151,17 +151,20 @@ minio - S3 object storage ">
 <li><a href="arch.html">Arch Linux</a></li>
 <li><a href="containers.html">Containers</a></li>
 <li><a href="Debian.html">Debian</a></li>
-<li><a href="disks.html">Disks</a></li>
+<li><a href="/sys/disks/index.html">Disks</a></li>
 <li><a href="docker.html">Docker</a></li>
 <li><a href="/sys/filesystems/index.html">Filesystems</a></li>
 <li><a href="gpg.html">GPG</a></li>
 <li><a href="/sys/network/index.html">Network</a></li>
 <li><a href="ssh.html">SSH</a></li>
-<li><a href="/dev/vim.html">vim|neovim</a></li>
+<li><a href="/dev/vim/index.html">vim|neovim</a></li>
 </ul>
 <h2 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h2><ul>
 <li><a href="https://github.com/zboxfs/zbox" target="_blank" rel="noopener">zbox</a> - Embedable filesystem</li>
 <li><a href="https://github.com/minio/minio" target="_blank" rel="noopener">minio</a> - S3 object storage compatible server</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><ul>
+<li><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">system-design-primer</a> - Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.</li>
 </ul>
 <h2 id="IM"><a href="#IM" class="headerlink" title="IM"></a>IM</h2><ul>
 <li><a href="https://github.com/meetfranz/franz" target="_blank" rel="noopener">franz</a> -  Franz is a free messaging app for services like WhatsApp, Slack, Messenger and many more. <a href="http://meetfranz.com" target="_blank" rel="noopener">http://meetfranz.com</a></li>
@@ -169,16 +172,12 @@ minio - S3 object storage ">
 <h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><ul>
 <li><a href="https://www.backblaze.com/" target="_blank" rel="noopener">backblaze</a> - Cloud storage that’s astonishingly easy and low-cost.</li>
 <li><a href="https://github.com/restic/restic" target="_blank" rel="noopener">restic</a> - Fast, secure, efficient backup program <a href="https://restic.net" target="_blank" rel="noopener">https://restic.net</a><ul>
+<li><a href="https://github.com/erikw/restic-systemd-automatic-backup" target="_blank" rel="noopener">restic-systemd-automatic-backup</a> - My restic backup solution using Backblaze B2 storage, systemd timers (or cron) and email notifications on failure.</li>
 <li><a href="http://harshadsharma.com/2018/04/restic-and-backblaze-b2-for-backups" target="_blank" rel="noopener">Restic and Backblaze B2 for backups</a></li>
 <li><a href="http://grzegorowski.com/restic-backblaze-b2-backups/" target="_blank" rel="noopener">Restic backups with Backblaze B2</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="BASH"><a href="#BASH" class="headerlink" title="BASH"></a>BASH</h2><ul>
-<li><a href="https://github.com/sstephenson/bats" target="_blank" rel="noopener">bats</a> - Bash Automated Testing System</li>
-</ul>
-<h3 id="Execute-commands-with-the-result-of-find"><a href="#Execute-commands-with-the-result-of-find" class="headerlink" title="Execute commands with the result of find"></a>Execute commands with the result of find</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -iname petvnia-*-x86_64.AppImage -<span class="built_in">exec</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-<p><a href="https://linuxaria.com/howto/linux-shell-how-to-use-the-exec-option-in-find-with-examples" target="_blank" rel="noopener">https://linuxaria.com/howto/linux-shell-how-to-use-the-exec-option-in-find-with-examples</a></p>
 <h3 id="Detect-memory-leaks-of-a-binary"><a href="#Detect-memory-leaks-of-a-binary" class="headerlink" title="Detect memory leaks of a binary"></a>Detect memory leaks of a binary</h3><p>Use valgrind</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valgrind --leak-check=full process</span><br></pre></td></tr></table></figure>
 <p><a href="/dev/javascript/nodejs.html">Nodejs</a> example:</p>
@@ -228,7 +227,7 @@ minio - S3 object storage ">
 
     
     
-    <a href="/sys/gpg.html" type="button" class="btn btn-default"><i
+    <a href="/sys/ssh.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
@@ -304,7 +303,7 @@ minio - S3 object storage ">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-09-28
 	</div>
 	
 
@@ -315,7 +314,7 @@ minio - S3 object storage ">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/sys/">sys<span>24</span></a></li>
+    <li><a href="/categories/sys/">sys<span>28</span></a></li>
   </li>
 
     </ul>
@@ -328,7 +327,7 @@ minio - S3 object storage ">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/linux/">linux<span>21</span></a></li>
+  <li><a href="/tags/linux/">linux<span>24</span></a></li>
     </ul>
 	</div>
 	
