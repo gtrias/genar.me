@@ -138,6 +138,9 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook ovh.yml --<span class="built_in">limit</span> front02 --tags nginx --skip-tags apt</span><br></pre></td></tr></table></figure>
 <p>Also with <code>--tags</code> and <code>--skip-tags</code> parameter you can choose which tags will be applied or not.</p>
 <h2 id="Restart-server-and-wait"><a href="#Restart-server-and-wait" class="headerlink" title="Restart server and wait"></a>Restart server and wait</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">reboot</span> <span class="string">the</span> <span class="string">server</span></span><br><span class="line"><span class="attr">  shell:</span> <span class="string">sleep</span> <span class="number">2</span> <span class="string">&amp;&amp;</span> <span class="string">shutdown</span> <span class="bullet">-r</span> <span class="string">now</span></span><br><span class="line"><span class="attr">  async:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  poll:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">Wait</span> <span class="string">for</span> <span class="string">server</span> <span class="string">come</span> <span class="string">back</span></span><br><span class="line"><span class="attr">  wait_for:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">       host=<span class="template-variable">&#123;&#123; inventory_hostname &#125;&#125;</span></span></span><br><span class="line"><span class="string">       port=22</span></span><br><span class="line"><span class="string">       delay=15</span></span><br><span class="line"><span class="string">       timeout=600</span></span><br><span class="line"><span class="string"></span><span class="attr">  delegate_to:</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
+<h2 id="Inventorys"><a href="#Inventorys" class="headerlink" title="Inventorys"></a>Inventorys</h2><ul>
+<li><a href="https://github.com/xezpeleta/Ansible-Proxmox-inventory" target="_blank" rel="noopener">Ansible-Proxmox-inventory</a></li>
+</ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://github.com/openstack/ara" target="_blank" rel="noopener">ara</a> - ARA records Ansible Playbook runs and provides intuitive interfaces to browse them <a href="http://openstack.org" target="_blank" rel="noopener">http://openstack.org</a></li>
 </ul>
@@ -156,13 +159,13 @@
 
     
     
-    <a href="/sys/docker.html" type="button" class="btn btn-default"><i
+    <a href="/projects/music-player.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/projects/genar.me.html" type="button" class="btn btn-default ">Next<i
+    <a href="/projects/all-in-one-backoffice.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -232,7 +235,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-10-28
 	</div>
 	
 
@@ -243,7 +246,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/sys/">sys<span>28</span></a></li>
+    <li><a href="/categories/sys/">sys<span>30</span></a></li>
   </li>
 
     </ul>
@@ -256,7 +259,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/linux/">linux<span>24</span></a></li> <li><a href="/tags/automation/">automation<span>3</span></a></li> <li><a href="/tags/ansible/">ansible<span>1</span></a></li>
+  <li><a href="/tags/linux/">linux<span>25</span></a></li> <li><a href="/tags/automation/">automation<span>3</span></a></li> <li><a href="/tags/ansible/">ansible<span>1</span></a></li>
     </ul>
 	</div>
 	

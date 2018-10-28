@@ -12,9 +12,7 @@
   <meta name="description" content="redux
 Redux is a predictable state container for JavaScript apps.
 
-Testing
-See writing tests
-Redux Testing Step by Step: A Simple Methodology for Test">
+123456789101112131415161718192021                 `......`              .://///////">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -141,6 +139,7 @@ Redux Testing Step by Step: A Simple Methodology for Test">
 	  <h1 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h1><blockquote>
 <p>Redux is a predictable state container for JavaScript apps.</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">                 `......`</span><br><span class="line">              .://////////-`</span><br><span class="line">            -///-`     `.://-</span><br><span class="line">          `://.           .///`</span><br><span class="line">          ///`             `//:</span><br><span class="line">         -//.               -//.</span><br><span class="line">         ///    .---`        -:-</span><br><span class="line">        `//:   -////////::--.`</span><br><span class="line">        `//:   ./////----::////:-.</span><br><span class="line">     `.  ///    `...         `-:///-`</span><br><span class="line">   `-//. -//.                    .://:`</span><br><span class="line">  .//:.   ///`            -///:`   `://-</span><br><span class="line"> .//-     `///``         `/////:     -//:</span><br><span class="line">`//-       `/////.        :///:`      -//.</span><br><span class="line">`//.       `/////:       -//-          //-</span><br><span class="line">`//.        .:::-      .///.          `//-</span><br><span class="line"> ://`               `-///:`          `://`</span><br><span class="line">  ://:`         `.-////-`          `.///`</span><br><span class="line">   .:////::::://///:-`  .://::---:///:.</span><br><span class="line">      `.-::::--..`      `..-:::::-.`</span><br></pre></td></tr></table></figure>
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><ul>
 <li>See <a href="https://redux.js.org/recipes/writing-tests" target="_blank" rel="noopener">writing</a> tests</li>
 <li><a href="https://hackernoon.com/redux-testing-step-by-step-a-simple-methodology-for-testing-business-logic-8901670756ce" target="_blank" rel="noopener">Redux Testing Step by Step: A Simple Methodology for Testing Business Logic</a></li>
@@ -149,6 +148,9 @@ Redux Testing Step by Step: A Simple Methodology for Test">
 <li><a href="/dev/javascript/reactjs-redux-workshop.html">React.js + redux Workshop</a></li>
 </ul>
 <h2 id="Reducers"><a href="#Reducers" class="headerlink" title="Reducers"></a>Reducers</h2><p>Reducers specify how the application’s state changes in response to actions sent to the store.<br>Remember that actions only describe the fact that something happened, but don’t describe how the application’s state changes.</p>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
+<li><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">immer</a> - Create the next immutable state by mutating the current one</li>
+</ul>
 <h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><p>Middleware provides a way to interact with actions that have been dispatched to the store before they reach the store’s reducer. Examples of different uses for middleware include logging actions, reporting errors, making asynchronous requests, and dispatching new actions.  <a href="https://www.pshrmn.com/tutorials/react/redux-middleware/" target="_blank" rel="noopener">Source</a></p>
 <ul>
 <li><a href="https://redux.js.org/docs/advanced/Middleware.html" target="_blank" rel="noopener">Official documentation</a></li>
@@ -190,6 +192,8 @@ Redux Testing Step by Step: A Simple Methodology for Test">
 </ul>
 <h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Execute-several-redux-actions-in-serial-using-Promises"><a href="#Execute-several-redux-actions-in-serial-using-Promises" class="headerlink" title="Execute several redux actions in serial using Promises"></a>Execute several redux actions in serial using Promises</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">handleChange(date) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.resolve(</span><br><span class="line">    <span class="keyword">this</span>.props.dispatch(setApplicationDate(date))</span><br><span class="line">  )</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.afterSelect()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://redux.js.org/introduction" target="_blank" rel="noopener">Official</a></li>
+<li><a href="https://github.com/markerikson/redux-ecosystem-links" target="_blank" rel="noopener">redux-ecosystem-links</a> - A categorized list of Redux-related addons, libraries, and utilities</li>
 <li><a href="https://engineering.haus.com/so-youve-screwed-up-your-redux-store-or-why-redux-makes-refactoring-easy-400e19606c71" target="_blank" rel="noopener">So you’ve screwed up your Redux store — or, why Redux makes refactoring easy</a></li>
 <li><a href="https://egghead.io/lessons/javascript-redux-refactoring-the-reducers" target="_blank" rel="noopener">Redux: Refactoring the reducers</a></li>
 <li><a href="https://daveceddia.com/what-does-redux-do/" target="_blank" rel="noopener">https://daveceddia.com/what-does-redux-do/</a></li>
@@ -203,13 +207,13 @@ Redux Testing Step by Step: A Simple Methodology for Test">
 
     
     
-    <a href="/dev/javascript/webpack.html" type="button" class="btn btn-default"><i
+    <a href="/dev/javascript/sass.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/mocha.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/javascript/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -279,7 +283,7 @@ Redux Testing Step by Step: A Simple Methodology for Test">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-10-28
 	</div>
 	
 

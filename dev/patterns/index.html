@@ -9,16 +9,15 @@
   <title>Patterns | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Patterns
+  <meta name="description" content="Software Design Patterns
+Software Design Patterns - Wikipedia
+
 SOLID Principle
+
 Event Sourcing
 Concurrency and Parallelism
 Action-Domain-Responder
-Mode-View-Controller
-Sagas
-
-Oberserver pattern
-The observe">
+Sag">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -142,36 +141,113 @@ The observe">
 	<div class="mypage">
 	  
 
-	  <h1 id="Patterns"><a href="#Patterns" class="headerlink" title="Patterns"></a>Patterns</h1><ul>
-<li><a href="SOLID.html">SOLID</a> Principle</li>
+	  <h1 id="Software-Design-Patterns"><a href="#Software-Design-Patterns" class="headerlink" title="Software Design Patterns"></a>Software Design Patterns</h1><ul>
+<li><p><a href="https://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="noopener">Software Design Patterns - Wikipedia</a></p>
+</li>
+<li><p><a href="SOLID.html">SOLID</a> Principle</p>
+</li>
 <li><a href="/dev/patterns/event-sourcing.html">Event Sourcing</a></li>
 <li><a href="http://davidvedvick.info/notes/2017/01/20/concurrency-vs-parallelism" target="_blank" rel="noopener">Concurrency and Parallelism</a></li>
 <li><a href="https://github.com/pmjones/adr" target="_blank" rel="noopener">Action-Domain-Responder</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="noopener">Mode-View-Controller</a></li>
 <li><a href="/dev/patterns/sagas.html">Sagas</a></li>
 </ul>
-<h2 id="Oberserver-pattern"><a href="#Oberserver-pattern" class="headerlink" title="Oberserver pattern"></a><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">Oberserver pattern</a></h2><blockquote>
-<p>The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.</p>
-</blockquote>
-<h2 id="OOP-Object-oriented-programming"><a href="#OOP-Object-oriented-programming" class="headerlink" title="OOP (Object-oriented programming)"></a>OOP (Object-oriented programming)</h2><h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><h4 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h4><ul>
+<h2 id="Gang-of-Four-patterns"><a href="#Gang-of-Four-patterns" class="headerlink" title="Gang of Four patterns"></a>Gang of Four patterns</h2><h3 id="Creational"><a href="#Creational" class="headerlink" title="Creational"></a>Creational</h3><ul>
+<li><a href="/dev/patterns/abstract-factory/index.html">Abstract factory</a></li>
+<li>Builder</li>
+<li>Factory method</li>
+<li>Prototype</li>
+<li>Singleton<ul>
+<li><a href="https://en.wikipedia.org/wiki/Singleton_pattern" target="_blank" rel="noopener">Wikipedia</a></li>
 <li><a href="https://stackoverflow.com/questions/137975/what-is-so-bad-about-singletons" target="_blank" rel="noopener">Why is so bad about singletons?</a></li>
 <li><a href="https://whydoesitsuck.com/why-the-singleton-pattern-sucks-and-you-should-avoid-it/" target="_blank" rel="noopener">»Why The Singleton Pattern Sucks and You Should Avoid It«</a></li>
 </ul>
-<h3 id="Polimorphism"><a href="#Polimorphism" class="headerlink" title="Polimorphism"></a>Polimorphism</h3><blockquote>
-<p>Subtyping, a form of polymorphism, is when calling code can be agnostic as to whether an object belongs to a parent class or one of its descendants. For example, a function might call “make_full_name()” on an object, which will work whether the object is of class Person or class Employee. This is another type of abstraction which simplifies code external to the class hierarchy and enables strong separation of concerns.</p>
-</blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">Wikipedia</a></p>
-<h3 id="Encapsulation"><a href="#Encapsulation" class="headerlink" title="Encapsulation"></a>Encapsulation</h3><blockquote>
-<p>Encapsulation is an object-oriented programming concept that binds together the data and functions that manipulate the data, and that keeps both safe from outside interference and misuse. Data encapsulation led to the important OOP concept of data hiding.</p>
-</blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">Wikipedia</a></p>
-<ul>
-<li>Topology</li>
+</li>
 </ul>
-<h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3><blockquote>
-<p>The interface-segregation principle (ISP) states that no client should be forced to depend on methods it does not use.[1] ISP splits interfaces that are very large into smaller and more specific ones so that clients will only have to know about the methods that are of interest to them. Such shrunken interfaces are also called role interfaces.[2] ISP is intended to keep a system decoupled and thus easier to refactor, change, and redeploy. ISP is one of the five SOLID principles of object-oriented design, similar to the High Cohesion Principle of GRASP.[3]</p>
+<h3 id="Structural"><a href="#Structural" class="headerlink" title="Structural"></a>Structural</h3><ul>
+<li>Adapter</li>
+<li>Bridge</li>
+<li>Composite</li>
+<li>Decorator</li>
+<li>Facade</li>
+<li>Flyweight</li>
+<li>Proxy</li>
+</ul>
+<h3 id="Behavioral"><a href="#Behavioral" class="headerlink" title="Behavioral"></a>Behavioral</h3><ul>
+<li>Chain of responsability</li>
+<li>Command</li>
+<li>Interpreter</li>
+<li>Iterator</li>
+<li>Mediator</li>
+<li>Memento</li>
+<li><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">Oberserver pattern</a></li>
+</ul>
+<blockquote>
+<p>The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.</p>
 </blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Interface_segregation_principle" target="_blank" rel="noopener">Wikipedia-interface-segregation</a></p>
+<ul>
+<li>State</li>
+<li>Strategy</li>
+<li>Template method</li>
+<li>Visitor</li>
+</ul>
+<h2 id="Concurrency-patterns"><a href="#Concurrency-patterns" class="headerlink" title="Concurrency patterns"></a>Concurrency patterns</h2><ul>
+<li>Active object</li>
+<li>Balking</li>
+<li>Binding properties</li>
+<li>Double-checked locking</li>
+<li>Event-based asynchronous</li>
+<li>Guarded suspension</li>
+<li>Join</li>
+<li>Lock</li>
+<li>Monitor</li>
+<li>Proactor</li>
+<li>Reactor</li>
+<li>Read write lock</li>
+<li>Scheduler</li>
+<li>Thread pool</li>
+<li>Thread-local storage</li>
+</ul>
+<h2 id="Architectural-patterns"><a href="#Architectural-patterns" class="headerlink" title="Architectural patterns"></a>Architectural patterns</h2><ul>
+<li>Front controller</li>
+<li>Interceptor</li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="noopener">Mode-View-Controller (MVC)</a></li>
+<li>ADR</li>
+<li>ECS</li>
+<li>n-tier</li>
+<li>Specification</li>
+<li>Publish-subscribe</li>
+<li>Nacked objects</li>
+<li>Service locator</li>
+<li>Active record</li>
+<li>Identity map</li>
+<li>Data access object</li>
+<li>Data transfer object</li>
+<li>Inversion of control</li>
+<li>Model 2</li>
+</ul>
+<h2 id="Other-patterns"><a href="#Other-patterns" class="headerlink" title="Other patterns"></a>Other patterns</h2><ul>
+<li>Blackboard</li>
+<li>Business delegate</li>
+<li>Composite entity</li>
+<li>Dependency injection</li>
+<li>Intercepting filter</li>
+<li>Lazy loading</li>
+<li>Mock object</li>
+<li>Null object</li>
+<li>Object pool</li>
+<li>Servant</li>
+<li>Twin</li>
+<li>Type tunnel</li>
+<li>Method chaining</li>
+<li>Delegation</li>
+</ul>
+<h2 id="OOP-Object-oriented-programming"><a href="#OOP-Object-oriented-programming" class="headerlink" title="OOP (Object-oriented programming)"></a><a href="/dev/paradigms/oop.html">OOP (Object-oriented programming)</a></h2><h2 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Design_Patterns" target="_blank" rel="noopener">Design Patterns</a></li>
+<li><a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/" target="_blank" rel="noopener">Learning JavaScript Design Patterns</a></li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://github.com/domnikl/DesignPatternsPHP" target="_blank" rel="noopener">DesignPatternsPHP</a> - sample code for several design patterns in PHP</li>
+</ul>
 
 	</div>
 
@@ -181,13 +257,13 @@ The observe">
 
     
     
-    <a href="/dev/patterns/sagas.html" type="button" class="btn btn-default"><i
+    <a href="/dev/php/doctrine.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/patterns/event-sourcing.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/patterns/SOLID.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -257,7 +333,7 @@ The observe">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-10-28
 	</div>
 	
 

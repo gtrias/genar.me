@@ -145,9 +145,12 @@
 </li>
 </ul>
 <h2 id="Embed-css-styles-in-webpack-prod-files"><a href="#Embed-css-styles-in-webpack-prod-files" class="headerlink" title="Embed css styles in webpack prod files"></a>Embed css styles in webpack prod files</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.prod.js</span></span><br><span class="line">...</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        loader: <span class="string">'style-loader!css-loader'</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h2 id="How-to-use-sass-in-create-react-app-projects"><a href="#How-to-use-sass-in-create-react-app-projects" class="headerlink" title="How to use sass in create-react-app projects"></a>How to use <a href="sass.html">sass</a> in <em>create-react-app</em> projects</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.dev.js</span></span><br><span class="line">...</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">            use: [&#123;</span><br><span class="line">                loader: <span class="string">"style-loader"</span> <span class="comment">// creates style nodes from JS strings</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"css-loader"</span> <span class="comment">// translates CSS into CommonJS</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"sass-loader"</span> <span class="comment">// compiles Sass to CSS</span></span><br><span class="line">            &#125;]</span><br><span class="line">          &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="How-to-use-sass-in-create-react-app-projects"><a href="#How-to-use-sass-in-create-react-app-projects" class="headerlink" title="How to use sass in create-react-app projects"></a>How to use <a href="/dev/frontend/sass.html">sass</a> in <em>create-react-app</em> projects</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.dev.js</span></span><br><span class="line">...</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">            use: [&#123;</span><br><span class="line">                loader: <span class="string">"style-loader"</span> <span class="comment">// creates style nodes from JS strings</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"css-loader"</span> <span class="comment">// translates CSS into CommonJS</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: <span class="string">"sass-loader"</span> <span class="comment">// compiles Sass to CSS</span></span><br><span class="line">            &#125;]</span><br><span class="line">          &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.prod.js</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">            test: <span class="regexp">/\.s?css$/</span>,</span><br><span class="line">...</span><br><span class="line">                    &#123;</span><br><span class="line">                      loader: <span class="built_in">require</span>.resolve(<span class="string">'sass-loader'</span>),</span><br><span class="line">                    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">...</span><br><span class="line">    "node-sass": "^4.6.1",</span><br><span class="line">    "sass-loader": "^6.0.6",</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://medium.com/@Connorelsea/using-sass-with-create-react-app-7125d6913760" target="_blank" rel="noopener">Adding Sass or Scss to Create-React-App</a></li>
+</ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://github.com/robertknight/webpack-bundle-size-analyzer" target="_blank" rel="noopener">webpack-bundle-size-analyzer</a> -  A tool for finding out what contributes to the size of Webpack bundles</li>
 <li><a href="https://github.com/FormidableLabs/webpack-dashboard" target="_blank" rel="noopener">webpack-dashboard</a> -  A CLI dashboard for webpack dev server</li>
@@ -168,13 +171,13 @@
 
     
     
-    <a href="/dev/lua/index.html" type="button" class="btn btn-default"><i
+    <a href="/dev/management/index.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/redux.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/javascript/sass.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -244,7 +247,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-10-28
 	</div>
 	
 

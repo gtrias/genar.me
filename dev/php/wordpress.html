@@ -9,10 +9,10 @@
   <title>Wordpress | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="WordpressSnippetsHow to resolve mixed content warnings
-https://managewp.com/wordpress-ssl-settings-and-how-to-resolve-mixed-content-warnings
+  <meta name="description" content="WordpressTools
+wp-cli
 
-Nginx re">
+SnippetsExample docker-compose.yml file123456789101112131415161718192021222324version: &#39;3&#39;services:  db:    image: mysql:5.7   ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -136,7 +136,11 @@ Nginx re">
 	<div class="mypage">
 	  
 
-	  <h1 id="Wordpress"><a href="#Wordpress" class="headerlink" title="Wordpress"></a>Wordpress</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="How-to-resolve-mixed-content-warnings"><a href="#How-to-resolve-mixed-content-warnings" class="headerlink" title="How to resolve mixed content warnings"></a>How to resolve mixed content warnings</h3><ul>
+	  <h1 id="Wordpress"><a href="#Wordpress" class="headerlink" title="Wordpress"></a>Wordpress</h1><h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><a href="https://wp-cli.org/" target="_blank" rel="noopener">wp-cli</a></li>
+</ul>
+<h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Example-docker-compose-yml-file"><a href="#Example-docker-compose-yml-file" class="headerlink" title="Example docker-compose.yml file"></a>Example docker-compose.yml file</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  db:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.7</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"$PWD/mysql-data:/var/lib/mysql"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      MYSQL_ROOT_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br><span class="line"><span class="attr">      MYSQL_DATABASE:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">      MYSQL_USER:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">      MYSQL_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  wordpress:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">wordpress:4.9-php7.1</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"80:80"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"$PWD/wp-content:/var/www/html/wp-content"</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="attr">      - db:</span><span class="string">db</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      WORDPRESS_DB_HOST:</span> <span class="attr">db:3306</span></span><br><span class="line"><span class="attr">      WORDPRESS_DB_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br></pre></td></tr></table></figure>
+<h3 id="How-to-resolve-mixed-content-warnings"><a href="#How-to-resolve-mixed-content-warnings" class="headerlink" title="How to resolve mixed content warnings"></a>How to resolve mixed content warnings</h3><ul>
 <li><a href="https://managewp.com/wordpress-ssl-settings-and-how-to-resolve-mixed-content-warnings" target="_blank" rel="noopener">https://managewp.com/wordpress-ssl-settings-and-how-to-resolve-mixed-content-warnings</a></li>
 </ul>
 <h4 id="Nginx-reverse-proxy-issue-fix"><a href="#Nginx-reverse-proxy-issue-fix" class="headerlink" title="Nginx reverse proxy issue fix"></a>Nginx reverse proxy issue fix</h4><ul>
@@ -155,13 +159,13 @@ Nginx re">
 
     
     
-    <a href="/sys/filesystems/ntfs.html" type="button" class="btn btn-default"><i
+    <a href="/dev/rest/graphql.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/php/behat.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/php/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -231,7 +235,7 @@ Nginx re">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-21
+	2018-10-28
 	</div>
 	
 

@@ -205,6 +205,7 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 <li><a href="https://github.com/totaljs/framework" target="_blank" rel="noopener">totaljs</a> -  Node.js framework <a href="http://www.totaljs.com" target="_blank" rel="noopener">http://www.totaljs.com</a></li>
 <li><a href="https://github.com/moleculerjs/moleculer" target="_blank" rel="noopener">moleculer</a> -  rocket Fast &amp; powerful microservices framework for Node.js <a href="https://moleculer.services/" target="_blank" rel="noopener">https://moleculer.services/</a></li>
 <li><a href="https://github.com/feathersjs" target="_blank" rel="noopener">feathersjs</a> - An open source REST and realtime API layer for modern applications.</li>
+<li><a href="https://github.com/lukeed/polka" target="_blank" rel="noopener">polka</a> - <span class="github-emoji" title="open_umbrella" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2602.png?v8">&#x2602;</span> TypeScript style guide, formatter, and linter.</li>
 </ul>
 <h2 id="Templating"><a href="#Templating" class="headerlink" title="Templating"></a>Templating</h2><ul>
 <li><a href="https://github.com/niftylettuce/email-templates" target="_blank" rel="noopener">email-templates</a> - <span class="github-emoji" title="mailbox" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4eb.png?v8">&#x1f4eb;</span> Create, preview, and send custom email templates for Node.js. Highly configurable and supports automatic inline CSS, stylesheets, embedded images and fonts, and much more! <a href="https://email-templates.js.org" target="_blank" rel="noopener">https://email-templates.js.org</a></li>
@@ -244,6 +245,7 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 <h2 id="Demos"><a href="#Demos" class="headerlink" title="Demos"></a>Demos</h2><ul>
 <li><a href="https://github.com/automerge/trellis" target="_blank" rel="noopener">trellis</a>: Trello clone / sample app for Automerge Persistance Library</li>
 <li><a href="https://github.com/mrvautin/expressCart" target="_blank" rel="noopener">expressCart</a> -  A fully functioning Node.js shopping cart with Stripe, PayPal and Authorize.net payments. <a href="https://demo.expresscart.markmoffat.com" target="_blank" rel="noopener">https://demo.expresscart.markmoffat.com</a></li>
+<li><a href="https://github.com/naeohmi/can-i-eat-this" target="_blank" rel="noopener">can-i-eat-this</a> - Save allergen preferences (such as peanut, lactose, or gluten-free), take a photo of any food product, and app returns if the product is safe for you to eat or not. <a href="https://ciethis.herokuapp.com/" target="_blank" rel="noopener">https://ciethis.herokuapp.com/</a></li>
 </ul>
 <h2 id="Flux-programming"><a href="#Flux-programming" class="headerlink" title="Flux programming"></a>Flux programming</h2><ul>
 <li><a href="https://github.com/ncthbrt/nact" target="_blank" rel="noopener">nact</a> - Redux for backend</li>
@@ -286,6 +288,9 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 <h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><ul>
 <li><a href="https://github.com/mgcrea/node-vnc-snapshot" target="_blank" rel="noopener">node-vnc-snapshot</a> - NodeJS VNC snapshot tool</li>
 </ul>
+<h2 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h2><ul>
+<li><a href="https://github.com/Kikobeats/pdf-microservice" target="_blank" rel="noopener">pdf-microservice</a> - Get the PDF version of a website as service. <a href="https://pdf.kikobeats.com" target="_blank" rel="noopener">https://pdf.kikobeats.com</a></li>
+</ul>
 <h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Show-unhandled-erros"><a href="#Show-unhandled-erros" class="headerlink" title="Show unhandled erros"></a>Show unhandled erros</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'unhandledRejection'</span>, (reason, p) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Unhandled Rejection at: Promise'</span>, p, <span class="string">'reason:'</span>, reason);</span><br><span class="line">  <span class="comment">// application specific logging, throwing an error, or other logic here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="Standard-nodejs-Dockerfile"><a href="#Standard-nodejs-Dockerfile" class="headerlink" title="Standard nodejs Dockerfile"></a>Standard nodejs Dockerfile</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span> Genar &lt;genar@acs.li&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN yarn install --only=production</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV NODE_ENV production</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"/app/entrypoint.sh"</span>]</span></span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
@@ -294,6 +299,7 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 <li><a href="https://blog.risingstack.com/" target="_blank" rel="noopener">blog.risingstack.com</a></li>
 <li><a href="https://x-team.com/blog/a-guide-to-creating-a-nodejs-command/" target="_blank" rel="noopener">A Guide to Creating a NodeJS Command-Line Package</a></li>
 <li><a href="https://scotch.io/tutorials/build-an-interactive-command-line-application-with-nodejs" target="_blank" rel="noopener">Build An Interactive Command-Line Application with Node.js</a></li>
+<li><a href="https://blog.codeminer42.com/nodejs-and-good-practices-354e7d763626" target="_blank" rel="noopener">NodeJS and Good Practices</a></li>
 </ul>
 
 	</div>
@@ -304,13 +310,13 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 
     
     
-    <a href="/dev/javascript/typescript/index.html" type="button" class="btn btn-default"><i
+    <a href="/dev/javascript/flow/index.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/nodejs/hexo.html" type="button" class="btn btn-default ">Next<i
+    <a href="/sys/windowmanagers/i3.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -380,7 +386,7 @@ Node.js is an open-source, cross-platform JavaScript run-time environment that e
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-10-28
 	</div>
 	
 
