@@ -146,6 +146,7 @@ unseal -  A command ">
 <li><a href="https://github.com/jaxxstorm/unseal" target="_blank" rel="noopener">unseal</a> -  A command line tool to unseal multiple Hashicorp Vault servers quickly</li>
 <li><a href="https://github.com/jetstack/vault-unsealer" target="_blank" rel="noopener">vault-unsealer</a> - Vault Unseal automation</li>
 </ul>
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">    vault:</span></span><br><span class="line"><span class="attr">      cap_add:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">IPC_LOCK</span></span><br><span class="line"><span class="attr">      image:</span> <span class="string">sjourdan/vault:0.7.0</span></span><br><span class="line"><span class="attr">      network_mode:</span> <span class="string">host</span></span><br><span class="line"><span class="attr">      dns:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"$PWD/server.hcl:/config/server.hcl"</span></span><br><span class="line"><span class="attr">      ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"8200:8200"</span></span><br><span class="line"><span class="attr">      entrypoint:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">/bin/vault</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">server</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">-config=/config/server.hcl</span></span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://www.vaultproject.io/" target="_blank" rel="noopener">Official</a></li>
 </ul>
@@ -158,13 +159,13 @@ unseal -  A command ">
 
     
     
-    <a href="/dev/microservices/cqrs.html" type="button" class="btn btn-default"><i
+    <a href="/dev/p2p/index.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/p2p/index.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/microservices/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -234,7 +235,7 @@ unseal -  A command ">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-09-28
+	2018-11-02
 	</div>
 	
 

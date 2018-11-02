@@ -9,7 +9,9 @@
   <title>Proxmox | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="ProxmoxNetworkExample for hetzner with routed networking1234567891011121314151617181920212223242526### Hetzner Online GmbH installimagesource /etc/net">
+  <meta name="description" content="ProxmoxAnsibleLinks
+proxmox_kvm_module - Management of Qemu(KVM) Virtual Machines in Proxmox VE cluster
+pve-infra-poc - PoC of how to bootstrap VMs in">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -133,8 +135,13 @@
 	<div class="mypage">
 	  
 
-	  <h1 id="Proxmox"><a href="#Proxmox" class="headerlink" title="Proxmox"></a>Proxmox</h1><h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><h3 id="Example-for-hetzner-with-routed-networking"><a href="#Example-for-hetzner-with-routed-networking" class="headerlink" title="Example for hetzner with routed networking"></a>Example for hetzner with routed networking</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">### Hetzner Online GmbH installimage</span><br><span class="line"></span><br><span class="line">source /etc/network/interfaces.d/*</span><br><span class="line"></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">iface lo inet6 loopback</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">  address &lt;public-address&gt;</span><br><span class="line">  netmask 255.255.255.224</span><br><span class="line">  gateway 176.9.150.33</span><br><span class="line">  # route 176.9.150.32/27 via 176.9.150.33</span><br><span class="line">  up route add -net 176.9.150.32 netmask 255.255.255.224 gw 176.9.150.33 dev eth0</span><br><span class="line"></span><br><span class="line">### CUSTOM CONFIG ###</span><br><span class="line">auto vmbr0</span><br><span class="line">iface vmbr0 inet static</span><br><span class="line">  address   &lt;internal-net-address&gt;</span><br><span class="line">  netmask   255.255.255.0</span><br><span class="line">  gateway   &lt;public-address&gt;</span><br><span class="line">  bridge_ports none</span><br><span class="line">  bridge_stp off</span><br><span class="line">  bridge_fd 0</span><br><span class="line">  up route add -net 176.9.150.32 netmask 255.255.255.224 gw 176.9.150.33 dev vmbr0</span><br></pre></td></tr></table></figure>
-<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+	  <h1 id="Proxmox"><a href="#Proxmox" class="headerlink" title="Proxmox"></a>Proxmox</h1><h2 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h2><h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><ul>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/proxmox_kvm_module.html" target="_blank" rel="noopener">proxmox_kvm_module</a> - Management of Qemu(KVM) Virtual Machines in Proxmox VE cluster</li>
+<li><a href="https://gitlab.com/morph027/pve-infra-poc" target="_blank" rel="noopener">pve-infra-poc</a> - PoC of how to bootstrap VMs in PVE using Ansible</li>
+</ul>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><h3 id="Example-for-hetzner-with-routed-networking"><a href="#Example-for-hetzner-with-routed-networking" class="headerlink" title="Example for hetzner with routed networking"></a>Example for hetzner with routed networking</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">### Hetzner Online GmbH installimage</span><br><span class="line"></span><br><span class="line">source /etc/network/interfaces.d/*</span><br><span class="line"></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">iface lo inet6 loopback</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">  address &lt;public-address&gt;</span><br><span class="line">  netmask 255.255.255.224</span><br><span class="line">  gateway 176.9.150.33</span><br><span class="line">  # route 176.9.150.32/27 via 176.9.150.33</span><br><span class="line">  up route add -net 176.9.150.32 netmask 255.255.255.224 gw 176.9.150.33 dev eth0</span><br><span class="line"></span><br><span class="line">### CUSTOM CONFIG ###</span><br><span class="line">auto vmbr0</span><br><span class="line">iface vmbr0 inet static</span><br><span class="line">  address   &lt;internal-net-address&gt;</span><br><span class="line">  netmask   255.255.255.0</span><br><span class="line">  gateway   &lt;public-address&gt;</span><br><span class="line">  bridge_ports none</span><br><span class="line">  bridge_stp off</span><br><span class="line">  bridge_fd 0</span><br><span class="line">  up route add -net 176.9.150.32 netmask 255.255.255.224 gw 176.9.150.33 dev vmbr0</span><br></pre></td></tr></table></figure>
+<h2 id="Links-1"><a href="#Links-1" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://github.com/lae/ansible-role-proxmox" target="_blank" rel="noopener">ansible-role-proxmox</a></li>
 <li><a href="https://wiki.hetzner.de/index.php/Proxmox_VE/en" target="_blank" rel="noopener">Hetzner wiki (very Outdated)</a></li>
 <li><a href="https://wepoca.net/network-setup-proxmox-on-hetzner-server/" target="_blank" rel="noopener">Network setup of proxmox VE 2.x on hetzner server</a></li>
 </ul>
@@ -223,7 +230,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-10-28
+	2018-11-02
 	</div>
 	
 
@@ -247,7 +254,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/proxmox/">proxmox<span>1</span></a></li>
+  <li><a href="/tags/ansible/">ansible<span>2</span></a></li> <li><a href="/tags/proxmox/">proxmox<span>2</span></a></li>
     </ul>
 	</div>
 	

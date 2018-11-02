@@ -9,12 +9,8 @@
   <title>Ruby | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="RubyWeb frameworks
-Ruby on Rails
-sinatra - Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort
-
-Frontend frameworks
-mid">
+  <meta name="description" content="RubyRubyGems
+RubyGems is a package manager for the Ruby programming language that provides a standard format for distributing Ruby programs and librar">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -138,7 +134,45 @@ mid">
 	<div class="mypage">
 	  
 
-	  <h1 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h1><h2 id="Web-frameworks"><a href="#Web-frameworks" class="headerlink" title="Web frameworks"></a>Web frameworks</h2><ul>
+	  <h1 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h1><h2 id="RubyGems"><a href="#RubyGems" class="headerlink" title="RubyGems"></a>RubyGems</h2><blockquote>
+<p>RubyGems is a package manager for the Ruby programming language that provides a standard format for distributing Ruby programs and libraries (in a self-contained format called a “gem”), a tool designed to easily manage the installation of gems, and a server for distributing them. It was created by Chad Fowler and Richard Kilmer during RubyConf 2004.</p>
+</blockquote>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/RubyGems" target="_blank" rel="noopener">wikipedia</a></li>
+</ul>
+<h2 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h2><ul>
+<li><a href="http://whatisthor.com/" target="_blank" rel="noopener">whatisthor</a></li>
+</ul>
+<ul>
+<li>Thor is a toolkit for building powerful command-line interfaces. It is used in Bundler, Vagrant, Rails and others.</li>
+</ul>
+<h2 id="Dependency-management"><a href="#Dependency-management" class="headerlink" title="Dependency management"></a>Dependency management</h2><h3 id="bundler"><a href="#bundler" class="headerlink" title="bundler"></a><a href="https://bundler.io/" target="_blank" rel="noopener">bundler</a></h3><h4 id="Initialize-project"><a href="#Initialize-project" class="headerlink" title="Initialize project"></a>Initialize project</h4><p><code>bundle init</code></p>
+<h4 id="Create-new-gem"><a href="#Create-new-gem" class="headerlink" title="Create new gem"></a>Create new gem</h4><p><code>bundle gem my_amazing_gem</code></p>
+<h4 id="Add-package-to-Gemfile"><a href="#Add-package-to-Gemfile" class="headerlink" title="Add package to Gemfile"></a>Add package to Gemfile</h4><p><code>bundle add somegem</code></p>
+<h2 id="Build-utilities"><a href="#Build-utilities" class="headerlink" title="Build utilities"></a>Build utilities</h2><ul>
+<li><a href="https://github.com/ruby/rake" target="_blank" rel="noopener">rake</a> - A make-like build utility for Ruby. <a href="https://ruby.github.io/rake" target="_blank" rel="noopener">https://ruby.github.io/rake</a></li>
+</ul>
+<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><ul>
+<li><a href="https://github.com/jeremyevans/sequel" target="_blank" rel="noopener">Sequel</a> - Sequel: The Database Toolkit for Ruby <a href="http://sequel.jeremyevans.net" target="_blank" rel="noopener">http://sequel.jeremyevans.net</a></li>
+</ul>
+<h3 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h3><ul>
+<li><a href="https://github.com/brianmario/mysql2" target="_blank" rel="noopener">mysql2</a> - A modern, simple and very fast Mysql library for Ruby - binding to libmysql <a href="http://github.com/brianmario/mysql2" target="_blank" rel="noopener">http://github.com/brianmario/mysql2</a></li>
+</ul>
+<h2 id="Object-Mappers"><a href="#Object-Mappers" class="headerlink" title="Object Mappers"></a>Object Mappers</h2><ul>
+<li><a href="https://rom-rb.org/" target="_blank" rel="noopener">Ruby Object Mapper</a> - Ruby Object Mapper is an open-source persistence and mapping toolkit for Ruby built for speed and simplicity.</li>
+</ul>
+<h2 id="editorconfig"><a href="#editorconfig" class="headerlink" title="editorconfig"></a>editorconfig</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">root</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[*]</span></span><br><span class="line"><span class="attr">end_of_line</span> = lf</span><br><span class="line"><span class="attr">charset</span> = utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Rakefile]</span></span><br><span class="line"><span class="attr">indent_style</span>=space</span><br><span class="line"><span class="attr">indent_size</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">trim_trailing_whitespace</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[*.rb]</span></span><br><span class="line"><span class="attr">indent_style</span>=space</span><br><span class="line"><span class="attr">indent_size</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">trim_trailing_whitespace</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="Version-managers"><a href="#Version-managers" class="headerlink" title="Version managers"></a>Version managers</h2><ul>
+<li><a href="http://rvm.io/" target="_blank" rel="noopener">rvm</a> -  RVM is a command-line tool which allows you to easily install, manage, and work with multiple ruby environments from interpreters to sets of gems.</li>
+<li><p><a href="https://github.com/rbenv/rbenv" target="_blank" rel="noopener">rbenv</a> - Groom your app’s Ruby environment</p>
+<ul>
+<li><a href="https://github.com/rbenv/rbenv-installer#rbenv-installer" target="_blank" rel="noopener">rbenv-installer#rbenv-installer</a> - Installer and doctor scripts for rbenv</li>
+</ul>
+</li>
+<li><p><a href="https://metova.com/choosing-a-ruby-version-management-tool-rbenv-vs-rvm/" target="_blank" rel="noopener">Choosing a Ruby Version Management Tool: rbenv vs RVM</a></p>
+</li>
+</ul>
+<h2 id="Web-frameworks"><a href="#Web-frameworks" class="headerlink" title="Web frameworks"></a>Web frameworks</h2><ul>
 <li><a href="http://rubyonrails.org/" target="_blank" rel="noopener">Ruby on Rails</a></li>
 <li><a href="http://sinatrarb.com/" target="_blank" rel="noopener">sinatra</a> - Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort</li>
 </ul>
@@ -147,6 +181,9 @@ mid">
 </ul>
 <h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><ul>
 <li><a href="https://github.com/markets/awesome-ruby" target="_blank" rel="noopener">awesome-ruby</a> - <span class="github-emoji" title="gem" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f48e.png?v8">&#x1f48e;</span> A collection of awesome Ruby libraries, tools, frameworks and software <a href="https://awesome-ruby.com" target="_blank" rel="noopener">https://awesome-ruby.com</a></li>
+</ul>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://wiki.archlinux.org/index.php/ruby" target="_blank" rel="noopener">Ruby - ArchWiki</a></li>
 </ul>
 
 	</div>
@@ -157,13 +194,13 @@ mid">
 
     
     
-    <a href="/dev/rust/index.html" type="button" class="btn btn-default"><i
+    <a href="/dev/rest/index.html" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/rest/index.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/python/index.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -233,7 +270,7 @@ mid">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-10-28
+	2018-11-02
 	</div>
 	
 
@@ -257,7 +294,7 @@ mid">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/ruby/">ruby<span>1</span></a></li> <li><a href="/tags/programming-languages/">programming languages<span>5</span></a></li>
+  <li><a href="/tags/programming-languages/">programming languages<span>5</span></a></li> <li><a href="/tags/ruby/">ruby<span>1</span></a></li> <li><a href="/tags/rails/">rails<span>1</span></a></li>
     </ul>
 	</div>
 	
