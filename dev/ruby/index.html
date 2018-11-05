@@ -146,9 +146,26 @@ RubyGems is a package manager for the Ruby programming language that provides a 
 <ul>
 <li>Thor is a toolkit for building powerful command-line interfaces. It is used in Bundler, Vagrant, Rails and others.</li>
 </ul>
+<h2 id="Rescue-keywords"><a href="#Rescue-keywords" class="headerlink" title="Rescue keywords"></a>Rescue keywords</h2><ul>
+<li><a href="http://vaidehijoshi.github.io/blog/2015/08/25/unlocking-ruby-keywords-begin-end-ensure-rescue/" target="_blank" rel="noopener">Unlocking Ruby Keywords: Begin, End, Ensure, Rescue</a></li>
+</ul>
+<h2 id="Method-arguments"><a href="#Method-arguments" class="headerlink" title="Method arguments"></a>Method arguments</h2><ul>
+<li><a href="http://codeloveandboards.com/blog/2014/02/05/ruby-and-method-arguments/" target="_blank" rel="noopener">Ruby and method arguments</a></li>
+</ul>
+<h2 id="Parsers"><a href="#Parsers" class="headerlink" title="Parsers"></a>Parsers</h2><ul>
+<li><a href="http://www.nokogiri.org/" target="_blank" rel="noopener">nokogiri</a> - Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser. Among Nokogiri’s many features is the ability to search documents via XPath or CSS3 selectors.<ul>
+<li><a href="https://gist.github.com/greggersh/2771074" target="_blank" rel="noopener">Stubbing nokogiri</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="Dependency-management"><a href="#Dependency-management" class="headerlink" title="Dependency management"></a>Dependency management</h2><h3 id="bundler"><a href="#bundler" class="headerlink" title="bundler"></a><a href="https://bundler.io/" target="_blank" rel="noopener">bundler</a></h3><h4 id="Initialize-project"><a href="#Initialize-project" class="headerlink" title="Initialize project"></a>Initialize project</h4><p><code>bundle init</code></p>
 <h4 id="Create-new-gem"><a href="#Create-new-gem" class="headerlink" title="Create new gem"></a>Create new gem</h4><p><code>bundle gem my_amazing_gem</code></p>
 <h4 id="Add-package-to-Gemfile"><a href="#Add-package-to-Gemfile" class="headerlink" title="Add package to Gemfile"></a>Add package to Gemfile</h4><p><code>bundle add somegem</code></p>
+<h4 id="Update-Gemfile-packages"><a href="#Update-Gemfile-packages" class="headerlink" title="Update Gemfile packages"></a>Update Gemfile packages</h4><p><code>bundle update</code></p>
+<h4 id="Executing-ruby-script-in-bundle-context"><a href="#Executing-ruby-script-in-bundle-context" class="headerlink" title="Executing ruby script in bundle context"></a>Executing ruby script in bundle context</h4><p><code>bundle exec ruby script_name</code></p>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><ul>
+<li><a href="https://github.com/deivid-rodriguez/byebug" target="_blank" rel="noopener">byebug</a> - Debugging in Ruby 2</li>
+</ul>
 <h2 id="Build-utilities"><a href="#Build-utilities" class="headerlink" title="Build utilities"></a>Build utilities</h2><ul>
 <li><a href="https://github.com/ruby/rake" target="_blank" rel="noopener">rake</a> - A make-like build utility for Ruby. <a href="https://ruby.github.io/rake" target="_blank" rel="noopener">https://ruby.github.io/rake</a></li>
 </ul>
@@ -163,21 +180,32 @@ RubyGems is a package manager for the Ruby programming language that provides a 
 </ul>
 <h2 id="editorconfig"><a href="#editorconfig" class="headerlink" title="editorconfig"></a>editorconfig</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">root</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[*]</span></span><br><span class="line"><span class="attr">end_of_line</span> = lf</span><br><span class="line"><span class="attr">charset</span> = utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Rakefile]</span></span><br><span class="line"><span class="attr">indent_style</span>=space</span><br><span class="line"><span class="attr">indent_size</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">trim_trailing_whitespace</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[*.rb]</span></span><br><span class="line"><span class="attr">indent_style</span>=space</span><br><span class="line"><span class="attr">indent_size</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">trim_trailing_whitespace</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <h2 id="Version-managers"><a href="#Version-managers" class="headerlink" title="Version managers"></a>Version managers</h2><ul>
-<li><a href="http://rvm.io/" target="_blank" rel="noopener">rvm</a> -  RVM is a command-line tool which allows you to easily install, manage, and work with multiple ruby environments from interpreters to sets of gems.</li>
-<li><p><a href="https://github.com/rbenv/rbenv" target="_blank" rel="noopener">rbenv</a> - Groom your app’s Ruby environment</p>
-<ul>
+<li><a href="https://github.com/rbenv/rbenv" target="_blank" rel="noopener">rbenv</a> - Groom your app’s Ruby environment<ul>
 <li><a href="https://github.com/rbenv/rbenv-installer#rbenv-installer" target="_blank" rel="noopener">rbenv-installer#rbenv-installer</a> - Installer and doctor scripts for rbenv</li>
+<li>Always run install with <code>-v</code>: <code>rbenv install -v 2.5</code>. If not specified it won’t show any progess of the running build.</li>
 </ul>
+</li>
+<li><p><a href="http://rvm.io/" target="_blank" rel="noopener">rvm</a> -  RVM is a command-line tool which allows you to easily install, manage, and work with multiple ruby environments from interpreters to sets of gems.</p>
 </li>
 <li><p><a href="https://metova.com/choosing-a-ruby-version-management-tool-rbenv-vs-rvm/" target="_blank" rel="noopener">Choosing a Ruby Version Management Tool: rbenv vs RVM</a></p>
 </li>
 </ul>
 <h2 id="Web-frameworks"><a href="#Web-frameworks" class="headerlink" title="Web frameworks"></a>Web frameworks</h2><ul>
-<li><a href="http://rubyonrails.org/" target="_blank" rel="noopener">Ruby on Rails</a></li>
+<li><a href="/dev/ruby/rails/index.html">Ruby on Rails</a></li>
 <li><a href="http://sinatrarb.com/" target="_blank" rel="noopener">sinatra</a> - Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort</li>
 </ul>
 <h2 id="Frontend-frameworks"><a href="#Frontend-frameworks" class="headerlink" title="Frontend frameworks"></a>Frontend frameworks</h2><ul>
 <li><a href="https://middlemanapp.com" target="_blank" rel="noopener">middlemanapp</a> - Middleman is a static site generator using all the shortcuts and tools in modern web development.</li>
+</ul>
+<h2 id="Templating"><a href="#Templating" class="headerlink" title="Templating"></a>Templating</h2><h3 id="ERB"><a href="#ERB" class="headerlink" title="ERB"></a>ERB</h3><ul>
+<li><a href="https://ruby-doc.org/stdlib-2.5.3/libdoc/erb/rdoc/ERB.html" target="_blank" rel="noopener">ERB – Ruby Templating</a></li>
+<li><a href="https://www.stuartellis.name/articles/erb/" target="_blank" rel="noopener">An Introduction to ERB Templating</a></li>
+</ul>
+<h3 id="HAML"><a href="#HAML" class="headerlink" title="HAML"></a>HAML</h3><ul>
+<li><a href="http://haml.info/" target="_blank" rel="noopener">HAML</a> - Beautifully DRY, well-indented, clear markup: templating haiku.</li>
+</ul>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><ul>
+<li><a href="https://github.com/freerange/mocha" target="_blank" rel="noopener">mocha</a> - Mocha is a mocking and stubbing library for Ruby <a href="http://gofreerange.com/mocha/docs" target="_blank" rel="noopener">http://gofreerange.com/mocha/docs</a></li>
 </ul>
 <h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><ul>
 <li><a href="https://github.com/markets/awesome-ruby" target="_blank" rel="noopener">awesome-ruby</a> - <span class="github-emoji" title="gem" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f48e.png?v8">&#x1f48e;</span> A collection of awesome Ruby libraries, tools, frameworks and software <a href="https://awesome-ruby.com" target="_blank" rel="noopener">https://awesome-ruby.com</a></li>
@@ -200,7 +228,7 @@ RubyGems is a package manager for the Ruby programming language that provides a 
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/python/index.html" type="button" class="btn btn-default ">Next<i
+    <a href="/dev/rest/graphql.html" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -270,7 +298,7 @@ RubyGems is a package manager for the Ruby programming language that provides a 
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-11-02
+	2018-11-06
 	</div>
 	
 
@@ -281,7 +309,7 @@ RubyGems is a package manager for the Ruby programming language that provides a 
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>87</span></a></li>
+    <li><a href="/categories/dev/">dev<span>88</span></a></li>
   </li>
 
     </ul>
@@ -294,7 +322,7 @@ RubyGems is a package manager for the Ruby programming language that provides a 
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/programming-languages/">programming languages<span>5</span></a></li> <li><a href="/tags/ruby/">ruby<span>1</span></a></li> <li><a href="/tags/rails/">rails<span>1</span></a></li>
+  <li><a href="/tags/ruby/">ruby<span>4</span></a></li> <li><a href="/tags/programming-languages/">programming languages<span>5</span></a></li> <li><a href="/tags/testing/">testing<span>7</span></a></li> <li><a href="/tags/rails/">rails<span>2</span></a></li> <li><a href="/tags/debugging/">debugging<span>1</span></a></li>
     </ul>
 	</div>
 	
