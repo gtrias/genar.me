@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
@@ -9,19 +9,20 @@
   <title>Wordpress | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="WordpressTools
-wp-cli
+  <meta name="description" content="WordpressFrameworks
+bedrock - WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure
 
-SnippetsExample docker-compose.yml file123456789101112131415161718192021222324version: &#39;3&#39;services:  db:    image: mysql:5.7   ">
+Tools
+wp-cl">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Wordpress"/>
-  <meta property="og:site_name" content=""/>
+  <meta property="og:title" content="Wordpress">
+  <meta property="og:site_name" content="">
 
   
-    <meta property="og:image" content=""/>
+    <meta property="og:image" content="">
   
 
   
@@ -55,7 +56,7 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 
 
 </head>
-
+</html>
  <body>
   <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -134,7 +135,10 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 	<div class="mypage">
 	  
 
-	  <h1 id="Wordpress"><a href="#Wordpress" class="headerlink" title="Wordpress"></a>Wordpress</h1><h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+	  <h1 id="Wordpress"><a href="#Wordpress" class="headerlink" title="Wordpress"></a>Wordpress</h1><h2 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h2><ul>
+<li><a href="https://roots.io/bedrock/" target="_blank" rel="noopener">bedrock</a> - WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><a href="https://wp-cli.org/" target="_blank" rel="noopener">wp-cli</a></li>
 </ul>
 <h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Example-docker-compose-yml-file"><a href="#Example-docker-compose-yml-file" class="headerlink" title="Example docker-compose.yml file"></a>Example docker-compose.yml file</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  db:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.7</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"$PWD/mysql-data:/var/lib/mysql"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      MYSQL_ROOT_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br><span class="line"><span class="attr">      MYSQL_DATABASE:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">      MYSQL_USER:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">      MYSQL_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  wordpress:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">wordpress:4.9-php7.1</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"80:80"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"$PWD/wp-content:/var/www/html/wp-content"</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="attr">      - db:</span><span class="string">db</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      WORDPRESS_DB_HOST:</span> <span class="attr">db:3306</span></span><br><span class="line"><span class="attr">      WORDPRESS_DB_PASSWORD:</span> <span class="string">w0rdPr3s</span></span><br></pre></td></tr></table></figure>
@@ -157,14 +161,12 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 
     
     
-    <a href="/dev/python/index.html" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/dev/php/wordpress.sync-conflict-20181122-113740-U6CEXTL.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/php/laravel.html" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/dev/javascript/redux.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -233,7 +235,7 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-11-06
+	2018-11-24
 	</div>
 	
 
@@ -244,8 +246,8 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>88</span></a></li>
-  </li>
+    </li><li><a href="/categories/dev/">dev<span>92</span></a></li>
+  
 
     </ul>
 	</div>
@@ -257,7 +259,7 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/php/">php<span>10</span></a></li> <li><a href="/tags/cms/">cms<span>1</span></a></li> <li><a href="/tags/wordpress/">wordpress<span>1</span></a></li>
+  <li><a href="/tags/php/">php<span>11</span></a></li> <li><a href="/tags/cms/">cms<span>2</span></a></li> <li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
     </ul>
 	</div>
 	
@@ -278,19 +280,19 @@ SnippetsExample docker-compose.yml file123456789101112131415161718192021222324ve
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank" ]);"="">Github</a></li>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank" ]);"="">Gitlab</a></li>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">LinkedIn</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank" ]);"="">LinkedIn</a></li>
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank" ]);"="">@genar_tr</a></li>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank" ]);"="">docker hub</a></li>
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank" ]);"="">StackOverflow</a></li>
 	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank" ]);"="">Steam</a></li>
 	
 	</ul>
 </div>

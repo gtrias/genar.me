@@ -1,28 +1,25 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>genar.me</title>
+  <title>Swapfile | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="Create swapfile1234fallocate -l 512M /swapfilechmod 600 /swapfilemkswap /swapfileswapon /swapfile
-/etc/fstab
-1/swapfile none swap defaults 0 0
-Links
-S">
+  <meta name="description" content="Create swapfileJust generate the file of the sizez it fits to your hw.
+1234fallocate -l 512M /swapfilechmod 600 /swapfilemkswap /swapfileswapon /swapf">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta property="og:site_name" content=""/>
+  <meta property="og:title" content="Swapfile">
+  <meta property="og:site_name" content="">
 
   
-    <meta property="og:image" content=""/>
+    <meta property="og:image" content="">
   
 
   
@@ -56,7 +53,7 @@ S">
 
 
 </head>
-
+</html>
  <body>
   <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -118,7 +115,7 @@ S">
 
 
 <div class="page-header logo">
-  <h1 class="glitch" data-text="∎"><span class="blink-fast">∎</span></h1>
+  <h1 class="glitch" data-text="[genar@localhost src]$ swapon /swapfile∎">[genar@localhost src]$ swapon /swapfile<span class="blink-fast">∎</span></h1>
 </div>
 
 
@@ -135,7 +132,9 @@ S">
 	<div class="mypage">
 	  
 
-	  <h1 id="Create-swapfile"><a href="#Create-swapfile" class="headerlink" title="Create swapfile"></a>Create swapfile</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fallocate -l 512M /swapfile</span><br><span class="line">chmod 600 /swapfile</span><br><span class="line">mkswap /swapfile</span><br><span class="line">swapon /swapfile</span><br></pre></td></tr></table></figure>
+	  <h1 id="Create-swapfile"><a href="#Create-swapfile" class="headerlink" title="Create swapfile"></a>Create swapfile</h1><p>Just generate the file of the sizez it fits to your hw.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fallocate -l 512M /swapfile</span><br><span class="line">chmod 600 /swapfile</span><br><span class="line">mkswap /swapfile</span><br><span class="line">swapon /swapfile</span><br></pre></td></tr></table></figure>
+<p>At this point you’ll want to mount swapfile on every boot.</p>
 <p>/etc/fstab</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile none swap defaults 0 0</span><br></pre></td></tr></table></figure>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
@@ -150,14 +149,12 @@ S">
 
     
     
-    <a href="/sys/devops/index.html" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/sys/monitoring/index.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/sys/cpanel/index.html" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/sys/containers/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -226,14 +223,33 @@ S">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-11-06
+	2018-11-24
 	</div>
 	
 
 	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    </li><li><a href="/categories/sys/">sys<span>32</span></a></li>
+  
+
+    </ul>
+	</div>
+	
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+    <ul id="tags" class="tag_box list-unstyled collapse in">
+	    
+  <li><a href="/tags/linux/">linux<span>28</span></a></li> <li><a href="/tags/disks/">disks<span>2</span></a></li> <li><a href="/tags/swapfile/">swapfile<span>1</span></a></li>
+    </ul>
+	</div>
 	
 
 	<!-- toc -->
@@ -252,19 +268,19 @@ S">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank" ]);"="">Github</a></li>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank" ]);"="">Gitlab</a></li>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">LinkedIn</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank" ]);"="">LinkedIn</a></li>
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank" ]);"="">@genar_tr</a></li>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank" ]);"="">docker hub</a></li>
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank" ]);"="">StackOverflow</a></li>
 	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank" ]);"="">Steam</a></li>
 	
 	</ul>
 </div>

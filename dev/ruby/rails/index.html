@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
@@ -9,20 +9,22 @@
   <title>Rails | genar.me</title>
   <meta name="author" content="Genar Trias">
   
-  <meta name="description" content="RailsServices
+  <meta name="description" content="RailsIncoming
+rack-attack - Rack middleware for blocking &amp;amp; throttling
+
+Services
 Using Services to Keep Your Rails Controllers Clean and DRY
 
-Frontend gems
-twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
+Front">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Rails"/>
-  <meta property="og:site_name" content=""/>
+  <meta property="og:title" content="Rails">
+  <meta property="og:site_name" content="">
 
   
-    <meta property="og:image" content=""/>
+    <meta property="og:image" content="">
   
 
   
@@ -56,7 +58,7 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 
 
 </head>
-
+</html>
  <body>
   <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -135,15 +137,21 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 	<div class="mypage">
 	  
 
-	  <h1 id="Rails"><a href="#Rails" class="headerlink" title="Rails"></a>Rails</h1><h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><ul>
+	  <h1 id="Rails"><a href="#Rails" class="headerlink" title="Rails"></a>Rails</h1><h2 id="Incoming"><a href="#Incoming" class="headerlink" title="Incoming"></a>Incoming</h2><ul>
+<li><a href="https://github.com/kickstarter/rack-attack" target="_blank" rel="noopener">rack-attack</a> - Rack middleware for blocking &amp; throttling</li>
+</ul>
+<h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><ul>
 <li><a href="https://www.engineyard.com/blog/keeping-your-rails-controllers-dry-with-services" target="_blank" rel="noopener">Using Services to Keep Your Rails Controllers Clean and DRY</a></li>
 </ul>
 <h2 id="Frontend-gems"><a href="#Frontend-gems" class="headerlink" title="Frontend gems"></a>Frontend gems</h2><ul>
 <li><a href="https://github.com/seyhunak/twitter-bootstrap-rails" target="_blank" rel="noopener">twitter-bootstrap-rails</a> - Twitter Bootstrap for Rails 5 - 4.x Asset Pipeline <a href="https://github.com/seyhunak/twitter-b…" target="_blank" rel="noopener">https://github.com/seyhunak/twitter-b…</a></li>
 <li><a href="https://github.com/metaskills/less-rails" target="_blank" rel="noopener">less-rails</a> - :-1: <span class="github-emoji" title="train" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f68b.png?v8">&#x1f68b;</span> Less.js For Rails <a href="http://github.com/metaskills/less-rails" target="_blank" rel="noopener">http://github.com/metaskills/less-rails</a></li>
 </ul>
-<h2 id="Database-seeding"><a href="#Database-seeding" class="headerlink" title="Database seeding"></a>Database seeding</h2><ul>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h3 id="Seeding"><a href="#Seeding" class="headerlink" title="Seeding"></a>Seeding</h3><ul>
 <li><a href="https://github.com/mbleigh/seed-fu" target="_blank" rel="noopener">seed-fu</a> - Advanced seed data handling for Rails, combining the best practices of several methods together.</li>
+</ul>
+<h3 id="Migrations"><a href="#Migrations" class="headerlink" title="Migrations"></a>Migrations</h3><ul>
+<li><a href="https://edgeguides.rubyonrails.org/active_record_migrations.html" target="_blank" rel="noopener">Active Record Migrations</a></li>
 </ul>
 <h2 id="Concerns"><a href="#Concerns" class="headerlink" title="Concerns"></a>Concerns</h2><ul>
 <li><a href="https://medium.com/@carlescliment/about-rails-concerns-a6b2f1776d7d" target="_blank" rel="noopener">About Rails concerns</a></li>
@@ -154,7 +162,9 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 <h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Basic Dockerfile</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ruby:<span class="number">2.2</span>.<span class="number">0</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> genar@acs.li</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update -qq &amp;&amp; apt-get install -y build-essential libpq-dev nodejs</span></span><br><span class="line"><span class="bash">RUN mkdir /myapp</span></span><br><span class="line"><span class="bash">WORKDIR /myapp</span></span><br><span class="line"><span class="bash">ADD . /myapp</span></span><br><span class="line"><span class="bash">RUN bundle install</span></span><br><span class="line"><span class="bash">RUN bin/rake db:migrate</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Publish port 3000</span></span></span><br><span class="line"><span class="bash">EXPOSE 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Start rails built-in server</span></span></span><br><span class="line"><span class="bash">ENTRYPOINT rails s -p 3000 -b 0.0.0.0</span></span><br></pre></td></tr></table></figure>
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><ul>
+<li><a href="https://github.com/rspec/rspec-rails" target="_blank" rel="noopener">rspec-rails</a> - RSpec for Rails-3+ <a href="http://relishapp.com/rspec/rspec-rails" target="_blank" rel="noopener">http://relishapp.com/rspec/rspec-rails</a></li>
 <li><a href="https://guides.rubyonrails.org/testing.html" target="_blank" rel="noopener">Testing Rails Application</a></li>
+<li><a href="https://robots.thoughtbot.com/testing-your-factories-first" target="_blank" rel="noopener">Testing Your Factories First</a></li>
 </ul>
 <h3 id="Controllers"><a href="#Controllers" class="headerlink" title="Controllers"></a>Controllers</h3><ul>
 <li><a href="https://medium.com/ruby-on-rails/testing-rails-controllers-d3fc59a91a78" target="_blank" rel="noopener">Testing Rails Controllers</a></li>
@@ -179,14 +189,12 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 
     
     
-    <a href="/dev/patterns/abstract-factory/index.html" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/dev/javascript/typescript/index.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/reactjs/index.html" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/dev/javascript/reactjs/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -255,7 +263,7 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-11-06
+	2018-11-24
 	</div>
 	
 
@@ -266,8 +274,8 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/dev/">dev<span>88</span></a></li>
-  </li>
+    </li><li><a href="/categories/dev/">dev<span>92</span></a></li>
+  
 
     </ul>
 	</div>
@@ -279,7 +287,7 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/ruby/">ruby<span>4</span></a></li> <li><a href="/tags/testing/">testing<span>7</span></a></li> <li><a href="/tags/tdd/">tdd<span>5</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/rails/">rails<span>2</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
+  <li><a href="/tags/ruby/">ruby<span>5</span></a></li> <li><a href="/tags/testing/">testing<span>8</span></a></li> <li><a href="/tags/tdd/">tdd<span>5</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/rails/">rails<span>3</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
     </ul>
 	</div>
 	
@@ -300,19 +308,19 @@ twitter-bootstrap-rails - Twitter Bootstrap for Rails 5 - 4.x">
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank"]);">Github</a></li>
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank" ]);"="">Github</a></li>
 	
-		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank"]);">Gitlab</a></li>
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank" ]);"="">Gitlab</a></li>
 	
-		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank"]);">LinkedIn</a></li>
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank" ]);"="">LinkedIn</a></li>
 	
-		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank"]);">@genar_tr</a></li>
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank" ]);"="">@genar_tr</a></li>
 	
-		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank"]);">docker hub</a></li>
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank" ]);"="">docker hub</a></li>
 	
-		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank"]);">StackOverflow</a></li>
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank" ]);"="">StackOverflow</a></li>
 	
-		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank"]);">Steam</a></li>
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank" ]);"="">Steam</a></li>
 	
 	</ul>
 </div>
