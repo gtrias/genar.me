@@ -9,6 +9,7 @@ gulp.task('clean', () => {
     .pipe(gulpIgnore.exclude(hexoIgnore.ignore))
     .pipe(gulpIgnore.exclude('**/.*'))
     .pipe(replace('.md', '.html'))
+    .pipe(replace('](/', ']('))
     .pipe(stripCode({
       pattern: /\[start_ignore\][\s\S]*?(?:\[end_ignore\].*\n+?)/g
     }))
@@ -18,6 +19,7 @@ gulp.task('clean', () => {
     .pipe(gulpIgnore.exclude(hexoIgnore.ignore))
     .pipe(gulpIgnore.exclude('**/.*'))
     .pipe(replace('.md', '.html'))
+    .pipe(replace('](/', ']('))
     .pipe(stripCode({
       pattern: /\[start_ignore\][\s\S]*?(?:\[end_ignore\].*\n+?)/g
     }))

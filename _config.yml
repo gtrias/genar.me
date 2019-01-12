@@ -16,11 +16,11 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://genar.me
-root: '/'
+# url: http://genar.me
+# root: '/'
 # IPFS Settings
-# url: https://gateway.ipfs.io/
-# root: '/ipns/Qmey4x3JohZT6nrhGrVsqVKGeDbhZxVWw9hXyCkyASU7fN/'
+url: https://gateway.ipfs.io/
+root: '/ipns/QmXZsJjXsRYCovHA7EDf1a4iAV7Zm413x94sA14gUakpwc/'
 permalink: :title.html
 permalink_defaults:
 
@@ -42,7 +42,7 @@ external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
-relative_link: false
+relative_link: true
 future: true
 highlight:
   enable: true
@@ -75,8 +75,9 @@ theme: freemind.386
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:gtrias/genar.me.git
+    # type: git
+    # repo: git@github.com:gtrias/genar.me.git
+  type: ipfs
 
 
 theme_config:
