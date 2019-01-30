@@ -12,10 +12,8 @@
   <meta name="description" content="RailsIncoming
 rack-attack - Rack middleware for blocking &amp;amp; throttling
 
-Services
-Using Services to Keep Your Rails Controllers Clean and DRY
-
-Forms">
+Admin frameworks
+ActiveAdmin - The administration framework for business cr">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -140,6 +138,10 @@ Forms">
 	  <h1 id="Rails"><a href="#Rails" class="headerlink" title="Rails"></a>Rails</h1><h2 id="Incoming"><a href="#Incoming" class="headerlink" title="Incoming"></a>Incoming</h2><ul>
 <li><a href="https://github.com/kickstarter/rack-attack" target="_blank" rel="noopener">rack-attack</a> - Rack middleware for blocking &amp; throttling</li>
 </ul>
+<h2 id="Admin-frameworks"><a href="#Admin-frameworks" class="headerlink" title="Admin frameworks"></a>Admin frameworks</h2><ul>
+<li><a href="https://activeadmin.info/" target="_blank" rel="noopener">ActiveAdmin</a> - The administration framework for business critical Ruby on Rails applications.</li>
+<li><a href="https://github.com/thoughtbot/administrate" target="_blank" rel="noopener">administrate</a> - A Rails engine that helps you put together a super-flexible admin dashboard. <a href="http://administrate-prototype.herokua…" target="_blank" rel="noopener">http://administrate-prototype.herokua…</a></li>
+</ul>
 <h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><ul>
 <li><a href="https://www.engineyard.com/blog/keeping-your-rails-controllers-dry-with-services" target="_blank" rel="noopener">Using Services to Keep Your Rails Controllers Clean and DRY</a></li>
 </ul>
@@ -164,8 +166,17 @@ Forms">
 <li><a href="https://www.youtube.com/watch?v=8bZh5LMaSmE" target="_blank" rel="noopener">Video - RailsConf 2014 - All the Little Things by Sandi Metz</a></li>
 </ul>
 <div class="video-container"><iframe src="//www.youtube.com/embed/8bZh5LMaSmE" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="Bounded-contexts"><a href="#Bounded-contexts" class="headerlink" title="Bounded contexts"></a>Bounded contexts</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=tg5RFeSfBM4" target="_blank" rel="noopener">October CincyRb - Jim Weirich on Decoupling from Rails</a></li>
+</ul>
+<div class="video-container"><iframe src="//www.youtube.com/embed/tg5RFeSfBM4" frameborder="0" allowfullscreen></iframe></div>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=yTkzNHF6rMs" target="_blank" rel="noopener">Ruby Conf 12 - Boundaries by Gary Bernhardt</a></li>
+</ul>
+<div class="video-container"><iframe src="//www.youtube.com/embed/yTkzNHF6rMs" frameborder="0" allowfullscreen></iframe></div>
 <h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Basic Dockerfile</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ruby:<span class="number">2.2</span>.<span class="number">0</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> genar@acs.li</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update -qq &amp;&amp; apt-get install -y build-essential libpq-dev nodejs</span></span><br><span class="line"><span class="bash">RUN mkdir /myapp</span></span><br><span class="line"><span class="bash">WORKDIR /myapp</span></span><br><span class="line"><span class="bash">ADD . /myapp</span></span><br><span class="line"><span class="bash">RUN bundle install</span></span><br><span class="line"><span class="bash">RUN bin/rake db:migrate</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Publish port 3000</span></span></span><br><span class="line"><span class="bash">EXPOSE 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Start rails built-in server</span></span></span><br><span class="line"><span class="bash">ENTRYPOINT rails s -p 3000 -b 0.0.0.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="Pass-query-string-to-path-methods"><a href="#Pass-query-string-to-path-methods" class="headerlink" title="Pass query string to path methods"></a>Pass query string to path methods</h3><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">confirm_a3_import_company_payslip_periods_path(&#123;<span class="symbol">year:</span> <span class="string">'2019'</span>&#125;)</span><br><span class="line"><span class="comment"># Will generate /backoffice/companies/3333/payslip_periods/a3_confirm?year=2019</span></span><br></pre></td></tr></table></figure>
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><ul>
 <li><a href="https://github.com/rspec/rspec-rails" target="_blank" rel="noopener">rspec-rails</a> - RSpec for Rails-3+ <a href="http://relishapp.com/rspec/rspec-rails" target="_blank" rel="noopener">http://relishapp.com/rspec/rspec-rails</a></li>
 <li><a href="https://semaphoreci.com/community/tutorials/how-to-test-rails-models-with-rspec" target="_blank" rel="noopener">How to Test Rails Models with RSpec</a></li>
@@ -196,12 +207,12 @@ Forms">
 
     
     
-    <a href="/events/fosdem/2018/easy-gpg.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/events/fosdem/2018/bulletinboard-dht-and-wireguard-p2p.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/patterns/abstract-factory/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/events/fosdem/2018/easy-gpg.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -270,7 +281,7 @@ Forms">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-01-13
+	2019-01-30
 	</div>
 	
 
@@ -281,7 +292,7 @@ Forms">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/dev/">dev<span>94</span></a></li>
+    </li><li><a href="/categories/dev/">dev<span>95</span></a></li>
   
 
     </ul>
@@ -294,7 +305,7 @@ Forms">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/ruby/">ruby<span>8</span></a></li> <li><a href="/tags/testing/">testing<span>9</span></a></li> <li><a href="/tags/tdd/">tdd<span>5</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/rails/">rails<span>6</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
+  <li><a href="/tags/ruby/">ruby<span>10</span></a></li> <li><a href="/tags/rails/">rails<span>8</span></a></li> <li><a href="/tags/testing/">testing<span>10</span></a></li> <li><a href="/tags/tdd/">tdd<span>5</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
     </ul>
 	</div>
 	

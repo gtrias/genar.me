@@ -150,6 +150,9 @@ DockerQuickstart docker run for development: docker run -d -e MYSQL_ROOT_PASSWOR
 <p>Sometimes when you are importing large dumps you get errors like <code>Can&#39;t connect to the server</code> and <code>ERROR 2047 (HY000): Wrong or unknown protocol</code>.<br>To try to mitigate this issue you can set some mysql parameters:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> global net_buffer_length=1000000; --Set network buffer length to a large byte number</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> global max_allowed_packet=1000000000; --Set maximum allowed packet size to a large byte number</span><br><span class="line"></span><br><span class="line">SET foreign_key_checks = 0; --Disable foreign key checking to avoid delays,errors and unwanted behaviour</span><br><span class="line"></span><br><span class="line">-- Create new schema to import the dump</span><br><span class="line">CREATE DATABASE my_schema;</span><br><span class="line"></span><br><span class="line">-- Select the new created database</span><br><span class="line">USE my_schema;</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> file.sql --Import your sql dump file</span><br><span class="line"></span><br><span class="line">SET foreign_key_checks = 1; --Remember to <span class="built_in">enable</span> foreign key checks when procedure is complete!</span><br></pre></td></tr></table></figure>
 <h2 id="Run-MySQL-in-tmpfs-for-better-performance-Usefull-for-CI-testing"><a href="#Run-MySQL-in-tmpfs-for-better-performance-Usefull-for-CI-testing" class="headerlink" title="Run MySQL in tmpfs for better performance (Usefull for CI testing)"></a>Run MySQL in tmpfs for better performance (Usefull for CI testing)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Setup tmpfs for testing</span></span><br><span class="line">mkdir /var/tmpfs</span><br><span class="line">mount -t tmpfs -o size=1G tmpfs /var/tmpfs</span><br><span class="line">cp -Rfv /var/lib/mysql /var/tmpfs/</span><br><span class="line">chown -R mysql:mysql /var/tmpfs/mysql</span><br><span class="line">sed -i <span class="string">'/^datadir.*/c\datadir = /var/tmpfs/mysql'</span> /etc/mysql/my.cnf</span><br><span class="line"></span><br><span class="line">/etc/init.d/mysql start</span><br></pre></td></tr></table></figure>
+<h3 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h3><ul>
+<li><a href="https://github.com/neilbartley/mysql-ramdisk-helper" target="_blank" rel="noopener">mysql-ramdisk-helper</a> - Simple script to setup a ramdisk for development purposes (OSX)</li>
+</ul>
 <h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><ul>
 <li><a href="https://manios.org/2013/03/19/import-a-large-sql-dump-file-to-a-mysql-database-from-command-line" target="_blank" rel="noopener">Import a large sql dump file to a MySQL database from command line</a></li>
 <li><a href="https://scotch.io/tutorials/working-with-json-in-mysql" target="_blank" rel="noopener">Working with JSON in MySQL</a></li>
@@ -163,7 +166,7 @@ DockerQuickstart docker run for development: docker run -d -e MYSQL_ROOT_PASSWOR
 
     
     
-    <a href="/dev/databases/redis.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/dev/databases/postgresql.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -237,7 +240,7 @@ DockerQuickstart docker run for development: docker run -d -e MYSQL_ROOT_PASSWOR
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-01-13
+	2019-01-30
 	</div>
 	
 
@@ -248,7 +251,7 @@ DockerQuickstart docker run for development: docker run -d -e MYSQL_ROOT_PASSWOR
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/dev/">dev<span>94</span></a></li>
+    </li><li><a href="/categories/dev/">dev<span>95</span></a></li>
   
 
     </ul>
