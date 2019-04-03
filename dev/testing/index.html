@@ -14,9 +14,10 @@ TDD
 
 Incomming
 Splitting into fine grained tests
+The tragedy of 100% code coverage
 
 Unit tests TIPS
-Mock all external dependencies, (API requests, storage access or database ac">
+Mock all external dependencies, (API reque">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -143,6 +144,7 @@ Mock all external dependencies, (API requests, storage access or database ac">
 </ul>
 <h2 id="Incomming"><a href="#Incomming" class="headerlink" title="Incomming"></a>Incomming</h2><ul>
 <li><a href="https://www.destroyallsoftware.com/screencasts/catalog/splitting-into-fine-grained-tests" target="_blank" rel="noopener">Splitting into fine grained tests</a></li>
+<li><a href="https://labs.ig.com/code-coverage-100-percent-tragedy" target="_blank" rel="noopener">The tragedy of 100% code coverage</a></li>
 </ul>
 <h2 id="Unit-tests-TIPS"><a href="#Unit-tests-TIPS" class="headerlink" title="Unit tests TIPS"></a>Unit tests TIPS</h2><ul>
 <li>Mock all external dependencies, (API requests, storage access or database access)</li>
@@ -153,18 +155,23 @@ Mock all external dependencies, (API requests, storage access or database ac">
 <h2 id="E2E"><a href="#E2E" class="headerlink" title="E2E"></a>E2E</h2><ul>
 <li><a href="https://github.com/DevExpress/testcafe" target="_blank" rel="noopener">testcafe</a> - A Node.js tool to automate end-to-end web testing. <a href="https://devexpress.github.io/testcafe/" target="_blank" rel="noopener">https://devexpress.github.io/testcafe/</a></li>
 </ul>
-<h2 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h2><ul>
-<li><a href="http://generadordni.es/iban/index.html" target="_blank" rel="noopener">IBAN Generator</a></li>
-<li><a href="http://generadordni.es/" target="_blank" rel="noopener">NIF Generator</a></li>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><p>From: Paqui Calabria — @Zurribulle <a href="/events/meetups/barcelonajs-feb-2019.html">@BarcelonaJS feb 2019</a></p>
+<h4 id="Opinionated-tips-10-1-about-test-patterns"><a href="#Opinionated-tips-10-1-about-test-patterns" class="headerlink" title="Opinionated tips 10+1 about test patterns"></a>Opinionated tips 10+1 about test patterns</h4><ul>
+<li>Each test must be independent</li>
+<li>Sort test from general to specific: When several tests fail, you’ll know that you need to start debugging for the first one</li>
+<li>Check one thing per test: It’s ok to use more than one expect, but if the title says “and” it will probably end up being hard to maintain.</li>
+<li>Don’t forget to clean up: Any modification to the environment that a test has made, has to be reverted later to avoid collateral effects. Delete local, storage, reset the database, restore the stubs/spies behaviour….</li>
+<li>Make a mocks’ library: Mocking is boring, slow and prepetitive. Create a library of mocked objects, services, components, etc that you can access from any test.</li>
+<li>Asynchronisms are going to fuck you. Big time: Learn to control them as soon as possible, study, practice. <a href="https://blog.cloudboost.io/javascript-asynchronous-testing-gotchas-ac7e5c39257" target="_blank" rel="noopener">https://blog.cloudboost.io/javascript-asynchronous-testing-gotchas-ac7e5c39257</a><ul>
+<li><a href="https://martinfowler.com/articles/nonDeterminism.html" target="_blank" rel="noopener">https://martinfowler.com/articles/nonDeterminism.html</a></li>
 </ul>
-<h2 id="Testing-redsys-parameters"><a href="#Testing-redsys-parameters" class="headerlink" title="Testing redsys parameters"></a>Testing redsys parameters</h2><h3 id="Tu-banco-ING-Bankia-BBVA-Santanter-Sabadell-…-te-pedira-que-realices-estas-dos-pruebas"><a href="#Tu-banco-ING-Bankia-BBVA-Santanter-Sabadell-…-te-pedira-que-realices-estas-dos-pruebas" class="headerlink" title="Tu banco (ING, Bankia, BBVA, Santanter, Sabadell,…) te pedirá que realices estas dos pruebas:"></a>Tu banco (ING, Bankia, BBVA, Santanter, Sabadell,…) te pedirá que realices estas dos pruebas:</h3><ul>
-<li>Realizar al menos una operación Autorizada. Utilice esta tarjeta de prueba:</li>
+</li>
+<li>Don’t let them “expire”: Do the tests as soon as possible, run them often, and fix them as soon as they fail.  You can use CI tools like Jenkins or Travis, git hoks… no tests = no merge</li>
+<li>Do not obsess about the coverage: The full report is useful to know what we are leaving untested, but in the end it is just a number. <a href="https://github.com/FCalabria/coverage_is_a_lie" target="_blank" rel="noopener">https://github.com/FCalabria/coverage_is_a_lie</a></li>
+<li>Do not test trivialities: It is badly invested time, and it incresases the maintainance time.</li>
+<li>There’s life beyound UT: Study the waknesses of the project before blindy implanting unit tests. Another type could be more useful.</li>
+<li>Set a test limit: Desperate situations require desperate measures. It is also a good argument to convince managers.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Número de tarjeta: 4548812049400004</span><br><span class="line">Caducidad: 12/20</span><br><span class="line">Código CVV2: 123</span><br><span class="line">Código CIP: 123456</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Realizar al menos una operación Denegada. Utilice esta tarjeta de prueba:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Número de tarjeta: 1111111111111117</span><br><span class="line">Caducidad: 12/20</span><br></pre></td></tr></table></figure>
 
 	</div>
 
@@ -174,12 +181,12 @@ Mock all external dependencies, (API requests, storage access or database ac">
 
     
     
-    <a href="/dev/tools/index.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/events/meetups/barcelonajs-feb-2019.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/testing/TDD.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/dev/ruby/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -248,7 +255,7 @@ Mock all external dependencies, (API requests, storage access or database ac">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-01-30
+	2019-04-03
 	</div>
 	
 
@@ -259,7 +266,7 @@ Mock all external dependencies, (API requests, storage access or database ac">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/dev/">dev<span>95</span></a></li>
+    </li><li><a href="/categories/dev/">dev<span>100</span></a></li>
   
 
     </ul>
@@ -272,7 +279,7 @@ Mock all external dependencies, (API requests, storage access or database ac">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/testing/">testing<span>10</span></a></li>
+  <li><a href="/tags/testing/">testing<span>9</span></a></li>
     </ul>
 	</div>
 	

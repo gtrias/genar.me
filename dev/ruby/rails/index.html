@@ -10,10 +10,9 @@
   <meta name="author" content="Genar Trias">
   
   <meta name="description" content="RailsIncoming
-rack-attack - Rack middleware for blocking &amp;amp; throttling
-
-Admin frameworks
-ActiveAdmin - The administration framework for business cr">
+How Rails Sessions Work
+Examining The Internals Of The Rails Request/Response Cycle
+rack-attack - Rack middleware for blocking &amp;amp; thr">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -136,7 +135,15 @@ ActiveAdmin - The administration framework for business cr">
 	  
 
 	  <h1 id="Rails"><a href="#Rails" class="headerlink" title="Rails"></a>Rails</h1><h2 id="Incoming"><a href="#Incoming" class="headerlink" title="Incoming"></a>Incoming</h2><ul>
+<li><a href="https://www.justinweiss.com/articles/how-rails-sessions-work/" target="_blank" rel="noopener">How Rails Sessions Work</a></li>
+<li><a href="https://www.rubypigeon.com/posts/examining-internals-of-rails-request-response-cycle/" target="_blank" rel="noopener">Examining The Internals Of The Rails Request/Response Cycle</a></li>
 <li><a href="https://github.com/kickstarter/rack-attack" target="_blank" rel="noopener">rack-attack</a> - Rack middleware for blocking &amp; throttling</li>
+</ul>
+<h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><ul>
+<li><a href="https://github.com/plataformatec/devise" target="_blank" rel="noopener">devise</a> - Flexible authentication solution for Rails with Warden. <a href="http://blog.plataformatec.com.br/tag/…" target="_blank" rel="noopener">http://blog.plataformatec.com.br/tag/…</a><ul>
+<li><a href="https://blog.bigbinary.com/2018/10/30/skip-devise-trackable-module-for-api-calls.html" target="_blank" rel="noopener">Skip devise trackable module for API calls to avoid users table getting locked</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="Admin-frameworks"><a href="#Admin-frameworks" class="headerlink" title="Admin frameworks"></a>Admin frameworks</h2><ul>
 <li><a href="https://activeadmin.info/" target="_blank" rel="noopener">ActiveAdmin</a> - The administration framework for business critical Ruby on Rails applications.</li>
@@ -163,9 +170,15 @@ ActiveAdmin - The administration framework for business cr">
 </ul>
 <h2 id="DI-Dependency-Injection"><a href="#DI-Dependency-Injection" class="headerlink" title="DI (Dependency Injection)"></a>DI (Dependency Injection)</h2><ul>
 <li><a href="http://weblog.jamisbuck.org/2008/11/9/legos-play-doh-and-programming" target="_blank" rel="noopener">LEGOs, Play-Doh, and Programming</a></li>
-<li><a href="https://www.youtube.com/watch?v=8bZh5LMaSmE" target="_blank" rel="noopener">Video - RailsConf 2014 - All the Little Things by Sandi Metz</a></li>
-</ul>
+<li><p><a href="https://www.youtube.com/watch?v=8bZh5LMaSmE" target="_blank" rel="noopener">Video - RailsConf 2014 - All the Little Things by Sandi Metz</a></p>
 <div class="video-container"><iframe src="//www.youtube.com/embed/8bZh5LMaSmE" frameborder="0" allowfullscreen></iframe></div>
+</li>
+<li><p><a href="https://gist.github.com/blairanderson/8072d951a480a590f0bd" target="_blank" rel="noopener">Dependency Injection in Ruby 07 Oct 04</a></p>
+</li>
+<li><a href="https://github.com/mlibrary/canister" target="_blank" rel="noopener">canister</a> - A simple IoC container for ruby</li>
+<li><a href="https://dry-rb.org/gems/dry-container/" target="_blank" rel="noopener">dry-container</a> - dry-container is a simple, thread-safe container, intended to be one half of a dependency injection system, possibly in combination with dry-auto_inject.</li>
+<li><a href="https://dhh.dk/2012/dependency-injection-is-not-a-virtue.html" target="_blank" rel="noopener">Dependency injection is not a virtue</a></li>
+</ul>
 <h2 id="Bounded-contexts"><a href="#Bounded-contexts" class="headerlink" title="Bounded contexts"></a>Bounded contexts</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=tg5RFeSfBM4" target="_blank" rel="noopener">October CincyRb - Jim Weirich on Decoupling from Rails</a></li>
 </ul>
@@ -207,12 +220,12 @@ ActiveAdmin - The administration framework for business cr">
 
     
     
-    <a href="/dev/patterns/abstract-factory/index.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a href="/dev/AR.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/dev/javascript/nodejs/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/sys/containers/lxc/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -281,7 +294,7 @@ ActiveAdmin - The administration framework for business cr">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-01-30
+	2019-02-22
 	</div>
 	
 
@@ -292,7 +305,7 @@ ActiveAdmin - The administration framework for business cr">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/dev/">dev<span>95</span></a></li>
+    </li><li><a href="/categories/dev/">dev<span>100</span></a></li>
   
 
     </ul>
@@ -305,7 +318,7 @@ ActiveAdmin - The administration framework for business cr">
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
     <ul id="tags" class="tag_box list-unstyled collapse in">
 	    
-  <li><a href="/tags/ruby/">ruby<span>10</span></a></li> <li><a href="/tags/rails/">rails<span>8</span></a></li> <li><a href="/tags/testing/">testing<span>10</span></a></li> <li><a href="/tags/tdd/">tdd<span>5</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
+  <li><a href="/tags/ruby/">ruby<span>12</span></a></li> <li><a href="/tags/rails/">rails<span>7</span></a></li> <li><a href="/tags/testing/">testing<span>9</span></a></li> <li><a href="/tags/tdd/">tdd<span>6</span></a></li> <li><a href="/tags/framework/">framework<span>3</span></a></li> <li><a href="/tags/web-framework/">web framework<span>2</span></a></li> <li><a href="/tags/dependency-injection/">dependency injection<span>1</span></a></li>
     </ul>
 	</div>
 	

@@ -144,6 +144,7 @@ rexray - REX-Ray is a container storage orchestration engine enabling persisten"
 <li><a href="https://github.com/rexray/rexray" target="_blank" rel="noopener">rexray</a> - REX-Ray is a container storage orchestration engine enabling persistence for cloud native workloads <a href="http://rexray.io" target="_blank" rel="noopener">http://rexray.io</a></li>
 </ul>
 <h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><a href="https://github.com/moby/buildkit" target="_blank" rel="noopener">buildkit</a> - concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit <a href="https://github.com/moby/moby/issues/3…" target="_blank" rel="noopener">https://github.com/moby/moby/issues/3…</a></li>
 <li><a href="https://github.com/bcicen/ctop" target="_blank" rel="noopener">ctop</a> - Top-like interface for container metrics</li>
 <li><a href="https://github.com/hadolint/hadolint" target="_blank" rel="noopener">hadolint</a> - Dockerfile linter written in Haskell</li>
 <li><a href="https://github.com/alexei-led/pumba" target="_blank" rel="noopener">pumba</a> - Chaos testing and network emulation tool for Docker. <a href="https://goo.gl/SUKo6T" target="_blank" rel="noopener">https://goo.gl/SUKo6T</a></li>
@@ -163,6 +164,10 @@ rexray - REX-Ray is a container storage orchestration engine enabling persisten"
 </ul>
 <h3 id="Synchronize-container-date-as-the-host-date"><a href="#Synchronize-container-date-as-the-host-date" class="headerlink" title="Synchronize container date as the host date"></a>Synchronize container date as the host date</h3><p>Just mount two volumes for the <code>/etc/timezone</code> and <code>/etc/localtime</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">'/etc/timezone:/etc/timezone:ro'</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">'/etc/localtime:/etc/localtime:ro'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Debugging-inside-container"><a href="#Debugging-inside-container" class="headerlink" title="Debugging inside container"></a>Debugging inside container</h3><p>Add those lines to your <code>docker-compose.yml</code> file</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">app:</span></span><br><span class="line"><span class="attr">  tty:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  stdin_open:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>The you can enter to session running <code>docker attach project_app_1</code></p>
+<p><a href="https://stackoverflow.com/questions/35211638/how-to-debug-a-rails-app-in-docker-with-pry" target="_blank" rel="noopener">Source</a></p>
 <h3 id="Inspect-stopped-image-contents"><a href="#Inspect-stopped-image-contents" class="headerlink" title="Inspect stopped image contents"></a>Inspect stopped image contents</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker commit CONTAINER NEWIMAGENAME</span><br><span class="line">docker run -ti --entrypoint /bin/bash NEWIMAGENAME</span><br></pre></td></tr></table></figure>
 <h2 id="Orchestration"><a href="#Orchestration" class="headerlink" title="Orchestration"></a>Orchestration</h2><ul>
 <li><a href="https://github.com/v2tec/watchtower" target="_blank" rel="noopener">watchtower</a> -  Automatically update running Docker containers</li>
@@ -209,7 +214,7 @@ rexray - REX-Ray is a container storage orchestration engine enabling persisten"
 
     
     
-    <a href="/sys/containers/k8s/index.html" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -283,7 +288,7 @@ rexray - REX-Ray is a container storage orchestration engine enabling persisten"
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-01-30
+	2019-04-03
 	</div>
 	
 
@@ -294,7 +299,7 @@ rexray - REX-Ray is a container storage orchestration engine enabling persisten"
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/sys/">sys<span>33</span></a></li>
+    </li><li><a href="/categories/sys/">sys<span>34</span></a></li>
   
 
     </ul>
