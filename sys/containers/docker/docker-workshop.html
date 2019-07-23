@@ -1,0 +1,516 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>genar.me</title>
+  <meta name="author" content="Genar Trias">
+  
+  <meta name="description" content="Docker workshop
+
+About containers
+
+A brief history about containers
+During the unix development of Unix V7 in 1979, the chroot system call was introdu">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="">
+
+  
+    <meta property="og:image" content="">
+  
+
+  
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
+  <link rel="stylesheet" href="/css/custom.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-29504819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+</html>
+ <body>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <i class="fa fa-bars"></i>
+      </button>
+	  <a class="navbar-brand" href="/">genar.me</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/" title="About me.">
+			  <i class="fas fa-home"></i>~
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/projects" title="All my personal projects.">
+			  <i class="fas fa-folder"></i>src/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/com" title="Where I've worked">
+			  <i class="fas fa-folder"></i>com/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/dev" title="My dev notes">
+			  <i class="fas fa-folder"></i>dev/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/sys" title="Systems notes">
+			  <i class="fab fa-linux"></i>sys/
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories/blog" title="My blog">
+			  <i class="fas fa-folder"></i>blog/
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+
+
+<div class="page-header logo">
+  <h1 class="glitch" data-text="Docker workshop∎">Docker workshop<span class="blink-fast">∎</span></h1>
+</div>
+
+
+<div class="col-md-9">
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	
+	<div class="col-md-12">
+
+	<!-- content -->
+	<div class="mypage">
+	  
+
+	  <h2 id="Docker-workshop"><a href="#Docker-workshop" class="headerlink" title="Docker workshop"></a>Docker workshop</h2><p><img src="https://i.imgur.com/y3iifqT.png" alt="whale"></p>
+<hr>
+<h2 id="About-containers"><a href="#About-containers" class="headerlink" title="About containers"></a>About containers</h2><p><img src="https://i.imgur.com/ZnSQqlx.png" alt="containers"></p>
+<hr>
+<h3 id="A-brief-history-about-containers"><a href="#A-brief-history-about-containers" class="headerlink" title="A brief history about containers"></a>A brief history about containers</h3><ul>
+<li>During the unix development of Unix V7 in 1979, the chroot system call was introduced, changing the root directory of a process and its children to a new location in the filesystem.</li>
+<li>Chroot was added to BSD in 1982.</li>
+<li>2000: FreeBSD Jails</li>
+<li>2001: Linux VServer</li>
+<li>2004: Solaris Containers</li>
+</ul>
+<hr>
+<ul>
+<li>2005: Open VZ (Open Virtuzzo)</li>
+<li>2006: Process Containers</li>
+<li>2008: LXC</li>
+<li>2013: Docker</li>
+<li>2016: The Importance of Container Security Is Revealed</li>
+<li>2017: Container Tools Become Mature<ul>
+<li>Kubernetes Grows Up</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="How-they-work"><a href="#How-they-work" class="headerlink" title="How they work?"></a>How they work?</h3><p>With containers, instead of virtualizing the underlying computer like a virtual machine (VM), just the OS is virtualized.</p>
+<p><img src="https://i.imgur.com/N3ABScV.png" alt=""></p>
+<hr>
+<h2 id="About-images"><a href="#About-images" class="headerlink" title="About images"></a>About images</h2><hr>
+<blockquote>
+<p>A Docker image is a file, comprised of multiple layers, used to execute code in a Docker container. An image is essentially built from the instructions for a complete and executable version of an application, which relies on the host OS kernel. When the Docker user runs an image, it becomes one or multiple instances of that container.</p>
+</blockquote>
+<hr>
+<h2 id="The-plan"><a href="#The-plan" class="headerlink" title="The plan"></a>The plan</h2><p>We’ll explore most of the basic docker concepts creating a real microservice project consistent on:</p>
+<hr>
+<ul>
+<li>Rust program talking to kafka</li>
+<li>CI compiling docker process using gitlab-ci</li>
+<li>Kafka cluster using docker-compose</li>
+<li>Containers monitored with telegraf and grafana</li>
+<li>Load balancer with traefik</li>
+</ul>
+<p>At the end of the exercice you will have a working environment with those services.</p>
+<hr>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><hr>
+<p>Edit your hosts file with exercice name <code>docker.local</code>. This will be used to access services from load-balancer using Host header.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 docker.local</span><br></pre></td></tr></table></figure>
+<p>Having docker and docker-compose installed and working in the system.</p>
+<hr>
+<h2 id="Creating-a-rust-application-with-docker"><a href="#Creating-a-rust-application-with-docker" class="headerlink" title="Creating a rust application with docker"></a>Creating a rust application with docker</h2><p>Just create a rust project of hello world which will be the base of our rust kafka-client</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new hello_world --bin</span><br></pre></td></tr></table></figure>
+<hr>
+<p>Add a <code>Dockerfile</code> in the root folder of the application, this file is used to create the docker image of our hello-world.</p>
+<hr>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> rust</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></span><br><span class="line"><span class="bash">COPY . .</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN cargo install --path .</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"hello_world"</span>]</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>Test if the <code>Dockerfile</code> compiles properly our app</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build .</span><br></pre></td></tr></table></figure>
+<hr>
+<p>If your image compiles properly; Congratulations!! you have your first docker image available.</p>
+<p>At this point you can use this image in your localhost or push it to some Docker registry to make it available to other docker hosts.</p>
+<p>But we’re going to apply some CD here to automatize this process and be aligned with Continuous Delivery from the first step.</p>
+<hr>
+<p>Just add the <code>gitlab-ci.yml</code> which is provided for the gitlab itself.</p>
+<hr>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This file is a template, and might need editing before it works on your project.</span></span><br><span class="line"><span class="attr">build-master:</span></span><br><span class="line">  <span class="comment"># Official docker image.</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">docker:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="attr">    - docker:</span><span class="string">dind</span></span><br><span class="line"><span class="attr">  before_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">login</span> <span class="bullet">-u</span> <span class="string">"$CI_REGISTRY_USER"</span> <span class="bullet">-p</span> <span class="string">"$CI_REGISTRY_PASSWORD"</span> <span class="string">$CI_REGISTRY</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">--pull</span> <span class="bullet">-t</span> <span class="string">"$CI_REGISTRY_IMAGE"</span> <span class="string">.</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">"$CI_REGISTRY_IMAGE"</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build:</span></span><br><span class="line">  <span class="comment"># Official docker image.</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">docker:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="attr">    - docker:</span><span class="string">dind</span></span><br><span class="line"><span class="attr">  before_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">login</span> <span class="bullet">-u</span> <span class="string">"$CI_REGISTRY_USER"</span> <span class="bullet">-p</span> <span class="string">"$CI_REGISTRY_PASSWORD"</span> <span class="string">$CI_REGISTRY</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">--pull</span> <span class="bullet">-t</span> <span class="string">"$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"</span> <span class="string">.</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">"$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"</span></span><br><span class="line"><span class="attr">  except:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>This file work pretty similar to travis-ci or drone CI systems.<br>It tells gitlab to compile your package and push it to the gitlab docker registry.</p>
+<hr>
+<p>Commit and push this file (or use gitlab-ci add files template) and will be able to<br>see the process of your building in gitlab-ci. After successfull build you will be able to pull your created image<br>from any docker host machine.</p>
+<hr>
+<p>You can test your new application by using <code>docker run</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run registry.gitlab.com/gtrias/rust-example</span><br><span class="line">Hello, world!</span><br></pre></td></tr></table></figure>
+<p>This will download our previous built image (if it isn’t available in localhost already) and run it as a container.</p>
+<hr>
+<p>If you want to update local docker image with latest version you can run <code>docker pull</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry.gitlab.com/gtrias/rust-example</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Creating-kafka-cluster-using-docker-compose"><a href="#Creating-kafka-cluster-using-docker-compose" class="headerlink" title="Creating kafka cluster using docker-compose"></a>Creating kafka cluster using docker-compose</h2><p><img src="https://media.giphy.com/media/6AFldi5xJQYIo/giphy.gif" alt=""></p>
+<hr>
+<p>Docker compose is a layer over docker API which allows you to manage collections of docker containers using a definition file. Since we don’t want to remember all the time our docker commands we’ll going to define our kafka cluster using a yml definition file.</p>
+<hr>
+<p>We are going to base the cluster from already done job <a href="https://github.com/wurstmeister/kafka-docker" target="_blank" rel="noopener">here</a>.</p>
+<p>So let’s clone this project to follow.</p>
+<hr>
+<p>The base docker-compose has this shape:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"2181:2181"</span></span><br><span class="line"><span class="attr">  kafka:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"9092"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      KAFKA_ADVERTISED_HOST_NAME:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      KAFKA_ZOOKEEPER_CONNECT:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>This specify two services, one zookeper and kafka itself.</p>
+<hr>
+<p>You can pull, create containers and run them running:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<hr>
+<p>As <code>docker run</code> command this will download needed images, create containers<br>and run them. Note the <code>-d</code> param refers to detached, it won’t close the containers if you<br>close the current shell. Additionally note the <code>build .</code> in kafka service, this tells docker-compose<br>to build this image instead of looking one already created one.</p>
+<hr>
+<p>After this process finishes you will have your running containers ready to work :)<br>You can see the status running</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[genar@thinktravel kafka-docker]$ docker-compose ps</span><br><span class="line">          Name                        Command               State                         Ports</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line">kafka-docker_kafka_1       start-kafka.sh                   Up      0.0.0.0:32768-&gt;9092/tcp</span><br><span class="line">kafka-docker_zookeeper_1   /bin/sh -c /usr/sbin/sshd  ...   Up      0.0.0.0:2181-&gt;2181/tcp, 22/tcp, 2888/tcp, 3888/tcp</span><br></pre></td></tr></table></figure>
+<hr>
+<p>Also you can chech their logs to ensure they are working as expected:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">genar@thinktravel kafka-docker]$ docker-compose logs -f --tail 20</span><br><span class="line">Attaching to kafka-docker_zookeeper_1, kafka-docker_kafka_1</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,608 [myid:] - INFO  [main:Environment@100] - Server environment:os.name=Linux</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,608 [myid:] - INFO  [main:Environment@100] - Server environment:os.arch=amd64</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,608 [myid:] - INFO  [main:Environment@100] - Server environment:os.version=5.1.5-arch1-2-ARCH</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,608 [myid:] - INFO  [main:Environment@100] - Server environment:user.name=root</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,609 [myid:] - INFO  [main:Environment@100] - Server environment:user.home=/root</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,609 [myid:] - INFO  [main:Environment@100] - Server environment:user.dir=/opt/zookeeper-3.4.13</span><br><span class="line">zookeeper_1  | 2019-06-24 19:38:29,612 [myid:] - INFO  [main:ZooKeeperServer@836] - tickTime <span class="built_in">set</span> to 2000</span><br></pre></td></tr></table></figure>
+<hr>
+<p>To stop all containers just type <code>docker-compose stop</code> or if you want to stop and also remove them run <code>docker-compose down</code> (if containers are destroyed all data not stored in volumes will be destroyed too)</p>
+<hr>
+<p>Now you can scale kafka to 2 brokers running:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose scale kafka=2</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Make-our-rust-application-talk-to-kafka"><a href="#Make-our-rust-application-talk-to-kafka" class="headerlink" title="Make our rust application talk to kafka"></a>Make our rust application talk to kafka</h2><hr>
+<p>The proper implementation to listen kafka has been implemented <a href="https://gitlab.com/gtrias/rust-example" target="_blank" rel="noopener">in this repository</a></p>
+<hr>
+<p>Add our rust app to the kafka docker-compose.yml file:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"2181:2181"</span></span><br><span class="line"><span class="attr">  kafka:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"9092"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      KAFKA_ADVERTISED_HOST_NAME:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      KAFKA_ZOOKEEPER_CONNECT:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="attr">  rust-client:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">registry.gitlab.com/gtrias/rust-example</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Add-kafka-manager"><a href="#Add-kafka-manager" class="headerlink" title="Add kafka-manager"></a>Add kafka-manager</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"2181:2181"</span></span><br><span class="line"><span class="attr">  kafka:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"9092"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      KAFKA_ADVERTISED_HOST_NAME:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      KAFKA_ZOOKEEPER_CONNECT:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="attr">  kafka-manager:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">sheepkiller/kafka-manager</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">9000</span><span class="string">:9000</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      APPLICATION_SECRET:</span> <span class="string">letmein</span></span><br><span class="line"><span class="attr">      ZK_HOSTS:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">  rust-client:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">registry.gitlab.com/gtrias/rust-example</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Generate-some-data-to-kafka-to-see-if-is-received-by-our-rust-app"><a href="#Generate-some-data-to-kafka-to-see-if-is-received-by-our-rust-app" class="headerlink" title="Generate some data to kafka to see if is received by our rust app"></a>Generate some data to kafka to see if is received by our rust app</h3><p>You can use kafka-manager to generate the topics to be consumed by rust app.</p>
+<p>See examples here: <a href="https://wurstmeister.github.io/kafka-docker/" target="_blank" rel="noopener">https://wurstmeister.github.io/kafka-docker/</a></p>
+<hr>
+<h2 id="Docker-API"><a href="#Docker-API" class="headerlink" title="Docker API"></a>Docker API</h2><hr>
+<p>Docker has a full rich API to manage containers, here I’m going to talk about the most basic and used (by me) to manage host containers:</p>
+<hr>
+<h3 id="List-of-images-images-in-the-docker-host"><a href="#List-of-images-images-in-the-docker-host" class="headerlink" title="List of images images in the docker host"></a>List of images images in the docker host</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[genar@thinktravel orgmode]$ docker images</span><br><span class="line"></span><br><span class="line">REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">factorial-backend_backend   latest              06cf665f0d95        7 weeks ago         1.78GB</span><br><span class="line">factorial-backend_sidekiq   latest              06cf665f0d95        7 weeks ago         1.78GB</span><br><span class="line">memcached                   latest              1941054e2bdf        8 weeks ago         62.2MB</span><br><span class="line">elixir                      latest              c4eee7f74185        2 months ago        1.08GB</span><br><span class="line">ruby                        2.5                 e86557c9a8ab        2 months ago        873MB</span><br><span class="line">redis                       latest              0f55cf3661e9        4 months ago        95MB</span><br><span class="line">mysql                       5.7                 e47e309f72c8        4 months ago        372MB</span><br><span class="line">node                        8                   4f01e5319662        4 months ago        893MB</span><br><span class="line">node                        8-alpine            e8ae960eaa9e        4 months ago        66.3MB</span><br><span class="line">jwilder/nginx-proxy         latest              60f01f8052f5        4 months ago        148MB</span><br><span class="line">phpmyadmin/phpmyadmin       latest              c6ba363e7c9b        4 months ago        166MB</span><br><span class="line">ruby                        2.4.1               e7ca4a0b5b6d        21 months ago       684MB</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Get-an-image"><a href="#Get-an-image" class="headerlink" title="Get an image"></a>Get an image</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull traefik</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Run-a-new-container-from-an-image"><a href="#Run-a-new-container-from-an-image" class="headerlink" title="Run a new container from an image"></a>Run a new container from an image</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 80:80 -v <span class="variable">$PWD</span>/traefik.toml:/etc/traefik/traefik.toml traefik</span><br><span class="line"></span><br><span class="line">9e4a65ae2982832902c47e9429a8fbc81aee56de5aea414ab33d133da22d513e</span><br></pre></td></tr></table></figure>
+<p>This will get the image for you if its not already on the system.</p>
+<hr>
+<h3 id="Show-running-container-logs"><a href="#Show-running-container-logs" class="headerlink" title="Show running container logs"></a>Show running container logs</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f --tail 20 e9c118b35981</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stop-and-remove-a-running-container"><a href="#Stop-and-remove-a-running-container" class="headerlink" title="Stop and remove a running container"></a>Stop and remove a running container</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f e9c118b35981</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Run-a-command-inside-a-running-docker-container"><a href="#Run-a-command-inside-a-running-docker-container" class="headerlink" title="Run a command inside a running docker container"></a>Run a command inside a running docker container</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -ti e9c118b35981 bin/rails console</span><br></pre></td></tr></table></figure>
+<p>Also you can enter to the container shell (if it has any installed inside which is the most habitual)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -ti e9c118b35981 bash</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Pull-images-create-containers-and-run-them"><a href="#Pull-images-create-containers-and-run-them" class="headerlink" title="Pull images, create containers and run them"></a>Pull images, create containers and run them</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>Note: -d is to run them detached, if not the process will be binded in your shell session and be lost if you close it.</p>
+<hr>
+<h3 id="Stop-all-containers"><a href="#Stop-all-containers" class="headerlink" title="Stop all containers"></a>Stop all containers</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="See-all-containers-logs"><a href="#See-all-containers-logs" class="headerlink" title="See all containers logs"></a>See all containers logs</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose logs -f --tail 20</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="See-one-container-logs"><a href="#See-one-container-logs" class="headerlink" title="See one container logs"></a>See one container logs</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose logs -f --tail 20 traefik</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stop-and-remove-all-containers-information-non-stored-on-volume-will-be-lost"><a href="#Stop-and-remove-all-containers-information-non-stored-on-volume-will-be-lost" class="headerlink" title="Stop and remove all containers (information non stored on volume will be lost)"></a>Stop and remove all containers (information non stored on volume will be lost)</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Add-traefik-for-easy-access-to-our-services"><a href="#Add-traefik-for-easy-access-to-our-services" class="headerlink" title="Add traefik for easy access to our services"></a>Add traefik for easy access to our services</h2><p>Usually when you want to have a running container you also want to publish it to internet. A very nice way to achieve this is using a load-balancer able to reconfigure itself when some of the containers change. <a href="https://traefik.io" target="_blank" rel="noopener">traefik</a> does exact this job in a very neat way.</p>
+<hr>
+<p>A picture is worth a thousand words</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/7c5fd7d38c371e23cdff059e6cebb10292cd441c/7d420/assets/img/traefik-architecture.svg" alt=""></p>
+<hr>
+<p>Add it to your project:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"2181:2181"</span></span><br><span class="line"><span class="attr">  kafka:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">9092</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      KAFKA_ADVERTISED_HOST_NAME:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      KAFKA_ZOOKEEPER_CONNECT:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="attr">  kafka-manager:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">sheepkiller/kafka-manager</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">9000</span><span class="string">:9000</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      APPLICATION_SECRET:</span> <span class="string">letmein</span></span><br><span class="line"><span class="attr">      ZK_HOSTS:</span> <span class="attr">zookeeper:2181</span></span><br><span class="line"><span class="attr">    labels:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"traefik.port=9000"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"traefik.frontend.rule=Host:kafka-manager.docker.local"</span></span><br><span class="line"><span class="attr">  rust-client:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">registry.gitlab.com/gtrias/rust-example</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">hello_world</span> <span class="bullet">--topics</span> <span class="string">my-topic</span> <span class="bullet">--brokers</span> <span class="attr">kafka:9092</span></span><br><span class="line"><span class="attr">  traefik:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">traefik</span></span><br><span class="line"><span class="attr">    command:</span> <span class="bullet">--web</span> <span class="bullet">--docker</span> <span class="bullet">--docker.domain=docker.local</span> <span class="bullet">--logLevel=DEBUG</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line">    <span class="comment"># access this with the correct Host header to access the respective container</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"80:80"</span></span><br><span class="line">    <span class="comment"># management UI</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"8080:8080"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line">    <span class="comment"># traefik does its magic by reading information about running containers from the docker socket</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">/dev/null:/traefik.toml</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
+<li><a href="https://www.backblaze.com/blog/vm-vs-containers/" target="_blank" rel="noopener">What’s the Diff: VMs vs Containers</a></li>
+<li><a href="https://blog.aquasec.com/a-brief-history-of-containers-from-1970s-chroot-to-docker-2016" target="_blank" rel="noopener">A Brief History of Containers: From the 1970s to 2017</a></li>
+<li><a href="https://medium.com/@jessgreb01/digging-into-docker-layers-c22f948ed612" target="_blank" rel="noopener">Digging into Docker layers</a></li>
+<li><a href="https://github.com/wurstmeister/kafka-docker" target="_blank" rel="noopener">https://github.com/wurstmeister/kafka-docker</a></li>
+<li><a href="https://github.com/spicavigo/kafka-rust" target="_blank" rel="noopener">https://github.com/spicavigo/kafka-rust</a></li>
+<li><a href="https://traefik.io" target="_blank" rel="noopener">traefik</a></li>
+</ul>
+
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/sys/containers/lxc/index.html" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//genar-me.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+</div><!-- row -->
+
+
+
+</div>
+
+
+    <div class="col-md-3">
+	<div id="sidebar" data-spy="affix" data-offset-top="100" data-offset-bottom="0">
+                <div class="toc">
+            <h4>TOC</h4>
+            <div>
+                <div class="js-toc">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="post_meta">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-08-10
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    </li><li><a href="/categories/vimwiki/">vimwiki<span>1</span></a></li> <li><a href="/categories/vimwiki/hexo/">hexo<span>1</span></a></li> <li><a href="/categories/vimwiki/hexo/markdown/">markdown<span>1</span></a></li>
+  
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+
+    <hr>
+
+</div>
+
+
+        
+            
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fab fa-github-alt"></i><a href="http://www.github.com/gtrias" title="My Github account." target="_blank" ]);"="">Github</a></li>
+	
+		<li><i class="fab fa-gitlab"></i><a href="https://gitlab.com/gtrias" title="My Gitlab account." target="_blank" ]);"="">Gitlab</a></li>
+	
+		<li><i class="fab fa-linkedin"></i><a href="http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" title="My Linkedin." target="_blank" ]);"="">LinkedIn</a></li>
+	
+		<li><i class="fab fa-twitter"></i><a href="https://twitter.com/genar_tr" title="My twitter" target="_blank" ]);"="">@genar_tr</a></li>
+	
+		<li><i class="fab fa-docker"></i><a href="https://hub.docker.com/u/gtrias/" title="My docker hub" target="_blank" ]);"="">docker hub</a></li>
+	
+		<li><i class="fab fa-stack-overflow"></i><a href="https://stackoverflow.com/users/865222/genar" title="StackOverflow" target="_blank" ]);"="">StackOverflow</a></li>
+	
+		<li><i class="fab fa-steam"></i><a href="http://steamcommunity.com/id/genar_tr/" title="Steam" target="_blank" ]);"="">Steam</a></li>
+	
+	</ul>
+</div>
+
+
+        
+
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2019 Genar Trias
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '/','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+tocbot.init({
+  // Where to render the table of contents.
+  tocSelector: '.js-toc',
+  // Where to grab the headings to build the table of contents.
+  contentSelector: '.mypage',
+  // Which headings to grab inside of the contentSelector element.
+  headingSelector: 'h1, h2, h3',
+});
+</script>
+
+<script>
+  $('span.github-emoji').each(function (i, emoji) {
+    var $emoji = $(emoji)
+    var codepoint = $emoji.html()
+    $('<img height="20" width="20">')
+      .on('error', function () {
+        // image loading failed
+        $emoji.html(codepoint)
+      })
+      .prop('alt', $emoji.attr('title'))
+      .prop('src', $emoji.data('src'))
+      .appendTo($emoji.empty())
+  })
+</script>
+
+
+
+</body>
+</html>
