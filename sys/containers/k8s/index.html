@@ -212,6 +212,9 @@ Kubernetes ObjectsMo">
 </ul>
 <h2 id="Testing-k8s"><a href="#Testing-k8s" class="headerlink" title="Testing k8s"></a>Testing k8s</h2><h3 id="minikube"><a href="#minikube" class="headerlink" title="minikube"></a><a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener">minikube</a></h3><p>Run Kubernetes locally</p>
 <h4 id="Stop-minikube"><a href="#Stop-minikube" class="headerlink" title="Stop minikube"></a>Stop minikube</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop localkube</span><br><span class="line">docker rm -f $(docker ps -aq --filter name=k8s)</span><br></pre></td></tr></table></figure>
+<h2 id="Autoscaling"><a href="#Autoscaling" class="headerlink" title="Autoscaling"></a>Autoscaling</h2><ul>
+<li><a href="https://github.com/kedacore/keda" target="_blank" rel="noopener">keda</a> - KEDA is a Kubernetes-based Event Driven Autoscaling component. It provides event driven scale for any container running in Kubernetes</li>
+</ul>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://codelabs.developers.google.com/codelabs/k8s-kickstart/index.html?index=..%2F..%2Fcloud#0" target="_blank" rel="noopener">Kubernetes Kickstart</a></li>
 <li><a href="https://github.com/kelseyhightower/consul-on-kubernetes" target="_blank" rel="noopener">consul-on-kubernetes</a></li>
@@ -302,7 +305,7 @@ Kubernetes ObjectsMo">
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-07-24
+	2019-10-27
 	</div>
 	
 
@@ -313,7 +316,7 @@ Kubernetes ObjectsMo">
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    </li><li><a href="/categories/dev/">dev<span>100</span></a></li>
+    </li><li><a href="/categories/dev/">dev<span>101</span></a></li>
   
 
     </ul>
