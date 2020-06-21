@@ -4,7 +4,7 @@ var replace = require('gulp-replace')
 var gulpIgnore = require('gulp-ignore')
 var hexoIgnore = require('/home/genar/src/orgmode/hexoignore.json')
 
-gulp.task('clean', () => {
+const defaultTask = (cb) => {
   gulp.src('/home/genar/src/orgmode/**/*.md')
     .pipe(gulpIgnore.exclude(hexoIgnore.ignore))
     .pipe(gulpIgnore.exclude('**/.*'))
@@ -22,9 +22,8 @@ gulp.task('clean', () => {
       pattern: /\[start_ignore\][\s\S]*?(?:\[end_ignore\].*\n+?)/g
     }))
     .pipe(gulp.dest('./source/'))
-})
 
-gulp.task('move files', () => {
-})
+  cb()
+}
 
-gulp.task('default', ['clean'])
+exports.default = defaultTask
