@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+
+const { title = "Genar Trias - Personal website", description = "Genar Trias personal website" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content={description} />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<meta name="generator" content={Astro.generator} />
+	<title>{title}</title>
+</head>
+<body>
+	<nav class="bg-gray-900 text-white p-4">
+		<div class="container mx-auto flex justify-between items-center">
+			<a href="/" class="text-xl font-mono font-bold">genar.me</a>
+			<div class="flex space-x-6">
+				<a href="/" class="hover:text-gray-300">~</a>
+				<a href="/projects" class="hover:text-gray-300">src/</a>
+				<a href="/com" class="hover:text-gray-300">com/</a>
+				<a href="/dev" class="hover:text-gray-300">dev/</a>
+				<a href="/sys" class="hover:text-gray-300">sys/</a>
+				<a href="/blog" class="hover:text-gray-300">blog/</a>
+			</div>
+		</div>
+	</nav>
+	
+	<main class="container mx-auto p-6 max-w-4xl">
+		<slot />
+	</main>
+	
+	<footer class="bg-gray-100 mt-12 p-6">
+		<div class="container mx-auto max-w-4xl">
+			<div class="flex justify-between items-center">
+				<p>&copy; 2025 Genar Trias</p>
+				<div class="flex space-x-4">
+					<a href="https://github.com/gtrias" class="text-gray-600 hover:text-gray-900">Github</a>
+					<a href="https://gitlab.com/gtrias" class="text-gray-600 hover:text-gray-900">Gitlab</a>
+					<a href="https://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" class="text-gray-600 hover:text-gray-900">LinkedIn</a>
+					<a href="https://twitter.com/genar_tr" class="text-gray-600 hover:text-gray-900">@genar_tr</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
