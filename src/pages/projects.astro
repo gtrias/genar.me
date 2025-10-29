@@ -1,75 +1,45 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<meta name="description" content="Genar Trias personal projects" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-	<meta name="generator" content={Astro.generator} />
-	<title>Projects | genar.me</title>
-</head>
-<body>
-	<nav class="bg-gray-900 text-white p-4">
-		<div class="container mx-auto flex justify-between items-center">
-			<a href="/" class="text-xl font-mono font-bold">genar.me</a>
-			<div class="flex space-x-6">
-				<a href="/" class="hover:text-gray-300">~</a>
-				<a href="/projects" class="hover:text-gray-300">src/</a>
-				<a href="/com" class="hover:text-gray-300">com/</a>
-				<a href="/dev" class="hover:text-gray-300">dev/</a>
-				<a href="/sys" class="hover:text-gray-300">sys/</a>
-				<a href="/blog" class="hover:text-gray-300">blog/</a>
+<Layout title="Projects | genar.me" description="Genar Trias personal projects">
+	<div class="prose prose-lg max-w-none">
+		<h1 class="text-4xl font-mono font-bold mb-8 neon-text cursor" style="text-transform: uppercase; letter-spacing: 2px;">[genar@localhost ~]$ ls src/</h1>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+			<div class="cyber-card p-6 hover:scale-105 transition-transform">
+				<h3 class="text-2xl font-bold mb-3 neon-pink font-mono">&gt; Project 1</h3>
+				<p class="mb-4" style="line-height: 1.6;">Description of project goes here.</p>
+				<a href="#" class="retro-button inline-block text-sm">View on GitHub →</a>
+			</div>
+
+			<div class="cyber-card p-6 hover:scale-105 transition-transform">
+				<h3 class="text-2xl font-bold mb-3 neon-pink font-mono">&gt; Project 2</h3>
+				<p class="mb-4" style="line-height: 1.6;">Description of project goes here.</p>
+				<a href="#" class="retro-button inline-block text-sm">View on GitHub →</a>
+			</div>
+
+			<div class="cyber-card p-6 hover:scale-105 transition-transform">
+				<h3 class="text-2xl font-bold mb-3 neon-pink font-mono">&gt; Project 3</h3>
+				<p class="mb-4" style="line-height: 1.6;">Description of project goes here.</p>
+				<a href="#" class="retro-button inline-block text-sm">View on GitHub →</a>
+			</div>
+
+			<div class="cyber-card p-6 hover:scale-105 transition-transform neon-border">
+				<h3 class="text-2xl font-bold mb-3 neon-text font-mono">&gt; More Projects</h3>
+				<p class="mb-4" style="line-height: 1.6;">
+					Check out all my open source contributions and projects on GitHub.
+				</p>
+				<a href="https://github.com/gtrias" class="retro-button inline-block text-sm">GitHub Profile →</a>
 			</div>
 		</div>
-	</nav>
-	
-	<main class="container mx-auto p-6 max-w-4xl">
-		<h1>[genar@localhost ~]$ ls src/</h1>
-		
-		<div>
-			<div>
-				<h3>Project 1</h3>
-				<p>Description of project goes here.</p>
-				<a href="#">View on GitHub →</a>
-			</div>
-			
-			<div>
-				<h3>Project 2</h3>
-				<p>Description of project goes here.</p>
-				<a href="#">View on GitHub →</a>
-			</div>
-			
-			<div>
-				<h3>Project 3</h3>
-				<p>Description of project goes here.</p>
-				<a href="#">View on GitHub →</a>
-			</div>
-		</div>
-		
-		<div>
-			<p>
-				More projects available on my 
-				<a href="https://github.com/gtrias">GitHub profile</a>.
+
+		<div class="cyber-card p-6 text-center">
+			<p class="text-lg">
+				<span class="neon-green">//</span> More projects available on my
+				<a href="https://github.com/gtrias" class="neon-text font-bold">GitHub profile</a>
+				<span class="neon-green">//</span>
 			</p>
 		</div>
-	</main>
-	
-	<footer class="bg-gray-100 mt-12 p-6">
-		<div class="container mx-auto max-w-4xl">
-			<div class="flex justify-between items-center">
-				<p>&copy; 2025 Genar Trias</p>
-				<div class="flex space-x-4">
-					<a href="https://github.com/gtrias" class="text-gray-600 hover:text-gray-900">Github</a>
-					<a href="https://gitlab.com/gtrias" class="text-gray-600 hover:text-gray-900">Gitlab</a>
-					<a href="https://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90" class="text-gray-600 hover:text-gray-900">LinkedIn</a>
-					<a href="https://twitter.com/genar_tr" class="text-gray-600 hover:text-gray-900">@genar_tr</a>
-				</div>
-			</div>
-		</div>
-	</footer>
-</body>
-</html>
+	</div>
+</Layout>
