@@ -33,6 +33,29 @@
   --animate-blink: blink 1s infinite;
 }
 
+/* CRT Monitor Container */
+.crt-monitor {
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0f;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 
+    inset 0 0 120px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(34, 233, 216, 0.2);
+}
+
+.crt-screen {
+  position: relative;
+  background: #050508;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 80px rgba(0, 0, 0, 0.9),
+    inset 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
 /* Base styling */
 body {
   background-color: #050508;
@@ -47,9 +70,12 @@ body {
       rgba(227, 72, 128, 0.03) 3px
     );
   position: relative;
+  overflow-x: hidden;
 }
 
-/* Scanline effect */
+/* Enhanced CRT Effects */
+
+/* Scanlines - more realistic */
 body::before {
   content: "";
   position: fixed;
@@ -69,9 +95,130 @@ body::before {
   animation: scanline 8s linear infinite;
 }
 
+/* Phosphor glow effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(34, 233, 216, 0.02) 40%,
+    rgba(227, 72, 128, 0.03) 70%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Screen curvature effect */
+.crt-curve {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.1) 80%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 998;
+}
+
+/* Flickering effect */
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 1; }
+  10% { opacity: 0.95; }
+  15% { opacity: 1; }
+  20% { opacity: 0.98; }
+  25% { opacity: 1; }
+  30% { opacity: 0.96; }
+  35% { opacity: 1; }
+  40% { opacity: 0.99; }
+  45% { opacity: 1; }
+  50% { opacity: 0.97; }
+  55% { opacity: 1; }
+  60% { opacity: 0.95; }
+  65% { opacity: 1; }
+  70% { opacity: 0.98; }
+  75% { opacity: 1; }
+  80% { opacity: 0.96; }
+  85% { opacity: 1; }
+  90% { opacity: 0.99; }
+  95% { opacity: 1; }
+  100% { opacity: 0.97; }
+}
+
+/* Apply flicker to body */
+body {
+  animation: flicker 0.15s infinite;
+}
+
 @keyframes scanline {
   0% { transform: translateY(0); }
   100% { transform: translateY(10px); }
+}
+
+/* RGB color separation effect */
+.crt-text {
+  position: relative;
+  text-shadow: 
+    0.05em 0 0 rgba(255, 0, 0, 0.3),
+    -0.05em 0 0 rgba(0, 255, 0, 0.3),
+    0 0 0.1em rgba(0, 0, 255, 0.3);
+}
+
+/* Screen distortion on hover */
+.crt-distort {
+  transition: all 0.3s ease;
+}
+
+.crt-distort:hover {
+  transform: skew(0.5deg, 0.2deg) scale(1.02);
+  filter: contrast(1.1) brightness(1.1);
+}
+
+/* Static noise effect */
+.crt-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  z-index: 997;
+  pointer-events: none;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.1) 2px,
+      rgba(255, 255, 255, 0.1) 4px
+    );
+  animation: static 0.2s infinite;
+}
+
+@keyframes static {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-1px, -1px); }
+  20% { transform: translate(1px, 1px); }
+  30% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 0); }
+  60% { transform: translate(1px, 0); }
+  70% { transform: translate(0, -1px); }
+  80% { transform: translate(0, 1px); }
+  90% { transform: translate(-1px, -1px); }
+  100% { transform: translate(0, 0); }
 }
 
 /* Keyframe animations */
@@ -209,4 +356,49 @@ a:hover {
   text-shadow:
     0 0 5px #e34880,
     0 0 10px #e34880;
+}
+
+/* CRT specific enhancements */
+.crt-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Screen refresh line effect */
+.refresh-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 233, 216, 0.8),
+    transparent
+  );
+  animation: refresh 4s linear infinite;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+@keyframes refresh {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Chromatic aberration on scroll */
+body {
+  filter: url(#chromatic-aberration);
+}
+
+/* Enhanced glow for CRT look */
+.crt-glow {
+  box-shadow:
+    0 0 20px rgba(34, 233, 216, 0.5),
+    0 0 40px rgba(227, 72, 128, 0.3),
+    0 0 60px rgba(139, 92, 246, 0.2),
+    inset 0 0 20px rgba(34, 233, 216, 0.1);
 }
