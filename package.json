@@ -8,7 +8,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "cf:build": "npm run build",
-    "cf:preview": "wrangler pages dev dist"
+    "cf:preview": "wrangler pages dev dist",
+    "opencode:plan": "opencode --mode plan",
+    "opencode:agent": "opencode --mode agent",
+    "opencode:config": "opencode --config"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",

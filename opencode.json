@@ -1,0 +1,19 @@
+{
+  "modes": {
+    "plan": {
+      "enabled": true,
+      "description": "Plan mode for structured task planning and breakdown"
+    },
+    "agent": {
+      "enabled": true,
+      "description": "Agent mode for autonomous task execution"
+    }
+  },
+  "default_mode": "plan",
+  "project_type": "astro-website",
+  "features": {
+    "auto_planning": true,
+    "task_breakdown": true,
+    "autonomous_execution": true
+  }
+}

@@ -6,6 +6,28 @@
       "name": "Development server",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "name": "OpenCode Plan Mode",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "opencode",
+      "args": ["--mode", "plan"],
+      "presentation": {
+        "hidden": false,
+        "group": "OpenCode"
+      }
+    },
+    {
+      "name": "OpenCode Agent Mode",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "opencode",
+      "args": ["--mode", "agent"],
+      "presentation": {
+        "hidden": false,
+        "group": "OpenCode"
+      }
     }
   ]
 }

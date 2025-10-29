@@ -1,0 +1,18 @@
+{
+  "mode": "plan",
+  "auto_switch": {
+    "enabled": true,
+    "threshold": 3,
+    "complexity_indicators": ["multiple files", "new feature", "refactoring"]
+  },
+  "agent_config": {
+    "autonomous": true,
+    "validation_steps": true,
+    "error_recovery": "retry"
+  },
+  "plan_config": {
+    "detailed_breakdown": true,
+    "dependency_tracking": true,
+    "progress_reporting": true
+  }
+}
