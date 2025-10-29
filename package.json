@@ -13,11 +13,10 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",
     "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/tailwind": "^6.0.2",
-    "@tailwindcss/vite": "^4.1.16",
     "astro": "^5.15.2",
     "astro-seo": "^0.8.4",
-    "tailwindcss": "^4.1.16"
+    "tailwindcss": "^4.1.16",
+    "@tailwindcss/vite": "^4.1.16"
   },
   "devDependencies": {
     "wrangler": "^4.45.2"
