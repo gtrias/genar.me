@@ -1,38 +1,50 @@
 @import "tailwindcss";
 
-/* Cyberpunk Retro 80s Color Palette */
-:root {
-  /* Main colors from the image */
-  --cyber-pink: #ff006e;
-  --cyber-magenta: #d946ef;
-  --cyber-cyan: #00f5ff;
-  --cyber-turquoise: #06ffa5;
-  --cyber-dark: #0a0a0f;
-  --cyber-darker: #050508;
-  --cyber-purple: #8b5cf6;
+@theme {
+  /* Cyberpunk Retro 80s Theme - Exact colors from image */
 
-  /* Accent colors */
-  --cyber-yellow: #ffff00;
-  --cyber-orange: #ff6b35;
+  /* Main cyberpunk colors */
+  --color-cyber-pink: #e34880;
+  --color-cyber-cyan: #22e9d8;
+  --color-cyber-dark: #0a0a0f;
+  --color-cyber-darker: #050508;
+  --color-cyber-purple: #8b5cf6;
+
+  /* Color variations */
+  --color-cyber-pink-light: #ff6ba8;
+  --color-cyber-pink-dark: #c03366;
+  --color-cyber-cyan-light: #5df7ea;
+  --color-cyber-cyan-dark: #0bc9b8;
 
   /* UI colors */
-  --cyber-text: #e0e0ff;
-  --cyber-text-dim: #a0a0c0;
-  --cyber-border: rgba(0, 245, 255, 0.3);
+  --color-cyber-text: #e0e0ff;
+  --color-cyber-text-dim: #a0a0c0;
+
+  /* Background colors */
+  --color-bg-cyber: var(--color-cyber-darker);
+  --color-bg-cyber-card: rgba(139, 92, 246, 0.1);
+
+  /* Font families */
+  --font-family-mono: 'Courier New', Courier, monospace;
+
+  /* Custom animations */
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-glitch: glitch 0.3s infinite;
+  --animate-blink: blink 1s infinite;
 }
 
 /* Base styling */
 body {
-  background-color: var(--cyber-darker);
-  color: var(--cyber-text);
+  background-color: #050508;
+  color: #e0e0ff;
   font-family: 'Courier New', Courier, monospace;
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(255, 0, 110, 0.03) 0px,
+      rgba(227, 72, 128, 0.03) 0px,
       transparent 1px,
       transparent 2px,
-      rgba(255, 0, 110, 0.03) 3px
+      rgba(227, 72, 128, 0.03) 3px
     );
   position: relative;
 }
@@ -62,53 +74,7 @@ body::before {
   100% { transform: translateY(10px); }
 }
 
-/* Neon glow text */
-.neon-text {
-  color: var(--cyber-cyan);
-  text-shadow:
-    0 0 5px var(--cyber-cyan),
-    0 0 10px var(--cyber-cyan),
-    0 0 20px var(--cyber-cyan),
-    0 0 40px rgba(0, 245, 255, 0.5);
-}
-
-.neon-pink {
-  color: var(--cyber-pink);
-  text-shadow:
-    0 0 5px var(--cyber-pink),
-    0 0 10px var(--cyber-pink),
-    0 0 20px var(--cyber-pink),
-    0 0 40px rgba(255, 0, 110, 0.5);
-}
-
-.neon-green {
-  color: var(--cyber-turquoise);
-  text-shadow:
-    0 0 5px var(--cyber-turquoise),
-    0 0 10px var(--cyber-turquoise),
-    0 0 20px var(--cyber-turquoise);
-}
-
-/* Neon borders */
-.neon-border {
-  border: 2px solid var(--cyber-cyan);
-  box-shadow:
-    0 0 5px var(--cyber-cyan),
-    0 0 10px var(--cyber-cyan),
-    inset 0 0 5px var(--cyber-cyan),
-    inset 0 0 10px rgba(0, 245, 255, 0.3);
-}
-
-.neon-border-pink {
-  border: 2px solid var(--cyber-pink);
-  box-shadow:
-    0 0 5px var(--cyber-pink),
-    0 0 10px var(--cyber-pink),
-    inset 0 0 5px var(--cyber-pink),
-    inset 0 0 10px rgba(255, 0, 110, 0.3);
-}
-
-/* Glitch effect */
+/* Keyframe animations */
 @keyframes glitch {
   0% { transform: translate(0); }
   20% { transform: translate(-2px, 2px); }
@@ -116,6 +82,48 @@ body::before {
   60% { transform: translate(2px, 2px); }
   80% { transform: translate(2px, -2px); }
   100% { transform: translate(0); }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Utility classes */
+.neon-text-cyan {
+  color: #22e9d8;
+  text-shadow:
+    0 0 5px #22e9d8,
+    0 0 10px #22e9d8,
+    0 0 20px #22e9d8,
+    0 0 40px rgba(34, 233, 216, 0.5);
+}
+
+.neon-text-pink {
+  color: #e34880;
+  text-shadow:
+    0 0 5px #e34880,
+    0 0 10px #e34880,
+    0 0 20px #e34880,
+    0 0 40px rgba(227, 72, 128, 0.5);
+}
+
+.neon-border-cyan {
+  border: 2px solid #22e9d8;
+  box-shadow:
+    0 0 5px #22e9d8,
+    0 0 10px #22e9d8,
+    inset 0 0 5px #22e9d8,
+    inset 0 0 10px rgba(34, 233, 216, 0.3);
+}
+
+.neon-border-pink {
+  border: 2px solid #e34880;
+  box-shadow:
+    0 0 5px #e34880,
+    0 0 10px #e34880,
+    inset 0 0 5px #e34880,
+    inset 0 0 10px rgba(227, 72, 128, 0.3);
 }
 
 .glitch {
@@ -127,53 +135,30 @@ body::before {
   animation-play-state: running;
 }
 
-/* Terminal cursor blink */
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
 .cursor::after {
   content: "▊";
   animation: blink 1s infinite;
-  color: var(--cyber-cyan);
+  color: #22e9d8;
 }
 
-/* Cyber card */
 .cyber-card {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0, 245, 255, 0.1));
-  border: 1px solid var(--cyber-border);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(34, 233, 216, 0.05));
+  border: 1px solid rgba(34, 233, 216, 0.3);
   box-shadow:
-    0 0 10px rgba(0, 245, 255, 0.2),
+    0 0 10px rgba(34, 233, 216, 0.2),
     inset 0 0 20px rgba(139, 92, 246, 0.1);
   transition: all 0.3s ease;
 }
 
 .cyber-card:hover {
-  border-color: var(--cyber-cyan);
+  border-color: #22e9d8;
   box-shadow:
-    0 0 20px rgba(0, 245, 255, 0.4),
-    0 0 30px rgba(255, 0, 110, 0.2),
+    0 0 20px rgba(34, 233, 216, 0.4),
+    0 0 30px rgba(227, 72, 128, 0.2),
     inset 0 0 30px rgba(139, 92, 246, 0.2);
   transform: translateY(-2px);
 }
 
-/* Links */
-a {
-  color: var(--cyber-cyan);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-a:hover {
-  color: var(--cyber-pink);
-  text-shadow:
-    0 0 5px var(--cyber-pink),
-    0 0 10px var(--cyber-pink);
-}
-
-/* Grid background overlay */
 .grid-overlay {
   position: fixed;
   top: 0;
@@ -181,33 +166,47 @@ a:hover {
   width: 100%;
   height: 100%;
   background-image:
-    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(34, 233, 216, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 233, 216, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   pointer-events: none;
   z-index: -1;
 }
 
-/* Retro button */
 .retro-button {
-  background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-magenta));
-  border: 2px solid var(--cyber-cyan);
-  color: var(--cyber-text);
+  background: linear-gradient(135deg, #8b5cf6, #e34880);
+  border: 2px solid #22e9d8;
+  color: #e0e0ff;
   padding: 0.5rem 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
   box-shadow:
-    0 0 10px var(--cyber-cyan),
-    inset 0 0 10px rgba(0, 245, 255, 0.2);
+    0 0 10px #22e9d8,
+    inset 0 0 10px rgba(34, 233, 216, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .retro-button:hover {
   box-shadow:
-    0 0 20px var(--cyber-pink),
-    0 0 30px var(--cyber-cyan),
-    inset 0 0 20px rgba(255, 0, 110, 0.3);
+    0 0 20px #e34880,
+    0 0 30px #22e9d8,
+    inset 0 0 20px rgba(227, 72, 128, 0.3);
   transform: scale(1.05);
+}
+
+/* Links */
+a {
+  color: #22e9d8;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+a:hover {
+  color: #e34880;
+  text-shadow:
+    0 0 5px #e34880,
+    0 0 10px #e34880;
 }

@@ -17,28 +17,28 @@ const { title = "Genar Trias - Personal website", description = "Genar Trias per
 <body>
 	<div class="grid-overlay"></div>
 
-	<nav style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(10, 10, 15, 0.9)); border-bottom: 2px solid var(--cyber-cyan); box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);" class="p-4">
+	<nav style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(10, 10, 15, 0.9));" class="p-4 border-b-2 neon-border-cyan">
 		<div class="container mx-auto flex justify-between items-center">
-			<a href="/" class="text-2xl font-mono font-bold neon-text glitch" style="letter-spacing: 3px;">genar.me</a>
+			<a href="/" class="text-2xl font-mono font-bold neon-text-cyan glitch tracking-wider">genar.me</a>
 			<div class="flex space-x-6 font-mono">
-				<a href="/" class="hover:text-gray-300">~<span class="neon-green">/</span></a>
-				<a href="/projects" class="hover:text-gray-300">src<span class="neon-green">/</span></a>
-				<a href="/com" class="hover:text-gray-300">com<span class="neon-green">/</span></a>
-				<a href="/dev" class="hover:text-gray-300">dev<span class="neon-green">/</span></a>
-				<a href="/sys" class="hover:text-gray-300">sys<span class="neon-green">/</span></a>
-				<a href="/blog" class="hover:text-gray-300">blog<span class="neon-green">/</span></a>
+				<a href="/" class="transition-colors">~<span class="neon-text-cyan">/</span></a>
+				<a href="/projects" class="transition-colors">src<span class="neon-text-cyan">/</span></a>
+				<a href="/com" class="transition-colors">com<span class="neon-text-cyan">/</span></a>
+				<a href="/dev" class="transition-colors">dev<span class="neon-text-cyan">/</span></a>
+				<a href="/sys" class="transition-colors">sys<span class="neon-text-cyan">/</span></a>
+				<a href="/blog" class="transition-colors">blog<span class="neon-text-cyan">/</span></a>
 			</div>
 		</div>
 	</nav>
 
-	<main class="container mx-auto p-6 max-w-4xl relative" style="z-index: 10;">
+	<main class="container mx-auto p-6 max-w-4xl relative z-10">
 		<slot />
 	</main>
 
-	<footer style="background: linear-gradient(135deg, rgba(10, 10, 15, 0.9), rgba(139, 92, 246, 0.2)); border-top: 2px solid var(--cyber-pink); box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);" class="mt-12 p-6">
+	<footer style="background: linear-gradient(135deg, rgba(10, 10, 15, 0.9), rgba(139, 92, 246, 0.2));" class="mt-12 p-6 border-t-2 neon-border-pink">
 		<div class="container mx-auto max-w-4xl">
 			<div class="flex justify-between items-center">
-				<p class="neon-pink" style="font-family: 'Courier New', monospace;">&copy; 2025 Genar Trias</p>
+				<p class="neon-text-pink font-mono">&copy; 2025 Genar Trias</p>
 				<div class="flex space-x-4 font-mono">
 					<a href="https://github.com/gtrias">[ Github ]</a>
 					<a href="https://gitlab.com/gtrias">[ Gitlab ]</a>
