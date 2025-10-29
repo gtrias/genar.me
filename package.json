@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev --host",
-    "build": "astro build",
-    "preview": "astro preview",
+    "dev": "npx astro dev --host",
+    "build": "npx astro build",
+    "preview": "npx astro preview",
     "astro": "astro",
     "cf:build": "npm run build",
     "cf:preview": "wrangler pages dev dist",
