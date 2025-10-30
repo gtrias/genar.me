@@ -1,48 +1,54 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CRTMonitor from '../components/CRTMonitor.astro';
+import CRTCard from '../components/CRTCard.astro';
+import CRTText from '../components/CRTText.astro';
 ---
 
 <Layout title="Genar - About Me | genar.me" description="Personal website of Genar Trias - Software developer, open source enthusiast">
-	<div class="crt-monitor">
-		<div class="crt-screen">
-			<div class="prose prose-lg max-w-none p-4">
-		<h1 class="text-4xl font-mono font-bold mb-8 neon-text-cyan cursor crt-text uppercase tracking-wide">[genar@localhost ~]$ echo hello world</h1>
+	<CRTMonitor>
+		<div class="prose prose-lg max-w-none p-4">
+			<CRTText color="cyan" size="4xl" as="h1" class="font-bold mb-8 cursor uppercase tracking-wide">
+				[genar@localhost ~]$ echo hello world
+			</CRTText>
 
-		<div class="cyber-card p-6 mb-8 crt-glow crt-distort">
-			<h2 id="About-me" class="text-3xl font-bold mt-0 mb-6 neon-text-pink font-mono crt-text tracking-wide">&gt;&gt; ABOUT ME</h2>
+			<CRTCard border="cyan" class="mb-8">
+				<CRTText color="pink" size="3xl" as="h2" class="font-bold mt-0 mb-6 tracking-wide">
+					&gt;&gt; ABOUT ME
+				</CRTText>
 
-			<p class="mb-4 leading-relaxed">
-				<a href="https://www.gnu.org/philosophy/free-sw.html">Software Libre</a> supporter, happy
-				<a href="/dev/vim">vim</a> user, automatization addict and casual gamer.
-			</p>
+				<p class="mb-4 leading-relaxed">
+					<a href="https://www.gnu.org/philosophy/free-sw.html">Software Libre</a> supporter, happy
+					<a href="/dev/vim">vim</a> user, automatization addict and casual gamer.
+				</p>
 
-			<p class="mb-4 leading-relaxed">
-				Passionated about Software design,
-				<a href="/dev/continuous-delivery">CD</a>,
-				<a href="/dev/continuous-integration">CI</a>,
-				<a href="/dev/testing/TDD">TDD</a>,
-				<a href="/dev/microservices">Microservices</a> architecture,
-				<a href="/sys/docker">docker</a>, frontend automatization, devops techniques, decentralization and every programming language allowing me to play with all those things.
-			</p>
+				<p class="mb-4 leading-relaxed">
+					Passionated about Software design,
+					<a href="/dev/continuous-delivery">CD</a>,
+					<a href="/dev/continuous-integration">CI</a>,
+					<a href="/dev/testing/TDD">TDD</a>,
+					<a href="/dev/microservices">Microservices</a> architecture,
+					<a href="/sys/docker">docker</a>, frontend automatization, devops techniques, decentralization and every programming language allowing me to play with all those things.
+				</p>
 
-			<p class="mb-4 leading-relaxed">
-				I also enjoy <strong class="neon-text-cyan">Continuous Learning</strong> and <strong class="neon-text-cyan">Continuous Improving</strong>
-			</p>
+				<p class="mb-4 leading-relaxed">
+					I also enjoy <CRTText color="cyan" as="strong">Continuous Learning</CRTText> and <CRTText color="cyan" as="strong">Continuous Improving</CRTText>
+				</p>
 
-			<p class="mb-4 leading-relaxed">
-				I mostly write software using
-				<a href="/dev/javascript">javascript</a>
-				(<a href="/dev/javascript/nodejs">Nodejs</a>,
-				<a href="/dev/javascript/reactjs">React.js</a>) and
-				<a href="/dev/php">PHP</a>
-				(<a href="/dev/php/Symfony">Symfony</a>) or
-				<a href="/dev/ruby/rails">Ruby on Rails</a>.
-			</p>
+				<p class="mb-4 leading-relaxed">
+					I mostly write software using
+					<a href="/dev/javascript">javascript</a>
+					(<a href="/dev/javascript/nodejs">Nodejs</a>,
+					<a href="/dev/javascript/reactjs">React.js</a>) and
+					<a href="/dev/php">PHP</a>
+					(<a href="/dev/php/Symfony">Symfony</a>) or
+					<a href="/dev/ruby/rails">Ruby on Rails</a>.
+				</p>
 
-			<p class="mb-0 neon-text-pink leading-relaxed font-bold">
-				&gt; I love Sci-FI and cyberpunk.
-			</p>
-			</div>
+				<p class="mb-0 leading-relaxed font-bold">
+					<CRTText color="pink">&gt; I love Sci-FI and cyberpunk.</CRTText>
+				</p>
+			</CRTCard>
 		</div>
-	</div>
+	</CRTMonitor>
 </Layout>

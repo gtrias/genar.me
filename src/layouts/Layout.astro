@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CRTEffects from '../components/CRTEffects.astro';
 
 const { title = "Genar Trias - Personal website", description = "Genar Trias personal website" } = Astro.props;
 ---
@@ -16,40 +17,7 @@ const { title = "Genar Trias - Personal website", description = "Genar Trias per
 </head>
 <body class="crt-container">
 	<div class="grid-overlay"></div>
-	<div class="crt-curve"></div>
-	<div class="crt-noise"></div>
-	<div class="refresh-line"></div>
-	
-	<!-- SVG filter for chromatic aberration -->
-	<svg style="position: absolute; width: 0; height: 0;">
-		<defs>
-			<filter id="chromatic-aberration">
-				<feColorMatrix type="matrix" values="1 0 0 0 0
-														0 1 0 0 0
-														0 0 1 0 0
-														0 0 0 1 0" result="original"/>
-				<feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur"/>
-				<feColorMatrix in="blur" type="matrix" values="1 0 0 0 0
-																0 0 0 0 0
-																0 0 0 0 0
-																0 0 0 0.5 0" result="red"/>
-				<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
-																0 1 0 0 0
-																0 0 0 0 0
-																0 0 0 0.5 0" result="green"/>
-				<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
-																0 0 0 0 0
-																0 0 1 0 0
-																0 0 0 0.5 0" result="blue"/>
-				<feOffset in="red" dx="1" dy="0" result="red-offset"/>
-				<feOffset in="green" dx="0" dy="0" result="green-offset"/>
-				<feOffset in="blue" dx="-1" dy="0" result="blue-offset"/>
-				<feBlend in="red-offset" in2="green-offset" mode="screen" result="rg"/>
-				<feBlend in="rg" in2="blue-offset" mode="screen" result="rgb"/>
-				<feBlend in="original" in2="rgb" mode="multiply"/>
-			</filter>
-		</defs>
-	</svg>
+	<CRTEffects />
 
 	<nav style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(10, 10, 15, 0.9));" class="p-4 border-b-2 neon-border-cyan">
 		<div class="container mx-auto flex justify-between items-center">

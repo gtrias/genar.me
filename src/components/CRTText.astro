@@ -1,0 +1,40 @@
+---
+export interface Props {
+	class?: string;
+	color?: 'cyan' | 'pink' | 'purple';
+	size?: 'sm' | 'md' | 'lg' | 'xl';
+	children: any;
+	as?: keyof HTMLElementTagNameMap;
+	distort?: boolean;
+}
+
+const { 
+	class: className = "", 
+	color = "cyan", 
+	size = "md", 
+	children, 
+	as: Tag = "span",
+	distort = false 
+} = Astro.props;
+
+const colorClasses = {
+	cyan: "neon-text-cyan",
+	pink: "neon-text-pink",
+	purple: "neon-text-purple"
+};
+
+const sizeClasses = {
+	sm: "text-sm",
+	md: "text-base",
+	lg: "text-lg",
+	xl: "text-xl",
+	"3xl": "text-3xl",
+	"4xl": "text-4xl"
+};
+
+const textClass = `${colorClasses[color]} ${sizeClasses[size]} crt-text ${distort ? 'crt-distort' : ''} ${className}`;
+---
+
+<Tag class={textClass}>
+	{children}
+</Tag>

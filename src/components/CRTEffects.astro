@@ -1,0 +1,40 @@
+---
+// CRT Effects Overlay Component
+// Adds all the CRT visual effects to the page
+---
+
+<!-- CRT Screen Effects -->
+<div class="crt-curve"></div>
+<div class="crt-noise"></div>
+<div class="refresh-line"></div>
+
+<!-- SVG filter for chromatic aberration -->
+<svg style="position: absolute; width: 0; height: 0;">
+	<defs>
+		<filter id="chromatic-aberration">
+			<feColorMatrix type="matrix" values="1 0 0 0 0
+													0 1 0 0 0
+													0 0 1 0 0
+													0 0 0 1 0" result="original"/>
+			<feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur"/>
+			<feColorMatrix in="blur" type="matrix" values="1 0 0 0 0
+															0 0 0 0 0
+															0 0 0 0 0
+															0 0 0 0.5 0" result="red"/>
+			<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
+															0 1 0 0 0
+															0 0 0 0 0
+															0 0 0 0.5 0" result="green"/>
+			<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
+															0 0 0 0 0
+															0 0 1 0 0
+															0 0 0 0.5 0" result="blue"/>
+			<feOffset in="red" dx="1" dy="0" result="red-offset"/>
+			<feOffset in="green" dx="0" dy="0" result="green-offset"/>
+			<feOffset in="blue" dx="-1" dy="0" result="blue-offset"/>
+			<feBlend in="red-offset" in2="green-offset" mode="screen" result="rg"/>
+			<feBlend in="rg" in2="blue-offset" mode="screen" result="rgb"/>
+			<feBlend in="original" in2="rgb" mode="multiply"/>
+		</filter>
+	</defs>
+</svg>

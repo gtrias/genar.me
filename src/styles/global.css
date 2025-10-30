@@ -255,6 +255,15 @@ body {
     0 0 40px rgba(227, 72, 128, 0.5);
 }
 
+.neon-text-purple {
+  color: #8b5cf6;
+  text-shadow:
+    0 0 5px #8b5cf6,
+    0 0 10px #8b5cf6,
+    0 0 20px #8b5cf6,
+    0 0 40px rgba(139, 92, 246, 0.5);
+}
+
 .neon-border-cyan {
   border: 2px solid #22e9d8;
   box-shadow:
@@ -271,6 +280,15 @@ body {
     0 0 10px #e34880,
     inset 0 0 5px #e34880,
     inset 0 0 10px rgba(227, 72, 128, 0.3);
+}
+
+.neon-border-purple {
+  border: 2px solid #8b5cf6;
+  box-shadow:
+    0 0 5px #8b5cf6,
+    0 0 10px #8b5cf6,
+    inset 0 0 5px #8b5cf6,
+    inset 0 0 10px rgba(139, 92, 246, 0.3);
 }
 
 .glitch {
