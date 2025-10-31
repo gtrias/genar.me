@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import CRTMonitor from '../components/CRTMonitor.astro';
 import CRTCard from '../components/CRTCard.astro';
 import CRTText from '../components/CRTText.astro';
+import Terminal from '../components/Terminal.astro';
 ---
 
 <Layout title="Genar - About Me | genar.me" description="Personal website of Genar Trias - Software developer, open source enthusiast">
@@ -49,6 +50,16 @@ import CRTText from '../components/CRTText.astro';
 					<CRTText color="pink">&gt; I love Sci-FI and cyberpunk.</CRTText>
 				</p>
 			</CRTCard>
+
+			<div class="mb-8 p-4 border-2 border-green-500 rounded">
+				<h2 class="text-green-500 text-2xl font-bold mt-0 mb-4 tracking-wide font-mono">
+					&gt;&gt; INTERACTIVE TERMINAL
+				</h2>
+				<p class="mb-4 leading-relaxed text-green-400">
+					Interactive terminal powered by xterm.js. Type "help" to see available commands.
+				</p>
+				<Terminal />
+			</div>
 		</div>
 	</CRTMonitor>
 </Layout>

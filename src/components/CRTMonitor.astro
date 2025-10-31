@@ -1,14 +1,13 @@
 ---
 export interface Props {
 	class?: string;
-	children: any;
 }
 
-const { class: className = "", children } = Astro.props;
+const { class: className = "" } = Astro.props;
 ---
 
 <div class={`crt-monitor ${className}`}>
 	<div class="crt-screen">
-		{children}
+		<slot />
 	</div>
 </div>

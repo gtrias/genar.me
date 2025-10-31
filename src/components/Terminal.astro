@@ -1,0 +1,261 @@
+---
+// Terminal component using xterm.js
+import '@xterm/xterm/css/xterm.css';
+---
+
+<div id="terminal" class="terminal-container">
+  <div class="loading-message">Loading terminal...</div>
+</div>
+
+<script>
+  console.log('Terminal script starting...');
+  
+  // Initialize terminal when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing terminal...');
+    initTerminal();
+  });
+
+  function initTerminal() {
+    try {
+      console.log('Creating terminal...');
+      
+      // Load xterm from npm package
+      import('@xterm/xterm').then(({ Terminal }) => {
+        console.log('xterm loaded, creating terminal instance');
+        createTerminal(Terminal);
+      }).catch(err => {
+        console.error('Failed to load xterm:', err);
+        // Fallback to CDN
+        loadFromCDN();
+      });
+      
+    } catch (error) {
+      console.error('Error initializing terminal:', error);
+      showError('Error: ' + error.message);
+    }
+  }
+
+  function loadFromCDN() {
+    console.log('Loading xterm from CDN...');
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js';
+    script.onload = () => {
+      console.log('xterm loaded from CDN');
+      createTerminal(window.Terminal);
+    };
+    script.onerror = () => {
+      console.error('Failed to load xterm from CDN');
+      showError('Failed to load terminal library');
+    };
+    document.head.appendChild(script);
+  }
+
+  function createTerminal(Terminal) {
+    try {
+      console.log('Creating terminal...');
+      
+      const terminalContainer = document.getElementById('terminal');
+      if (!terminalContainer) {
+        console.error('Terminal container not found');
+        return;
+      }
+
+      // Clear loading message
+      terminalContainer.innerHTML = '';
+
+      const terminal = new Terminal({
+        cursorBlink: true,
+        fontSize: 14,
+        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+        theme: {
+          background: '#000000',
+          foreground: '#00ff00',
+          cursor: '#00ff00',
+          selection: '#00ff0030',
+        },
+        cols: 80,
+        rows: 24,
+      });
+
+      terminal.open(terminalContainer);
+      
+      // Terminal state
+      let currentLine = '';
+      let history = [];
+      let historyIndex = -1;
+      const prompt = '$ ';
+
+      // Show welcome message
+      terminal.writeln('\x1b[32mWelcome to the Interactive Terminal!\x1b[0m');
+      terminal.writeln('Type "help" for available commands.');
+      terminal.writeln('');
+      terminal.write(prompt);
+
+      // Handle input
+      terminal.onData((data) => {
+        switch (data) {
+          case '\r': // Enter
+            terminal.write('\r\n');
+            
+            if (currentLine.trim()) {
+              history.push(currentLine);
+              historyIndex = -1;
+            }
+
+            const command = currentLine.trim();
+            const [cmd, ...args] = command.split(' ');
+
+            switch (cmd) {
+              case 'help':
+                terminal.writeln('Available commands:');
+                terminal.writeln('  help     - Show this help message');
+                terminal.writeln('  clear    - Clear the terminal');
+                terminal.writeln('  echo     - Echo back arguments');
+                terminal.writeln('  date     - Show current date and time');
+                terminal.writeln('  whoami   - Display current user');
+                terminal.writeln('  ls       - List directory contents');
+                terminal.writeln('  pwd      - Print working directory');
+                terminal.writeln('');
+                terminal.writeln('Features:');
+                terminal.writeln('  • Use arrow keys to navigate command history');
+                terminal.writeln('  • Use Tab for autocomplete');
+                terminal.writeln('  • Use Ctrl+C to interrupt');
+                terminal.writeln('');
+                break;
+              case 'clear':
+                terminal.clear();
+                break;
+              case 'echo':
+                terminal.writeln(args.join(' '));
+                break;
+              case 'date':
+                terminal.writeln(new Date().toString());
+                break;
+              case 'whoami':
+                terminal.writeln('user');
+                break;
+              case 'ls':
+                terminal.writeln('Documents  Downloads  Desktop  Pictures');
+                break;
+              case 'pwd':
+                terminal.writeln('/home/user');
+                break;
+              case '':
+                break;
+              default:
+                terminal.writeln(`Command not found: ${cmd}`);
+                terminal.writeln('Type "help" for available commands.');
+            }
+
+            currentLine = '';
+            terminal.write(prompt);
+            break;
+            
+          case '\u007F': // Backspace
+            if (currentLine.length > 0) {
+              currentLine = currentLine.slice(0, -1);
+              terminal.write('\b \b');
+            }
+            break;
+            
+          case '\u001b[A': // Up arrow
+            if (historyIndex < history.length - 1) {
+              historyIndex++;
+              const cmd = history[history.length - 1 - historyIndex];
+              terminal.write('\r\x1b[K' + prompt + cmd);
+              currentLine = cmd;
+            }
+            break;
+            
+          case '\u001b[B': // Down arrow
+            if (historyIndex > -1) {
+              historyIndex--;
+              if (historyIndex === -1) {
+                terminal.write('\r\x1b[K' + prompt);
+                currentLine = '';
+              } else {
+                const cmd = history[history.length - 1 - historyIndex];
+                terminal.write('\r\x1b[K' + prompt + cmd);
+                currentLine = cmd;
+              }
+            }
+            break;
+            
+          case '\t': // Tab autocomplete
+            const commands = ['help', 'clear', 'echo', 'date', 'whoami', 'ls', 'pwd'];
+            const input = currentLine.trim();
+            
+            if (input) {
+              const matches = commands.filter(cmd => cmd.startsWith(input));
+              if (matches.length === 1) {
+                const completion = matches[0].slice(input.length);
+                currentLine += completion;
+                terminal.write(completion);
+              } else if (matches.length > 1) {
+                terminal.write('\r\n');
+                matches.forEach(cmd => terminal.writeln('  ' + cmd));
+                terminal.write(prompt + currentLine);
+              }
+            }
+            break;
+            
+          default:
+            if (data >= ' ' && data <= '~') {
+              currentLine += data;
+              terminal.write(data);
+            }
+        }
+      });
+
+      console.log('Terminal initialized successfully');
+      
+    } catch (error) {
+      console.error('Error creating terminal:', error);
+      showError('Error creating terminal: ' + error.message);
+    }
+  }
+
+  function showError(message) {
+    const terminalContainer = document.getElementById('terminal');
+    if (terminalContainer) {
+      terminalContainer.innerHTML = `<div class="error-message">${message}</div>`;
+    }
+  }
+</script>
+
+<style>
+  .terminal-container {
+    width: 100%;
+    height: 400px;
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .loading-message, .error-message {
+    color: #00ff00;
+    padding: 20px;
+    font-family: monospace;
+    text-align: center;
+  }
+
+  .error-message {
+    color: #ff0000;
+  }
+
+  :global(.xterm) {
+    height: 100% !important;
+    width: 100% !important;
+    padding: 8px;
+  }
+
+  :global(.xterm-viewport) {
+    background-color: #000 !important;
+  }
+
+  :global(.xterm-screen) {
+    background-color: #000 !important;
+  }
+</style>
