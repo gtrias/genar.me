@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Terminal from '../components/Terminal.astro';
 ---
 
-<Layout title="Genar - About Me | genar.me" description="Personal website of Genar Trias - Software developer, open source enthusiast">
-	<div class="prose prose-lg max-w-none p-4">
+<Layout title="Genar - About Me | genar.me" description="Personal website of Genar Trias - Software developer, open source enthusiast" showFooter={false} showHeader={false}>
+	<!-- Main content - hidden initially -->
+	<div id="main-content" class="main-content hidden">
+		<div class="prose prose-lg max-w-none p-4">
 			<h1 class="text-4xl font-bold mb-8 cursor uppercase tracking-wide neon-text-cyan">
 				[genar@localhost ~]$ echo hello world
 			</h1>
@@ -54,7 +56,82 @@ import Terminal from '../components/Terminal.astro';
 				<p class="mb-4 leading-relaxed text-green-400">
 					Interactive terminal powered by xterm.js. Type "help" to see available commands.
 				</p>
-				<Terminal />
 			</div>
+		</div>
 	</div>
+
+	<!-- Exit terminal button - hidden initially -->
+	<button id="exit-terminal" class="exit-terminal-btn hidden" onclick="exitTerminal()">
+		Exit Terminal
+	</button>
+
+	<!-- Fullscreen Terminal -->
+	<Terminal />
+
+	<script>
+		function exitTerminal() {
+			const terminal = document.getElementById('terminal');
+			const mainContent = document.getElementById('main-content');
+			const exitBtn = document.getElementById('exit-terminal');
+			
+			if (terminal && mainContent && exitBtn) {
+				terminal.style.display = 'none';
+				mainContent.classList.remove('hidden');
+				exitBtn.classList.add('hidden');
+			}
+		}
+
+		// Show exit button after terminal boot completes
+		document.addEventListener('DOMContentLoaded', () => {
+			setTimeout(() => {
+				const exitBtn = document.getElementById('exit-terminal');
+				if (exitBtn) {
+					exitBtn.classList.remove('hidden');
+				}
+			}, 8000); // Show after boot sequence completes
+		});
+	</script>
+
+	<style>
+		.main-content {
+			transition: opacity 0.5s ease;
+		}
+
+		.main-content.hidden {
+			display: none;
+		}
+
+		.exit-terminal-btn {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			z-index: 9999;
+			background: linear-gradient(135deg, #8b5cf6, #e34880);
+			border: 2px solid #22e9d8;
+			color: #e0e0ff;
+			padding: 0.5rem 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-family: monospace;
+			box-shadow:
+				0 0 10px #22e9d8,
+				inset 0 0 10px rgba(34, 233, 216, 0.2);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.exit-terminal-btn:hover {
+			box-shadow:
+				0 0 20px #e34880,
+				0 0 30px #22e9d8,
+				inset 0 0 20px rgba(227, 72, 128, 0.3);
+			transform: scale(1.05);
+		}
+
+		.exit-terminal-btn.hidden {
+			display: none;
+		}
+	</style>
 </Layout>

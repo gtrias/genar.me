@@ -1,10 +1,10 @@
 ---
-// Terminal component using xterm.js
+// Terminal component with integrated BIOS boot sequence
 import '@xterm/xterm/css/xterm.css';
 ---
 
-<div id="terminal" class="terminal-container">
-  <div class="loading-message">Loading terminal...</div>
+<div id="terminal" class="terminal-container fullscreen-terminal">
+  <div class="loading-message">Initializing system...</div>
 </div>
 
 <script>
@@ -13,17 +13,17 @@ import '@xterm/xterm/css/xterm.css';
   // Initialize terminal when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing terminal...');
-    initTerminal();
+    initTerminalWithBoot();
   });
 
-  function initTerminal() {
+  function initTerminalWithBoot() {
     try {
-      console.log('Creating terminal...');
+      console.log('Creating terminal with boot sequence...');
       
       // Load xterm from npm package
       import('@xterm/xterm').then(({ Terminal }) => {
         console.log('xterm loaded, creating terminal instance');
-        createTerminal(Terminal);
+        createTerminalWithBoot(Terminal);
       }).catch(err => {
         console.error('Failed to load xterm:', err);
         // Fallback to CDN
@@ -42,7 +42,7 @@ import '@xterm/xterm/css/xterm.css';
     script.src = 'https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js';
     script.onload = () => {
       console.log('xterm loaded from CDN');
-      createTerminal(window.Terminal);
+      createTerminalWithBoot(window.Terminal);
     };
     script.onerror = () => {
       console.error('Failed to load xterm from CDN');
@@ -51,9 +51,9 @@ import '@xterm/xterm/css/xterm.css';
     document.head.appendChild(script);
   }
 
-  function createTerminal(Terminal) {
+  function createTerminalWithBoot(Terminal) {
     try {
-      console.log('Creating terminal...');
+      console.log('Creating terminal with boot sequence...');
       
       const terminalContainer = document.getElementById('terminal');
       if (!terminalContainer) {
@@ -61,22 +61,29 @@ import '@xterm/xterm/css/xterm.css';
         return;
       }
 
-      // Clear loading message
+      // Clear loading message and set fullscreen mode
       terminalContainer.innerHTML = '';
+      terminalContainer.classList.add('fullscreen-mode');
 
       const terminal = new Terminal({
         cursorBlink: true,
         cursorBlinkRate: 500,
-        fontSize: 14,
+        fontSize: 18,
         fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
         theme: {
-          background: '#000000',
-          foreground: '#22e9d8',
-          cursor: '#22e9d8',
-          selection: '#22e9d830',
+          background: 'transparent',
+          foreground: '#00ffff', // Brighter cyan
+          cursor: '#00ffff',
+          selection: '#00ffff30',
+          brightWhite: '#ffffff',
+          brightCyan: '#00ffff',
+          brightGreen: '#00ff00',
+          brightMagenta: '#ff00ff',
+          brightYellow: '#ffff00',
         },
-        cols: 80,
-        rows: 24,
+        cols: 100,
+        rows: 30,
+        allowTransparency: true,
       });
 
       terminal.open(terminalContainer);
@@ -91,138 +98,235 @@ import '@xterm/xterm/css/xterm.css';
       let history = [];
       let historyIndex = -1;
       const prompt = '$ ';
+      let bootComplete = false;
       
       // Initialize CRT effects
       initCRTEffects(terminalContainer);
 
-      // Show welcome message
-      terminal.writeln('\x1b[32mWelcome to the Interactive Terminal!\x1b[0m');
-      terminal.writeln('Type "help" for available commands.');
-      terminal.writeln('');
-      terminal.write(prompt);
-
-      // Handle input
-      terminal.onData((data) => {
-        switch (data) {
-          case '\r': // Enter
-            terminal.write('\r\n');
-            
-            if (currentLine.trim()) {
-              history.push(currentLine);
-              historyIndex = -1;
-            }
-
-            const command = currentLine.trim();
-            const [cmd, ...args] = command.split(' ');
-
-            switch (cmd) {
-              case 'help':
-                terminal.writeln('Available commands:');
-                terminal.writeln('  help     - Show this help message');
-                terminal.writeln('  clear    - Clear the terminal');
-                terminal.writeln('  echo     - Echo back arguments');
-                terminal.writeln('  date     - Show current date and time');
-                terminal.writeln('  whoami   - Display current user');
-                terminal.writeln('  ls       - List directory contents');
-                terminal.writeln('  pwd      - Print working directory');
-                terminal.writeln('');
-                terminal.writeln('Features:');
-                terminal.writeln('  • Use arrow keys to navigate command history');
-                terminal.writeln('  • Use Tab for autocomplete');
-                terminal.writeln('  • Use Ctrl+C to interrupt');
-                terminal.writeln('');
-                break;
-              case 'clear':
-                terminal.clear();
-                break;
-              case 'echo':
-                terminal.writeln(args.join(' '));
-                break;
-              case 'date':
-                terminal.writeln(new Date().toString());
-                break;
-              case 'whoami':
-                terminal.writeln('user');
-                break;
-              case 'ls':
-                terminal.writeln('Documents  Downloads  Desktop  Pictures');
-                break;
-              case 'pwd':
-                terminal.writeln('/home/user');
-                break;
-              case '':
-                break;
-              default:
-                terminal.writeln(`Command not found: ${cmd}`);
-                terminal.writeln('Type "help" for available commands.');
-            }
-
-            currentLine = '';
-            terminal.write(prompt);
-            break;
-            
-          case '\u007F': // Backspace
-            if (currentLine.length > 0) {
-              currentLine = currentLine.slice(0, -1);
-              terminal.write('\b \b');
-            }
-            break;
-            
-          case '\u001b[A': // Up arrow
-            if (historyIndex < history.length - 1) {
-              historyIndex++;
-              const cmd = history[history.length - 1 - historyIndex];
-              terminal.write('\r\x1b[K' + prompt + cmd);
-              currentLine = cmd;
-            }
-            break;
-            
-          case '\u001b[B': // Down arrow
-            if (historyIndex > -1) {
-              historyIndex--;
-              if (historyIndex === -1) {
-                terminal.write('\r\x1b[K' + prompt);
-                currentLine = '';
-              } else {
-                const cmd = history[history.length - 1 - historyIndex];
-                terminal.write('\r\x1b[K' + prompt + cmd);
-                currentLine = cmd;
-              }
-            }
-            break;
-            
-          case '\t': // Tab autocomplete
-            const commands = ['help', 'clear', 'echo', 'date', 'whoami', 'ls', 'pwd'];
-            const input = currentLine.trim();
-            
-            if (input) {
-              const matches = commands.filter(cmd => cmd.startsWith(input));
-              if (matches.length === 1) {
-                const completion = matches[0].slice(input.length);
-                currentLine += completion;
-                terminal.write(completion);
-              } else if (matches.length > 1) {
-                terminal.write('\r\n');
-                matches.forEach(cmd => terminal.writeln('  ' + cmd));
-                terminal.write(prompt + currentLine);
-              }
-            }
-            break;
-            
-          default:
-            if (data >= ' ' && data <= '~') {
-              currentLine += data;
-              terminal.write(data);
-            }
-        }
+      // Start BIOS boot sequence
+      runBIOSBootSequence(terminal, () => {
+        bootComplete = true;
+        setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt);
       });
 
-      console.log('Terminal initialized successfully');
+      console.log('Terminal with boot sequence initialized successfully');
       
     } catch (error) {
       console.error('Error creating terminal:', error);
       showError('Error creating terminal: ' + error.message);
     }
+  }
+
+  function runBIOSBootSequence(terminal, callback) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const typeDelay = isMobile ? 15 : 25; // Faster on mobile
+    
+    const bootMessages = [
+      { text: 'BIOS v2.1.7 - Cyber Systems Inc.', color: '\x1b[96m', delay: 0 }, // Bright Cyan
+      { text: 'Copyright (c) 2024 Cyber Systems', color: '\x1b[96m', delay: 200 },
+      { text: '', delay: 100 },
+      { text: 'CPU: Quantum Processor X9 @ 4.2GHz', color: '\x1b[95m', delay: 300 }, // Bright Magenta
+      { text: 'CPU Test: [OK]', color: '\x1b[92m', delay: 800 }, // Bright Green
+      { text: '', delay: 200 },
+      { text: 'Memory: 32768MB DDR7', color: '\x1b[95m', delay: 300 },
+      { text: 'Memory Test: ', color: '\x1b[95m', delay: 600 },
+      { text: '████████████████████', color: '\x1b[92m', delay: 900, instant: true },
+      { text: '[OK]', color: '\x1b[92m', delay: 100 },
+      { text: '', delay: 200 },
+      { text: 'Initializing System Modules...', color: '\x1b[94m', delay: 300 }, // Bright Blue
+      { text: 'Loading kernel.sys', color: '\x1b[96m', delay: 600 },
+      { text: 'Loading drivers.dll', color: '\x1b[96m', delay: 900 },
+      { text: 'Loading network.stack', color: '\x1b[96m', delay: 1200 },
+      { text: 'Loading security.module', color: '\x1b[96m', delay: 1500 },
+      { text: 'System Modules: [OK]', color: '\x1b[92m', delay: 1800 },
+      { text: '', delay: 200 },
+      { text: 'Checking Hardware...', color: '\x1b[94m', delay: 300 },
+      { text: 'HDD0: CyberDrive SSD 2TB [OK]', color: '\x1b[92m', delay: 600 },
+      { text: 'GPU: NeonGraphics RTX 9090 [OK]', color: '\x1b[92m', delay: 900 },
+      { text: 'NET: CyberLink 10GbE [OK]', color: '\x1b[92m', delay: 1200 },
+      { text: '', delay: 300 },
+      { text: 'System Check Complete', color: '\x1b[92m', delay: 400 },
+      { text: 'All systems operational', color: '\x1b[96m', delay: 700 },
+      { text: '', delay: 500 },
+      { text: 'Starting interactive terminal...', color: '\x1b[92m', delay: 800 },
+      { text: '', delay: 1000 }
+    ];
+
+    let messageIndex = 0;
+
+    function processNextMessage() {
+      if (messageIndex >= bootMessages.length) {
+        // Clear screen and show welcome message
+        terminal.clear();
+        terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
+        terminal.writeln('Type "help" for available commands.');
+        terminal.writeln('');
+        terminal.write(prompt);
+        callback();
+        return;
+      }
+
+      const msg = bootMessages[messageIndex];
+      
+      setTimeout(() => {
+        if (msg.text) {
+          if (msg.instant) {
+            terminal.writeln(`${msg.color}${msg.text}\x1b[0m`);
+          } else {
+            typeWriter(terminal, msg.text, msg.color, () => {
+              terminal.writeln('');
+              messageIndex++;
+              processNextMessage();
+            });
+            return;
+          }
+        } else {
+          terminal.writeln('');
+        }
+        
+        messageIndex++;
+        processNextMessage();
+      }, msg.delay);
+    }
+
+    function typeWriter(terminal, text, color, callback) {
+      let charIndex = 0;
+      
+      function typeChar() {
+        if (charIndex < text.length) {
+          terminal.write(`${color}${text[charIndex]}\x1b[0m`);
+          charIndex++;
+          setTimeout(typeChar, typeDelay);
+        } else {
+          callback();
+        }
+      }
+      
+      typeChar();
+    }
+
+    // Start the boot sequence
+    setTimeout(() => {
+      processNextMessage();
+    }, 500);
+  }
+
+  function setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt) {
+    // Handle input
+    terminal.onData((data) => {
+      switch (data) {
+        case '\r': // Enter
+          terminal.write('\r\n');
+          
+          if (currentLine.trim()) {
+            history.push(currentLine);
+            historyIndex = -1;
+          }
+
+          const command = currentLine.trim();
+          const [cmd, ...args] = command.split(' ');
+
+          switch (cmd) {
+            case 'help':
+              terminal.writeln('Available commands:');
+              terminal.writeln('  help     - Show this help message');
+              terminal.writeln('  clear    - Clear terminal');
+              terminal.writeln('  echo     - Echo back arguments');
+              terminal.writeln('  date     - Show current date and time');
+              terminal.writeln('  whoami   - Display current user');
+              terminal.writeln('  ls       - List directory contents');
+              terminal.writeln('  pwd      - Print working directory');
+              terminal.writeln('');
+              terminal.writeln('Features:');
+              terminal.writeln('  • Use arrow keys to navigate command history');
+              terminal.writeln('  • Use Tab for autocomplete');
+              terminal.writeln('  • Use Ctrl+C to interrupt');
+              terminal.writeln('');
+              break;
+            case 'clear':
+              terminal.clear();
+              break;
+            case 'echo':
+              terminal.writeln(args.join(' '));
+              break;
+            case 'date':
+              terminal.writeln(new Date().toString());
+              break;
+            case 'whoami':
+              terminal.writeln('user');
+              break;
+            case 'ls':
+              terminal.writeln('Documents  Downloads  Desktop  Pictures');
+              break;
+            case 'pwd':
+              terminal.writeln('/home/user');
+              break;
+            case '':
+              break;
+            default:
+              terminal.writeln(`Command not found: ${cmd}`);
+              terminal.writeln('Type "help" for available commands.');
+          }
+
+          currentLine = '';
+          terminal.write(prompt);
+          break;
+          
+        case '\u007F': // Backspace
+          if (currentLine.length > 0) {
+            currentLine = currentLine.slice(0, -1);
+            terminal.write('\b \b');
+          }
+          break;
+          
+        case '\u001b[A': // Up arrow
+          if (historyIndex < history.length - 1) {
+            historyIndex++;
+            const cmd = history[history.length - 1 - historyIndex];
+            terminal.write('\r\x1b[K' + prompt + cmd);
+            currentLine = cmd;
+          }
+          break;
+          
+        case '\u001b[B': // Down arrow
+          if (historyIndex > -1) {
+            historyIndex--;
+            if (historyIndex === -1) {
+              terminal.write('\r\x1b[K' + prompt);
+              currentLine = '';
+            } else {
+              const cmd = history[history.length - 1 - historyIndex];
+              terminal.write('\r\x1b[K' + prompt + cmd);
+              currentLine = cmd;
+            }
+          }
+          break;
+          
+        case '\t': // Tab autocomplete
+          const commands = ['help', 'clear', 'echo', 'date', 'whoami', 'ls', 'pwd'];
+          const input = currentLine.trim();
+          
+          if (input) {
+            const matches = commands.filter(cmd => cmd.startsWith(input));
+            if (matches.length === 1) {
+              const completion = matches[0].slice(input.length);
+              currentLine += completion;
+              terminal.write(completion);
+            } else if (matches.length > 1) {
+              terminal.write('\r\n');
+              matches.forEach(cmd => terminal.writeln('  ' + cmd));
+              terminal.write(prompt + currentLine);
+            }
+          }
+          break;
+          
+        default:
+          if (data >= ' ' && data <= '~') {
+            currentLine += data;
+            terminal.write(data);
+          }
+      }
+    });
   }
 
   // CRT Effects Implementation
@@ -289,13 +393,13 @@ import '@xterm/xterm/css/xterm.css';
       }
       
       .xterm-cursor {
-        box-shadow: 0 0 8px #22e9d8, 0 0 16px rgba(34, 233, 216, 0.5);
+        box-shadow: 0 0 8px #00ffff, 0 0 16px rgba(0, 255, 255, 0.8);
         animation: cursorGlow 2s ease-in-out infinite alternate;
       }
       
       @keyframes cursorGlow {
-        0% { box-shadow: 0 0 8px #22e9d8, 0 0 16px rgba(34, 233, 216, 0.5); }
-        100% { box-shadow: 0 0 12px #22e9d8, 0 0 24px rgba(34, 233, 216, 0.8); }
+        0% { box-shadow: 0 0 8px #00ffff, 0 0 16px rgba(0, 255, 255, 0.8); }
+        100% { box-shadow: 0 0 12px #00ffff, 0 0 24px rgba(0, 255, 255, 1); }
       }
       
       @keyframes terminalScanline {
@@ -338,25 +442,48 @@ import '@xterm/xterm/css/xterm.css';
 <style>
   .terminal-container {
     width: 100%;
-    height: 400px;
-    background: #0a0a0f;
-    border-radius: 20px;
+    height: 100vh;
+    background: transparent;
+    border-radius: 0;
     padding: 40px;
-    box-shadow: 
-      inset 0 0 120px rgba(0, 0, 0, 0.8),
-      inset 0 0 40px rgba(0, 0, 0, 0.6),
-      0 0 40px rgba(34, 233, 216, 0.2);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9998;
     transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .terminal-container :global(.xterm) {
-    background: #050508;
-    border-radius: 10px;
+    background: #000;
+    border-radius: 20px;
     overflow: hidden;
+    height: calc(100vh - 80px) !important;
+    width: calc(100% - 80px) !important;
+    padding: 20px;
+    font-size: 18px;
     box-shadow: 
-      inset 0 0 80px rgba(0, 0, 0, 0.9),
-      inset 0 0 20px rgba(0, 0, 0, 0.7);
+      inset 0 0 120px rgba(0, 0, 0, 0.9),
+      inset 0 0 40px rgba(0, 0, 0, 0.7),
+      0 0 80px rgba(34, 233, 216, 0.3),
+      0 0 120px rgba(227, 72, 128, 0.2);
+    position: relative;
+  }
+
+
+
+  .terminal-container :global(.xterm-viewport) {
+    transform: perspective(1200px) rotateX(-3deg) scaleY(0.9);
+    transform-style: preserve-3d;
+    border-radius: 50% / 7% 7% 3% 3%;
+  }
+
+  /* Text curvature to follow screen shape */
+  .terminal-container :global(.xterm-rows) {
+    transform: perspective(1000px) rotateX(1deg);
+    transform-style: preserve-3d;
   }
 
   .loading-message, .error-message {
@@ -364,23 +491,46 @@ import '@xterm/xterm/css/xterm.css';
     padding: 20px;
     font-family: monospace;
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .error-message {
     color: #ff0000;
   }
 
-  :global(.xterm) {
-    height: 100% !important;
-    width: 100% !important;
-    padding: 8px;
-  }
-
   :global(.xterm-viewport) {
-    background-color: #000 !important;
+    background-color: transparent !important;
   }
 
   :global(.xterm-screen) {
-    background-color: #000 !important;
+    background-color: transparent !important;
+  }
+
+  /* Fullscreen terminal mode */
+  .fullscreen-terminal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .terminal-container {
+      padding: 20px;
+    }
+    
+    .terminal-container :global(.xterm) {
+      height: calc(100vh - 40px) !important;
+      width: calc(100% - 40px) !important;
+      border-radius: 15px;
+      padding: 15px;
+      font-size: 14px;
+    }
   }
 </style>
