@@ -1,22 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CRTMonitor from '../components/CRTMonitor.astro';
-import CRTCard from '../components/CRTCard.astro';
-import CRTText from '../components/CRTText.astro';
 import Terminal from '../components/Terminal.astro';
 ---
 
 <Layout title="Genar - About Me | genar.me" description="Personal website of Genar Trias - Software developer, open source enthusiast">
-	<CRTMonitor>
-		<div class="prose prose-lg max-w-none p-4">
-			<CRTText color="cyan" size="4xl" as="h1" class="font-bold mb-8 cursor uppercase tracking-wide">
+	<div class="prose prose-lg max-w-none p-4">
+			<h1 class="text-4xl font-bold mb-8 cursor uppercase tracking-wide neon-text-cyan">
 				[genar@localhost ~]$ echo hello world
-			</CRTText>
+			</h1>
 
-			<CRTCard border="cyan" class="mb-8">
-				<CRTText color="pink" size="3xl" as="h2" class="font-bold mt-0 mb-6 tracking-wide">
+			<div class="cyber-card mb-8 p-6">
+				<h2 class="text-3xl font-bold mt-0 mb-6 tracking-wide neon-text-pink">
 					&gt;&gt; ABOUT ME
-				</CRTText>
+				</h2>
 
 				<p class="mb-4 leading-relaxed">
 					<a href="https://www.gnu.org/philosophy/free-sw.html">Software Libre</a> supporter, happy
@@ -33,7 +29,7 @@ import Terminal from '../components/Terminal.astro';
 				</p>
 
 				<p class="mb-4 leading-relaxed">
-					I also enjoy <CRTText color="cyan" as="strong">Continuous Learning</CRTText> and <CRTText color="cyan" as="strong">Continuous Improving</CRTText>
+					I also enjoy <strong class="neon-text-cyan">Continuous Learning</strong> and <strong class="neon-text-cyan">Continuous Improving</strong>
 				</p>
 
 				<p class="mb-4 leading-relaxed">
@@ -47,9 +43,9 @@ import Terminal from '../components/Terminal.astro';
 				</p>
 
 				<p class="mb-0 leading-relaxed font-bold">
-					<CRTText color="pink">&gt; I love Sci-FI and cyberpunk.</CRTText>
+					<span class="neon-text-pink">&gt; I love Sci-FI and cyberpunk.</span>
 				</p>
-			</CRTCard>
+			</div>
 
 			<div class="mb-8 p-4 border-2 border-green-500 rounded">
 				<h2 class="text-green-500 text-2xl font-bold mt-0 mb-4 tracking-wide font-mono">
@@ -60,6 +56,5 @@ import Terminal from '../components/Terminal.astro';
 				</p>
 				<Terminal />
 			</div>
-		</div>
-	</CRTMonitor>
+	</div>
 </Layout>

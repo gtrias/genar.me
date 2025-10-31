@@ -66,13 +66,14 @@ import '@xterm/xterm/css/xterm.css';
 
       const terminal = new Terminal({
         cursorBlink: true,
+        cursorBlinkRate: 500,
         fontSize: 14,
         fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
         theme: {
           background: '#000000',
-          foreground: '#00ff00',
-          cursor: '#00ff00',
-          selection: '#00ff0030',
+          foreground: '#22e9d8',
+          cursor: '#22e9d8',
+          selection: '#22e9d830',
         },
         cols: 80,
         rows: 24,
@@ -80,11 +81,19 @@ import '@xterm/xterm/css/xterm.css';
 
       terminal.open(terminalContainer);
       
+      // Add CRT effects container
+      const crtEffects = document.createElement('div');
+      crtEffects.className = 'terminal-crt-effects';
+      terminalContainer.appendChild(crtEffects);
+      
       // Terminal state
       let currentLine = '';
       let history = [];
       let historyIndex = -1;
       const prompt = '$ ';
+      
+      // Initialize CRT effects
+      initCRTEffects(terminalContainer);
 
       // Show welcome message
       terminal.writeln('\x1b[32mWelcome to the Interactive Terminal!\x1b[0m');
@@ -216,6 +225,108 @@ import '@xterm/xterm/css/xterm.css';
     }
   }
 
+  // CRT Effects Implementation
+  function initCRTEffects(container) {
+    // Check if mobile and reduce effects
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) {
+      startRandomGlitches(container);
+      enhanceCursorBlink(container);
+    }
+  }
+
+  function startRandomGlitches(container) {
+    // Rare random glitches - very subtle
+    setInterval(() => {
+      if (Math.random() < 0.02) { // 2% chance every interval
+        triggerGlitch(container);
+      }
+    }, 3000); // Check every 3 seconds
+  }
+
+  function triggerGlitch(container) {
+    const glitchTypes = ['flicker', 'shift', 'color'];
+    const glitchType = glitchTypes[Math.floor(Math.random() * glitchTypes.length)];
+    
+    switch (glitchType) {
+      case 'flicker':
+        container.style.opacity = '0.95';
+        setTimeout(() => {
+          container.style.opacity = '1';
+        }, 50);
+        break;
+        
+      case 'shift':
+        container.style.transform = `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)`;
+        setTimeout(() => {
+          container.style.transform = 'translate(0, 0)';
+        }, 100);
+        break;
+        
+      case 'color':
+        const originalFilter = container.style.filter;
+        container.style.filter = 'hue-rotate(90deg) saturate(1.5)';
+        setTimeout(() => {
+          container.style.filter = originalFilter;
+        }, 75);
+        break;
+    }
+  }
+
+  function enhanceCursorBlink(container) {
+    // Add enhanced cursor glow effect
+    const style = document.createElement('style');
+    style.textContent = `
+      .terminal-crt-effects {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
+      }
+      
+      .xterm-cursor {
+        box-shadow: 0 0 8px #22e9d8, 0 0 16px rgba(34, 233, 216, 0.5);
+        animation: cursorGlow 2s ease-in-out infinite alternate;
+      }
+      
+      @keyframes cursorGlow {
+        0% { box-shadow: 0 0 8px #22e9d8, 0 0 16px rgba(34, 233, 216, 0.5); }
+        100% { box-shadow: 0 0 12px #22e9d8, 0 0 24px rgba(34, 233, 216, 0.8); }
+      }
+      
+      @keyframes terminalScanline {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(10px); }
+      }
+      
+      .xterm-screen {
+        position: relative;
+      }
+      
+      .xterm-screen::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          0deg,
+          transparent 0%,
+          rgba(34, 233, 216, 0.01) 50%,
+          transparent 100%
+        );
+        pointer-events: none;
+        animation: terminalScanline 8s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function showError(message) {
     const terminalContainer = document.getElementById('terminal');
     if (terminalContainer) {
@@ -228,10 +339,24 @@ import '@xterm/xterm/css/xterm.css';
   .terminal-container {
     width: 100%;
     height: 400px;
-    background: #000;
-    border: 1px solid #333;
-    border-radius: 4px;
+    background: #0a0a0f;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 
+      inset 0 0 120px rgba(0, 0, 0, 0.8),
+      inset 0 0 40px rgba(0, 0, 0, 0.6),
+      0 0 40px rgba(34, 233, 216, 0.2);
+    position: relative;
+    transition: all 0.1s ease;
+  }
+  
+  .terminal-container :global(.xterm) {
+    background: #050508;
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: 
+      inset 0 0 80px rgba(0, 0, 0, 0.9),
+      inset 0 0 20px rgba(0, 0, 0, 0.7);
   }
 
   .loading-message, .error-message {
