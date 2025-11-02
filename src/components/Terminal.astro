@@ -19,17 +19,20 @@ import '@xterm/xterm/css/xterm.css';
   function initTerminalWithBoot() {
     try {
       console.log('Creating terminal with boot sequence...');
-      
-      // Load xterm from npm package
-      import('@xterm/xterm').then(({ Terminal }) => {
-        console.log('xterm loaded, creating terminal instance');
-        createTerminalWithBoot(Terminal);
+
+      // Load xterm and web links addon from npm package
+      Promise.all([
+        import('@xterm/xterm'),
+        import('@xterm/addon-web-links')
+      ]).then(([{ Terminal }, { WebLinksAddon }]) => {
+        console.log('xterm and addons loaded, creating terminal instance');
+        createTerminalWithBoot(Terminal, WebLinksAddon);
       }).catch(err => {
         console.error('Failed to load xterm:', err);
         // Fallback to CDN
         loadFromCDN();
       });
-      
+
     } catch (error) {
       console.error('Error initializing terminal:', error);
       showError('Error: ' + error.message);
@@ -42,7 +45,8 @@ import '@xterm/xterm/css/xterm.css';
     script.src = 'https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js';
     script.onload = () => {
       console.log('xterm loaded from CDN');
-      createTerminalWithBoot(window.Terminal);
+      // CDN fallback - WebLinksAddon not loaded
+      createTerminalWithBoot(window.Terminal, null);
     };
     script.onerror = () => {
       console.error('Failed to load xterm from CDN');
@@ -51,10 +55,10 @@ import '@xterm/xterm/css/xterm.css';
     document.head.appendChild(script);
   }
 
-  function createTerminalWithBoot(Terminal) {
+  function createTerminalWithBoot(Terminal, WebLinksAddon) {
     try {
       console.log('Creating terminal with boot sequence...');
-      
+
       const terminalContainer = document.getElementById('terminal');
       if (!terminalContainer) {
         console.error('Terminal container not found');
@@ -87,7 +91,14 @@ import '@xterm/xterm/css/xterm.css';
       });
 
       terminal.open(terminalContainer);
-      
+
+      // Enable clickable links in terminal
+      if (WebLinksAddon) {
+        const webLinksAddon = new WebLinksAddon();
+        terminal.loadAddon(webLinksAddon);
+        console.log('WebLinksAddon loaded - URLs are now clickable');
+      }
+
       // Add CRT effects container
       const crtEffects = document.createElement('div');
       crtEffects.className = 'terminal-crt-effects';
@@ -125,7 +136,11 @@ import '@xterm/xterm/css/xterm.css';
   function runBIOSBootSequence(terminal, callback) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const typeDelay = isMobile ? 15 : 25; // Faster on mobile
-    
+
+    // Timeout tracking for skip functionality
+    const timeoutIds = [];
+    let bootSkipped = false;
+
     const bootMessages = [
       { text: 'BIOS v2.1.7 - Cyber Systems Inc.', color: '\x1b[96m', delay: 0 }, // Bright Cyan
       { text: 'Copyright (c) 2024 Cyber Systems', color: '\x1b[96m', delay: 200 },
