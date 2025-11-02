@@ -141,6 +141,26 @@ import '@xterm/xterm/css/xterm.css';
     const timeoutIds = [];
     let bootSkipped = false;
 
+    // Skip handler - allows user to bypass boot sequence
+    const skipHandler = () => {
+      bootSkipped = true;
+
+      // Clear all pending timeouts
+      timeoutIds.forEach(id => clearTimeout(id));
+      timeoutIds.length = 0;
+
+      // Jump directly to interactive terminal
+      terminal.clear();
+      terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
+      terminal.writeln('Type "help" for available commands.');
+      terminal.writeln('');
+      terminal.write(prompt);
+      callback();
+    };
+
+    // Attach skip listener (auto-removes after first keypress)
+    document.addEventListener('keydown', skipHandler, { once: true });
+
     const bootMessages = [
       { text: 'BIOS v2.1.7 - Cyber Systems Inc.', color: '\x1b[96m', delay: 0 }, // Bright Cyan
       { text: 'Copyright (c) 2024 Cyber Systems', color: '\x1b[96m', delay: 200 },
