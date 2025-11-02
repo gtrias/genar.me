@@ -103,10 +103,15 @@ import '@xterm/xterm/css/xterm.css';
       // Initialize CRT effects
       initCRTEffects(terminalContainer);
 
-      // Start BIOS boot sequence
-      runBIOSBootSequence(terminal, () => {
-        bootComplete = true;
-        setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt);
+      // Load commands first, then start BIOS boot sequence
+      loadCommands().then(() => {
+        runBIOSBootSequence(terminal, () => {
+          bootComplete = true;
+          setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt);
+        });
+      }).catch(err => {
+        console.error('Failed to load commands:', err);
+        showError('Failed to load terminal commands');
       });
 
       console.log('Terminal with boot sequence initialized successfully');
@@ -211,65 +216,80 @@ import '@xterm/xterm/css/xterm.css';
     }, 500);
   }
 
+  // Load command registry
+  let commandRegistry;
+  let commandNames;
+
+  async function loadCommands() {
+    const { getCommandRegistry, getCommandNames } = await import('../commands/index');
+    commandRegistry = getCommandRegistry();
+    commandNames = getCommandNames();
+  }
+
   function setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt) {
+    let commandRunning = false;
+
     // Handle input
     terminal.onData((data) => {
+      if (commandRunning) return; // Ignore input while command is running
+
       switch (data) {
         case '\r': // Enter
           terminal.write('\r\n');
-          
+
           if (currentLine.trim()) {
             history.push(currentLine);
             historyIndex = -1;
           }
 
-          const command = currentLine.trim();
-          const [cmd, ...args] = command.split(' ');
-
-          switch (cmd) {
-            case 'help':
-              terminal.writeln('Available commands:');
-              terminal.writeln('  help     - Show this help message');
-              terminal.writeln('  clear    - Clear terminal');
-              terminal.writeln('  echo     - Echo back arguments');
-              terminal.writeln('  date     - Show current date and time');
-              terminal.writeln('  whoami   - Display current user');
-              terminal.writeln('  ls       - List directory contents');
-              terminal.writeln('  pwd      - Print working directory');
-              terminal.writeln('');
-              terminal.writeln('Features:');
-              terminal.writeln('  • Use arrow keys to navigate command history');
-              terminal.writeln('  • Use Tab for autocomplete');
-              terminal.writeln('  • Use Ctrl+C to interrupt');
-              terminal.writeln('');
-              break;
-            case 'clear':
-              terminal.clear();
-              break;
-            case 'echo':
-              terminal.writeln(args.join(' '));
-              break;
-            case 'date':
-              terminal.writeln(new Date().toString());
-              break;
-            case 'whoami':
-              terminal.writeln('user');
-              break;
-            case 'ls':
-              terminal.writeln('Documents  Downloads  Desktop  Pictures');
-              break;
-            case 'pwd':
-              terminal.writeln('/home/user');
-              break;
-            case '':
-              break;
-            default:
-              terminal.writeln(`Command not found: ${cmd}`);
-              terminal.writeln('Type "help" for available commands.');
-          }
+          const commandInput = currentLine.trim();
+          const [cmd, ...args] = commandInput.split(' ');
 
           currentLine = '';
-          terminal.write(prompt);
+
+          if (cmd === '') {
+            terminal.write(prompt);
+            break;
+          }
+
+          // Execute command
+          const command = commandRegistry.get(cmd);
+          if (command) {
+            try {
+              const context = {
+                terminal,
+                args,
+                onComplete: () => {
+                  commandRunning = false;
+                  terminal.write(prompt);
+                }
+              };
+
+              const result = command.execute(context);
+
+              // Check if command returns a Promise (async)
+              if (result instanceof Promise) {
+                commandRunning = true;
+                result.catch(err => {
+                  console.error(`Error executing command ${cmd}:`, err);
+                  terminal.writeln('\x1b[91mError executing command\x1b[0m');
+                  commandRunning = false;
+                  terminal.write(prompt);
+                });
+              } else {
+                // Synchronous command
+                terminal.write(prompt);
+              }
+            } catch (err) {
+              console.error(`Error executing command ${cmd}:`, err);
+              terminal.writeln('\x1b[91mError executing command\x1b[0m');
+              terminal.write(prompt);
+            }
+          } else {
+            terminal.writeln(`\x1b[91mCommand not found: ${cmd}\x1b[0m`);
+            terminal.writeln('\x1b[90mType "help" for available commands.\x1b[0m');
+            terminal.write(prompt);
+          }
           break;
           
         case '\u007F': // Backspace
@@ -303,18 +323,17 @@ import '@xterm/xterm/css/xterm.css';
           break;
           
         case '\t': // Tab autocomplete
-          const commands = ['help', 'clear', 'echo', 'date', 'whoami', 'ls', 'pwd'];
           const input = currentLine.trim();
-          
+
           if (input) {
-            const matches = commands.filter(cmd => cmd.startsWith(input));
+            const matches = commandNames.filter(cmd => cmd.startsWith(input));
             if (matches.length === 1) {
               const completion = matches[0].slice(input.length);
               currentLine += completion;
               terminal.write(completion);
             } else if (matches.length > 1) {
               terminal.write('\r\n');
-              matches.forEach(cmd => terminal.writeln('  ' + cmd));
+              matches.forEach(cmd => terminal.writeln('  \x1b[93m' + cmd + '\x1b[0m'));
               terminal.write(prompt + currentLine);
             }
           }
