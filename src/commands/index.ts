@@ -24,6 +24,13 @@ import { clearCommand } from './clear';
 import { echoCommand } from './echo';
 import { dateCommand } from './date';
 
+// Easter egg commands
+import { matrixCommand } from './matrix';
+import { hackCommand } from './hack';
+import { coffeeCommand } from './coffee';
+import { lsCommand } from './ls';
+import { whoamiCommand } from './whoami';
+
 /**
  * All registered commands
  * Commands are automatically available in the terminal
@@ -39,6 +46,13 @@ const commands: Command[] = [
   clearCommand,
   echoCommand,
   dateCommand,
+
+  // Easter eggs
+  matrixCommand,
+  hackCommand,
+  coffeeCommand,
+  lsCommand,
+  whoamiCommand,
 ];
 
 /**
@@ -82,4 +96,11 @@ export {
   clearCommand,
   echoCommand,
   dateCommand,
+
+  // Easter eggs
+  matrixCommand,
+  hackCommand,
+  coffeeCommand,
+  lsCommand,
+  whoamiCommand,
 };
