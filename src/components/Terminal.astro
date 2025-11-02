@@ -458,31 +458,208 @@ import '@xterm/xterm/css/xterm.css';
   
   .terminal-container :global(.xterm) {
     background: #000;
-    border-radius: 20px;
+    /* Smooth squircle-like border radius for authentic CRT appearance */
+    border-radius: 3% / 2.5%;
     overflow: hidden;
     height: calc(100vh - 80px) !important;
     width: calc(100% - 80px) !important;
     padding: 20px;
     font-size: 18px;
-    box-shadow: 
+    box-shadow:
       inset 0 0 120px rgba(0, 0, 0, 0.9),
       inset 0 0 40px rgba(0, 0, 0, 0.7),
       0 0 80px rgba(34, 233, 216, 0.3),
       0 0 120px rgba(227, 72, 128, 0.2);
     position: relative;
+    transform-style: preserve-3d;
   }
 
+  /* CRT Screen Curvature - Convex Bulge Effect with vignetting */
+  .terminal-container :global(.xterm)::before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.15) 70%,
+      rgba(0, 0, 0, 0.4) 85%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    pointer-events: none;
+    z-index: 100;
+    border-radius: inherit;
+  }
 
+  /* Glass reflection overlay */
+  .terminal-container :global(.xterm)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(
+        ellipse 800px 600px at 20% 15%,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.08) 20%,
+        transparent 40%
+      ),
+      radial-gradient(
+        ellipse 400px 300px at 80% 80%,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.03) 30%,
+        transparent 50%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+    pointer-events: none;
+    z-index: 99;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+  }
 
   .terminal-container :global(.xterm-viewport) {
-    transform: perspective(1200px) rotateX(-3deg) scaleY(0.9);
+    transform:
+      perspective(2000px)
+      rotateX(-2deg)
+      scale3d(0.98, 0.96, 1);
     transform-style: preserve-3d;
-    border-radius: 50% / 7% 7% 3% 3%;
+    transform-origin: center center;
+    border-radius: inherit;
+    clip-path:
+      ellipse(
+        calc(50% - 10px) calc(50% - 10px)
+        at 50% 50%
+      );
   }
 
-  /* Text curvature to follow screen shape */
+  /* Text curvature to follow screen bulge */
   .terminal-container :global(.xterm-rows) {
-    transform: perspective(1000px) rotateX(1deg);
+    transform:
+      perspective(1500px)
+      rotateX(1.5deg)
+      scale3d(1.02, 1.02, 1);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+  }
+
+  /* Individual row curvature for barrel distortion effect */
+  .terminal-container :global(.xterm-rows > div) {
+    transform-style: preserve-3d;
+  }
+
+  /* Top rows curve backward slightly */
+  .terminal-container :global(.xterm-rows > div:nth-child(-n+5)) {
+    transform: scaleX(0.99) translateZ(-2px);
+  }
+
+  /* Middle rows are neutral (screen center) */
+  .terminal-container :global(.xterm-rows > div:nth-child(n+6):nth-child(-n+25)) {
+    transform: scaleX(1.0) translateZ(0px);
+  }
+
+  /* Bottom rows curve backward */
+  .terminal-container :global(.xterm-rows > div:nth-child(n+26)) {
+    transform: scaleX(0.99) translateZ(-2px);
+  }
+
+  /* Phosphor glow distribution following curvature */
+  .terminal-container :global(.xterm-screen) {
+    filter:
+      drop-shadow(0 0 1px rgba(0, 255, 255, 0.3))
+      drop-shadow(0 0 2px rgba(0, 255, 255, 0.2));
+  }
+
+  /* Scrollbar curvature to match CRT convex effect */
+  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar {
+    width: 14px;
+    transform-style: preserve-3d;
+  }
+
+  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin: 10px 0;
+    transform:
+      perspective(1000px)
+      rotateY(-2deg)
+      translateZ(-5px);
+    transform-style: preserve-3d;
+    box-shadow:
+      inset 2px 0 8px rgba(0, 0, 0, 0.5),
+      inset -1px 0 4px rgba(34, 233, 216, 0.1);
+  }
+
+  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(34, 233, 216, 0.4) 0%,
+      rgba(34, 233, 216, 0.6) 50%,
+      rgba(34, 233, 216, 0.4) 100%
+    );
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    transform:
+      perspective(1000px)
+      rotateY(-2deg)
+      translateZ(-3px)
+      scaleX(0.95);
+    transform-style: preserve-3d;
+    box-shadow:
+      0 0 8px rgba(34, 233, 216, 0.4),
+      inset 0 0 4px rgba(34, 233, 216, 0.3),
+      inset 1px 0 2px rgba(255, 255, 255, 0.2);
+  }
+
+  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(34, 233, 216, 0.6) 0%,
+      rgba(34, 233, 216, 0.8) 50%,
+      rgba(34, 233, 216, 0.6) 100%
+    );
+    box-shadow:
+      0 0 12px rgba(34, 233, 216, 0.6),
+      inset 0 0 6px rgba(34, 233, 216, 0.5),
+      inset 1px 0 3px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Scrollbar container wrapper with curvature */
+  .terminal-container :global(.xterm-viewport) {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 233, 216, 0.5) rgba(0, 0, 0, 0.3);
+  }
+
+  /* Apply subtle barrel distortion to scrollbar area */
+  .terminal-container :global(.xterm-viewport)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: radial-gradient(
+      ellipse at right center,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 70%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    pointer-events: none;
+    z-index: 1000;
+    transform:
+      perspective(800px)
+      rotateY(-3deg)
+      translateZ(-10px);
     transform-style: preserve-3d;
   }
 
@@ -524,13 +701,65 @@ import '@xterm/xterm/css/xterm.css';
     .terminal-container {
       padding: 20px;
     }
-    
+
     .terminal-container :global(.xterm) {
       height: calc(100vh - 40px) !important;
       width: calc(100% - 40px) !important;
-      border-radius: 15px;
+      border-radius: 2.5% / 2%;
       padding: 15px;
       font-size: 14px;
+    }
+
+    /* Reduce curvature intensity on mobile for readability */
+    .terminal-container :global(.xterm-viewport) {
+      transform:
+        perspective(1500px)
+        rotateX(-1deg)
+        scale3d(0.99, 0.98, 1);
+    }
+
+    .terminal-container :global(.xterm-rows) {
+      transform:
+        perspective(1200px)
+        rotateX(1deg)
+        scale3d(1.01, 1.01, 1);
+    }
+
+    /* Reduce glass reflection on mobile */
+    .terminal-container :global(.xterm)::after {
+      opacity: 0.5;
+    }
+
+    /* Reduce edge vignetting on mobile */
+    .terminal-container :global(.xterm)::before {
+      opacity: 0.6;
+    }
+
+    /* Reduce scrollbar curvature on mobile */
+    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-track {
+      transform:
+        perspective(800px)
+        rotateY(-1deg)
+        translateZ(-3px);
+    }
+
+    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb {
+      transform:
+        perspective(800px)
+        rotateY(-1deg)
+        translateZ(-2px)
+        scaleX(0.97);
+    }
+
+    .terminal-container :global(.xterm-viewport)::after {
+      transform:
+        perspective(600px)
+        rotateY(-2deg)
+        translateZ(-5px);
     }
   }
 </style>

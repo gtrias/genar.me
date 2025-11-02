@@ -64,7 +64,7 @@ body {
 
 
 
-/* Phosphor glow effect */
+/* Phosphor glow effect - Enhanced with convex distribution */
 body::after {
   content: "";
   position: fixed;
@@ -72,33 +72,88 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    rgba(34, 233, 216, 0.02) 40%,
-    rgba(227, 72, 128, 0.03) 70%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 120% 110% at center,
+      rgba(34, 233, 216, 0.03) 0%,
+      rgba(34, 233, 216, 0.02) 35%,
+      transparent 50%,
+      rgba(227, 72, 128, 0.02) 65%,
+      rgba(227, 72, 128, 0.04) 80%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
   pointer-events: none;
   z-index: 999;
+  mix-blend-mode: screen;
 }
 
-/* Screen curvature effect */
+/* Screen curvature effect - Enhanced barrel distortion vignette */
 .crt-curve {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    transparent 60%,
-    rgba(0, 0, 0, 0.1) 80%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 100% 95% at center,
+      transparent 0%,
+      transparent 55%,
+      rgba(0, 0, 0, 0.08) 65%,
+      rgba(0, 0, 0, 0.18) 75%,
+      rgba(0, 0, 0, 0.35) 90%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
   pointer-events: none;
   z-index: 998;
+  border-radius: 2%;
+}
+
+/* Convex bulge effect simulation */
+.crt-curve::before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 40%
+    );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Phosphor grid pattern for authentic CRT appearance */
+.crt-curve::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.15) 1px,
+      rgba(0, 0, 0, 0.15) 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.1) 2px
+    );
+  background-size: 2px 2px;
+  opacity: 0.3;
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
 
 /* Flickering effect */
@@ -378,19 +433,27 @@ a:hover {
   .crt-noise {
     opacity: 0.005;
   }
-  
+
   body::before {
     opacity: 0.05;
   }
-  
-  body::after {
-    opacity: 0.02;
-  }
-  
 
-  
-  .crt-curve {
+  body::after {
     opacity: 0.3;
+  }
+
+  .crt-curve {
+    opacity: 0.4;
+  }
+
+  /* Reduce phosphor grid on mobile */
+  .crt-curve::after {
+    opacity: 0.1;
+  }
+
+  /* Reduce convex bulge highlight on mobile */
+  .crt-curve::before {
+    opacity: 0.5;
   }
 }
 
