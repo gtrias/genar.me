@@ -29,7 +29,8 @@ export class StyleManager {
     if (crtCurve) crtCurve.style.opacity = '0.3';
     if (crtNoise) crtNoise.style.opacity = '0.005';
     
-    // Flicker is now handled by CSS on terminal text content only
+    // Reduce body flicker
+    document.body.style.animation = 'flicker 0.3s infinite';
   }
 
   private generateCRTStyles(): string {
@@ -140,12 +141,13 @@ export class StyleManager {
       }
 
       /* Phosphor glow distribution following curvature */
+/*
       .xterm-screen {
         filter:
           drop-shadow(0 0 1px ${this.themeConfig.crt.glowColor})
           drop-shadow(0 0 2px ${this.themeConfig.crt.glowColor});
       }
-
+*/
       /* Scrollbar curvature to match CRT convex effect */
       .xterm-viewport::-webkit-scrollbar {
         width: ${responsive.scrollbarWidth}px;
