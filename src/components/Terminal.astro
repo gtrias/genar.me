@@ -237,7 +237,8 @@ import '@xterm/xterm/css/xterm.css';
         if (charIndex < text.length) {
           terminal.write(`${color}${text[charIndex]}\x1b[0m`);
           charIndex++;
-          setTimeout(typeChar, typeDelay);
+          const charTimeoutId = setTimeout(typeChar, typeDelay);
+          timeoutIds.push(charTimeoutId);
         } else {
           callback();
         }
