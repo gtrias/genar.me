@@ -3,14 +3,12 @@
 // Main orchestrator component that combines all terminal modules
 import TerminalCore from './TerminalCore.astro';
 import BootSequence from './BootSequence.astro';
-import CRTEffects from './CRTEffects.astro';
 import CommandInterface from './CommandInterface.astro';
 ---
 
 <div id="terminal" class="terminal-wrapper">
   <TerminalCore>
     <BootSequence />
-    <CRTEffects />
     <CommandInterface />
   </TerminalCore>
 </div>
@@ -19,7 +17,6 @@ import CommandInterface from './CommandInterface.astro';
   .terminal-wrapper {
     position: relative;
     width: 100%;
-    height: 100vh;
     overflow: hidden;
   }
 </style>

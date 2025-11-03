@@ -34,26 +34,7 @@ export class Animations {
         100% { transform: translateY(10px); }
       }
       
-      .xterm-screen {
-        position: relative;
-      }
       
-      .xterm-screen::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          0deg,
-          transparent 0%,
-          ${this.themeConfig.scanline.color} 50%,
-          transparent 100%
-        );
-        pointer-events: none;
-        animation: terminalScanline ${this.themeConfig.scanline.animationDuration}s linear infinite;
-      }
     `;
     document.head.appendChild(this.styleElement);
   }

@@ -18,7 +18,6 @@ const { title = "Genar Trias - Personal website", description = "Genar Trias per
 </head>
 <body class="crt-container">
 	<div class="grid-overlay"></div>
-	<CRTEffects />
 
 	{showHeader && (
 	<nav style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(10, 10, 15, 0.9));" class="p-4 border-b-2 neon-border-cyan">
@@ -36,13 +35,13 @@ const { title = "Genar Trias - Personal website", description = "Genar Trias per
 	</nav>
 )}
 
-	<main class="container mx-auto p-6 max-w-4xl relative z-10">
+	<main class="container relative z-10">
 		<slot />
 	</main>
 
 	{showFooter && (
 	<footer style="background: linear-gradient(135deg, rgba(10, 10, 15, 0.9), rgba(139, 92, 246, 0.2));" class="mt-12 p-6 border-t-2 neon-border-pink">
-		<div class="container mx-auto max-w-4xl">
+		<div class="container">
 			<div class="flex justify-between items-center">
 				<p class="neon-text-pink font-mono">&copy; 2025 Genar Trias</p>
 				<div class="flex space-x-4 font-mono">

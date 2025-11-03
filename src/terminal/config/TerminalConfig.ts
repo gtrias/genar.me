@@ -14,8 +14,8 @@ export interface TerminalConfig {
   cursorBlinkRate: number;
   fontSize: number;
   fontFamily: string;
-  cols: number;
-  rows: number;
+  cols?: number; // Optional - FitAddon will calculate optimal size if not provided
+  rows?: number; // Optional - FitAddon will calculate optimal size if not provided
   allowTransparency: boolean;
   theme: ThemeColors;
 }

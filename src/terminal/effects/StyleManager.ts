@@ -29,8 +29,7 @@ export class StyleManager {
     if (crtCurve) crtCurve.style.opacity = '0.3';
     if (crtNoise) crtNoise.style.opacity = '0.005';
     
-    // Reduce body flicker
-    document.body.style.animation = 'flicker 0.3s infinite';
+    // Flicker is now handled by CSS on terminal text content only
   }
 
   private generateCRTStyles(): string {
@@ -38,7 +37,7 @@ export class StyleManager {
     const responsive = isMobile ? this.deviceConfig.responsive.mobile : this.deviceConfig.responsive.desktop;
 
     return `
-      /* CRT Screen Curvature - Convex Bulge Effect with vignetting */
+      /* Enhanced CRT Screen Curvature - Improved convex bulge with vignetting */
       .xterm::before {
         content: '';
         position: absolute;
@@ -49,18 +48,19 @@ export class StyleManager {
         background: radial-gradient(
           ellipse at center,
           transparent 0%,
-          transparent 50%,
-          rgba(0, 0, 0, 0.15) 70%,
-          rgba(0, 0, 0, 0.4) 85%,
-          rgba(0, 0, 0, 0.7) 100%
+          transparent 45%,
+          rgba(0, 0, 0, 0.2) 60%,
+          rgba(0, 0, 0, 0.35) 75%,
+          rgba(0, 0, 0, 0.55) 88%,
+          rgba(0, 0, 0, 0.8) 100%
         );
         pointer-events: none;
         z-index: 100;
         border-radius: inherit;
-        opacity: ${responsive.vignetteOpacity};
+        opacity: ${Math.min(1.0, responsive.vignetteOpacity * 1.3)};
       }
 
-      /* Glass reflection overlay */
+      /* Enhanced glass reflection overlay with improved intensity */
       .xterm::after {
         content: '';
         position: absolute;
@@ -71,27 +71,27 @@ export class StyleManager {
         background:
           radial-gradient(
             ellipse 800px 600px at 20% 15%,
-            rgba(255, 255, 255, 0.15) 0%,
-            rgba(255, 255, 255, 0.08) 20%,
-            transparent 40%
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.12) 18%,
+            transparent 38%
           ),
           radial-gradient(
             ellipse 400px 300px at 80% 80%,
-            rgba(255, 255, 255, 0.08) 0%,
-            rgba(255, 255, 255, 0.03) 30%,
-            transparent 50%
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.06) 28%,
+            transparent 48%
           ),
           linear-gradient(
             180deg,
-            rgba(255, 255, 255, 0.05) 0%,
-            transparent 50%,
-            rgba(0, 0, 0, 0.1) 100%
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 45%,
+            rgba(0, 0, 0, 0.15) 100%
           );
         pointer-events: none;
         z-index: 99;
         border-radius: inherit;
         mix-blend-mode: overlay;
-        opacity: ${responsive.reflectionOpacity};
+        opacity: ${Math.min(1.0, responsive.reflectionOpacity * 1.2)};
       }
 
       .xterm-viewport {

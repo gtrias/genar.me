@@ -11,6 +11,7 @@ import type { Command } from '../../commands/types';
 
 import { Terminal } from '@xterm/xterm';
 import { WebLinksAddon } from '@xterm/addon-web-links';
+import { FitAddon } from '@xterm/addon-fit';
 
 import { CRTEffects } from '../effects/CRTEffects';
 import { BootSequence } from '../boot/BootSequence';
@@ -33,6 +34,7 @@ export class TerminalManager {
   private inputManager!: InputManager;
   private timeoutManager: TimeoutManager;
   private errorBoundary: DefaultErrorBoundary;
+  private fitAddon!: FitAddon;
   
   private isInitialized = false;
   private isBootComplete = false;
@@ -43,6 +45,7 @@ export class TerminalManager {
   private deviceConfig: DeviceConfig;
   private commandRegistry: Map<string, Command>;
   private currentLine = '';
+  private resizeObserver?: ResizeObserver;
 
   constructor(container: HTMLElement, config?: Partial<TerminalConfig>) {
     if (!container) {
@@ -79,6 +82,9 @@ export class TerminalManager {
       // Open terminal in container
       this.terminal.open(this.container);
 
+      // Setup fit addon for auto-resize
+      this.setupFitAddon();
+
       // Setup web links addon
       this.setupWebLinks();
 
@@ -94,6 +100,14 @@ export class TerminalManager {
 
       // Initialize boot sequence
       this.bootSequence = new BootSequence(this.terminal, this.bootConfig, this.timeoutManager);
+
+      // Setup resize observer to auto-fit terminal when container size changes
+      this.setupResizeObserver();
+
+      // Additional fit after animation and effects have settled
+      setTimeout(() => {
+        this.fitTerminal();
+      }, 4200); // After power-on animation completes (4000ms) + buffer
 
       this.isInitialized = true;
       console.log('TerminalManager initialized successfully');
@@ -120,6 +134,10 @@ export class TerminalManager {
 
       await this.bootSequence.start(() => {
         this.isBootComplete = true;
+        // Refit terminal after boot sequence completes to ensure proper sizing
+        setTimeout(() => {
+          this.fitTerminal();
+        }, 100);
         this.startInteractiveMode();
       });
 
@@ -177,6 +195,12 @@ export class TerminalManager {
     try {
       // Clear all timeouts
       this.timeoutManager.clearAll();
+
+      // Cleanup resize observer
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+        this.resizeObserver = undefined;
+      }
 
       // Cleanup CRT effects
       if (this.crtEffects) {
@@ -259,17 +283,105 @@ export class TerminalManager {
 
   /**
    * Create terminal instance with configuration
+   * Note: cols and rows are optional - FitAddon will calculate optimal size
    */
   private createTerminalInstance(): Terminal {
-    return new Terminal({
+    const terminalOptions: any = {
       cursorBlink: true,
       fontSize: this.config.fontSize,
       fontFamily: this.config.fontFamily,
       theme: this.config.theme,
-      cols: this.config.cols,
-      rows: this.config.rows,
       allowTransparency: this.config.allowTransparency,
-    });
+    };
+
+    // Don't set cols/rows when using FitAddon - let it calculate optimal dimensions
+    // FitAddon's fit() method will override any initial dimensions anyway
+    // Setting initial dimensions can cause layout issues with clip-path
+
+    return new Terminal(terminalOptions);
+  }
+
+  /**
+   * Setup fit addon for auto-resize
+   */
+  private setupFitAddon(): void {
+    try {
+      this.fitAddon = new FitAddon();
+      this.terminal.loadAddon(this.fitAddon);
+      
+      // Fit terminal to container after a short delay to ensure layout is ready
+      setTimeout(() => {
+        this.fitTerminal();
+      }, 100);
+      
+      console.log('FitAddon loaded - terminal will auto-resize to container');
+    } catch (error) {
+      console.warn('Failed to load FitAddon:', error);
+    }
+  }
+
+  /**
+   * Fit terminal to container dimensions
+   * Accounts for padding and clip-path bezel curve
+   */
+  private fitTerminal(): void {
+    try {
+      if (this.fitAddon) {
+        // Small delay to ensure DOM is fully laid out
+        requestAnimationFrame(() => {
+          if (this.fitAddon) {
+            this.fitAddon.fit();
+            
+            // Force a recalculation if terminal appears misaligned
+            setTimeout(() => {
+              if (this.fitAddon) {
+                this.fitAddon.fit();
+              }
+            }, 100);
+          }
+        });
+      }
+    } catch (error) {
+      console.warn('Failed to fit terminal:', error);
+    }
+  }
+
+  /**
+   * Setup resize observer to auto-fit terminal when container size changes
+   */
+  private setupResizeObserver(): void {
+    try {
+      if (typeof ResizeObserver !== 'undefined') {
+        this.resizeObserver = new ResizeObserver(() => {
+          // Debounce resize to avoid excessive calls
+          if (this.fitAddon) {
+            setTimeout(() => {
+              this.fitTerminal();
+            }, 150);
+          }
+        });
+        
+        // Observe the terminal container
+        const terminalElement = this.container.querySelector('.xterm');
+        if (terminalElement) {
+          this.resizeObserver.observe(terminalElement);
+        }
+        
+        // Also observe the main container for window resize
+        this.resizeObserver.observe(this.container);
+      } else {
+        // Fallback to window resize listener if ResizeObserver not available
+        window.addEventListener('resize', () => {
+          if (this.fitAddon) {
+            setTimeout(() => {
+              this.fitTerminal();
+            }, 150);
+          }
+        });
+      }
+    } catch (error) {
+      console.warn('Failed to setup resize observer:', error);
+    }
   }
 
   /**
