@@ -1,32 +1,26 @@
 ---
-// CRT Effects Overlay Component
-// Adds all the CRT visual effects to the page
+// CRT Effects Component
+// CRT effects overlay component
 ---
 
-<!-- CRT Screen Effects -->
-<div class="crt-curve" id="crt-curve"></div>
-<div class="crt-noise" id="crt-noise"></div>
+<div class="terminal-crt-effects">
+  <div class="scanline"></div>
+  <div class="glitch-overlay"></div>
+</div>
 
 <script>
-  // Mobile detection and performance optimization
+  import { CRTEffects } from '../terminal/effects/CRTEffects';
+  import { defaultThemeConfig } from '../terminal/config/ThemeConfig';
+  import { defaultDeviceConfig } from '../terminal/config/DeviceConfig';
+
   document.addEventListener('DOMContentLoaded', async () => {
-    const { defaultDeviceConfig } = await import('../terminal/config/DeviceConfig');
-    const { StyleManager } = await import('../terminal/effects');
-    
-    const isMobile = defaultDeviceConfig.mobileRegex.test(navigator.userAgent);
-    const isLowPerformance = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
-    
-    if (isMobile || isLowPerformance) {
-      // Reduce effects on mobile or low-performance devices
-      const styleManager = new StyleManager(
-        await import('../terminal/config/ThemeConfig').then(m => m.defaultThemeConfig),
-        defaultDeviceConfig
-      );
-      styleManager.applyMobileOptimizations();
-    }
+    // CRT effects are now handled by TerminalManager
+    // This component serves as a placeholder for any CRT-specific UI
+    // and can be extended for custom visual effects
+    console.log('CRTEffects component loaded');
     
     // Add rare random glitches to the entire page
-    if (!isMobile) {
+    if (!defaultDeviceConfig.mobileRegex.test(navigator.userAgent)) {
       startPageGlitches();
     }
   });
@@ -44,33 +38,93 @@
   }
 </script>
 
-<!-- SVG filter for chromatic aberration -->
-<svg style="position: absolute; width: 0; height: 0;">
-	<defs>
-		<filter id="chromatic-aberration">
-			<feColorMatrix type="matrix" values="1 0 0 0 0
-													0 1 0 0 0
-													0 0 1 0 0
-													0 0 0 1 0" result="original"/>
-			<feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur"/>
-			<feColorMatrix in="blur" type="matrix" values="1 0 0 0 0
-															0 0 0 0 0
-															0 0 0 0 0
-															0 0 0 0.5 0" result="red"/>
-			<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
-															0 1 0 0 0
-															0 0 0 0 0
-															0 0 0 0.5 0" result="green"/>
-			<feColorMatrix in="blur" type="matrix" values="0 0 0 0 0
-															0 0 0 0 0
-															0 0 1 0 0
-															0 0 0 0.5 0" result="blue"/>
-			<feOffset in="red" dx="1" dy="0" result="red-offset"/>
-			<feOffset in="green" dx="0" dy="0" result="green-offset"/>
-			<feOffset in="blue" dx="-1" dy="0" result="blue-offset"/>
-			<feBlend in="red-offset" in2="green-offset" mode="screen" result="rg"/>
-			<feBlend in="rg" in2="blue-offset" mode="screen" result="rgb"/>
-			<feBlend in="original" in2="rgb" mode="multiply"/>
-		</filter>
-	</defs>
-</svg>
+<style>
+  .terminal-crt-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9997;
+  }
+
+  .scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      transparent,
+      rgba(0, 255, 0, 0.1),
+      transparent
+    );
+    animation: scanline 8s linear infinite;
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  .glitch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    opacity: 0.05;
+  }
+
+  /* Random glitch effect */
+  :global(.random-glitch) {
+    animation: random-glitch 0.2s ease-in-out;
+  }
+
+  @keyframes random-glitch {
+    0%, 100% {
+      transform: translate(0);
+      filter: hue-rotate(0deg);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+      filter: hue-rotate(90deg);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+      filter: hue-rotate(180deg);
+    }
+    60% {
+      transform: translate(2px, 2px);
+      filter: hue-rotate(270deg);
+    }
+    80% {
+      transform: translate(2px, -2px);
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .scanline {
+      height: 1px;
+      animation-duration: 12s;
+    }
+    
+    .glitch-overlay {
+      opacity: 0.02;
+    }
+  }
+</style>

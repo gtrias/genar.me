@@ -1,0 +1,138 @@
+---
+// Command Interface Component
+// Interactive terminal interface component
+---
+
+<div id="command-interface" class="command-interface">
+  <div class="input-area">
+    <span class="prompt">$</span>
+    <input 
+      type="text" 
+      id="command-input" 
+      class="command-input" 
+      autocomplete="off" 
+      spellcheck="false"
+      placeholder="Type a command..."
+    />
+  </div>
+  <div id="command-output" class="command-output"></div>
+</div>
+
+<script>
+  import { CommandHandler } from '../terminal/core/CommandHandler';
+  import { getCommandRegistry } from '../commands';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Command interface is now handled by TerminalManager
+    // This component serves as a placeholder for any command-specific UI
+    // and can be extended for custom command interfaces
+    console.log('CommandInterface component loaded');
+    
+    const input = document.getElementById('command-input');
+    const output = document.getElementById('command-output');
+    
+    if (input && output) {
+      // Focus input when component loads
+      input.focus();
+      
+      // Handle keyboard shortcuts
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          // Tab completion logic could be added here
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          // Command history navigation could be added here
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          // Command history navigation could be added here
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .command-interface {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 80px);
+    max-width: 800px;
+    z-index: 9996;
+    display: none;
+  }
+
+  .command-interface.active {
+    display: block;
+  }
+
+  .input-area {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+  }
+
+  .prompt {
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 16px;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+
+  .command-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 16px;
+    outline: none;
+    caret-color: #00ff00;
+  }
+
+  .command-input::placeholder {
+    color: rgba(0, 255, 0, 0.5);
+  }
+
+  .command-output {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    padding: 12px;
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .command-output.active {
+    display: block;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .command-interface {
+      width: calc(100% - 40px);
+      bottom: 10px;
+    }
+
+    .prompt, .command-input {
+      font-size: 14px;
+    }
+
+    .command-output {
+      font-size: 12px;
+      max-height: 150px;
+    }
+  }
+</style>
