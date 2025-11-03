@@ -189,7 +189,7 @@ import '@xterm/xterm/css/xterm.css';
     };
   }
 
-  function createTerminalWithBoot(Terminal, WebLinksAddon) {
+  async function createTerminalWithBoot(Terminal, WebLinksAddon) {
     try {
       console.log('Creating terminal with boot sequence...');
 
@@ -209,14 +209,19 @@ import '@xterm/xterm/css/xterm.css';
       // Setup web links addon
       setupWebLinks(terminal, WebLinksAddon);
 
-      // Create CRT effects
+      // Create CRT effects container
       createCRTEffectsContainer(terminalContainer);
       
       // Initialize terminal state
       const state = initializeTerminalState();
       
       // Initialize CRT effects
-      initCRTEffects(terminalContainer);
+      const { CRTEffects } = await import('../terminal/effects');
+      const { defaultThemeConfig } = await import('../terminal/config/ThemeConfig');
+      const { defaultDeviceConfig } = await import('../terminal/config/DeviceConfig');
+      
+      const crtEffectsSystem = new CRTEffects(terminalContainer, defaultThemeConfig, defaultDeviceConfig);
+      crtEffectsSystem.initialize();
 
       // Load commands and start boot sequence
       loadCommands().then(() => {
@@ -488,105 +493,7 @@ import '@xterm/xterm/css/xterm.css';
     });
   }
 
-  // CRT Effects Implementation
-  function initCRTEffects(container) {
-    if (!isMobile()) {
-      startRandomGlitches(container);
-      enhanceCursorBlink(container);
-    }
-  }
 
-  function startRandomGlitches(container) {
-    const glitchInterval = setInterval(() => {
-      if (Math.random() < MOBILE_CONFIG.GLITCH_PROBABILITY) {
-        triggerGlitch(container);
-      }
-    }, MOBILE_CONFIG.GLITCH_INTERVAL);
-    
-    // Store interval ID for potential cleanup
-    container.glitchInterval = glitchInterval;
-  }
-
-  function triggerGlitch(container) {
-    const glitchType = GLITCH_TYPES[Math.floor(Math.random() * GLITCH_TYPES.length)];
-    
-    switch (glitchType) {
-      case 'flicker':
-        container.style.opacity = '0.95';
-        setTimeout(() => {
-          container.style.opacity = '1';
-        }, 50);
-        break;
-        
-      case 'shift':
-        container.style.transform = `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)`;
-        setTimeout(() => {
-          container.style.transform = 'translate(0, 0)';
-        }, 100);
-        break;
-        
-      case 'color':
-        const originalFilter = container.style.filter;
-        container.style.filter = 'hue-rotate(90deg) saturate(1.5)';
-        setTimeout(() => {
-          container.style.filter = originalFilter;
-        }, 75);
-        break;
-    }
-  }
-
-  function enhanceCursorBlink(container) {
-    // Add enhanced cursor glow effect
-    const style = document.createElement('style');
-    style.textContent = `
-      .terminal-crt-effects {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 10;
-      }
-      
-      .xterm-cursor {
-        box-shadow: 0 0 8px #00ffff, 0 0 16px rgba(0, 255, 255, 0.8);
-        animation: cursorGlow 2s ease-in-out infinite alternate;
-      }
-      
-      @keyframes cursorGlow {
-        0% { box-shadow: 0 0 8px #00ffff, 0 0 16px rgba(0, 255, 255, 0.8); }
-        100% { box-shadow: 0 0 12px #00ffff, 0 0 24px rgba(0, 255, 255, 1); }
-      }
-      
-      @keyframes terminalScanline {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(10px); }
-      }
-      
-      .xterm-screen {
-        position: relative;
-      }
-      
-      .xterm-screen::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          0deg,
-          transparent 0%,
-          rgba(34, 233, 216, 0.01) 50%,
-          transparent 100%
-        );
-        pointer-events: none;
-        animation: terminalScanline 8s linear infinite;
-      }
-    `;
-    document.head.appendChild(style);
-  }
 
   function showError(message) {
     const terminalContainer = document.getElementById('terminal');
@@ -646,194 +553,7 @@ import '@xterm/xterm/css/xterm.css';
     transform-style: preserve-3d;
   }
 
-  /* CRT Screen Curvature - Convex Bulge Effect with vignetting */
-  .terminal-container :global(.xterm)::before {
-    content: '';
-    position: absolute;
-    top: -5%;
-    left: -5%;
-    width: 110%;
-    height: 110%;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 0%,
-      transparent 50%,
-      rgba(0, 0, 0, 0.15) 70%,
-      rgba(0, 0, 0, 0.4) 85%,
-      rgba(0, 0, 0, 0.7) 100%
-    );
-    pointer-events: none;
-    z-index: 100;
-    border-radius: inherit;
-  }
 
-  /* Glass reflection overlay */
-  .terminal-container :global(.xterm)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-      radial-gradient(
-        ellipse 800px 600px at 20% 15%,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0.08) 20%,
-        transparent 40%
-      ),
-      radial-gradient(
-        ellipse 400px 300px at 80% 80%,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0.03) 30%,
-        transparent 50%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.05) 0%,
-        transparent 50%,
-        rgba(0, 0, 0, 0.1) 100%
-      );
-    pointer-events: none;
-    z-index: 99;
-    border-radius: inherit;
-    mix-blend-mode: overlay;
-  }
-
-  .terminal-container :global(.xterm-viewport) {
-    transform:
-      perspective(2000px)
-      rotateX(-2deg)
-      scale3d(0.98, 0.96, 1);
-    transform-style: preserve-3d;
-    transform-origin: center center;
-    border-radius: inherit;
-    clip-path:
-      ellipse(
-        calc(50% - 10px) calc(50% - 10px)
-        at 50% 50%
-      );
-  }
-
-  /* Text curvature to follow screen bulge */
-  .terminal-container :global(.xterm-rows) {
-    transform:
-      perspective(1500px)
-      rotateX(1.5deg)
-      scale3d(1.02, 1.02, 1);
-    transform-style: preserve-3d;
-    transform-origin: center center;
-  }
-
-  /* Individual row curvature for barrel distortion effect */
-  .terminal-container :global(.xterm-rows > div) {
-    transform-style: preserve-3d;
-  }
-
-  /* Top rows curve backward slightly */
-  .terminal-container :global(.xterm-rows > div:nth-child(-n+5)) {
-    transform: scaleX(0.99) translateZ(-2px);
-  }
-
-  /* Middle rows are neutral (screen center) */
-  .terminal-container :global(.xterm-rows > div:nth-child(n+6):nth-child(-n+25)) {
-    transform: scaleX(1.0) translateZ(0px);
-  }
-
-  /* Bottom rows curve backward */
-  .terminal-container :global(.xterm-rows > div:nth-child(n+26)) {
-    transform: scaleX(0.99) translateZ(-2px);
-  }
-
-  /* Phosphor glow distribution following curvature */
-  .terminal-container :global(.xterm-screen) {
-    filter:
-      drop-shadow(0 0 1px rgba(0, 255, 255, 0.3))
-      drop-shadow(0 0 2px rgba(0, 255, 255, 0.2));
-  }
-
-  /* Scrollbar curvature to match CRT convex effect */
-  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar {
-    width: 14px;
-    transform-style: preserve-3d;
-  }
-
-  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    margin: 10px 0;
-    transform:
-      perspective(1000px)
-      rotateY(-2deg)
-      translateZ(-5px);
-    transform-style: preserve-3d;
-    box-shadow:
-      inset 2px 0 8px rgba(0, 0, 0, 0.5),
-      inset -1px 0 4px rgba(34, 233, 216, 0.1);
-  }
-
-  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      rgba(34, 233, 216, 0.4) 0%,
-      rgba(34, 233, 216, 0.6) 50%,
-      rgba(34, 233, 216, 0.4) 100%
-    );
-    border-radius: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    transform:
-      perspective(1000px)
-      rotateY(-2deg)
-      translateZ(-3px)
-      scaleX(0.95);
-    transform-style: preserve-3d;
-    box-shadow:
-      0 0 8px rgba(34, 233, 216, 0.4),
-      inset 0 0 4px rgba(34, 233, 216, 0.3),
-      inset 1px 0 2px rgba(255, 255, 255, 0.2);
-  }
-
-  .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      rgba(34, 233, 216, 0.6) 0%,
-      rgba(34, 233, 216, 0.8) 50%,
-      rgba(34, 233, 216, 0.6) 100%
-    );
-    box-shadow:
-      0 0 12px rgba(34, 233, 216, 0.6),
-      inset 0 0 6px rgba(34, 233, 216, 0.5),
-      inset 1px 0 3px rgba(255, 255, 255, 0.3);
-  }
-
-  /* Scrollbar container wrapper with curvature */
-  .terminal-container :global(.xterm-viewport) {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(34, 233, 216, 0.5) rgba(0, 0, 0, 0.3);
-  }
-
-  /* Apply subtle barrel distortion to scrollbar area */
-  .terminal-container :global(.xterm-viewport)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 100%;
-    background: radial-gradient(
-      ellipse at right center,
-      transparent 0%,
-      rgba(0, 0, 0, 0.1) 70%,
-      rgba(0, 0, 0, 0.2) 100%
-    );
-    pointer-events: none;
-    z-index: 1000;
-    transform:
-      perspective(800px)
-      rotateY(-3deg)
-      translateZ(-10px);
-    transform-style: preserve-3d;
-  }
 
   .loading-message, .error-message {
     color: #00ff00;
@@ -882,56 +602,6 @@ import '@xterm/xterm/css/xterm.css';
       font-size: 14px;
     }
 
-    /* Reduce curvature intensity on mobile for readability */
-    .terminal-container :global(.xterm-viewport) {
-      transform:
-        perspective(1500px)
-        rotateX(-1deg)
-        scale3d(0.99, 0.98, 1);
-    }
 
-    .terminal-container :global(.xterm-rows) {
-      transform:
-        perspective(1200px)
-        rotateX(1deg)
-        scale3d(1.01, 1.01, 1);
-    }
-
-    /* Reduce glass reflection on mobile */
-    .terminal-container :global(.xterm)::after {
-      opacity: 0.5;
-    }
-
-    /* Reduce edge vignetting on mobile */
-    .terminal-container :global(.xterm)::before {
-      opacity: 0.6;
-    }
-
-    /* Reduce scrollbar curvature on mobile */
-    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-track {
-      transform:
-        perspective(800px)
-        rotateY(-1deg)
-        translateZ(-3px);
-    }
-
-    .terminal-container :global(.xterm-viewport)::-webkit-scrollbar-thumb {
-      transform:
-        perspective(800px)
-        rotateY(-1deg)
-        translateZ(-2px)
-        scaleX(0.97);
-    }
-
-    .terminal-container :global(.xterm-viewport)::after {
-      transform:
-        perspective(600px)
-        rotateY(-2deg)
-        translateZ(-5px);
-    }
   }
 </style>
