@@ -196,6 +196,9 @@ import '@xterm/xterm/css/xterm.css';
 
     function processNextMessage() {
       if (messageIndex >= bootMessages.length) {
+        // Remove skip listener since boot completed naturally
+        document.removeEventListener('keydown', skipHandler);
+
         // Clear screen and show welcome message
         terminal.clear();
         terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
