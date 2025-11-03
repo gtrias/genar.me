@@ -207,8 +207,8 @@ import '@xterm/xterm/css/xterm.css';
       }
 
       const msg = bootMessages[messageIndex];
-      
-      setTimeout(() => {
+
+      const msgTimeoutId = setTimeout(() => {
         if (msg.text) {
           if (msg.instant) {
             terminal.writeln(`${msg.color}${msg.text}\x1b[0m`);
@@ -223,10 +223,11 @@ import '@xterm/xterm/css/xterm.css';
         } else {
           terminal.writeln('');
         }
-        
+
         messageIndex++;
         processNextMessage();
       }, msg.delay);
+      timeoutIds.push(msgTimeoutId);
     }
 
     function typeWriter(terminal, text, color, callback) {
