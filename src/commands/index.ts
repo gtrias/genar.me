@@ -18,6 +18,7 @@ import { helpCommand } from './help';
 import { aboutCommand } from './about';
 import { skillsCommand } from './skills';
 import { experienceCommand } from './experience';
+import { linksCommand } from './links';
 
 // System commands
 import { clearCommand } from './clear';
@@ -41,6 +42,7 @@ const commands: Command[] = [
   aboutCommand,
   skillsCommand,
   experienceCommand,
+  linksCommand,
 
   // System
   clearCommand,
@@ -91,6 +93,7 @@ export {
   aboutCommand,
   skillsCommand,
   experienceCommand,
+  linksCommand,
 
   // System
   clearCommand,

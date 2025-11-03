@@ -10,11 +10,111 @@ import '@xterm/xterm/css/xterm.css';
 <script>
   console.log('Terminal script starting...');
   
+  // Constants
+  const TERMINAL_CONFIG = {
+    CURSOR_BLINK_RATE: 500,
+    FONT_SIZE: 22,
+    FONT_FAMILY: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+    COLS: 100,
+    ROWS: 30,
+    THEME: {
+      background: 'transparent',
+      foreground: '#00ffff',
+      cursor: '#00ffff',
+      selection: '#00ffff30',
+      brightWhite: '#ffffff',
+      brightCyan: '#00ffff',
+      brightGreen: '#00ff00',
+      brightMagenta: '#ff00ff',
+      brightYellow: '#ffff00',
+    }
+  };
+
+  const MOBILE_CONFIG = {
+    TYPE_DELAY_MOBILE: 15,
+    TYPE_DELAY_DESKTOP: 25,
+    GLITCH_INTERVAL: 3000,
+    GLITCH_PROBABILITY: 0.02,
+    MOBILE_REGEX: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+  };
+
+  const COLOR_CODES = {
+    BRIGHT_CYAN: '\x1b[96m',
+    BRIGHT_GREEN: '\x1b[92m',
+    BRIGHT_MAGENTA: '\x1b[95m',
+    BRIGHT_BLUE: '\x1b[94m',
+    BRIGHT_YELLOW: '\x1b[93m',
+    BRIGHT_RED: '\x1b[91m',
+    BRIGHT_WHITE: '\x1b[97m',
+    RESET: '\x1b[0m',
+    DIM_WHITE: '\x1b[90m'
+  };
+
+  const BOOT_MESSAGES = [
+    { text: 'BIOS v2.1.7 - Cyber Systems Inc.', color: COLOR_CODES.BRIGHT_CYAN, delay: 0 },
+    { text: 'Copyright (c) 2024 Cyber Systems', color: COLOR_CODES.BRIGHT_CYAN, delay: 200 },
+    { text: '', delay: 100 },
+    { text: 'CPU: Quantum Processor X9 @ 4.2GHz', color: COLOR_CODES.BRIGHT_MAGENTA, delay: 300 },
+    { text: 'CPU Test: [OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 800 },
+    { text: '', delay: 200 },
+    { text: 'Memory: 32768MB DDR7', color: COLOR_CODES.BRIGHT_MAGENTA, delay: 300 },
+    { text: 'Memory Test: ', color: COLOR_CODES.BRIGHT_MAGENTA, delay: 600 },
+    { text: '████████████████████', color: COLOR_CODES.BRIGHT_GREEN, delay: 900, instant: true },
+    { text: '[OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 100 },
+    { text: '', delay: 200 },
+    { text: 'Initializing System Modules...', color: COLOR_CODES.BRIGHT_BLUE, delay: 300 },
+    { text: 'Loading kernel.sys', color: COLOR_CODES.BRIGHT_CYAN, delay: 600 },
+    { text: 'Loading drivers.dll', color: COLOR_CODES.BRIGHT_CYAN, delay: 900 },
+    { text: 'Loading network.stack', color: COLOR_CODES.BRIGHT_CYAN, delay: 1200 },
+    { text: 'Loading security.module', color: COLOR_CODES.BRIGHT_CYAN, delay: 1500 },
+    { text: 'System Modules: [OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 1800 },
+    { text: '', delay: 200 },
+    { text: 'Checking Hardware...', color: COLOR_CODES.BRIGHT_BLUE, delay: 300 },
+    { text: 'HDD0: CyberDrive SSD 2TB [OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 600 },
+    { text: 'GPU: NeonGraphics RTX 9090 [OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 900 },
+    { text: 'NET: CyberLink 10GbE [OK]', color: COLOR_CODES.BRIGHT_GREEN, delay: 1200 },
+    { text: '', delay: 300 },
+    { text: 'System Check Complete', color: COLOR_CODES.BRIGHT_GREEN, delay: 400 },
+    { text: 'All systems operational', color: COLOR_CODES.BRIGHT_CYAN, delay: 700 },
+    { text: '', delay: 500 },
+    { text: 'Starting interactive terminal...', color: COLOR_CODES.BRIGHT_GREEN, delay: 800 },
+    { text: '', delay: 1000 }
+  ];
+
+  const GLITCH_TYPES = ['flicker', 'shift', 'color'];
+
+  // Utility functions
+  function isMobile() {
+    return MOBILE_CONFIG.MOBILE_REGEX.test(navigator.userAgent);
+  }
+
+  function createError(message) {
+    return new Error(`Terminal Error: ${message}`);
+  }
+
+  function manageTimeouts() {
+    const timeoutIds = [];
+    
+    return {
+      add: (id) => timeoutIds.push(id),
+      clearAll: () => {
+        timeoutIds.forEach(id => clearTimeout(id));
+        timeoutIds.length = 0;
+      },
+      getCount: () => timeoutIds.length
+    };
+  }
+
   // Initialize terminal when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing terminal...');
     initTerminalWithBoot();
   });
+
+  function handleAsyncError(error, fallbackMessage) {
+    console.error(error);
+    showError(fallbackMessage);
+  }
 
   function initTerminalWithBoot() {
     try {
@@ -28,14 +128,12 @@ import '@xterm/xterm/css/xterm.css';
         console.log('xterm and addons loaded, creating terminal instance');
         createTerminalWithBoot(Terminal, WebLinksAddon);
       }).catch(err => {
-        console.error('Failed to load xterm:', err);
-        // Fallback to CDN
+        handleAsyncError(err, 'Failed to load terminal library');
         loadFromCDN();
       });
 
     } catch (error) {
-      console.error('Error initializing terminal:', error);
-      showError('Error: ' + error.message);
+      handleAsyncError(error, 'Error initializing terminal');
     }
   }
 
@@ -45,14 +143,50 @@ import '@xterm/xterm/css/xterm.css';
     script.src = 'https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js';
     script.onload = () => {
       console.log('xterm loaded from CDN');
-      // CDN fallback - WebLinksAddon not loaded
       createTerminalWithBoot(window.Terminal, null);
     };
     script.onerror = () => {
-      console.error('Failed to load xterm from CDN');
-      showError('Failed to load terminal library');
+      handleAsyncError('Failed to load xterm from CDN', 'Failed to load terminal library');
     };
     document.head.appendChild(script);
+  }
+
+  function createTerminalInstance(Terminal) {
+    return new Terminal({
+      cursorBlink: true,
+      cursorBlinkRate: TERMINAL_CONFIG.CURSOR_BLINK_RATE,
+      fontSize: TERMINAL_CONFIG.FONT_SIZE,
+      fontFamily: TERMINAL_CONFIG.FONT_FAMILY,
+      theme: TERMINAL_CONFIG.THEME,
+      cols: TERMINAL_CONFIG.COLS,
+      rows: TERMINAL_CONFIG.ROWS,
+      allowTransparency: true,
+    });
+  }
+
+  function setupWebLinks(terminal, WebLinksAddon) {
+    if (WebLinksAddon) {
+      const webLinksAddon = new WebLinksAddon();
+      terminal.loadAddon(webLinksAddon);
+      console.log('WebLinksAddon loaded - URLs are now clickable');
+    }
+  }
+
+  function createCRTEffectsContainer(terminalContainer) {
+    const crtEffects = document.createElement('div');
+    crtEffects.className = 'terminal-crt-effects';
+    terminalContainer.appendChild(crtEffects);
+    return crtEffects;
+  }
+
+  function initializeTerminalState() {
+    return {
+      currentLine: '',
+      history: [],
+      historyIndex: -1,
+      prompt: '$ ',
+      bootComplete: false
+    };
   }
 
   function createTerminalWithBoot(Terminal, WebLinksAddon) {
@@ -61,68 +195,37 @@ import '@xterm/xterm/css/xterm.css';
 
       const terminalContainer = document.getElementById('terminal');
       if (!terminalContainer) {
-        console.error('Terminal container not found');
-        return;
+        throw createError('Terminal container not found');
       }
 
       // Clear loading message and set fullscreen mode
       terminalContainer.innerHTML = '';
       terminalContainer.classList.add('fullscreen-mode');
 
-      const terminal = new Terminal({
-        cursorBlink: true,
-        cursorBlinkRate: 500,
-        fontSize: 18,
-        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-        theme: {
-          background: 'transparent',
-          foreground: '#00ffff', // Brighter cyan
-          cursor: '#00ffff',
-          selection: '#00ffff30',
-          brightWhite: '#ffffff',
-          brightCyan: '#00ffff',
-          brightGreen: '#00ff00',
-          brightMagenta: '#ff00ff',
-          brightYellow: '#ffff00',
-        },
-        cols: 100,
-        rows: 30,
-        allowTransparency: true,
-      });
-
+      // Create and configure terminal
+      const terminal = createTerminalInstance(Terminal);
       terminal.open(terminalContainer);
 
-      // Enable clickable links in terminal
-      if (WebLinksAddon) {
-        const webLinksAddon = new WebLinksAddon();
-        terminal.loadAddon(webLinksAddon);
-        console.log('WebLinksAddon loaded - URLs are now clickable');
-      }
+      // Setup web links addon
+      setupWebLinks(terminal, WebLinksAddon);
 
-      // Add CRT effects container
-      const crtEffects = document.createElement('div');
-      crtEffects.className = 'terminal-crt-effects';
-      terminalContainer.appendChild(crtEffects);
+      // Create CRT effects
+      createCRTEffectsContainer(terminalContainer);
       
-      // Terminal state
-      let currentLine = '';
-      let history = [];
-      let historyIndex = -1;
-      const prompt = '$ ';
-      let bootComplete = false;
+      // Initialize terminal state
+      const state = initializeTerminalState();
       
       // Initialize CRT effects
       initCRTEffects(terminalContainer);
 
-      // Load commands first, then start BIOS boot sequence
+      // Load commands and start boot sequence
       loadCommands().then(() => {
         runBIOSBootSequence(terminal, () => {
-          bootComplete = true;
-          setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt);
+          state.bootComplete = true;
+          setupInteractiveTerminal(terminal, state.currentLine, state.history, state.historyIndex, state.prompt);
         });
       }).catch(err => {
-        console.error('Failed to load commands:', err);
-        showError('Failed to load terminal commands');
+        handleAsyncError(err, 'Failed to load terminal commands');
       });
 
       console.log('Terminal with boot sequence initialized successfully');
@@ -133,128 +236,87 @@ import '@xterm/xterm/css/xterm.css';
     }
   }
 
-  function runBIOSBootSequence(terminal, callback) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const typeDelay = isMobile ? 15 : 25; // Faster on mobile
-
-    // Timeout tracking for skip functionality
-    const timeoutIds = [];
-    let bootSkipped = false;
-
-    // Skip handler - allows user to bypass boot sequence
-    const skipHandler = () => {
-      bootSkipped = true;
-
-      // Clear all pending timeouts
-      timeoutIds.forEach(id => clearTimeout(id));
-      timeoutIds.length = 0;
-
-      // Jump directly to interactive terminal
+  function createSkipHandler(terminal, prompt, callback, timeoutManager) {
+    return () => {
+      timeoutManager.clearAll();
       terminal.clear();
-      terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
-      terminal.writeln('Type "help" for available commands.');
-      terminal.writeln('');
-      terminal.write(prompt);
+      showWelcomeMessage(terminal, prompt);
       callback();
     };
+  }
+
+  function typeWriter(terminal, text, color, callback, timeoutManager) {
+    const typeDelay = isMobile() ? MOBILE_CONFIG.TYPE_DELAY_MOBILE : MOBILE_CONFIG.TYPE_DELAY_DESKTOP;
+    let charIndex = 0;
+    
+    function typeChar() {
+      if (charIndex < text.length) {
+        terminal.write(`${color}${text[charIndex]}${COLOR_CODES.RESET}`);
+        charIndex++;
+        const charTimeoutId = setTimeout(typeChar, typeDelay);
+        timeoutManager.add(charTimeoutId);
+      } else {
+        callback();
+      }
+    }
+    
+    typeChar();
+  }
+
+  function processBootMessage(terminal, message, prompt, callback, timeoutManager, messageIndex, bootMessages) {
+    const msgTimeoutId = setTimeout(() => {
+      if (message.text) {
+        if (message.instant) {
+          terminal.writeln(`${message.color}${message.text}${COLOR_CODES.RESET}`);
+        } else {
+          typeWriter(terminal, message.text, message.color, () => {
+            terminal.writeln('');
+            messageIndex++;
+            processNextBootMessage(terminal, prompt, callback, timeoutManager, messageIndex, bootMessages);
+          }, timeoutManager);
+          return;
+        }
+      } else {
+        terminal.writeln('');
+      }
+
+      messageIndex++;
+      processNextBootMessage(terminal, prompt, callback, timeoutManager, messageIndex, bootMessages);
+    }, message.delay);
+    timeoutManager.add(msgTimeoutId);
+  }
+
+  function processNextBootMessage(terminal, prompt, callback, timeoutManager, messageIndex, bootMessages) {
+    if (messageIndex >= bootMessages.length) {
+      terminal.clear();
+      showWelcomeMessage(terminal, prompt);
+      callback();
+      return;
+    }
+
+    const message = bootMessages[messageIndex];
+    processBootMessage(terminal, message, prompt, callback, timeoutManager, messageIndex, bootMessages);
+  }
+
+  function runBIOSBootSequence(terminal, callback) {
+    const timeoutManager = manageTimeouts();
+    const skipHandler = createSkipHandler(terminal, '$ ', callback, timeoutManager);
 
     // Attach skip listener (auto-removes after first keypress)
     document.addEventListener('keydown', skipHandler, { once: true });
 
-    const bootMessages = [
-      { text: 'BIOS v2.1.7 - Cyber Systems Inc.', color: '\x1b[96m', delay: 0 }, // Bright Cyan
-      { text: 'Copyright (c) 2024 Cyber Systems', color: '\x1b[96m', delay: 200 },
-      { text: '', delay: 100 },
-      { text: 'CPU: Quantum Processor X9 @ 4.2GHz', color: '\x1b[95m', delay: 300 }, // Bright Magenta
-      { text: 'CPU Test: [OK]', color: '\x1b[92m', delay: 800 }, // Bright Green
-      { text: '', delay: 200 },
-      { text: 'Memory: 32768MB DDR7', color: '\x1b[95m', delay: 300 },
-      { text: 'Memory Test: ', color: '\x1b[95m', delay: 600 },
-      { text: '████████████████████', color: '\x1b[92m', delay: 900, instant: true },
-      { text: '[OK]', color: '\x1b[92m', delay: 100 },
-      { text: '', delay: 200 },
-      { text: 'Initializing System Modules...', color: '\x1b[94m', delay: 300 }, // Bright Blue
-      { text: 'Loading kernel.sys', color: '\x1b[96m', delay: 600 },
-      { text: 'Loading drivers.dll', color: '\x1b[96m', delay: 900 },
-      { text: 'Loading network.stack', color: '\x1b[96m', delay: 1200 },
-      { text: 'Loading security.module', color: '\x1b[96m', delay: 1500 },
-      { text: 'System Modules: [OK]', color: '\x1b[92m', delay: 1800 },
-      { text: '', delay: 200 },
-      { text: 'Checking Hardware...', color: '\x1b[94m', delay: 300 },
-      { text: 'HDD0: CyberDrive SSD 2TB [OK]', color: '\x1b[92m', delay: 600 },
-      { text: 'GPU: NeonGraphics RTX 9090 [OK]', color: '\x1b[92m', delay: 900 },
-      { text: 'NET: CyberLink 10GbE [OK]', color: '\x1b[92m', delay: 1200 },
-      { text: '', delay: 300 },
-      { text: 'System Check Complete', color: '\x1b[92m', delay: 400 },
-      { text: 'All systems operational', color: '\x1b[96m', delay: 700 },
-      { text: '', delay: 500 },
-      { text: 'Starting interactive terminal...', color: '\x1b[92m', delay: 800 },
-      { text: '', delay: 1000 }
-    ];
-
-    let messageIndex = 0;
-
-    function processNextMessage() {
-      if (messageIndex >= bootMessages.length) {
-        // Remove skip listener since boot completed naturally
-        document.removeEventListener('keydown', skipHandler);
-
-        // Clear screen and show welcome message
-        terminal.clear();
-        terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
-        terminal.writeln('Type "help" for available commands.');
-        terminal.writeln('');
-        terminal.write(prompt);
-        callback();
-        return;
-      }
-
-      const msg = bootMessages[messageIndex];
-
-      const msgTimeoutId = setTimeout(() => {
-        if (msg.text) {
-          if (msg.instant) {
-            terminal.writeln(`${msg.color}${msg.text}\x1b[0m`);
-          } else {
-            typeWriter(terminal, msg.text, msg.color, () => {
-              terminal.writeln('');
-              messageIndex++;
-              processNextMessage();
-            });
-            return;
-          }
-        } else {
-          terminal.writeln('');
-        }
-
-        messageIndex++;
-        processNextMessage();
-      }, msg.delay);
-      timeoutIds.push(msgTimeoutId);
-    }
-
-    function typeWriter(terminal, text, color, callback) {
-      let charIndex = 0;
-      
-      function typeChar() {
-        if (charIndex < text.length) {
-          terminal.write(`${color}${text[charIndex]}\x1b[0m`);
-          charIndex++;
-          const charTimeoutId = setTimeout(typeChar, typeDelay);
-          timeoutIds.push(charTimeoutId);
-        } else {
-          callback();
-        }
-      }
-      
-      typeChar();
-    }
-
     // Start the boot sequence
     const initialTimeoutId = setTimeout(() => {
-      processNextMessage();
+      processNextBootMessage(terminal, '$ ', callback, timeoutManager, 0, BOOT_MESSAGES);
     }, 500);
-    timeoutIds.push(initialTimeoutId);
+    timeoutManager.add(initialTimeoutId);
+  }
+
+  function showWelcomeMessage(terminal, prompt) {
+    terminal.writeln('\x1b[96mWelcome to the Interactive Terminal!\x1b[0m');
+    terminal.writeln('Type "help" for available commands.');
+    terminal.writeln('');
+    terminal.write(prompt);
   }
 
   // Load command registry
@@ -267,151 +329,186 @@ import '@xterm/xterm/css/xterm.css';
     commandNames = getCommandNames();
   }
 
+  function handleEnterKey(terminal, currentLine, history, historyIndex, prompt, commandRunning) {
+    terminal.write('\r\n');
+
+    if (currentLine.trim()) {
+      history.push(currentLine);
+      historyIndex = -1;
+    }
+
+    const commandInput = currentLine.trim();
+    const [cmd, ...args] = commandInput.split(' ');
+
+    currentLine = '';
+
+    if (cmd === '') {
+      terminal.write(prompt);
+      return { currentLine, commandRunning: false };
+    }
+
+    return executeCommand(terminal, cmd, args, prompt, commandRunning);
+  }
+
+  function executeCommand(terminal, cmd, args, prompt, commandRunning) {
+    const command = commandRegistry.get(cmd);
+    if (command) {
+      try {
+        const context = {
+          terminal,
+          args,
+          onComplete: () => {
+            commandRunning = false;
+            terminal.write(prompt);
+          }
+        };
+
+        const result = command.execute(context);
+
+        if (result instanceof Promise) {
+          commandRunning = true;
+          result.catch(err => {
+            console.error(`Error executing command ${cmd}:`, err);
+            terminal.writeln(`${COLOR_CODES.BRIGHT_RED}Error executing command${COLOR_CODES.RESET}`);
+            commandRunning = false;
+            terminal.write(prompt);
+          });
+        } else {
+          terminal.write(prompt);
+        }
+      } catch (err) {
+        console.error(`Error executing command ${cmd}:`, err);
+        terminal.writeln(`${COLOR_CODES.BRIGHT_RED}Error executing command${COLOR_CODES.RESET}`);
+        terminal.write(prompt);
+      }
+    } else {
+      terminal.writeln(`${COLOR_CODES.BRIGHT_RED}Command not found: ${cmd}${COLOR_CODES.RESET}`);
+      terminal.writeln(`${COLOR_CODES.DIM_WHITE}Type "help" for available commands.${COLOR_CODES.RESET}`);
+      terminal.write(prompt);
+    }
+
+    return { currentLine: '', commandRunning };
+  }
+
+  function handleBackspace(terminal, currentLine) {
+    if (currentLine.length > 0) {
+      currentLine = currentLine.slice(0, -1);
+      terminal.write('\b \b');
+    }
+    return currentLine;
+  }
+
+  function handleUpArrow(terminal, history, historyIndex, prompt) {
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      const cmd = history[history.length - 1 - historyIndex];
+      terminal.write('\r\x1b[K' + prompt + cmd);
+      return { currentLine: cmd, historyIndex };
+    }
+    return { currentLine: '', historyIndex };
+  }
+
+  function handleDownArrow(terminal, history, historyIndex, prompt) {
+    if (historyIndex > -1) {
+      historyIndex--;
+      if (historyIndex === -1) {
+        terminal.write('\r\x1b[K' + prompt);
+        return { currentLine: '', historyIndex };
+      } else {
+        const cmd = history[history.length - 1 - historyIndex];
+        terminal.write('\r\x1b[K' + prompt + cmd);
+        return { currentLine: cmd, historyIndex };
+      }
+    }
+    return { currentLine: '', historyIndex };
+  }
+
+  function handleTabAutocomplete(terminal, currentLine, prompt) {
+    const input = currentLine.trim();
+
+    if (input) {
+      const matches = commandNames.filter(cmd => cmd.startsWith(input));
+      if (matches.length === 1) {
+        const completion = matches[0].slice(input.length);
+        currentLine += completion;
+        terminal.write(completion);
+      } else if (matches.length > 1) {
+        terminal.write('\r\n');
+        matches.forEach(cmd => terminal.writeln(`  ${COLOR_CODES.BRIGHT_YELLOW}${cmd}${COLOR_CODES.RESET}`));
+        terminal.write(prompt + currentLine);
+      }
+    }
+    return currentLine;
+  }
+
+  function handleDefaultInput(terminal, data, currentLine) {
+    if (data >= ' ' && data <= '~') {
+      currentLine += data;
+      terminal.write(data);
+    }
+    return currentLine;
+  }
+
   function setupInteractiveTerminal(terminal, currentLine, history, historyIndex, prompt) {
     let commandRunning = false;
 
-    // Handle input
     terminal.onData((data) => {
-      if (commandRunning) return; // Ignore input while command is running
+      if (commandRunning) return;
 
       switch (data) {
         case '\r': // Enter
-          terminal.write('\r\n');
-
-          if (currentLine.trim()) {
-            history.push(currentLine);
-            historyIndex = -1;
-          }
-
-          const commandInput = currentLine.trim();
-          const [cmd, ...args] = commandInput.split(' ');
-
-          currentLine = '';
-
-          if (cmd === '') {
-            terminal.write(prompt);
-            break;
-          }
-
-          // Execute command
-          const command = commandRegistry.get(cmd);
-          if (command) {
-            try {
-              const context = {
-                terminal,
-                args,
-                onComplete: () => {
-                  commandRunning = false;
-                  terminal.write(prompt);
-                }
-              };
-
-              const result = command.execute(context);
-
-              // Check if command returns a Promise (async)
-              if (result instanceof Promise) {
-                commandRunning = true;
-                result.catch(err => {
-                  console.error(`Error executing command ${cmd}:`, err);
-                  terminal.writeln('\x1b[91mError executing command\x1b[0m');
-                  commandRunning = false;
-                  terminal.write(prompt);
-                });
-              } else {
-                // Synchronous command
-                terminal.write(prompt);
-              }
-            } catch (err) {
-              console.error(`Error executing command ${cmd}:`, err);
-              terminal.writeln('\x1b[91mError executing command\x1b[0m');
-              terminal.write(prompt);
-            }
-          } else {
-            terminal.writeln(`\x1b[91mCommand not found: ${cmd}\x1b[0m`);
-            terminal.writeln('\x1b[90mType "help" for available commands.\x1b[0m');
-            terminal.write(prompt);
-          }
+          const enterResult = handleEnterKey(terminal, currentLine, history, historyIndex, prompt, commandRunning);
+          currentLine = enterResult.currentLine;
+          commandRunning = enterResult.commandRunning;
           break;
           
         case '\u007F': // Backspace
-          if (currentLine.length > 0) {
-            currentLine = currentLine.slice(0, -1);
-            terminal.write('\b \b');
-          }
+          currentLine = handleBackspace(terminal, currentLine);
           break;
           
         case '\u001b[A': // Up arrow
-          if (historyIndex < history.length - 1) {
-            historyIndex++;
-            const cmd = history[history.length - 1 - historyIndex];
-            terminal.write('\r\x1b[K' + prompt + cmd);
-            currentLine = cmd;
-          }
+          const arrowResult = handleUpArrow(terminal, history, historyIndex, prompt);
+          currentLine = arrowResult.currentLine;
+          historyIndex = arrowResult.historyIndex;
           break;
           
         case '\u001b[B': // Down arrow
-          if (historyIndex > -1) {
-            historyIndex--;
-            if (historyIndex === -1) {
-              terminal.write('\r\x1b[K' + prompt);
-              currentLine = '';
-            } else {
-              const cmd = history[history.length - 1 - historyIndex];
-              terminal.write('\r\x1b[K' + prompt + cmd);
-              currentLine = cmd;
-            }
-          }
+          const downResult = handleDownArrow(terminal, history, historyIndex, prompt);
+          currentLine = downResult.currentLine;
+          historyIndex = downResult.historyIndex;
           break;
           
         case '\t': // Tab autocomplete
-          const input = currentLine.trim();
-
-          if (input) {
-            const matches = commandNames.filter(cmd => cmd.startsWith(input));
-            if (matches.length === 1) {
-              const completion = matches[0].slice(input.length);
-              currentLine += completion;
-              terminal.write(completion);
-            } else if (matches.length > 1) {
-              terminal.write('\r\n');
-              matches.forEach(cmd => terminal.writeln('  \x1b[93m' + cmd + '\x1b[0m'));
-              terminal.write(prompt + currentLine);
-            }
-          }
+          currentLine = handleTabAutocomplete(terminal, currentLine, prompt);
           break;
           
         default:
-          if (data >= ' ' && data <= '~') {
-            currentLine += data;
-            terminal.write(data);
-          }
+          currentLine = handleDefaultInput(terminal, data, currentLine);
       }
     });
   }
 
   // CRT Effects Implementation
   function initCRTEffects(container) {
-    // Check if mobile and reduce effects
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (!isMobile) {
+    if (!isMobile()) {
       startRandomGlitches(container);
       enhanceCursorBlink(container);
     }
   }
 
   function startRandomGlitches(container) {
-    // Rare random glitches - very subtle
-    setInterval(() => {
-      if (Math.random() < 0.02) { // 2% chance every interval
+    const glitchInterval = setInterval(() => {
+      if (Math.random() < MOBILE_CONFIG.GLITCH_PROBABILITY) {
         triggerGlitch(container);
       }
-    }, 3000); // Check every 3 seconds
+    }, MOBILE_CONFIG.GLITCH_INTERVAL);
+    
+    // Store interval ID for potential cleanup
+    container.glitchInterval = glitchInterval;
   }
 
   function triggerGlitch(container) {
-    const glitchTypes = ['flicker', 'shift', 'color'];
-    const glitchType = glitchTypes[Math.floor(Math.random() * glitchTypes.length)];
+    const glitchType = GLITCH_TYPES[Math.floor(Math.random() * GLITCH_TYPES.length)];
     
     switch (glitchType) {
       case 'flicker':
@@ -494,9 +591,24 @@ import '@xterm/xterm/css/xterm.css';
   function showError(message) {
     const terminalContainer = document.getElementById('terminal');
     if (terminalContainer) {
+      // Clear any existing intervals
+      if (terminalContainer.glitchInterval) {
+        clearInterval(terminalContainer.glitchInterval);
+      }
       terminalContainer.innerHTML = `<div class="error-message">${message}</div>`;
     }
   }
+
+  // Cleanup function to be called when component is destroyed
+  function cleanup() {
+    const terminalContainer = document.getElementById('terminal');
+    if (terminalContainer && terminalContainer.glitchInterval) {
+      clearInterval(terminalContainer.glitchInterval);
+    }
+  }
+
+  // Add cleanup on page unload
+  window.addEventListener('beforeunload', cleanup);
 </script>
 
 <style>

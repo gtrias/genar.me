@@ -33,7 +33,7 @@ export const matrixCommand: Command = {
       terminal.write(output);
 
       // Wait between frames
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 200));
     }
 
     // Clear and show final message

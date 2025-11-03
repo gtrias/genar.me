@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CRTEffects from '../components/CRTEffects.astro';
+import { personalLinks, getDisplayName } from '../data/links';
 
 const { title = "Genar Trias - Personal website", description = "Genar Trias personal website", showFooter = true, showHeader = true } = Astro.props;
 ---
@@ -45,10 +46,9 @@ const { title = "Genar Trias - Personal website", description = "Genar Trias per
 			<div class="flex justify-between items-center">
 				<p class="neon-text-pink font-mono">&copy; 2025 Genar Trias</p>
 				<div class="flex space-x-4 font-mono">
-					<a href="https://github.com/gtrias">[ Github ]</a>
-					<a href="https://gitlab.com/gtrias">[ Gitlab ]</a>
-					<a href="https://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90">[ LinkedIn ]</a>
-					<a href="https://twitter.com/genar_tr">[ @genar_tr ]</a>
+					{personalLinks.map((link) => (
+						<a href={link.url}>[ {getDisplayName(link)} ]</a>
+					))}
 				</div>
 			</div>
 		</div>
