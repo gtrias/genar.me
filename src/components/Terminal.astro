@@ -246,9 +246,10 @@ import '@xterm/xterm/css/xterm.css';
     }
 
     // Start the boot sequence
-    setTimeout(() => {
+    const initialTimeoutId = setTimeout(() => {
       processNextMessage();
     }, 500);
+    timeoutIds.push(initialTimeoutId);
   }
 
   // Load command registry
