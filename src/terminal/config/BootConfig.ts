@@ -14,6 +14,7 @@ export interface BootConfig {
   };
   helpMessage: string;
   prompt: string;
+  onComplete?: () => void;
 }
 
 export const defaultBootConfig: BootConfig = {

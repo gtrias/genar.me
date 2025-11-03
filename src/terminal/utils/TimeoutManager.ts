@@ -1,8 +1,8 @@
 export class TimeoutManager {
-  private timeoutIds: number[] = [];
+  private timeoutIds: (number | NodeJS.Timeout)[] = [];
   private maxTimeouts = 100;
 
-  add(id: number): void {
+  add(id: number | NodeJS.Timeout): void {
     if (this.timeoutIds.length >= this.maxTimeouts) {
       console.warn('TimeoutManager: Maximum number of timeouts reached');
       this.clearOldest();
@@ -11,7 +11,7 @@ export class TimeoutManager {
   }
 
   clearAll(): void {
-    this.timeoutIds.forEach(id => clearTimeout(id));
+    this.timeoutIds.forEach(id => clearTimeout(id as any));
     this.timeoutIds = [];
   }
 
@@ -23,22 +23,22 @@ export class TimeoutManager {
     if (this.timeoutIds.length > 0) {
       const oldestId = this.timeoutIds.shift();
       if (oldestId !== undefined) {
-        clearTimeout(oldestId);
+        clearTimeout(oldestId as any);
       }
     }
   }
 
-  remove(id: number): boolean {
+  remove(id: number | NodeJS.Timeout): boolean {
     const index = this.timeoutIds.indexOf(id);
     if (index !== -1) {
       this.timeoutIds.splice(index, 1);
-      clearTimeout(id);
+      clearTimeout(id as any);
       return true;
     }
     return false;
   }
 
-  getTimeoutIds(): number[] {
+  getTimeoutIds(): (number | NodeJS.Timeout)[] {
     return [...this.timeoutIds];
   }
 
