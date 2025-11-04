@@ -25,6 +25,7 @@ import { defaultBootConfig } from '../config/BootConfig';
 import { defaultThemeConfig } from '../config/ThemeConfig';
 import { defaultDeviceConfig } from '../config/DeviceConfig';
 import { getCommandRegistry } from '../../commands';
+import { FileSystemManager } from '../filesystem';
 
 export class TerminalManager {
   private terminal!: Terminal;
@@ -44,6 +45,7 @@ export class TerminalManager {
   private themeConfig: ThemeConfig;
   private deviceConfig: DeviceConfig;
   private commandRegistry: Map<string, Command>;
+  private fileSystemManager!: FileSystemManager;
   private currentLine = '';
   private resizeObserver?: ResizeObserver;
 
@@ -61,6 +63,7 @@ export class TerminalManager {
     this.timeoutManager = new TimeoutManager();
     this.errorBoundary = new DefaultErrorBoundary();
     this.commandRegistry = new Map();
+    this.fileSystemManager = new FileSystemManager();
   }
 
   /**
@@ -93,7 +96,7 @@ export class TerminalManager {
       this.crtEffects.initialize();
 
       // Initialize command handler
-      this.commandHandler = new CommandHandler(this.commandRegistry, this.terminal);
+      this.commandHandler = new CommandHandler(this.commandRegistry, this.terminal, this.fileSystemManager);
 
       // Initialize input manager
       this.inputManager = new InputManager(this.terminal, this.bootConfig.prompt, this.commandHandler);
@@ -249,14 +252,24 @@ export class TerminalManager {
   }
 
   /**
-   * Get input manager for external access
-   */
-  getInputManager(): InputManager {
-    if (!this.isInitialized) {
-      throw new TerminalError('TerminalManager not initialized');
-    }
-    return this.inputManager;
-  }
+    * Get input manager for external access
+    */
+   getInputManager(): InputManager {
+     if (!this.isInitialized) {
+       throw new TerminalError('TerminalManager not initialized');
+     }
+     return this.inputManager;
+   }
+
+   /**
+    * Get file system manager for external access
+    */
+   getFileSystemManager(): FileSystemManager {
+     if (!this.isInitialized) {
+       throw new TerminalError('TerminalManager not initialized');
+     }
+     return this.fileSystemManager;
+   }
 
   /**
    * Trigger CRT glitch effect

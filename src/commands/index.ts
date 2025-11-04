@@ -30,6 +30,11 @@ import { matrixCommand } from './matrix';
 import { hackCommand } from './hack';
 import { coffeeCommand } from './coffee';
 import { lsCommand } from './ls';
+import { catCommand } from './cat';
+import { cdCommand } from './cd';
+import { pwdCommand } from './pwd';
+import { touchCommand } from './touch';
+import { mkdirCommand } from './mkdir';
 import { whoamiCommand } from './whoami';
 
 /**
@@ -40,6 +45,12 @@ const commands: Command[] = [
   // Portfolio
   helpCommand,
   aboutCommand,
+// File system commands
+catCommand,
+cdCommand,
+pwdCommand,
+touchCommand,
+mkdirCommand,
   skillsCommand,
   experienceCommand,
   linksCommand,
@@ -95,6 +106,12 @@ export {
   experienceCommand,
   linksCommand,
 
+// File system commands
+catCommand,
+cdCommand,
+pwdCommand,
+touchCommand,
+mkdirCommand,
   // System
   clearCommand,
   echoCommand,

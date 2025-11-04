@@ -5,11 +5,13 @@
 
 import type { TerminalInterface } from './TerminalInterface';
 import type { Command } from '../../commands/types';
+import { FileSystemManager } from '../filesystem';
 
 export class CommandHandler {
   constructor(
     private commandRegistry: Map<string, Command>,
-    private terminal: TerminalInterface
+    private terminal: TerminalInterface,
+    private fileSystemManager?: FileSystemManager
   ) {}
 
   /**
@@ -24,7 +26,8 @@ export class CommandHandler {
           args,
           onComplete: () => {
             // Command completion handled by InputManager
-          }
+          },
+          getFileSystem: () => this.fileSystemManager?.getFileSystem()
         };
 
         const result = cmd.execute(context);

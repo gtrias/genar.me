@@ -13,6 +13,7 @@ export interface CommandContext {
   terminal: Terminal;
   args: string[];
   onComplete?: () => void;
+  getFileSystem?: () => any;
 }
 
 export interface Command {
