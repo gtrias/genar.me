@@ -171,6 +171,8 @@ import '@xterm/xterm/css/xterm.css';
     width: min(90vw, 1200px);
     max-width: 90vw;
     aspect-ratio: 4 / 3;
+    /* Ensure monitor fits within viewport on large screens */
+    max-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     align-items: center;
