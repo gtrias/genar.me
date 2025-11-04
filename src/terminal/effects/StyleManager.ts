@@ -61,39 +61,7 @@ export class StyleManager {
         opacity: ${Math.min(1.0, responsive.vignetteOpacity * 1.3)};
       }
 
-      /* Enhanced glass reflection overlay with improved intensity */
-      .xterm::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background:
-          radial-gradient(
-            ellipse 800px 600px at 20% 15%,
-            rgba(255, 255, 255, 0.2) 0%,
-            rgba(255, 255, 255, 0.12) 18%,
-            transparent 38%
-          ),
-          radial-gradient(
-            ellipse 400px 300px at 80% 80%,
-            rgba(255, 255, 255, 0.12) 0%,
-            rgba(255, 255, 255, 0.06) 28%,
-            transparent 48%
-          ),
-          linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.08) 0%,
-            transparent 45%,
-            rgba(0, 0, 0, 0.15) 100%
-          );
-        pointer-events: none;
-        z-index: 99;
-        border-radius: inherit;
-        mix-blend-mode: overlay;
-        opacity: ${Math.min(1.0, responsive.reflectionOpacity * 1.2)};
-      }
+
 
       .xterm-viewport {
         transform:

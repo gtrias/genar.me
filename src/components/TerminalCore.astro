@@ -2,6 +2,7 @@
 // Terminal Core Component
 // Main terminal container and initialization logic
 import '@xterm/xterm/css/xterm.css';
+import ScreenReflections from './ScreenReflections.astro';
 ---
 
 <svg height="0" width="0" viewBox="0 0 93.88 76.19" class="clip-path-defs">
@@ -21,6 +22,8 @@ import '@xterm/xterm/css/xterm.css';
           <div class="loading-message">Initializing system...</div>
           <slot />
         </div>
+        <!-- Always-on screen reflections -->
+        <ScreenReflections />
       </div>
       
       <!-- Bottom Control Panel - 80s PC Monitor Style -->
