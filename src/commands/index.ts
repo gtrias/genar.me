@@ -48,27 +48,31 @@ const commands: Command[] = [
   // Portfolio
   helpCommand,
   aboutCommand,
-// File system commands
-catCommand,
-cdCommand,
-pwdCommand,
-touchCommand,
-mkdirCommand,
   skillsCommand,
   experienceCommand,
   linksCommand,
+
+  // File system commands
+  catCommand,
+  cdCommand,
+  pwdCommand,
+  touchCommand,
+  mkdirCommand,
+  lsCommand,
 
   // System
   clearCommand,
   echoCommand,
   dateCommand,
+  whoamiCommand,
+  historyCommand,
+  achievementsCommand,
+  fortuneCommand,
 
   // Easter eggs
   matrixCommand,
   hackCommand,
   coffeeCommand,
-  lsCommand,
-  whoamiCommand,
 ];
 
 /**
@@ -109,16 +113,19 @@ export {
   experienceCommand,
   linksCommand,
 
-// File system commands
-catCommand,
-cdCommand,
-pwdCommand,
-touchCommand,
-mkdirCommand,
+  // File system commands
+  catCommand,
+  cdCommand,
+  pwdCommand,
+  touchCommand,
+  mkdirCommand,
+  lsCommand,
+
   // System
   clearCommand,
   echoCommand,
   dateCommand,
+  whoamiCommand,
   historyCommand,
   achievementsCommand,
   fortuneCommand,
@@ -127,6 +134,4 @@ mkdirCommand,
   matrixCommand,
   hackCommand,
   coffeeCommand,
-  lsCommand,
-  whoamiCommand,
 };

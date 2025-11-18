@@ -270,22 +270,29 @@ export class VirtualFileSystem {
    */
   serialize(): string {
     const serializeNode = (node: VirtualNode): any => {
+      // Ensure modified is a valid Date
+      const modifiedDate = node.modified instanceof Date && !isNaN(node.modified.getTime())
+        ? node.modified
+        : new Date();
+      
       if (node.type === 'file') {
         return {
           type: 'file',
           name: node.name,
           content: node.content,
           size: node.size,
-          modified: node.modified.toISOString(),
+          modified: modifiedDate.toISOString(),
           permissions: node.permissions
         };
       } else {
+        // Ensure children is a valid Map
+        const children = node.children instanceof Map ? node.children : new Map();
         return {
           type: 'directory',
           name: node.name,
-          modified: node.modified.toISOString(),
+          modified: modifiedDate.toISOString(),
           permissions: node.permissions,
-          children: Array.from(node.children.values()).map(child => serializeNode(child))
+          children: Array.from(children.values()).map(child => serializeNode(child))
         };
       }
     };
@@ -305,25 +312,32 @@ export class VirtualFileSystem {
     const data = JSON.parse(json);
     
     const deserializeNode = (obj: any): VirtualNode => {
+      // Helper to safely parse date
+      const parseDate = (dateStr: any): Date => {
+        if (!dateStr) return new Date();
+        const date = new Date(dateStr);
+        return isNaN(date.getTime()) ? new Date() : date;
+      };
+      
       if (obj.type === 'file') {
         return {
           type: 'file',
-          name: obj.name,
-          content: obj.content,
-          size: obj.size,
-          modified: new Date(obj.modified),
-          permissions: obj.permissions
+          name: obj.name || '',
+          content: obj.content || '',
+          size: obj.size || 0,
+          modified: parseDate(obj.modified),
+          permissions: obj.permissions || 'rw-r--r--'
         };
       } else {
         const dir: VirtualDirectory = {
           type: 'directory',
-          name: obj.name,
+          name: obj.name || '',
           children: new Map(),
-          modified: new Date(obj.modified),
-          permissions: obj.permissions
+          modified: parseDate(obj.modified),
+          permissions: obj.permissions || 'rwxr-xr-x'
         };
         
-        if (obj.children) {
+        if (obj.children && Array.isArray(obj.children)) {
           for (const child of obj.children) {
             const childNode = deserializeNode(child);
             dir.children.set(childNode.name, childNode);
