@@ -32,10 +32,12 @@ Modern Astro-based personal website deployed on Cloudflare Pages.
 ## 🛠️ Development
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### Setup
+
 ```bash
 # Install dependencies
 npm install
@@ -46,19 +48,20 @@ npm run dev
 
 ### Available Scripts
 
-| Command | Action |
-|---------|--------|
-| `npm run dev` | Start local dev server at `localhost:4321` |
-| `npm run build` | Build production site to `./dist/` |
-| `npm run preview` | Preview build locally |
-| `npm run cf:build` | Build for Cloudflare Pages |
-| `npm run cf:preview` | Preview with Wrangler locally |
+| Command              | Action                                     |
+| -------------------- | ------------------------------------------ |
+| `npm run dev`        | Start local dev server at `localhost:4321` |
+| `npm run build`      | Build production site to `./dist/`         |
+| `npm run preview`    | Preview build locally                      |
+| `npm run cf:build`   | Build for Cloudflare Pages                 |
+| `npm run cf:preview` | Preview with Wrangler locally              |
 
 ## 🌐 Deployment
 
 ### Cloudflare Pages (Recommended)
 
 #### Option 1: Git Integration
+
 1. Push code to GitHub/GitLab repository
 2. Connect repository to Cloudflare Pages
 3. Configure build settings:
@@ -67,28 +70,35 @@ npm run dev
    - **Node.js version**: `18`
 
 #### Option 2: Direct Upload
+
 1. Build locally: `npm run build`
 2. Upload `dist` folder to Cloudflare Pages dashboard
 
 ### Environment Variables
+
 - `NODE_VERSION`: `18` (automatically set by Cloudflare)
 
 ## 🎨 Customization
 
 ### Adding New Pages
+
 Create `.astro` files in `src/pages/`:
+
 ```bash
 src/pages/about.astro    # → /about
 src/pages/blog/index.astro # → /blog/
 ```
 
 ### Styling
+
 - Edit `src/styles/global.css` for global styles
 - Use Tailwind CSS classes in components
 - Customize colors in `tailwind.config.js`
 
 ### Layout
+
 Modify `src/layouts/Layout.astro` to change:
+
 - Navigation menu
 - Footer content
 - Meta tags
@@ -97,11 +107,13 @@ Modify `src/layouts/Layout.astro` to change:
 ## 🔧 Configuration
 
 ### Astro Config (`astro.config.mjs`)
+
 - Output mode: Static
 - Adapter: Cloudflare Pages
 - Tailwind CSS integration
 
 ### Cloudflare Config (`wrangler.toml`)
+
 - Build settings
 - Redirects
 - Security headers
@@ -110,6 +122,7 @@ Modify `src/layouts/Layout.astro` to change:
 ## 📚 Content
 
 The site includes:
+
 - **Homepage**: Personal introduction and tech stack
 - **Projects**: Portfolio of personal projects
 - **Navigation**: Terminal-style navigation matching original design
@@ -128,3 +141,4 @@ Personal project - all rights reserved.
 ---
 
 Built with ❤️ using [Astro](https://astro.build) and [Cloudflare Pages](https://pages.cloudflare.com).
+
