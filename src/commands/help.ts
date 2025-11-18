@@ -1,6 +1,6 @@
 import type { Command, CommandContext } from './types';
-import { box, colors, table } from '../terminal/ui';
-import { getCommandRegistry, getCommandsByCategory } from './index';
+import { box, colors } from '../terminal/ui';
+import { getCommandsByCategory } from './index';
 
 /**
  * Help command - displays all available commands with beautiful formatting
@@ -49,7 +49,12 @@ export const helpCommand: Command = {
       padding: 1
     });
 
-    terminal.writeln(helpBox);
+    // Split box output into lines and write each line separately
+    // This ensures proper handling of multi-line output
+    const boxLines = helpBox.split('\n');
+    for (const line of boxLines) {
+      terminal.writeln(line);
+    }
     terminal.writeln('');
   }
 };

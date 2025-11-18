@@ -25,6 +25,69 @@ const borders = {
 };
 
 /**
+ * Wrap a line to fit within a maximum width, preserving ANSI codes
+ */
+function wrapLine(line: string, maxWidth: number): string[] {
+  const result: string[] = [];
+  const lineLength = ansiLength(line);
+  
+  if (lineLength <= maxWidth) {
+    return [line];
+  }
+  
+  // Simple word-wrap: try to break at spaces
+  let remaining = line;
+  while (ansiLength(remaining) > maxWidth) {
+    // Find the last space within maxWidth
+    let breakPoint = maxWidth;
+    let foundSpace = false;
+    
+    // Look for spaces in the visible portion (accounting for ANSI codes)
+    let visibleChars = 0;
+    let lastSpaceIndex = -1;
+    let inAnsiCode = false;
+    
+    for (let i = 0; i < remaining.length && visibleChars < maxWidth; i++) {
+      if (remaining[i] === '\x1b' && remaining[i + 1] === '[') {
+        inAnsiCode = true;
+        continue;
+      }
+      if (inAnsiCode) {
+        if (remaining[i] === 'm') {
+          inAnsiCode = false;
+        }
+        continue;
+      }
+      
+      if (remaining[i] === ' ') {
+        lastSpaceIndex = i;
+      }
+      visibleChars++;
+    }
+    
+    if (lastSpaceIndex > maxWidth * 0.5) {
+      breakPoint = lastSpaceIndex;
+      foundSpace = true;
+    }
+    
+    const chunk = remaining.slice(0, breakPoint);
+    result.push(chunk);
+    
+    if (foundSpace) {
+      remaining = remaining.slice(breakPoint + 1);
+    } else {
+      remaining = remaining.slice(breakPoint);
+    }
+  }
+  
+  if (remaining.length > 0) {
+    result.push(remaining);
+  }
+  
+  return result;
+}
+
+/**
  * Draw a box around content
  */
 export function box(content: string, options: BoxOptions = {}): string {
@@ -42,16 +105,40 @@ export function box(content: string, options: BoxOptions = {}): string {
     ? (s: string) => s 
     : colors[borderColor] || colors.cyan;
 
-  // Split content into lines
-  const lines = content.split('\n').filter(line => line.length > 0);
+  // Maximum terminal width (accounting for borders and padding)
+  const TERMINAL_WIDTH = 80;
+  // Box structure: border(1) + padding + content + padding + border(1)
+  // So: contentWidth = TERMINAL_WIDTH - 2*border - 2*padding
+  const maxContentWidth = width || (TERMINAL_WIDTH - (padding * 2) - 2); // -2 for borders
+
+  // Split content into lines and wrap long lines
+  const rawLines = content.split('\n');
+  const wrappedLines: string[] = [];
   
-  // Calculate width
-  const contentWidth = width || Math.max(
-    ...lines.map(line => ansiLength(line)),
-    title ? ansiLength(title) + 4 : 0
+  for (const line of rawLines) {
+    if (line.length === 0) {
+      wrappedLines.push('');
+      continue;
+    }
+    
+    const wrapped = wrapLine(line, maxContentWidth);
+    wrappedLines.push(...wrapped);
+  }
+  
+  const lines = wrappedLines;
+  
+  // Calculate actual width needed
+  const contentWidth = width || Math.min(
+    maxContentWidth,
+    Math.max(
+      ...lines.map(line => ansiLength(line)),
+      title ? ansiLength(title) + 4 : 0
+    )
   );
 
-  const boxWidth = contentWidth + (padding * 2);
+  // Box width = left border(1) + padding + content + padding + right border(1)
+  // Ensure box width never exceeds terminal width
+  const boxWidth = Math.min(TERMINAL_WIDTH, contentWidth + (padding * 2) + 2);
   const horizontal = border.h.repeat(boxWidth);
 
   // Build box
@@ -73,9 +160,10 @@ export function box(content: string, options: BoxOptions = {}): string {
   }
 
   // Content lines
+  // The content area width is contentWidth (not including borders or padding)
   for (const line of lines) {
     const lineLength = ansiLength(line);
-    const remaining = boxWidth - lineLength;
+    const remaining = contentWidth - lineLength;
     
     let paddedLine = line;
     if (align === 'center') {
