@@ -1,9 +1,7 @@
 # Cloudflare Pages configuration
-# For Cloudflare Pages deployment, the deploy command should be: wrangler pages deploy dist
-# If using Git integration in Pages dashboard, no deploy command is needed (Pages handles it automatically)
-
 name = "genar-me"
 compatibility_date = "2025-11-03"
+pages_build_output_dir = "dist"
 
 # Note: For Cloudflare Pages, redirects and headers should be in:
 # - public/_redirects (will be copied to dist/_redirects)
