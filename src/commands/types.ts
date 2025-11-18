@@ -14,6 +14,9 @@ export interface CommandContext {
   args: string[];
   onComplete?: () => void;
   getFileSystem?: () => any;
+  shell?: any; // ShellRuntime
+  getCWD?: () => string;
+  getEnv?: (key: string) => string | undefined;
 }
 
 export interface Command {

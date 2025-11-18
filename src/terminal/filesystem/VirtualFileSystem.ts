@@ -28,7 +28,8 @@ export class VirtualFileSystem {
 
   constructor() {
     this.root = this.createRootDirectory();
-    this.currentPath = ['/'];
+    // Start in home directory
+    this.currentPath = ['home', 'guest'];
   }
 
   private createRootDirectory(): VirtualDirectory {
@@ -42,7 +43,7 @@ export class VirtualFileSystem {
 
     // Create home directory structure
     const home = this.createDirectory('home');
-    const user = this.createDirectory('dev');
+    const user = this.createDirectory('guest');
     
     // Add user files and directories
     this.addDirectory(user, 'Documents', this.createDocuments());
@@ -262,5 +263,92 @@ export class VirtualFileSystem {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Serialize filesystem to JSON for persistence
+   */
+  serialize(): string {
+    const serializeNode = (node: VirtualNode): any => {
+      if (node.type === 'file') {
+        return {
+          type: 'file',
+          name: node.name,
+          content: node.content,
+          size: node.size,
+          modified: node.modified.toISOString(),
+          permissions: node.permissions
+        };
+      } else {
+        return {
+          type: 'directory',
+          name: node.name,
+          modified: node.modified.toISOString(),
+          permissions: node.permissions,
+          children: Array.from(node.children.values()).map(child => serializeNode(child))
+        };
+      }
+    };
+
+    const data = {
+      root: serializeNode(this.root),
+      currentPath: this.currentPath
+    };
+
+    return JSON.stringify(data, null, 2);
+  }
+
+  /**
+   * Deserialize filesystem from JSON
+   */
+  deserialize(json: string): void {
+    const data = JSON.parse(json);
+    
+    const deserializeNode = (obj: any): VirtualNode => {
+      if (obj.type === 'file') {
+        return {
+          type: 'file',
+          name: obj.name,
+          content: obj.content,
+          size: obj.size,
+          modified: new Date(obj.modified),
+          permissions: obj.permissions
+        };
+      } else {
+        const dir: VirtualDirectory = {
+          type: 'directory',
+          name: obj.name,
+          children: new Map(),
+          modified: new Date(obj.modified),
+          permissions: obj.permissions
+        };
+        
+        if (obj.children) {
+          for (const child of obj.children) {
+            const childNode = deserializeNode(child);
+            dir.children.set(childNode.name, childNode);
+          }
+        }
+        
+        return dir;
+      }
+    };
+
+    this.root = deserializeNode(data.root) as VirtualDirectory;
+    this.currentPath = data.currentPath || ['/'];
+  }
+
+  /**
+   * Get root directory (for external access)
+   */
+  getRoot(): VirtualDirectory {
+    return this.root;
+  }
+
+  /**
+   * Set root directory (for loading from storage)
+   */
+  setRoot(root: VirtualDirectory): void {
+    this.root = root;
   }
 }

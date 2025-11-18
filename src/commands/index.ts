@@ -36,6 +36,9 @@ import { pwdCommand } from './pwd';
 import { touchCommand } from './touch';
 import { mkdirCommand } from './mkdir';
 import { whoamiCommand } from './whoami';
+import { historyCommand } from './history';
+import { achievementsCommand } from './achievements';
+import { fortuneCommand } from './fortune';
 
 /**
  * All registered commands
@@ -116,6 +119,9 @@ mkdirCommand,
   clearCommand,
   echoCommand,
   dateCommand,
+  historyCommand,
+  achievementsCommand,
+  fortuneCommand,
 
   // Easter eggs
   matrixCommand,

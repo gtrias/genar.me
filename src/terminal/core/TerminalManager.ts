@@ -26,6 +26,9 @@ import { defaultThemeConfig } from '../config/ThemeConfig';
 import { defaultDeviceConfig } from '../config/DeviceConfig';
 import { getCommandRegistry } from '../../commands';
 import { FileSystemManager } from '../filesystem';
+import { ShellRuntime } from '../runtime/ShellRuntime';
+import { OPFSBackend } from '../filesystem/OPFSBackend';
+import { LiveStoreClient } from '../storage/LiveStoreClient';
 
 export class TerminalManager {
   private terminal!: Terminal;
@@ -46,8 +49,12 @@ export class TerminalManager {
   private deviceConfig: DeviceConfig;
   private commandRegistry: Map<string, Command>;
   private fileSystemManager!: FileSystemManager;
+  private shellRuntime!: ShellRuntime;
+  private opfsBackend!: OPFSBackend;
+  private liveStore!: LiveStoreClient;
   private currentLine = '';
   private resizeObserver?: ResizeObserver;
+  private saveDebounceTimer?: number;
 
   constructor(container: HTMLElement, config?: Partial<TerminalConfig>) {
     if (!container) {
@@ -64,6 +71,8 @@ export class TerminalManager {
     this.errorBoundary = new DefaultErrorBoundary();
     this.commandRegistry = new Map();
     this.fileSystemManager = new FileSystemManager();
+    this.opfsBackend = new OPFSBackend();
+    this.liveStore = new LiveStoreClient();
   }
 
   /**
@@ -74,6 +83,29 @@ export class TerminalManager {
       if (this.isInitialized) {
         console.warn('TerminalManager already initialized');
         return;
+      }
+
+      // Initialize storage backends
+      await this.opfsBackend.initialize();
+      await this.liveStore.initialize();
+
+      // Load filesystem from OPFS (or use default)
+      const vfs = this.fileSystemManager.getFileSystem();
+      const loaded = await this.opfsBackend.load(vfs);
+      if (!loaded) {
+        console.log('No saved filesystem found, using default');
+      }
+
+      // Initialize shell runtime with VFS
+      const initialCWD = vfs.getCurrentPath();
+      this.shellRuntime = new ShellRuntime(vfs, initialCWD);
+
+      // Load command history from LiveStore
+      const history = this.liveStore.getCommandHistory();
+      if (history.length > 0) {
+        // Restore last 100 commands
+        const recentHistory = history.slice(-100).map(e => e.data.cmd + ' ' + e.data.args.join(' '));
+        this.shellRuntime.setHistory(recentHistory);
       }
 
       // Load command registry
@@ -95,11 +127,21 @@ export class TerminalManager {
       this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
       this.crtEffects.initialize();
 
-      // Initialize command handler
-      this.commandHandler = new CommandHandler(this.commandRegistry, this.terminal, this.fileSystemManager);
+      // Initialize command handler with shell runtime and live store
+      this.commandHandler = new CommandHandler(
+        this.commandRegistry, 
+        this.terminal, 
+        this.fileSystemManager,
+        this.shellRuntime,
+        this.liveStore
+      );
 
-      // Initialize input manager
-      this.inputManager = new InputManager(this.terminal, this.bootConfig.prompt, this.commandHandler);
+      // Update prompt to use shell runtime
+      const prompt = this.shellRuntime.generatePrompt();
+      this.bootConfig.prompt = prompt;
+
+      // Initialize input manager with updated prompt
+      this.inputManager = new InputManager(this.terminal, prompt, this.commandHandler);
 
       // Initialize boot sequence
       this.bootSequence = new BootSequence(this.terminal, this.bootConfig, this.timeoutManager);
@@ -422,6 +464,13 @@ export class TerminalManager {
     this.currentLine = result.currentLine;
 
     if (result.command && result.args) {
+      // Add to shell runtime history
+      if (this.shellRuntime) {
+        const fullCommand = result.command + (result.args.length > 0 ? ' ' + result.args.join(' ') : '');
+        this.shellRuntime.addToHistory(fullCommand);
+        // Sync with InputManager history
+        this.inputManager.addToHistory(fullCommand);
+      }
       this.executeCommand(result.command, result.args);
     }
   }
@@ -435,14 +484,57 @@ export class TerminalManager {
         return;
       }
 
+      // Update CWD if cd command
+      const oldCWD = this.shellRuntime?.getCWD();
+
       await this.commandHandler.execute(command, args);
       
+      // Update prompt if CWD changed
+      if (this.shellRuntime) {
+        const newCWD = this.shellRuntime.getCWD();
+        if (oldCWD !== newCWD) {
+          const newPrompt = this.shellRuntime.generatePrompt();
+          this.bootConfig.prompt = newPrompt;
+          this.inputManager.setPrompt(newPrompt);
+        }
+      }
+
+      // Save filesystem changes (debounced)
+      this.debouncedSaveFilesystem();
+      
       // Show prompt after command completion
-      this.terminal.write(this.bootConfig.prompt);
+      const prompt = this.shellRuntime?.generatePrompt() || this.bootConfig.prompt;
+      this.terminal.write(prompt);
 
     } catch (error) {
       this.handleError(error instanceof TerminalError ? error : new TerminalError(`Command execution failed: ${error}`));
-      this.terminal.write(this.bootConfig.prompt);
+      const prompt = this.shellRuntime?.generatePrompt() || this.bootConfig.prompt;
+      this.terminal.write(prompt);
+    }
+  }
+
+  /**
+   * Debounced filesystem save to avoid excessive writes
+   */
+  private debouncedSaveFilesystem(): void {
+    if (this.saveDebounceTimer) {
+      clearTimeout(this.saveDebounceTimer);
+    }
+    
+    this.saveDebounceTimer = window.setTimeout(async () => {
+      await this.saveFilesystem();
+    }, 1000); // Save 1 second after last change
+  }
+
+  /**
+   * Save filesystem to OPFS
+   */
+  private async saveFilesystem(): Promise<void> {
+    try {
+      const vfs = this.fileSystemManager.getFileSystem();
+      await this.opfsBackend.save(vfs);
+    } catch (error) {
+      console.error('Failed to save filesystem:', error);
     }
   }
 

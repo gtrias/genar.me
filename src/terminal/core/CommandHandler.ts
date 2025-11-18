@@ -6,18 +6,25 @@
 import type { TerminalInterface } from './TerminalInterface';
 import type { Command } from '../../commands/types';
 import { FileSystemManager } from '../filesystem';
+import type { ShellRuntime } from '../runtime/ShellRuntime';
+import type { LiveStoreClient } from '../storage/LiveStoreClient';
 
 export class CommandHandler {
   constructor(
     private commandRegistry: Map<string, Command>,
     private terminal: TerminalInterface,
-    private fileSystemManager?: FileSystemManager
+    private fileSystemManager?: FileSystemManager,
+    private shellRuntime?: ShellRuntime,
+    private liveStore?: LiveStoreClient
   ) {}
 
   /**
    * Execute a command with given arguments
    */
   async execute(command: string, args: string[]): Promise<void> {
+    const startTime = Date.now();
+    let exitCode = 0;
+
     const cmd = this.commandRegistry.get(command);
     if (cmd) {
       try {
@@ -27,7 +34,10 @@ export class CommandHandler {
           onComplete: () => {
             // Command completion handled by InputManager
           },
-          getFileSystem: () => this.fileSystemManager?.getFileSystem()
+          getFileSystem: () => this.fileSystemManager?.getFileSystem(),
+          shell: this.shellRuntime,
+          getCWD: () => this.shellRuntime?.getCWD() || '/home/guest',
+          getEnv: (key: string) => this.shellRuntime?.getEnvironment().get(key)
         };
 
         const result = cmd.execute(context);
@@ -36,15 +46,38 @@ export class CommandHandler {
           await result.catch(err => {
             console.error(`Error executing command ${command}:`, err);
             this.terminal.writeln('\x1b[91mError executing command\x1b[0m');
+            exitCode = 1;
           });
         }
       } catch (err) {
         console.error(`Error executing command ${command}:`, err);
         this.terminal.writeln('\x1b[91mError executing command\x1b[0m');
+        exitCode = 1;
       }
     } else {
       this.terminal.writeln(`\x1b[91mCommand not found: ${command}\x1b[0m`);
       this.terminal.writeln('\x1b[90mType "help" for available commands.\x1b[0m');
+      exitCode = 127; // Command not found exit code
+    }
+
+    // Update shell runtime exit code
+    if (this.shellRuntime) {
+      this.shellRuntime.setLastExitCode(exitCode);
+    }
+
+    // Log command execution event
+    if (this.liveStore) {
+      const duration = Date.now() - startTime;
+      await this.liveStore.logEvent({
+        type: 'command_executed',
+        data: {
+          cmd: command,
+          args,
+          cwd: this.shellRuntime?.getCWD() || '/home/guest',
+          exit_code: exitCode,
+          duration_ms: duration
+        }
+      });
     }
   }
 
