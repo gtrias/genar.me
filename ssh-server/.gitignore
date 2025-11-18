@@ -1,0 +1,31 @@
+# Binaries
+genar-ssh
+*.exe
+*.dll
+*.so
+*.dylib
+
+# SSH keys (generated at runtime)
+.ssh/
+*.pem
+*.key
+id_*
+
+# Go
+*.test
+*.out
+go.work
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
