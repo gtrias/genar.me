@@ -19,6 +19,7 @@ import { CommandHandler } from './CommandHandler';
 import { InputManager } from './InputManager';
 import { TimeoutManager } from '../utils/TimeoutManager';
 import { TerminalError, DefaultErrorBoundary } from '../utils/ErrorHandler';
+import { SSHConnectionManager, ConnectionStatus } from './SSHConnectionManager';
 
 import { defaultTerminalConfig } from '../config/TerminalConfig';
 import { defaultBootConfig } from '../config/BootConfig';
@@ -39,9 +40,11 @@ export class TerminalManager {
   private timeoutManager: TimeoutManager;
   private errorBoundary: DefaultErrorBoundary;
   private fitAddon!: FitAddon;
+  private sshConnection?: SSHConnectionManager;
   
   private isInitialized = false;
   private isBootComplete = false;
+  private isSSHMode = false;
   private container: HTMLElement;
   private config: TerminalConfig;
   private bootConfig: BootConfig;
@@ -85,82 +88,188 @@ export class TerminalManager {
         return;
       }
 
-      // Initialize storage backends
-      await this.opfsBackend.initialize();
-      await this.liveStore.initialize();
+      // Check if SSH mode is enabled
+      this.isSSHMode = this.config.ssh?.enabled === true;
 
-      // Load filesystem from OPFS (or use default)
-      const vfs = this.fileSystemManager.getFileSystem();
-      const loaded = await this.opfsBackend.load(vfs);
-      if (!loaded) {
-        console.log('No saved filesystem found, using default');
+      if (this.isSSHMode) {
+        await this.initializeSSHMode();
+      } else {
+        await this.initializeLocalMode();
       }
-
-      // Initialize shell runtime with VFS
-      const initialCWD = vfs.getCurrentPath();
-      this.shellRuntime = new ShellRuntime(vfs, initialCWD);
-
-      // Load command history from LiveStore
-      const history = this.liveStore.getCommandHistory();
-      if (history.length > 0) {
-        // Restore last 100 commands
-        const recentHistory = history.slice(-100).map(e => e.data.cmd + ' ' + e.data.args.join(' '));
-        this.shellRuntime.setHistory(recentHistory);
-      }
-
-      // Load command registry
-      this.commandRegistry = getCommandRegistry();
-
-      // Create terminal instance
-      this.terminal = this.createTerminalInstance();
-
-      // Open terminal in container
-      this.terminal.open(this.container);
-
-      // Setup fit addon for auto-resize
-      this.setupFitAddon();
-
-      // Setup web links addon
-      this.setupWebLinks();
-
-      // Initialize CRT effects
-      this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
-      this.crtEffects.initialize();
-
-      // Initialize command handler with shell runtime and live store
-      this.commandHandler = new CommandHandler(
-        this.commandRegistry, 
-        this.terminal, 
-        this.fileSystemManager,
-        this.shellRuntime,
-        this.liveStore
-      );
-
-      // Update prompt to use shell runtime
-      const prompt = this.shellRuntime.generatePrompt();
-      this.bootConfig.prompt = prompt;
-
-      // Initialize input manager with updated prompt
-      this.inputManager = new InputManager(this.terminal, prompt, this.commandHandler);
-
-      // Initialize boot sequence
-      this.bootSequence = new BootSequence(this.terminal, this.bootConfig, this.timeoutManager);
-
-      // Setup resize observer to auto-fit terminal when container size changes
-      this.setupResizeObserver();
-
-      // Additional fit after animation and effects have settled
-      setTimeout(() => {
-        this.fitTerminal();
-      }, 4200); // After power-on animation completes (4000ms) + buffer
 
       this.isInitialized = true;
-      console.log('TerminalManager initialized successfully');
+      console.log(`TerminalManager initialized successfully (${this.isSSHMode ? 'SSH' : 'Local'} mode)`);
 
     } catch (error) {
-      this.handleError(error instanceof TerminalError ? error : new TerminalError(`Initialization failed: ${error}`));
-      throw error;
+      const errorMessage = error instanceof Error ? error.message : 
+                          typeof error === 'string' ? error : 
+                          error ? String(error) : 'Unknown initialization error';
+      const terminalError = error instanceof TerminalError ? error : new TerminalError(`Initialization failed: ${errorMessage}`);
+      console.error('TerminalManager initialization error:', error);
+      this.handleError(terminalError);
+      throw terminalError;
     }
+  }
+
+  /**
+   * Initialize SSH mode - connect to remote SSH server via WebSocket
+   */
+  private async initializeSSHMode(): Promise<void> {
+    // Create terminal instance
+    this.terminal = this.createTerminalInstance();
+
+    // Open terminal in container
+    this.terminal.open(this.container);
+
+    // Setup fit addon for auto-resize
+    this.setupFitAddon();
+
+    // Setup web links addon
+    this.setupWebLinks();
+
+    // Initialize CRT effects
+    this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
+    this.crtEffects.initialize();
+
+    // Determine WebSocket URL
+    const wsUrl = this.config.ssh?.url || this.getDefaultWebSocketURL();
+
+    // Create SSH connection manager
+    this.sshConnection = new SSHConnectionManager(this.terminal, {
+      url: wsUrl,
+      reconnectInterval: this.config.ssh?.reconnectInterval,
+      maxReconnectAttempts: this.config.ssh?.maxReconnectAttempts,
+      connectionTimeout: this.config.ssh?.connectionTimeout,
+    });
+
+    // Setup connection status listener
+    this.sshConnection.onStatusChange((status) => {
+      if (status === ConnectionStatus.Error) {
+        this.terminal.write('\r\n\x1b[31mConnection error. Attempting to reconnect...\x1b[0m\r\n');
+      } else if (status === ConnectionStatus.Connected) {
+        this.terminal.write('\r\n\x1b[32mConnected to SSH server\x1b[0m\r\n');
+      }
+    });
+
+    // Connect to SSH server
+    try {
+      await this.sshConnection.connect();
+      this.isBootComplete = true; // Skip boot sequence in SSH mode
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 
+                      typeof error === 'string' ? error : 
+                      'Connection failed';
+      this.terminal.write(`\r\n\x1b[31mFailed to connect to SSH server: ${errorMsg}\x1b[0m\r\n`);
+      throw new TerminalError(`SSH connection failed: ${errorMsg}`, false);
+    }
+
+    // Setup resize observer
+    this.setupResizeObserver();
+
+    // Fit terminal after initialization
+    setTimeout(() => {
+      this.fitTerminal();
+    }, 100);
+  }
+
+  /**
+   * Initialize local mode - use local terminal with filesystem and commands
+   */
+  private async initializeLocalMode(): Promise<void> {
+    // Initialize storage backends
+    await this.opfsBackend.initialize();
+    await this.liveStore.initialize();
+
+    // Load filesystem from OPFS (or use default)
+    const vfs = this.fileSystemManager.getFileSystem();
+    const loaded = await this.opfsBackend.load(vfs);
+    if (!loaded) {
+      console.log('No saved filesystem found, using default');
+    }
+
+    // Initialize shell runtime with VFS
+    const initialCWD = vfs.getCurrentPath();
+    this.shellRuntime = new ShellRuntime(vfs, initialCWD);
+
+    // Load command history from LiveStore
+    const history = this.liveStore.getCommandHistory();
+    if (history.length > 0) {
+      // Restore last 100 commands
+      const recentHistory = history.slice(-100).map(e => e.data.cmd + ' ' + e.data.args.join(' '));
+      this.shellRuntime.setHistory(recentHistory);
+    }
+
+    // Load command registry
+    this.commandRegistry = getCommandRegistry();
+
+    // Create terminal instance
+    this.terminal = this.createTerminalInstance();
+
+    // Open terminal in container
+    this.terminal.open(this.container);
+
+    // Setup fit addon for auto-resize
+    this.setupFitAddon();
+
+    // Setup web links addon
+    this.setupWebLinks();
+
+    // Initialize CRT effects
+    this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
+    this.crtEffects.initialize();
+
+    // Initialize command handler with shell runtime and live store
+    this.commandHandler = new CommandHandler(
+      this.commandRegistry, 
+      this.terminal, 
+      this.fileSystemManager,
+      this.shellRuntime,
+      this.liveStore
+    );
+
+    // Update prompt to use shell runtime
+    const prompt = this.shellRuntime.generatePrompt();
+    this.bootConfig.prompt = prompt;
+
+    // Initialize input manager with updated prompt
+    this.inputManager = new InputManager(this.terminal, prompt, this.commandHandler);
+
+    // Initialize boot sequence
+    this.bootSequence = new BootSequence(this.terminal, this.bootConfig, this.timeoutManager);
+
+    // Setup resize observer to auto-fit terminal when container size changes
+    this.setupResizeObserver();
+
+    // Additional fit after animation and effects have settled
+    setTimeout(() => {
+      this.fitTerminal();
+    }, 4200); // After power-on animation completes (4000ms) + buffer
+  }
+
+  /**
+   * Get default WebSocket URL based on environment
+   */
+  private getDefaultWebSocketURL(): string {
+    // Check for environment variable or use default
+    if (typeof window !== 'undefined') {
+      const envUrl = (window as any).__SSH_WS_URL__;
+      if (envUrl) {
+        return envUrl;
+      }
+
+      // Default to localhost for development
+      if (window.location) {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const host = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'localhost:8080'
+          : 'genar-ssh-portfolio.fly.dev';
+        
+        return `${protocol}//${host}/ws`;
+      }
+    }
+
+    // Fallback if window is not available
+    return 'ws://localhost:8080/ws';
   }
 
   /**
@@ -174,6 +283,13 @@ export class TerminalManager {
 
       if (this.isBootComplete) {
         console.warn('Boot sequence already completed');
+        return;
+      }
+
+      // Skip boot sequence in SSH mode (connection message already shown)
+      if (this.isSSHMode) {
+        this.isBootComplete = true;
+        this.startInteractiveMode();
         return;
       }
 
@@ -201,11 +317,14 @@ export class TerminalManager {
         throw new TerminalError('Boot sequence must be completed before starting interactive mode');
       }
 
-      this.terminal.onData((data: string) => {
-        this.handleTerminalInput(data);
-      });
+      // In SSH mode, input is handled by SSHConnectionManager
+      if (!this.isSSHMode) {
+        this.terminal.onData((data: string) => {
+          this.handleTerminalInput(data);
+        });
+      }
 
-      console.log('Interactive mode started');
+      console.log(`Interactive mode started (${this.isSSHMode ? 'SSH' : 'Local'} mode)`);
 
     } catch (error) {
       this.handleError(error instanceof TerminalError ? error : new TerminalError(`Failed to start interactive mode: ${error}`));
@@ -226,11 +345,32 @@ export class TerminalManager {
         return;
       }
 
+      // In SSH mode, boot sequence is already skipped
+      if (this.isSSHMode) {
+        this.isBootComplete = true;
+        this.startInteractiveMode();
+        return;
+      }
+
       this.bootSequence.skip();
 
     } catch (error) {
       this.handleError(error instanceof TerminalError ? error : new TerminalError(`Failed to skip boot sequence: ${error}`));
     }
+  }
+
+  /**
+   * Get SSH connection manager (if in SSH mode)
+   */
+  getSSHConnection(): SSHConnectionManager | undefined {
+    return this.sshConnection;
+  }
+
+  /**
+   * Check if terminal is in SSH mode
+   */
+  isInSSHMode(): boolean {
+    return this.isSSHMode;
   }
 
   /**
@@ -240,6 +380,12 @@ export class TerminalManager {
     try {
       // Clear all timeouts
       this.timeoutManager.clearAll();
+
+      // Disconnect SSH connection if active
+      if (this.sshConnection) {
+        this.sshConnection.disconnect();
+        this.sshConnection = undefined;
+      }
 
       // Cleanup resize observer
       if (this.resizeObserver) {
@@ -265,6 +411,7 @@ export class TerminalManager {
       // Reset state
       this.isInitialized = false;
       this.isBootComplete = false;
+      this.isSSHMode = false;
 
       console.log('TerminalManager cleaned up successfully');
 

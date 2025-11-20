@@ -34,6 +34,11 @@ import ScreenReflections from './ScreenReflections.astro';
           <span class="led-label">POWER</span>
         </div>
         
+        <!-- SSH Connection Status (hidden by default, shown in SSH mode) -->
+        <div class="ssh-status-indicator" id="ssh-status-indicator" style="display: none;">
+          <span class="ssh-status-label">SSH</span>
+        </div>
+        
         <!-- Power Switch -->
         <input type="checkbox" id="crt-power-switch" checked>
         <label for="crt-power-switch" class="power-switch-label">
@@ -50,6 +55,44 @@ import ScreenReflections from './ScreenReflections.astro';
 <script>
   import { TerminalManager } from '../terminal/core/TerminalManager';
   import { defaultTerminalConfig } from '../terminal/config/TerminalConfig';
+  import { ConnectionStatus } from '../terminal/core/SSHConnectionManager';
+
+  // Get SSH configuration from environment or URL params
+  function getSSHConfig() {
+    // Check URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const sshParam = urlParams.get('ssh');
+    
+    // Check environment variable (set in astro.config.mjs or build)
+    const envSSHUrl = (window as any).__SSH_WS_URL__;
+    const envSSHEnabled = (window as any).__SSH_ENABLED__;
+    
+    // Determine if SSH should be enabled
+    const sshEnabled = sshParam === 'true' || sshParam === '1' || envSSHEnabled === true;
+    
+    // Determine WebSocket URL
+    let sshUrl: string | undefined;
+    if (sshParam && sshParam !== 'true' && sshParam !== '1' && sshParam !== 'false' && sshParam !== '0') {
+      // URL provided as parameter
+      sshUrl = sshParam;
+    } else if (envSSHUrl) {
+      // URL from environment
+      sshUrl = envSSHUrl;
+    } else if (sshEnabled) {
+      // Auto-detect URL based on current host
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const host = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'localhost:8080'
+        : 'genar-ssh-portfolio.fly.dev';
+      sshUrl = `${protocol}//${host}/ws`;
+    }
+    
+    // If SSH is enabled but no URL provided, we'll use default URL in TerminalManager
+    return {
+      enabled: sshEnabled,
+      url: sshUrl, // Can be undefined, will use default in TerminalManager
+    };
+  }
 
   document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById('terminal-container');
@@ -63,9 +106,50 @@ import ScreenReflections from './ScreenReflections.astro';
           loadingMsg.remove();
         }
         
+        // Get SSH configuration
+        const sshConfig = getSSHConfig();
+        
+        // Merge SSH config into terminal config
+        const terminalConfig = {
+          ...defaultTerminalConfig,
+          ssh: {
+            ...defaultTerminalConfig.ssh,
+            ...sshConfig,
+          },
+        };
+        
         // Initialize terminal manager in the screen-content area
-        const terminal = new TerminalManager(screenContent as HTMLElement, defaultTerminalConfig);
-        await terminal.initialize();
+        const terminal = new TerminalManager(screenContent as HTMLElement, terminalConfig);
+        
+        try {
+          await terminal.initialize();
+        } catch (initError) {
+          console.error('Terminal initialization error:', initError);
+          throw initError;
+        }
+        
+        // Setup connection status display if in SSH mode
+        if (terminal.isInSSHMode()) {
+          const sshConnection = terminal.getSSHConnection();
+          const statusIndicator = document.getElementById('ssh-status-indicator');
+          
+          if (sshConnection && statusIndicator) {
+            statusIndicator.style.display = 'flex';
+            
+            sshConnection.onStatusChange((status) => {
+              // Update connection status indicator
+              statusIndicator.className = `ssh-status-indicator ssh-status-${status}`;
+              const label = statusIndicator.querySelector('.ssh-status-label');
+              if (label) {
+                label.textContent = status === ConnectionStatus.Connected ? 'SSH ✓' : 
+                                   status === ConnectionStatus.Connecting ? 'SSH...' :
+                                   status === ConnectionStatus.Reconnecting ? 'SSH ↻' :
+                                   'SSH ✗';
+              }
+            });
+          }
+        }
+        
         await terminal.startBootSequence();
         
         // Store terminal instance globally for cleanup
@@ -115,7 +199,10 @@ import ScreenReflections from './ScreenReflections.astro';
       } catch (error) {
         console.error('Failed to initialize terminal:', error);
         if (screenContent) {
-          screenContent.innerHTML = `<div class="error-message">Failed to initialize terminal: ${error.message}</div>`;
+          const errorMessage = error instanceof Error ? error.message : 
+                              typeof error === 'string' ? error : 
+                              'Unknown error occurred';
+          screenContent.innerHTML = `<div class="error-message">Failed to initialize terminal: ${errorMessage}</div>`;
         }
       }
     }
@@ -270,6 +357,42 @@ import ScreenReflections from './ScreenReflections.astro';
     letter-spacing: 0.5px;
     font-weight: normal;
     white-space: nowrap;
+  }
+
+  /* SSH Status Indicator */
+  .ssh-status-indicator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    border: 1px solid #666;
+  }
+
+  .ssh-status-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: normal;
+    white-space: nowrap;
+  }
+
+  .ssh-status-connected .ssh-status-label {
+    color: #00ff00;
+  }
+
+  .ssh-status-connecting .ssh-status-label,
+  .ssh-status-reconnecting .ssh-status-label {
+    color: #ffff00;
+  }
+
+  .ssh-status-error .ssh-status-label,
+  .ssh-status-disconnected .ssh-status-label {
+    color: #ff0000;
   }
 
   @keyframes led-pulse {

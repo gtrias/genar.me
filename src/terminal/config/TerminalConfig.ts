@@ -10,6 +10,14 @@ export interface ThemeColors {
   brightYellow: string;
 }
 
+export interface SSHConfig {
+  enabled: boolean;
+  url?: string; // WebSocket URL (e.g., 'ws://localhost:8080/ws' or 'wss://genar-ssh-portfolio.fly.dev/ws')
+  reconnectInterval?: number; // Milliseconds between reconnection attempts
+  maxReconnectAttempts?: number; // Maximum number of reconnection attempts
+  connectionTimeout?: number; // Connection timeout in milliseconds
+}
+
 export interface TerminalConfig {
   cursorBlinkRate: number;
   fontSize: number;
@@ -18,6 +26,7 @@ export interface TerminalConfig {
   rows?: number; // Optional - FitAddon will calculate optimal size if not provided
   allowTransparency: boolean;
   theme: ThemeColors;
+  ssh?: SSHConfig; // SSH/WebSocket connection configuration
 }
 
 export const defaultTerminalConfig: TerminalConfig = {
@@ -37,5 +46,12 @@ export const defaultTerminalConfig: TerminalConfig = {
     brightGreen: '#00ff00',
     brightMagenta: '#ff00ff',
     brightYellow: '#ffff00',
+  },
+  ssh: {
+    enabled: false, // Disabled by default - enable to connect to SSH server
+    url: undefined, // Will use environment variable or default
+    reconnectInterval: 3000,
+    maxReconnectAttempts: 10,
+    connectionTimeout: 10000,
   },
 };
