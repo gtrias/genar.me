@@ -175,7 +175,7 @@ func (s *WebSocketSession) HandleInput(data []byte) error {
 
 	// Parse input and send to program
 	key := string(data)
-	s.logger.Info("HandleInput called", "key", key, "bytes", data, "len", len(data))
+	s.logger.Info("🔧 HandleInput called", "key", key, "keyQuoted", fmt.Sprintf("%q", key), "bytes", data, "len", len(data), "programIsNil", s.program == nil)
 	
 	// Handle special keys - convert to tea.KeyMsg format
 	// Note: Bubble Tea's KeyMsg.String() method is used for matching in the TUI
@@ -387,12 +387,13 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 
 			switch messageType {
 			case websocket.TextMessage:
-				logger.Debug("Processing TextMessage", "dataLen", len(data), "preview", string(data[:min(len(data), 50)]))
+				logger.Info("📨 Processing TextMessage", "dataLen", len(data), "preview", string(data[:min(len(data), 50)]), "rawBytes", data)
 				// Try to parse as JSON (for resize messages)
 				var msg WebSocketMessage
-				if err := json.Unmarshal(data, &msg); err == nil && msg.Type == "resize" {
+				unmarshalErr := json.Unmarshal(data, &msg)
+				if unmarshalErr == nil && msg.Type == "resize" {
 					// This is a resize message (JSON)
-					logger.Info("Received resize message", "type", msg.Type)
+					logger.Info("✅ Received RESIZE message (JSON)", "type", msg.Type)
 					if sizeData, ok := msg.Data.(map[string]interface{}); ok {
 						size := TerminalSize{
 							Cols: int(sizeData["cols"].(float64)),
@@ -404,9 +405,12 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 					}
 				} else {
 					// This is raw terminal input (from AttachAddon)
-					logger.Debug("Received raw terminal input", "size", len(data), "preview", string(data[:min(len(data), 50)]))
+					logger.Info("🎹 Received RAW TERMINAL INPUT (not JSON)", "size", len(data), "preview", string(data[:min(len(data), 50)]), "unmarshalErr", unmarshalErr)
+					logger.Info("Calling HandleInput with raw data...")
 					if err := session.HandleInput(data); err != nil {
 						logger.Error("Error handling input", "error", err)
+					} else {
+						logger.Info("✓ HandleInput completed successfully")
 					}
 				}
 			case websocket.BinaryMessage:

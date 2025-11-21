@@ -7,9 +7,6 @@ import { WebLinksAddon } from '@xterm/addon-web-links';
 import CRTScene from './CRTScene';
 import Shell from '../utils/shell';
 
-// Default production WebSocket URL (to be set manually)
-const DEFAULT_WS_URL = 'ws://localhost:8080/ws';
-
 const TerminalComponent = () => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
@@ -22,7 +19,7 @@ const TerminalComponent = () => {
   let wsConnection: WebSocket | null = null;
   let attachAddon: AttachAddon | null = null;
   let isWebSocketMode = false;
-  let wsCurrentLine = ''; // Track current line in WebSocket mode for exit detection
+  let localModeDisposable: { dispose: () => void } | null = null; // Store local mode handler
 
   onMount(() => {
     if (!terminalContainer) return;
@@ -34,7 +31,6 @@ const TerminalComponent = () => {
         background: '#1e1e1e',
         foreground: '#d4d4d4',
         cursor: '#aeafad',
-        selection: '#3e3e3e',
       },
       fontSize: 18,
       fontFamily: 'Consolas, "Courier New", monospace',
@@ -54,14 +50,14 @@ const TerminalComponent = () => {
 
     // Set up link handler for OSC 8 escape sequences (official xterm.js way)
     const linkHandler = {
-      activate: (event: MouseEvent, uri: string) => {
+      activate: (_event: MouseEvent, uri: string) => {
         // Open link in new tab with security attributes
         window.open(uri, '_blank', 'noopener,noreferrer');
       },
-      hover: (event: MouseEvent, uri: string) => {
+      hover: (_event: MouseEvent, _uri: string) => {
         // Optional: show URL on hover
       },
-      leave: (event: MouseEvent, uri: string) => {
+      leave: (_event: MouseEvent, _uri: string) => {
         // Optional: hide URL on leave
       },
       allowNonHttpProtocols: true
@@ -70,7 +66,7 @@ const TerminalComponent = () => {
 
     // Initialize web links addon for pattern matching (detects URLs in output)
     const webLinksAddon = new WebLinksAddon(
-      (event: MouseEvent, uri: string) => {
+      (_event: MouseEvent, uri: string) => {
         window.open(uri, '_blank', 'noopener,noreferrer');
       },
       linkHandler
@@ -100,16 +96,38 @@ const TerminalComponent = () => {
     // WebSocket connection function
     const connectWebSocket = (url: string) => {
       try {
+        // Close any existing connection first
+        if (wsConnection) {
+          console.warn('⚠️  Closing existing WebSocket connection before creating new one');
+          wsConnection.close();
+          wsConnection = null;
+        }
+        
         terminal?.write(`\r\nConnecting to ${url}...\r\n`);
         const ws = new WebSocket(url);
         
         ws.onopen = () => {
+          console.log('═══════════════════════════════════════');
           console.log('WebSocket connected successfully');
+          console.log('═══════════════════════════════════════');
           isWebSocketMode = true;
           wsConnection = ws;
-          wsCurrentLine = '';
+          
+          // Simple debug: just log that a message is being sent
+          console.log('🔌 WebSocket created and will be passed to AttachAddon');
+          console.log('   readyState:', ws.readyState, '(', ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState], ')');
+          
+          // CRITICAL: Dispose local mode handler BEFORE loading AttachAddon
+          // AttachAddon needs exclusive control of terminal.onData()
+          if (localModeDisposable) {
+            console.log('⚠️  Disposing local mode handler to give AttachAddon exclusive control');
+            localModeDisposable.dispose();
+            localModeDisposable = null;
+            console.log('✓ Local mode handler disposed');
+          }
           
           // Send initial resize message BEFORE attaching (resize is handled separately)
+          // NOTE: We send this BEFORE AttachAddon so it doesn't try to display it as terminal output
           if (terminal && fitAddon) {
             const dimensions = fitAddon.proposeDimensions();
             if (dimensions) {
@@ -120,43 +138,65 @@ const TerminalComponent = () => {
                   rows: dimensions.rows,
                 },
               });
-              console.log('Sending initial resize:', resizeMsg);
+              console.log('📐 Sending initial resize:', resizeMsg);
               ws.send(resizeMsg);
             }
           }
           
           // Use AttachAddon to handle terminal I/O automatically
           if (terminal) {
-            // AttachAddon handles input/output automatically - sends raw data, not JSON
-            attachAddon = new AttachAddon(ws);
+            // AttachAddon handles input/output automatically - sends raw data, not JSON  
+            console.log('🔧 Creating AttachAddon with options:', { bidirectional: true });
+            attachAddon = new AttachAddon(ws, { bidirectional: true });
+            console.log('✓ AttachAddon created, now loading...');
             terminal.loadAddon(attachAddon);
-            console.log('AttachAddon loaded - terminal is now interactive');
+            console.log('✓ AttachAddon loaded - terminal is now interactive');
+            console.log('✓ AttachAddon now has EXCLUSIVE control of terminal I/O');
+            console.log('  - All keyboard input goes directly to WebSocket as raw bytes');
+            console.log('  - All WebSocket output goes directly to terminal with ANSI colors');
           }
           
           // NOTE: Do NOT set ws.onmessage here! AttachAddon needs to handle all messages
           // to properly display terminal output with colors and handle input.
-          // Resize is handled separately through the resize event handler below.
+          // Resize is handled separately (sent directly on WebSocket, not through AttachAddon).
         };
         
         ws.onerror = (error) => {
-          terminal?.write(`\r\nWebSocket error: ${error}\r\n`);
-          if (attachAddon && terminal) {
-            terminal.loadAddon(attachAddon); // Detach
+          console.error('🔴 WebSocket ERROR:', {
+            error: error,
+            type: error.type,
+            target: error.target,
+            readyState: ws.readyState,
+            url: ws.url
+          });
+          terminal?.write(`\r\nWebSocket error occurred. Reconnection failed.\r\n`);
+          if (attachAddon) {
+            attachAddon.dispose();
             attachAddon = null;
           }
           isWebSocketMode = false;
           wsConnection = null;
+          
+          // Re-register local mode handler
+          if (terminal) {
+            registerLocalModeHandler();
+          }
           terminal?.write(shell.getPrompt());
         };
         
         ws.onclose = () => {
-          if (attachAddon && terminal) {
+          console.log('WebSocket closed');
+          if (attachAddon) {
             attachAddon.dispose(); // Clean up AttachAddon
             attachAddon = null;
           }
           isWebSocketMode = false;
           wsConnection = null;
-          wsCurrentLine = '';
+          
+          // Re-register local mode handler
+          if (terminal) {
+            registerLocalModeHandler();
+          }
           terminal?.write('\r\n\r\nDisconnected from SSH server.\r\n');
           terminal?.write(shell.getPrompt());
         };
@@ -166,68 +206,27 @@ const TerminalComponent = () => {
       }
     };
     
-    // Handle exit from WebSocket mode
-    const handleWebSocketExit = () => {
-      if (attachAddon && terminal) {
-        attachAddon.dispose();
-        attachAddon = null;
-      }
-      if (wsConnection) {
-        wsConnection.close();
-        wsConnection = null;
-      }
-      isWebSocketMode = false;
-      wsCurrentLine = '';
-      terminal?.write('\r\n');
-      terminal?.write(shell.getPrompt());
-    };
 
-    // Handle input
-    terminal.onData((data) => {
-      // Ignore input if paused
-      if (isPaused()) {
-        return;
-      }
-
-      // If in WebSocket mode, AttachAddon handles input automatically
-      // We only need to track for exit detection
-      if (isWebSocketMode && attachAddon) {
-        const code = data.charCodeAt(0);
+    // Register local mode input handler
+    const registerLocalModeHandler = () => {
+      if (!terminal) return;
+      
+      console.log('📝 Registering local mode input handler');
+      localModeDisposable = terminal.onData((data) => {
+        // This handler is ONLY for local mode
+        // When WebSocket/AttachAddon is active, this handler is disposed
         
-        // Track current line for exit detection
-        if (code === 13 || code === 10) {
-          // Enter key - check if line is "exit"
-          if (wsCurrentLine.trim().toLowerCase() === 'exit') {
-            handleWebSocketExit();
-            wsCurrentLine = '';
-            return;
-          }
-          wsCurrentLine = '';
-        } else if (code === 127 || code === 8) {
-          // Backspace
-          if (wsCurrentLine.length > 0) {
-            wsCurrentLine = wsCurrentLine.slice(0, -1);
-          }
-        } else if (code >= 32 && code <= 126) {
-          // Printable characters - track for exit command only
-          wsCurrentLine += data;
-          // Keep buffer size reasonable
-          if (wsCurrentLine.length > 50) {
-            wsCurrentLine = wsCurrentLine.slice(-50);
-          }
+        // Ignore input if paused
+        if (isPaused()) {
+          return;
         }
-        
-        // AttachAddon handles sending input to WebSocket automatically
-        // No need to manually send - just return to let AttachAddon handle it
-        return;
-      }
 
-      const code = data.charCodeAt(0);
+        const code = data.charCodeAt(0);
 
-      // Handle special keys
-      if (code === 13) {
-        // Enter key
-        terminal.write('\r\n');
+        // Handle special keys
+        if (code === 13) {
+          // Enter key
+          terminal?.write('\r\n');
         if (currentLine.trim()) {
           const result = shell.executeCommand(currentLine);
           
@@ -240,102 +239,106 @@ const TerminalComponent = () => {
           }
           
           if (result.output) {
-            // Handle clear command specially
-            if (currentLine.trim() === 'clear') {
-              terminal.clear();
-            } else {
-              terminal.write(result.output);
+              // Handle clear command specially
+              if (currentLine.trim() === 'clear') {
+                terminal?.clear();
+              } else {
+                terminal?.write(result.output);
+              }
             }
           }
-        }
-        currentLine = '';
-        cursorPosition = 0;
-        terminal.write(shell.getPrompt());
-      } else if (code === 127 || code === 8) {
-        // Backspace
-        if (cursorPosition > 0) {
-          currentLine = currentLine.slice(0, cursorPosition - 1) + currentLine.slice(cursorPosition);
-          cursorPosition--;
-          // Move cursor back, erase character, and redraw rest of line if needed
-          terminal.write('\b');
-          if (cursorPosition < currentLine.length) {
-            const restOfLine = currentLine.slice(cursorPosition);
-            terminal.write(restOfLine + ' ');
-            // Move cursor back to correct position
-            terminal.write('\x1b[' + (restOfLine.length + 1) + 'D');
-          } else {
-            terminal.write(' ');
-            terminal.write('\b');
-          }
-        }
-      } else if (code === 27) {
-        // Escape sequence (arrow keys, etc.)
-        if (data.length > 1) {
-          const sequence = data.slice(1);
-          if (sequence === '[A') {
-            // Up arrow - history
-            const historyCmd = shell.getHistory('up');
-            if (historyCmd !== null) {
-              // Clear current line
-              const prompt = shell.getPrompt();
-              terminal.write('\r');
-              terminal.write(' '.repeat(prompt.length + currentLine.length));
-              terminal.write('\r');
-              currentLine = historyCmd;
-              cursorPosition = currentLine.length;
-              terminal.write(prompt);
-              terminal.write(currentLine);
-            }
-          } else if (sequence === '[B') {
-            // Down arrow - history
-            const historyCmd = shell.getHistory('down');
-            if (historyCmd !== null) {
-              // Clear current line
-              const prompt = shell.getPrompt();
-              terminal.write('\r');
-              terminal.write(' '.repeat(prompt.length + currentLine.length));
-              terminal.write('\r');
-              currentLine = historyCmd;
-              cursorPosition = currentLine.length;
-              terminal.write(prompt);
-              terminal.write(currentLine);
-            }
-          } else if (sequence === '[C') {
-            // Right arrow
+          currentLine = '';
+          cursorPosition = 0;
+          terminal?.write(shell.getPrompt());
+        } else if (code === 127 || code === 8) {
+          // Backspace
+          if (cursorPosition > 0) {
+            currentLine = currentLine.slice(0, cursorPosition - 1) + currentLine.slice(cursorPosition);
+            cursorPosition--;
+            // Move cursor back, erase character, and redraw rest of line if needed
+            terminal?.write('\b');
             if (cursorPosition < currentLine.length) {
-              cursorPosition++;
-              terminal.write(data);
-            }
-          } else if (sequence === '[D') {
-            // Left arrow
-            if (cursorPosition > 0) {
-              cursorPosition--;
-              terminal.write(data);
+              const restOfLine = currentLine.slice(cursorPosition);
+              terminal?.write(restOfLine + ' ');
+              // Move cursor back to correct position
+              terminal?.write('\x1b[' + (restOfLine.length + 1) + 'D');
+            } else {
+              terminal?.write(' ');
+              terminal?.write('\b');
             }
           }
-        }
-      } else if (code >= 32 && code <= 126) {
-        // Printable characters
-        if (cursorPosition < currentLine.length) {
-          // Insert in middle of line
-          currentLine = currentLine.slice(0, cursorPosition) + data + currentLine.slice(cursorPosition);
-          cursorPosition++;
-          // Redraw the rest of the line
-          const restOfLine = currentLine.slice(cursorPosition);
-          terminal.write(data);
-          terminal.write(restOfLine);
-          // Move cursor back to correct position
-          if (restOfLine.length > 0) {
-            terminal.write('\x1b[' + restOfLine.length + 'D');
+        } else if (code === 27) {
+          // Escape sequence (arrow keys, etc.)
+          if (data.length > 1) {
+            const sequence = data.slice(1);
+            if (sequence === '[A') {
+              // Up arrow - history
+              const historyCmd = shell.getHistory('up');
+              if (historyCmd !== null) {
+                // Clear current line
+                const prompt = shell.getPrompt();
+                terminal?.write('\r');
+                terminal?.write(' '.repeat(prompt.length + currentLine.length));
+                terminal?.write('\r');
+                currentLine = historyCmd;
+                cursorPosition = currentLine.length;
+                terminal?.write(prompt);
+                terminal?.write(currentLine);
+              }
+            } else if (sequence === '[B') {
+              // Down arrow - history
+              const historyCmd = shell.getHistory('down');
+              if (historyCmd !== null) {
+                // Clear current line
+                const prompt = shell.getPrompt();
+                terminal?.write('\r');
+                terminal?.write(' '.repeat(prompt.length + currentLine.length));
+                terminal?.write('\r');
+                currentLine = historyCmd;
+                cursorPosition = currentLine.length;
+                terminal?.write(prompt);
+                terminal?.write(currentLine);
+              }
+            } else if (sequence === '[C') {
+              // Right arrow
+              if (cursorPosition < currentLine.length) {
+                cursorPosition++;
+                terminal?.write(data);
+              }
+            } else if (sequence === '[D') {
+              // Left arrow
+              if (cursorPosition > 0) {
+                cursorPosition--;
+                terminal?.write(data);
+              }
+            }
           }
-        } else {
-          // Append to end of line
-          currentLine += data;
-          cursorPosition++;
-          terminal.write(data);
+        } else if (code >= 32 && code <= 126) {
+          // Printable characters
+          if (cursorPosition < currentLine.length) {
+            // Insert in middle of line
+            currentLine = currentLine.slice(0, cursorPosition) + data + currentLine.slice(cursorPosition);
+            cursorPosition++;
+            // Redraw the rest of the line
+            const restOfLine = currentLine.slice(cursorPosition);
+            terminal?.write(data);
+            terminal?.write(restOfLine);
+            // Move cursor back to correct position
+            if (restOfLine.length > 0) {
+              terminal?.write('\x1b[' + restOfLine.length + 'D');
+            }
+          } else {
+            // Append to end of line
+            currentLine += data;
+            cursorPosition++;
+            terminal?.write(data);
+          }
         }
-      }
-    });
+      });
+    };
+
+    // Register the local mode handler initially
+    registerLocalModeHandler();
 
     // Mark terminal as ready for CRT scene
     setTerminalReady(terminal);
@@ -403,7 +406,7 @@ const TerminalComponent = () => {
         {/* LED indicator light */}
         <div
           class="spectrum-led"
-          aria-label={isPaused() ? 'Terminal off' : 'Terminal on'}
+          title={isPaused() ? 'Terminal off' : 'Terminal on'}
           style={{
             '--led-color': isPaused() ? '#330000' : '#00ff00',
             '--led-glow': isPaused() ? 'transparent' : 'rgba(0, 255, 0, 0.6)',
@@ -411,9 +414,10 @@ const TerminalComponent = () => {
         />
         {/* Spectrum-style red power button */}
         <button
+          type="button"
           onClick={togglePause}
           class="spectrum-button"
-          aria-label={isPaused() ? 'Resume terminal' : 'Pause terminal'}
+          title={isPaused() ? 'Resume terminal' : 'Pause terminal'}
           style={{
             '--button-color': isPaused() ? '#8B0000' : '#DC143C',
           }}
@@ -423,12 +427,12 @@ const TerminalComponent = () => {
           {/* Screen background - sits behind all content */}
           <div 
             class="absolute inset-0"
-            style={{
-              'z-index': 0,
-              background: '#1e1e1e',
-              backgroundImage: 
-                'radial-gradient(circle at 20% 30%, rgba(30, 30, 30, 0.8) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(25, 25, 25, 0.6) 0%, transparent 50%)'
-            }}
+          style={{
+            'z-index': 0,
+            background: '#1e1e1e',
+            'background-image': 
+              'radial-gradient(circle at 20% 30%, rgba(30, 30, 30, 0.8) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(25, 25, 25, 0.6) 0%, transparent 50%)'
+          }}
           />
           {/* Terminal container - very low opacity so canvas renders but is nearly invisible */}
           <div
