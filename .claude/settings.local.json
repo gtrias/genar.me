@@ -7,7 +7,8 @@
       "WebSearch",
       "WebFetch(domain:charm.land)",
       "Bash(go mod init:*)",
-      "Bash(go get:*)"
+      "Bash(go get:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

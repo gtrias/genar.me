@@ -12,6 +12,7 @@ import type { Command } from '../../commands/types';
 import { Terminal } from '@xterm/xterm';
 import { WebLinksAddon } from '@xterm/addon-web-links';
 import { FitAddon } from '@xterm/addon-fit';
+import { CanvasAddon } from '@xterm/addon-canvas';
 
 import { CRTEffects } from '../effects/CRTEffects';
 import { BootSequence } from '../boot/BootSequence';
@@ -121,6 +122,9 @@ export class TerminalManager {
     // Open terminal in container
     this.terminal.open(this.container);
 
+    // Setup canvas addon for CRT effects (must be loaded before fit addon)
+    this.setupCanvasAddon();
+
     // Setup fit addon for auto-resize
     this.setupFitAddon();
 
@@ -129,7 +133,7 @@ export class TerminalManager {
 
     // Initialize CRT effects
     this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
-    this.crtEffects.initialize();
+    await this.crtEffects.initialize();
 
     // Determine WebSocket URL
     const wsUrl = this.config.ssh?.url || this.getDefaultWebSocketURL();
@@ -208,6 +212,9 @@ export class TerminalManager {
     // Open terminal in container
     this.terminal.open(this.container);
 
+    // Setup canvas addon for CRT effects (must be loaded before fit addon)
+    this.setupCanvasAddon();
+
     // Setup fit addon for auto-resize
     this.setupFitAddon();
 
@@ -216,7 +223,7 @@ export class TerminalManager {
 
     // Initialize CRT effects
     this.crtEffects = new CRTEffects(this.container, this.themeConfig, this.deviceConfig);
-    this.crtEffects.initialize();
+    await this.crtEffects.initialize();
 
     // Initialize command handler with shell runtime and live store
     this.commandHandler = new CommandHandler(
@@ -499,8 +506,22 @@ export class TerminalManager {
     // Don't set cols/rows when using FitAddon - let it calculate optimal dimensions
     // FitAddon's fit() method will override any initial dimensions anyway
     // Setting initial dimensions can cause layout issues with clip-path
+    // Note: Canvas addon is loaded separately for CRT glass deformation effects
 
     return new Terminal(terminalOptions);
+  }
+
+  /**
+   * Setup canvas addon for canvas-based rendering (required for CRT effects)
+   */
+  private setupCanvasAddon(): void {
+    try {
+      const canvasAddon = new CanvasAddon();
+      this.terminal.loadAddon(canvasAddon);
+      console.log('CanvasAddon loaded - using canvas renderer for CRT effects');
+    } catch (error) {
+      console.warn('Failed to load CanvasAddon:', error);
+    }
   }
 
   /**
@@ -510,12 +531,12 @@ export class TerminalManager {
     try {
       this.fitAddon = new FitAddon();
       this.terminal.loadAddon(this.fitAddon);
-      
+
       // Fit terminal to container after a short delay to ensure layout is ready
       setTimeout(() => {
         this.fitTerminal();
       }, 100);
-      
+
       console.log('FitAddon loaded - terminal will auto-resize to container');
     } catch (error) {
       console.warn('Failed to load FitAddon:', error);
