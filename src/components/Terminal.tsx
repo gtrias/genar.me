@@ -14,6 +14,7 @@ const TerminalComponent = () => {
   let terminal: Terminal | undefined;
   let fitAddon: FitAddon | undefined;
   const [terminalReady, setTerminalReady] = createSignal<Terminal | undefined>(undefined);
+  const [isPaused, setIsPaused] = createSignal(false);
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
@@ -204,6 +205,11 @@ const TerminalComponent = () => {
 
     // Handle input
     terminal.onData((data) => {
+      // Ignore input if paused
+      if (isPaused()) {
+        return;
+      }
+
       // If in WebSocket mode, forward all input to WebSocket
       if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN) {
         const code = data.charCodeAt(0);
@@ -391,6 +397,24 @@ const TerminalComponent = () => {
     };
   });
 
+  const togglePause = () => {
+    const paused = !isPaused();
+    setIsPaused(paused);
+    
+    if (terminal) {
+      if (paused) {
+        terminal.options.disableStdin = true;
+        terminal.write('\r\n\x1b[33m[PAUSED]\x1b[0m\r\n');
+      } else {
+        terminal.options.disableStdin = false;
+        terminal.write('\r\n\x1b[32m[RESUMED]\x1b[0m\r\n');
+        if (!isWebSocketMode) {
+          terminal.write(shell.getPrompt());
+        }
+      }
+    }
+  };
+
   return (
     <div class="w-full h-full relative" style={{ 'min-height': '400px' }}>
       {/* SVG clip-path definition for curvature */}
@@ -402,6 +426,24 @@ const TerminalComponent = () => {
       </svg>
       {/* Bezel wrapper - CSS-styled bezel frame */}
       <div class="crt-bezel w-full h-full relative">
+        {/* LED indicator light */}
+        <div
+          class="spectrum-led"
+          aria-label={isPaused() ? 'Terminal off' : 'Terminal on'}
+          style={{
+            '--led-color': isPaused() ? '#330000' : '#00ff00',
+            '--led-glow': isPaused() ? 'transparent' : 'rgba(0, 255, 0, 0.6)',
+          }}
+        />
+        {/* Spectrum-style red power button */}
+        <button
+          onClick={togglePause}
+          class="spectrum-button"
+          aria-label={isPaused() ? 'Resume terminal' : 'Pause terminal'}
+          style={{
+            '--button-color': isPaused() ? '#8B0000' : '#DC143C',
+          }}
+        />
         {/* Inner screen area - fills the space inside the bezel padding */}
         <div class="crt-screen w-full h-full relative">
           {/* Screen background - sits behind all content */}

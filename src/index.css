@@ -125,3 +125,53 @@
   pointer-events: none;
   mix-blend-mode: multiply;
 }
+
+/* LED indicator light */
+.spectrum-led {
+  position: absolute;
+  bottom: 28px;
+  right: 70px;
+  width: 6px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--led-color, #00ff00);
+  border: 1px solid #000;
+  box-shadow:
+    0 0 4px var(--led-glow, rgba(0, 255, 0, 0.6)),
+    inset 0 0 2px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+/* Spectrum-style red power button */
+.spectrum-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 30px;
+  border-radius: 2px;
+  background: #000;
+  border: 2px solid #000;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 10;
+  outline: none;
+  padding: 2px;
+  box-sizing: border-box;
+  --button-color: #DC143C;
+}
+
+.spectrum-button::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 4px;
+  background: var(--button-color, #DC143C);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+}
