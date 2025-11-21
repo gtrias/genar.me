@@ -10,6 +10,7 @@
     "dev:go": "nodemon --watch ssh-server --ext go --exec \"cd ssh-server && go build -o genar-ssh && ./genar-ssh\"",
     "build": "vite build",
     "build:go": "cd ssh-server && go mod tidy && go build -o genar-ssh",
+    "deploy": "npm run build && npx wrangler pages deploy",
     "serve": "vite preview"
   },
   "license": "MIT",
@@ -21,7 +22,8 @@
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "vite": "^7.1.4",
-    "vite-plugin-solid": "^2.11.8"
+    "vite-plugin-solid": "^2.11.8",
+    "wrangler": "^3.0.0"
   },
   "dependencies": {
     "@types/three": "^0.181.0",
@@ -31,6 +33,7 @@
     "@xterm/addon-web-links": "^0.11.0",
     "@xterm/xterm": "^5.3.0",
     "html2canvas": "^1.4.1",
+    "phosphor-solid": "^1.1.5",
     "solid-js": "^1.9.9",
     "three": "^0.181.2"
   }

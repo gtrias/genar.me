@@ -4,10 +4,16 @@ import { AttachAddon } from '@xterm/addon-attach';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
+import { CaretLeft, CaretRight } from 'phosphor-solid';
 import CRTScene from './CRTScene';
 import Shell from '../utils/shell';
 
-const TerminalComponent = () => {
+interface TerminalProps {
+  onToggleSidebar: () => void;
+  sidebarVisible: boolean;
+}
+
+const TerminalComponent = (props: TerminalProps) => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
   let fitAddon: FitAddon | undefined;
@@ -412,6 +418,19 @@ const TerminalComponent = () => {
             '--led-glow': isPaused() ? 'transparent' : 'rgba(0, 255, 0, 0.6)',
           }}
         />
+        {/* Sidebar toggle button - only visible when sidebar is hidden */}
+        {!props.sidebarVisible && (
+          <button
+            type="button"
+            onClick={props.onToggleSidebar}
+            class="sidebar-toggle-button"
+            title="Show sidebar"
+          >
+            <span class="sidebar-toggle-icon">
+              <CaretRight size={16} weight="bold" />
+            </span>
+          </button>
+        )}
         {/* Spectrum-style red power button */}
         <button
           type="button"

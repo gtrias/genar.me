@@ -1,3 +1,5 @@
+import linksConfig from '../config/links.json';
+
 export interface CommandResult {
   output: string;
   exitCode: number;
@@ -339,13 +341,11 @@ Use arrow keys to navigate command history.
   }
 
   getBanner(): string {
-    const github = createHyperlink('https://www.github.com/gtrias', 'GitHub');
-    const gitlab = createHyperlink('https://gitlab.com/gtrias', 'GitLab');
-    const linkedin = createHyperlink('http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90', 'LinkedIn');
-    const twitter = createHyperlink('https://twitter.com/genar_tr', '@genar_tr');
-    const docker = createHyperlink('https://hub.docker.com/u/gtrias/', 'Docker Hub');
-    const stackoverflow = createHyperlink('https://stackoverflow.com/users/865222/genar', 'StackOverflow');
-    const steam = createHyperlink('http://steamcommunity.com/id/genar_tr/', 'Steam');
+    // Generate social links dynamically from config
+    const socialLinks = linksConfig.social.map((link) => {
+      const displayText = link.username || link.name;
+      return `║    • ${createHyperlink(link.url, displayText)}`;
+    }).join('\n');
 
     return `
 ╔═══════════════════════════════════════════════════╗
@@ -364,13 +364,7 @@ Use arrow keys to navigate command history.
 ║  Use arrow keys to navigate command history       ║
 ║                                                   ║
 ║  Links:                                           ║
-║    • ${github}                                       ║
-║    • ${gitlab}                                       ║
-║    • ${linkedin}                                     ║
-║    • ${twitter}                                    ║
-║    • ${docker}                                   ║
-║    • ${stackoverflow}                                ║
-║    • ${steam}                                        ║
+${socialLinks}
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 

@@ -1,0 +1,52 @@
+{
+  "social": [
+    {
+      "id": "github",
+      "name": "GitHub",
+      "url": "https://www.github.com/gtrias",
+      "icon": "GithubLogo"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "url": "https://gitlab.com/gtrias",
+      "icon": "GitlabLogo"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "url": "http://www.linkedin.com/pub/genar-trias-ortiz/9/592/b90",
+      "icon": "LinkedinLogo"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "url": "https://twitter.com/genar_tr",
+      "username": "@genar_tr",
+      "icon": "TwitterLogo"
+    },
+    {
+      "id": "docker",
+      "name": "Docker Hub",
+      "url": "https://hub.docker.com/u/gtrias/",
+      "icon": "TerminalWindow"
+    },
+    {
+      "id": "stackoverflow",
+      "name": "StackOverflow",
+      "url": "https://stackoverflow.com/users/865222/genar",
+      "icon": "Stack"
+    },
+    {
+      "id": "steam",
+      "name": "Steam",
+      "url": "http://steamcommunity.com/id/genar_tr/",
+      "icon": "GameController"
+    }
+  ],
+  "articles": {
+    "name": "Articles",
+    "url": "https://genar.fika.bar",
+    "icon": "Article"
+  }
+}
