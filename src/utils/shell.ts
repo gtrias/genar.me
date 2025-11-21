@@ -1,6 +1,7 @@
 export interface CommandResult {
   output: string;
   exitCode: number;
+  websocketUrl?: string; // If set, indicates WebSocket connection should be initiated
 }
 
 /**
@@ -142,6 +143,8 @@ class Shell {
         return { output: new Date().toString() + '\n', exitCode: 0 };
       case 'history':
         return this.showHistory();
+      case 'ssh':
+        return this.ssh(args);
       case 'exit':
         return { output: 'Goodbye!\n', exitCode: 0 };
       default:
@@ -165,6 +168,7 @@ Available commands:
   whoami        - Display current user
   date          - Display current date and time
   history       - Show command history
+  ssh [url]     - Connect to SSH server via WebSocket
   exit          - Exit the terminal
 
 Use arrow keys to navigate command history.
@@ -310,6 +314,28 @@ Use arrow keys to navigate command history.
       .map((cmd, idx) => `${idx + 1}  ${cmd}`)
       .join('\n');
     return { output: historyText + '\n', exitCode: 0 };
+  }
+
+  private ssh(args: string[]): CommandResult {
+    // Default production WebSocket URL (to be set manually)
+    const DEFAULT_WS_URL = 'ws://localhost:8080/ws';
+    
+    // Parse URL from arguments or use default
+    const url = args.length > 0 ? args[0] : DEFAULT_WS_URL;
+    
+    // Validate URL format
+    if (!url.startsWith('ws://') && !url.startsWith('wss://')) {
+      return {
+        output: `ssh: Invalid WebSocket URL. Must start with ws:// or wss://\n`,
+        exitCode: 1,
+      };
+    }
+    
+    return {
+      output: `Connecting to ${url}...\n`,
+      exitCode: 0,
+      websocketUrl: url,
+    };
   }
 
   getBanner(): string {

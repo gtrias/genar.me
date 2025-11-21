@@ -6,6 +6,9 @@ import { WebLinksAddon } from '@xterm/addon-web-links';
 import CRTScene from './CRTScene';
 import Shell from '../utils/shell';
 
+// Default production WebSocket URL (to be set manually)
+const DEFAULT_WS_URL = 'ws://localhost:8080/ws';
+
 const TerminalComponent = () => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
@@ -14,6 +17,9 @@ const TerminalComponent = () => {
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
+  let wsConnection: WebSocket | null = null;
+  let isWebSocketMode = false;
+  let wsCurrentLine = ''; // Track current line in WebSocket mode for exit detection
 
   onMount(() => {
     if (!terminalContainer) return;
@@ -87,8 +93,126 @@ const TerminalComponent = () => {
       terminal.write(shell.getPrompt());
     }, 100);
 
+    // WebSocket connection function
+    const connectWebSocket = (url: string) => {
+      try {
+        terminal?.write(`\r\nConnecting to ${url}...\r\n`);
+        const ws = new WebSocket(url);
+        
+        ws.onopen = () => {
+          isWebSocketMode = true;
+          wsConnection = ws;
+          wsCurrentLine = '';
+          terminal?.write('\x1b[2J\x1b[H'); // Clear screen
+          terminal?.write('Connected to SSH server. Type "exit" and press Enter or press Ctrl+D to disconnect.\r\n\r\n');
+          
+          // Send initial resize message
+          if (terminal && fitAddon) {
+            const dimensions = fitAddon.proposeDimensions();
+            if (dimensions) {
+              ws.send(JSON.stringify({
+                type: 'resize',
+                data: {
+                  cols: dimensions.cols,
+                  rows: dimensions.rows,
+                },
+              }));
+            }
+          }
+        };
+        
+        ws.onmessage = (event) => {
+          // Server sends text messages (ANSI escape sequences)
+          if (typeof event.data === 'string') {
+            terminal?.write(event.data);
+          } else {
+            // Handle binary data if needed
+            terminal?.write(event.data);
+          }
+        };
+        
+        ws.onerror = (error) => {
+          terminal?.write(`\r\nWebSocket error: ${error}\r\n`);
+          isWebSocketMode = false;
+          wsConnection = null;
+          terminal?.write(shell.getPrompt());
+        };
+        
+        ws.onclose = () => {
+          isWebSocketMode = false;
+          wsConnection = null;
+          wsCurrentLine = '';
+          terminal?.write('\r\n\r\nDisconnected from SSH server.\r\n');
+          terminal?.write(shell.getPrompt());
+        };
+      } catch (error) {
+        terminal?.write(`\r\nFailed to connect: ${error}\r\n`);
+        terminal?.write(shell.getPrompt());
+      }
+    };
+    
+    // Send input to WebSocket
+    const sendWebSocketInput = (data: string) => {
+      if (wsConnection && wsConnection.readyState === WebSocket.OPEN) {
+        wsConnection.send(JSON.stringify({
+          type: 'input',
+          data: data,
+        }));
+      }
+    };
+    
+    // Handle exit from WebSocket mode
+    const handleWebSocketExit = () => {
+      if (wsConnection) {
+        wsConnection.close();
+        wsConnection = null;
+      }
+      isWebSocketMode = false;
+      wsCurrentLine = '';
+      terminal?.write('\r\n');
+      terminal?.write(shell.getPrompt());
+    };
+
     // Handle input
     terminal.onData((data) => {
+      // If in WebSocket mode, forward all input to WebSocket
+      if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN) {
+        const code = data.charCodeAt(0);
+        
+        // Check for Ctrl+D (exit)
+        if (code === 4) {
+          handleWebSocketExit();
+          return;
+        }
+        
+        // Track current line for exit detection
+        if (code === 13 || code === 10) {
+          // Enter key - check if line is "exit"
+          if (wsCurrentLine.trim().toLowerCase() === 'exit') {
+            handleWebSocketExit();
+            wsCurrentLine = '';
+            return;
+          }
+          wsCurrentLine = '';
+        } else if (code === 127 || code === 8) {
+          // Backspace
+          if (wsCurrentLine.length > 0) {
+            wsCurrentLine = wsCurrentLine.slice(0, -1);
+          }
+        } else if (code >= 32 && code <= 126) {
+          // Printable characters
+          wsCurrentLine += data;
+          // Keep buffer size reasonable
+          if (wsCurrentLine.length > 50) {
+            wsCurrentLine = wsCurrentLine.slice(-50);
+          }
+        }
+        
+        // Send input to WebSocket
+        sendWebSocketInput(data);
+        return;
+      }
+
       const code = data.charCodeAt(0);
 
       // Handle special keys
@@ -97,6 +221,15 @@ const TerminalComponent = () => {
         terminal.write('\r\n');
         if (currentLine.trim()) {
           const result = shell.executeCommand(currentLine);
+          
+          // Check if this is a WebSocket connection request
+          if (result.websocketUrl) {
+            connectWebSocket(result.websocketUrl);
+            currentLine = '';
+            cursorPosition = 0;
+            return;
+          }
+          
           if (result.output) {
             // Handle clear command specially
             if (currentLine.trim() === 'clear') {
@@ -201,12 +334,29 @@ const TerminalComponent = () => {
     // Handle window resize
     const handleResize = () => {
       fitAddon?.fit();
+      
+      // If WebSocket is connected, send resize message
+      if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN && fitAddon) {
+        const dimensions = fitAddon.proposeDimensions();
+        if (dimensions) {
+          wsConnection.send(JSON.stringify({
+            type: 'resize',
+            data: {
+              cols: dimensions.cols,
+              rows: dimensions.rows,
+            },
+          }));
+        }
+      }
     };
     window.addEventListener('resize', handleResize);
 
     // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (wsConnection) {
+        wsConnection.close();
+      }
       terminal?.dispose();
     };
   });
