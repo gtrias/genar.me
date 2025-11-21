@@ -1,144 +1,36 @@
-# Genar Trias - Personal Website
+## Usage
 
-Modern Astro-based personal website deployed on Cloudflare Pages.
+Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
 
-## 🚀 Features
-
-- **Astro Framework** - Fast, modern static site generator
-- **Tailwind CSS** - Utility-first CSS framework for responsive design
-- **Cloudflare Pages** - Global CDN with automatic HTTPS
-- **TypeScript** - Type-safe development
-- **Responsive Design** - Works on all devices
-
-## 📁 Project Structure
-
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro          # Main layout component
-│   ├── pages/
-│   │   ├── index.astro          # Homepage
-│   │   └── projects.astro       # Projects page
-│   └── styles/
-│       └── global.css           # Tailwind CSS imports
-├── wrangler.toml               # Cloudflare Pages configuration
-├── astro.config.mjs             # Astro configuration
-└── package.json
-```
-
-## 🛠️ Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Setup
+This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+$ npm install # or pnpm install or yarn install
 ```
 
-### Available Scripts
+### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 
-| Command              | Action                                     |
-| -------------------- | ------------------------------------------ |
-| `npm run dev`        | Start local dev server at `localhost:4321` |
-| `npm run build`      | Build production site to `./dist/`         |
-| `npm run preview`    | Preview build locally                      |
-| `npm run cf:build`   | Build for Cloudflare Pages                 |
-| `npm run cf:preview` | Preview with Wrangler locally              |
+## Available Scripts
 
-## 🌐 Deployment
+In the project directory, you can run:
 
-### Cloudflare Pages (Recommended)
+### `npm run dev` or `npm start`
 
-#### Option 1: Git Integration
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-1. Push code to GitHub/GitLab repository
-2. Connect repository to Cloudflare Pages
-3. Configure build settings:
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-   - **Node.js version**: `18`
+The page will reload if you make edits.<br>
 
-#### Option 2: Direct Upload
+### `npm run build`
 
-1. Build locally: `npm run build`
-2. Upload `dist` folder to Cloudflare Pages dashboard
+Builds the app for production to the `dist` folder.<br>
+It correctly bundles Solid in production mode and optimizes the build for the best performance.
 
-### Environment Variables
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-- `NODE_VERSION`: `18` (automatically set by Cloudflare)
+## Deployment
 
-## 🎨 Customization
+You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
 
-### Adding New Pages
-
-Create `.astro` files in `src/pages/`:
-
-```bash
-src/pages/about.astro    # → /about
-src/pages/blog/index.astro # → /blog/
-```
-
-### Styling
-
-- Edit `src/styles/global.css` for global styles
-- Use Tailwind CSS classes in components
-- Customize colors in `tailwind.config.js`
-
-### Layout
-
-Modify `src/layouts/Layout.astro` to change:
-
-- Navigation menu
-- Footer content
-- Meta tags
-- Global styling
-
-## 🔧 Configuration
-
-### Astro Config (`astro.config.mjs`)
-
-- Output mode: Static
-- Adapter: Cloudflare Pages
-- Tailwind CSS integration
-
-### Cloudflare Config (`wrangler.toml`)
-
-- Build settings
-- Redirects
-- Security headers
-- Caching rules
-
-## 📚 Content
-
-The site includes:
-
-- **Homepage**: Personal introduction and tech stack
-- **Projects**: Portfolio of personal projects
-- **Navigation**: Terminal-style navigation matching original design
-
-## 🚀 Performance
-
-- **Static Generation**: Pre-built HTML for optimal performance
-- **Global CDN**: Cloudflare's edge network
-- **Asset Optimization**: Automatic minification and compression
-- **Caching**: Browser and CDN caching configured
-
-## 📄 License
-
-Personal project - all rights reserved.
-
----
-
-Built with ❤️ using [Astro](https://astro.build) and [Cloudflare Pages](https://pages.cloudflare.com).
-
+## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)

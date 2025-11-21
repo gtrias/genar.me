@@ -1,6 +1,6 @@
 module github.com/genar/genar.me-ssh
 
-go 1.25.1
+go 1.24.0
 
 require (
 	github.com/charmbracelet/bubbletea v1.3.10
@@ -8,6 +8,7 @@ require (
 	github.com/charmbracelet/log v0.4.1
 	github.com/charmbracelet/ssh v0.0.0-20250128164007-98fd5ae11894
 	github.com/charmbracelet/wish v1.4.7
+	github.com/gorilla/websocket v1.5.3
 )
 
 require (

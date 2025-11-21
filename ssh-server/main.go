@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,16 +20,18 @@ import (
 )
 
 const (
-	host = "0.0.0.0"
-	port = "23234"
+	host     = "0.0.0.0"
+	port     = "23234"
+	wsPort   = "8080" // WebSocket HTTP server port
 )
 
 func main() {
-	// Setup logger
+	// Setup logger with Info level to see all messages
 	logger := log.NewWithOptions(os.Stderr, log.Options{
 		ReportTimestamp: true,
 		TimeFormat:      time.Kitchen,
 		Prefix:          "Genar.me SSH 🚀",
+		Level:           log.DebugLevel, // Show debug messages too
 	})
 
 	// Create SSH server
@@ -62,19 +65,54 @@ func main() {
 	logger.Info("Starting SSH server", "host", host, "port", port)
 	logger.Info("Connect with: ssh localhost -p " + port)
 
+	// Start HTTP server for WebSocket connections
+	mux := http.NewServeMux()
+	
+	// Add logging middleware
+	loggingHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("HTTP request received", "method", r.Method, "path", r.URL.Path, "remote", r.RemoteAddr)
+		WebSocketHandler(logger)(w, r)
+	})
+	
+	mux.HandleFunc("/ws", loggingHandler)
+	
+	httpServer := &http.Server{
+		Addr:    net.JoinHostPort(host, wsPort),
+		Handler: mux,
+	}
+
+	logger.Info("*** Starting WebSocket server ***", "host", host, "port", wsPort, "endpoint", "/ws")
+	logger.Info("WebSocket handler registered", "fullURL", fmt.Sprintf("ws://%s:%s/ws", host, wsPort))
+
 	go func() {
 		if err = s.ListenAndServe(); err != nil && !errors.Is(err, ssh.ErrServerClosed) {
-			logger.Error("Server error", "error", err)
+			logger.Error("SSH server error", "error", err)
+			done <- os.Interrupt
+		}
+	}()
+
+	go func() {
+		if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			logger.Error("HTTP server error", "error", err)
 			done <- os.Interrupt
 		}
 	}()
 
 	<-done
-	logger.Info("Stopping SSH server")
+	logger.Info("Stopping servers")
+	
+	// Shutdown SSH server
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	if err := s.Shutdown(ctx); err != nil && !errors.Is(err, ssh.ErrServerClosed) {
-		logger.Error("Failed to shutdown server", "error", err)
+		logger.Error("Failed to shutdown SSH server", "error", err)
+	}
+	
+	// Shutdown HTTP server
+	ctx2, cancel2 := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel2()
+	if err := httpServer.Shutdown(ctx2); err != nil {
+		logger.Error("Failed to shutdown HTTP server", "error", err)
 	}
 }
 
