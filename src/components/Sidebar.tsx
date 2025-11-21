@@ -34,11 +34,16 @@ const Sidebar = (props: SidebarProps) => {
         {/* Bio Section */}
         <section class="sidebar-section bio-section">
           <div class="bio-avatar">
-            <div class="avatar-placeholder">GT</div>
+            <img
+              src="/genar-avatar.png"
+              alt="Genar Trias Ortiz"
+              class="avatar-image"
+            />
           </div>
           <p class="bio-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Developer experience = design. I hire for passion, not résumés.
+            I build for the team, the users, and the code that lasts.
+            Let’s make the right thing the easiest thing.
           </p>
         </section>
 
