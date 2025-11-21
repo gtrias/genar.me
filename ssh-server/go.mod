@@ -1,6 +1,6 @@
 module github.com/genar/genar.me-ssh
 
-go 1.23
+go 1.24.0
 
 require (
 	github.com/charmbracelet/bubbletea v1.3.10

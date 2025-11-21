@@ -25,6 +25,8 @@ var upgrader = websocket.Upgrader{
 		// Allow all origins for now (can be restricted in production)
 		return true
 	},
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
 }
 
 // TerminalSize represents terminal dimensions
@@ -167,6 +169,7 @@ func (s *WebSocketSession) HandleInput(data []byte) error {
 	defer s.mu.Unlock()
 
 	if s.program == nil {
+		s.logger.Warn("HandleInput called but program is nil - program may not be initialized yet", "data", string(data), "bytes", data)
 		return nil
 	}
 
@@ -221,7 +224,14 @@ func (s *WebSocketSession) HandleInput(data []byte) error {
 	if msg != nil {
 		// Log the key message details
 		if keyMsg, ok := msg.(tea.KeyMsg); ok {
-			s.logger.Info("Processing key message", "key", key, "type", keyMsg.Type, "string", keyMsg.String(), "runes", string(keyMsg.Runes))
+			keyStr := keyMsg.String()
+			runesStr := string(keyMsg.Runes)
+			s.logger.Info("Processing key message", "key", key, "type", keyMsg.Type, "string", keyStr, "runes", runesStr, "runesLen", len(keyMsg.Runes))
+			
+			// Special debug logging for "h" and "q" keys
+			if key == "h" || key == "q" {
+				s.logger.Info("DEBUG: Special key detected", "originalKey", key, "KeyMsg.String()", keyStr, "KeyMsg.Runes", runesStr, "KeyMsg.Type", keyMsg.Type, "RunesMatch", len(keyMsg.Runes) == 1 && ((key == "h" && keyMsg.Runes[0] == 'h') || (key == "q" && keyMsg.Runes[0] == 'q')))
+			}
 		} else {
 			s.logger.Info("Processing message", "msg", msg)
 		}
@@ -305,6 +315,7 @@ func (s *WebSocketSession) Close() {
 // WebSocketHandler handles WebSocket connections
 func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("WebSocket connection attempt", "remote", r.RemoteAddr, "path", r.URL.Path)
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
 			logger.Error("Failed to upgrade WebSocket", "error", err)
@@ -312,7 +323,7 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 		}
 		defer conn.Close()
 
-		logger.Info("WebSocket connection established")
+		logger.Info("*** WebSocket connection established successfully ***", "remote", r.RemoteAddr, "localAddr", conn.LocalAddr(), "remoteAddr", conn.RemoteAddr())
 
 		session := NewWebSocketSession(conn, logger)
 		if err := session.Start(); err != nil {
@@ -321,20 +332,44 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 		}
 		defer session.Close()
 
+		logger.Info("*** Session started, beginning read loop ***")
+		
+		// Verify connection is the same
+		logger.Info("Connection verification", "handlerConn", fmt.Sprintf("%p", conn), "sessionConn", fmt.Sprintf("%p", session.conn), "same", conn == session.conn)
+		
+		// Test: Try to read connection state
+		logger.Info("Connection state check", "subprotocol", conn.Subprotocol(), "remoteAddr", conn.RemoteAddr())
+		
 		// Read messages from WebSocket
-		logger.Info("Starting message read loop")
+		logger.Info("*** Starting message read loop ***")
 		messageCount := 0
+		lastLogTime := time.Now()
+		firstIteration := true
 		for {
 			// Set read deadline to prevent indefinite blocking
-			conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+			deadline := time.Now().Add(5 * time.Second)
+			if err := conn.SetReadDeadline(deadline); err != nil {
+				logger.Error("Failed to set read deadline", "error", err)
+				break
+			}
 			messageCount++
-			logger.Info("Waiting for message", "count", messageCount)
+			// Log first iteration and then every 2 seconds
+			if firstIteration || time.Since(lastLogTime) > 2*time.Second {
+				logger.Info("*** Waiting for message ***", "count", messageCount, "deadline", deadline.Format(time.RFC3339), "firstIteration", firstIteration)
+				lastLogTime = time.Now()
+				firstIteration = false
+			}
+			
+			// Log before ReadMessage to see if we're actually blocking here
+			logger.Debug("About to call ReadMessage", "count", messageCount, "time", time.Now().Format(time.RFC3339Nano))
 			messageType, data, err := conn.ReadMessage()
+			readTime := time.Now()
+			logger.Debug("ReadMessage returned", "count", messageCount, "hasError", err != nil, "hasData", len(data) > 0, "time", readTime.Format(time.RFC3339Nano))
 			if err != nil {
 				// Check if it's a timeout (expected, continue reading)
 				if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
-					// Timeout is expected when no messages arrive, continue reading
-					logger.Info("Read timeout (expected), continuing", "count", messageCount)
+					// Log EVERY timeout now to see if we're getting stuck
+					logger.Info("Read timeout", "count", messageCount, "error", err.Error(), "time", readTime.Format(time.RFC3339Nano))
 					continue
 				}
 				if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
@@ -348,19 +383,20 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 			// Reset read deadline since we got a message
 			conn.SetReadDeadline(time.Time{})
 			
-			logger.Info("Received WebSocket message", "count", messageCount, "type", messageType, "size", len(data), "preview", string(data[:min(len(data), 100)]))
+			logger.Info("*** RECEIVED WebSocket message ***", "count", messageCount, "type", messageType, "size", len(data), "preview", string(data[:min(len(data), 100)]))
 
 			switch messageType {
 			case websocket.TextMessage:
+				logger.Info("Processing TextMessage", "rawData", string(data), "dataLen", len(data))
 				var msg WebSocketMessage
 				if err := json.Unmarshal(data, &msg); err != nil {
-					logger.Warn("Failed to parse JSON, treating as raw input", "error", err, "data", string(data))
+					logger.Warn("Failed to parse JSON, treating as raw input", "error", err, "data", string(data), "rawBytes", data)
 					// Try to handle as raw input (direct character input)
 					session.HandleInput(data)
 					continue
 				}
 
-				logger.Info("Parsed WebSocket message", "type", msg.Type, "data", msg.Data, "dataType", fmt.Sprintf("%T", msg.Data))
+				logger.Info("*** Parsed WebSocket message successfully ***", "type", msg.Type, "data", msg.Data, "dataType", fmt.Sprintf("%T", msg.Data))
 
 				switch msg.Type {
 				case "input":

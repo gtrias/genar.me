@@ -67,14 +67,22 @@ func main() {
 
 	// Start HTTP server for WebSocket connections
 	mux := http.NewServeMux()
-	mux.HandleFunc("/ws", WebSocketHandler(logger))
+	
+	// Add logging middleware
+	loggingHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("HTTP request received", "method", r.Method, "path", r.URL.Path, "remote", r.RemoteAddr)
+		WebSocketHandler(logger)(w, r)
+	})
+	
+	mux.HandleFunc("/ws", loggingHandler)
 	
 	httpServer := &http.Server{
 		Addr:    net.JoinHostPort(host, wsPort),
 		Handler: mux,
 	}
 
-	logger.Info("Starting WebSocket server", "host", host, "port", wsPort, "endpoint", "/ws")
+	logger.Info("*** Starting WebSocket server ***", "host", host, "port", wsPort, "endpoint", "/ws")
+	logger.Info("WebSocket handler registered", "fullURL", fmt.Sprintf("ws://%s:%s/ws", host, wsPort))
 
 	go func() {
 		if err = s.ListenAndServe(); err != nil && !errors.Is(err, ssh.ErrServerClosed) {

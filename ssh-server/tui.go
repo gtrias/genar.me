@@ -51,8 +51,31 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tea.KeyMsg:
+		// Check for rune-based keys first (h, q) to ensure they work correctly
+		if msg.Type == tea.KeyRunes && len(msg.Runes) == 1 {
+			switch msg.Runes[0] {
+			case 'h':
+				// Quick help shortcut
+				if m.mode == MenuMode {
+					for i, cmd := range m.commands {
+						if cmd.Name == "help" {
+							m.cursor = i
+							m.selectedCmd = &m.commands[i]
+							m.mode = ContentMode
+							break
+						}
+					}
+				}
+				return m, nil
+			case 'q':
+				// Allow quit from any mode
+				return m, tea.Quit
+			}
+		}
+
+		// Use String() for other keys (ctrl+c, esc, arrows, etc.)
 		switch msg.String() {
-		case "ctrl+c", "q":
+		case "ctrl+c":
 			// Allow quit from any mode
 			return m, tea.Quit
 
@@ -83,20 +106,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.mode == MenuMode {
 				m.selectedCmd = &m.commands[m.cursor]
 				m.mode = ContentMode
-			}
-			return m, nil
-
-		case "h":
-			// Quick help shortcut
-			if m.mode == MenuMode {
-				for i, cmd := range m.commands {
-					if cmd.Name == "help" {
-						m.cursor = i
-						m.selectedCmd = &m.commands[i]
-						m.mode = ContentMode
-						break
-					}
-				}
 			}
 			return m, nil
 		}

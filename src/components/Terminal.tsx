@@ -38,6 +38,7 @@ const TerminalComponent = () => {
       allowTransparency: false,
       convertEol: true,
       scrollback: 1000,
+      disableStdin: false, // Ensure input is enabled
     });
 
     // Initialize fit addon
@@ -100,6 +101,7 @@ const TerminalComponent = () => {
         const ws = new WebSocket(url);
         
         ws.onopen = () => {
+          console.log('WebSocket connected successfully');
           isWebSocketMode = true;
           wsConnection = ws;
           wsCurrentLine = '';
@@ -110,18 +112,21 @@ const TerminalComponent = () => {
           if (terminal && fitAddon) {
             const dimensions = fitAddon.proposeDimensions();
             if (dimensions) {
-              ws.send(JSON.stringify({
+              const resizeMsg = JSON.stringify({
                 type: 'resize',
                 data: {
                   cols: dimensions.cols,
                   rows: dimensions.rows,
                 },
-              }));
+              });
+              console.log('Sending initial resize:', resizeMsg);
+              ws.send(resizeMsg);
             }
           }
         };
         
         ws.onmessage = (event) => {
+          console.log('WebSocket message received:', { type: typeof event.data, size: event.data.length, preview: typeof event.data === 'string' ? event.data.substring(0, 100) : 'binary' });
           // Server sends text messages (ANSI escape sequences)
           if (typeof event.data === 'string') {
             terminal?.write(event.data);
@@ -153,11 +158,35 @@ const TerminalComponent = () => {
     
     // Send input to WebSocket
     const sendWebSocketInput = (data: string) => {
-      if (wsConnection && wsConnection.readyState === WebSocket.OPEN) {
-        wsConnection.send(JSON.stringify({
+      if (!wsConnection) {
+        console.error('WebSocket connection is null!');
+        return;
+      }
+      
+      const readyState = wsConnection.readyState;
+      console.log('WebSocket state check:', { 
+        readyState, 
+        OPEN: WebSocket.OPEN, 
+        isOpen: readyState === WebSocket.OPEN,
+        CONNECTING: WebSocket.CONNECTING,
+        CLOSING: WebSocket.CLOSING,
+        CLOSED: WebSocket.CLOSED
+      });
+      
+      if (readyState === WebSocket.OPEN) {
+        const message = JSON.stringify({
           type: 'input',
           data: data,
-        }));
+        });
+        console.log('Sending WebSocket input:', { data, charCode: data.charCodeAt(0), message, messageLength: message.length });
+        try {
+          wsConnection.send(message);
+          console.log('Message sent successfully');
+        } catch (error) {
+          console.error('Error sending WebSocket message:', error);
+        }
+      } else {
+        console.warn('WebSocket not ready:', { isWebSocketMode, readyState, expected: WebSocket.OPEN });
       }
     };
     
@@ -178,6 +207,7 @@ const TerminalComponent = () => {
       // If in WebSocket mode, forward all input to WebSocket
       if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN) {
         const code = data.charCodeAt(0);
+        console.log('Terminal input received:', { data, code, char: String.fromCharCode(code) });
         
         // Check for Ctrl+D (exit)
         if (code === 4) {
@@ -185,7 +215,7 @@ const TerminalComponent = () => {
           return;
         }
         
-        // Track current line for exit detection
+        // Track current line for exit detection (but don't echo - let server handle rendering)
         if (code === 13 || code === 10) {
           // Enter key - check if line is "exit"
           if (wsCurrentLine.trim().toLowerCase() === 'exit') {
@@ -200,7 +230,7 @@ const TerminalComponent = () => {
             wsCurrentLine = wsCurrentLine.slice(0, -1);
           }
         } else if (code >= 32 && code <= 126) {
-          // Printable characters
+          // Printable characters - track for exit command only
           wsCurrentLine += data;
           // Keep buffer size reasonable
           if (wsCurrentLine.length > 50) {
@@ -208,7 +238,7 @@ const TerminalComponent = () => {
           }
         }
         
-        // Send input to WebSocket
+        // Send input to WebSocket (don't echo locally - server handles all rendering)
         sendWebSocketInput(data);
         return;
       }

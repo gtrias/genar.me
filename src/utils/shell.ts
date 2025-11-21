@@ -360,6 +360,7 @@ Use arrow keys to navigate command history.
 ║         Welcome to My personal computer           ║
 ║                                                   ║
 ║  Type 'help' to see available commands            ║
+║  Type 'ssh' to connect to SSH server              ║
 ║  Use arrow keys to navigate command history       ║
 ║                                                   ║
 ║  Links:                                           ║
