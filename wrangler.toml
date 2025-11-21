@@ -1,0 +1,9 @@
+# Cloudflare Pages configuration
+name = "genar-me"
+compatibility_date = "2025-11-03"
+pages_build_output_dir = "dist"
+
+# Note: For Cloudflare Pages, redirects and headers should be in:
+# - public/_redirects (will be copied to dist/_redirects)
+# - public/_headers (will be copied to dist/_headers)
+# These files are handled automatically by Cloudflare Pages.
