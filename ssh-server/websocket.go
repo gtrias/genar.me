@@ -387,29 +387,12 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 
 			switch messageType {
 			case websocket.TextMessage:
-				logger.Info("Processing TextMessage", "rawData", string(data), "dataLen", len(data))
+				logger.Debug("Processing TextMessage", "dataLen", len(data), "preview", string(data[:min(len(data), 50)]))
+				// Try to parse as JSON (for resize messages)
 				var msg WebSocketMessage
-				if err := json.Unmarshal(data, &msg); err != nil {
-					logger.Warn("Failed to parse JSON, treating as raw input", "error", err, "data", string(data), "rawBytes", data)
-					// Try to handle as raw input (direct character input)
-					session.HandleInput(data)
-					continue
-				}
-
-				logger.Info("*** Parsed WebSocket message successfully ***", "type", msg.Type, "data", msg.Data, "dataType", fmt.Sprintf("%T", msg.Data))
-
-				switch msg.Type {
-				case "input":
-					if inputData, ok := msg.Data.(string); ok {
-						logger.Info("Processing input", "input", inputData, "bytes", []byte(inputData))
-						// Handle the input string - it might be a single character or escape sequence
-						if err := session.HandleInput([]byte(inputData)); err != nil {
-							logger.Error("Error handling input", "error", err)
-						}
-					} else {
-						logger.Warn("Input data is not a string", "data", msg.Data, "type", fmt.Sprintf("%T", msg.Data))
-					}
-				case "resize":
+				if err := json.Unmarshal(data, &msg); err == nil && msg.Type == "resize" {
+					// This is a resize message (JSON)
+					logger.Info("Received resize message", "type", msg.Type)
 					if sizeData, ok := msg.Data.(map[string]interface{}); ok {
 						size := TerminalSize{
 							Cols: int(sizeData["cols"].(float64)),
@@ -419,13 +402,19 @@ func WebSocketHandler(logger *log.Logger) http.HandlerFunc {
 						session.HandleResize(size)
 						logger.Info("Resize handled, continuing loop")
 					}
-				default:
-					logger.Warn("Unknown message type", "type", msg.Type)
+				} else {
+					// This is raw terminal input (from AttachAddon)
+					logger.Debug("Received raw terminal input", "size", len(data), "preview", string(data[:min(len(data), 50)]))
+					if err := session.HandleInput(data); err != nil {
+						logger.Error("Error handling input", "error", err)
+					}
 				}
 			case websocket.BinaryMessage:
 				// Handle binary input (for raw terminal data)
-				logger.Info("Received binary message", "size", len(data))
-				session.HandleInput(data)
+				logger.Debug("Received binary message", "size", len(data))
+				if err := session.HandleInput(data); err != nil {
+					logger.Error("Error handling binary input", "error", err)
+				}
 			}
 			
 			// Log that we're continuing the loop

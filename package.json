@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@types/three": "^0.181.0",
+    "@xterm/addon-attach": "^0.11.0",
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/addon-web-links": "^0.11.0",

@@ -1,5 +1,6 @@
 import { onMount, createSignal } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
+import { AttachAddon } from '@xterm/addon-attach';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
@@ -19,6 +20,7 @@ const TerminalComponent = () => {
   let currentLine = '';
   let cursorPosition = 0;
   let wsConnection: WebSocket | null = null;
+  let attachAddon: AttachAddon | null = null;
   let isWebSocketMode = false;
   let wsCurrentLine = ''; // Track current line in WebSocket mode for exit detection
 
@@ -106,10 +108,8 @@ const TerminalComponent = () => {
           isWebSocketMode = true;
           wsConnection = ws;
           wsCurrentLine = '';
-          terminal?.write('\x1b[2J\x1b[H'); // Clear screen
-          terminal?.write('Connected to SSH server. Type "exit" and press Enter or press Ctrl+D to disconnect.\r\n\r\n');
           
-          // Send initial resize message
+          // Send initial resize message BEFORE attaching (resize is handled separately)
           if (terminal && fitAddon) {
             const dimensions = fitAddon.proposeDimensions();
             if (dimensions) {
@@ -124,27 +124,36 @@ const TerminalComponent = () => {
               ws.send(resizeMsg);
             }
           }
-        };
-        
-        ws.onmessage = (event) => {
-          console.log('WebSocket message received:', { type: typeof event.data, size: event.data.length, preview: typeof event.data === 'string' ? event.data.substring(0, 100) : 'binary' });
-          // Server sends text messages (ANSI escape sequences)
-          if (typeof event.data === 'string') {
-            terminal?.write(event.data);
-          } else {
-            // Handle binary data if needed
-            terminal?.write(event.data);
+          
+          // Use AttachAddon to handle terminal I/O automatically
+          if (terminal) {
+            // AttachAddon handles input/output automatically - sends raw data, not JSON
+            attachAddon = new AttachAddon(ws);
+            terminal.loadAddon(attachAddon);
+            console.log('AttachAddon loaded - terminal is now interactive');
           }
+          
+          // NOTE: Do NOT set ws.onmessage here! AttachAddon needs to handle all messages
+          // to properly display terminal output with colors and handle input.
+          // Resize is handled separately through the resize event handler below.
         };
         
         ws.onerror = (error) => {
           terminal?.write(`\r\nWebSocket error: ${error}\r\n`);
+          if (attachAddon && terminal) {
+            terminal.loadAddon(attachAddon); // Detach
+            attachAddon = null;
+          }
           isWebSocketMode = false;
           wsConnection = null;
           terminal?.write(shell.getPrompt());
         };
         
         ws.onclose = () => {
+          if (attachAddon && terminal) {
+            attachAddon.dispose(); // Clean up AttachAddon
+            attachAddon = null;
+          }
           isWebSocketMode = false;
           wsConnection = null;
           wsCurrentLine = '';
@@ -157,42 +166,12 @@ const TerminalComponent = () => {
       }
     };
     
-    // Send input to WebSocket
-    const sendWebSocketInput = (data: string) => {
-      if (!wsConnection) {
-        console.error('WebSocket connection is null!');
-        return;
-      }
-      
-      const readyState = wsConnection.readyState;
-      console.log('WebSocket state check:', { 
-        readyState, 
-        OPEN: WebSocket.OPEN, 
-        isOpen: readyState === WebSocket.OPEN,
-        CONNECTING: WebSocket.CONNECTING,
-        CLOSING: WebSocket.CLOSING,
-        CLOSED: WebSocket.CLOSED
-      });
-      
-      if (readyState === WebSocket.OPEN) {
-        const message = JSON.stringify({
-          type: 'input',
-          data: data,
-        });
-        console.log('Sending WebSocket input:', { data, charCode: data.charCodeAt(0), message, messageLength: message.length });
-        try {
-          wsConnection.send(message);
-          console.log('Message sent successfully');
-        } catch (error) {
-          console.error('Error sending WebSocket message:', error);
-        }
-      } else {
-        console.warn('WebSocket not ready:', { isWebSocketMode, readyState, expected: WebSocket.OPEN });
-      }
-    };
-    
     // Handle exit from WebSocket mode
     const handleWebSocketExit = () => {
+      if (attachAddon && terminal) {
+        attachAddon.dispose();
+        attachAddon = null;
+      }
       if (wsConnection) {
         wsConnection.close();
         wsConnection = null;
@@ -210,18 +189,12 @@ const TerminalComponent = () => {
         return;
       }
 
-      // If in WebSocket mode, forward all input to WebSocket
-      if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN) {
+      // If in WebSocket mode, AttachAddon handles input automatically
+      // We only need to track for exit detection
+      if (isWebSocketMode && attachAddon) {
         const code = data.charCodeAt(0);
-        console.log('Terminal input received:', { data, code, char: String.fromCharCode(code) });
         
-        // Check for Ctrl+D (exit)
-        if (code === 4) {
-          handleWebSocketExit();
-          return;
-        }
-        
-        // Track current line for exit detection (but don't echo - let server handle rendering)
+        // Track current line for exit detection
         if (code === 13 || code === 10) {
           // Enter key - check if line is "exit"
           if (wsCurrentLine.trim().toLowerCase() === 'exit') {
@@ -244,8 +217,8 @@ const TerminalComponent = () => {
           }
         }
         
-        // Send input to WebSocket (don't echo locally - server handles all rendering)
-        sendWebSocketInput(data);
+        // AttachAddon handles sending input to WebSocket automatically
+        // No need to manually send - just return to let AttachAddon handle it
         return;
       }
 
@@ -371,10 +344,11 @@ const TerminalComponent = () => {
     const handleResize = () => {
       fitAddon?.fit();
       
-      // If WebSocket is connected, send resize message
+      // If WebSocket is connected, send resize message (AttachAddon doesn't handle resize)
       if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN && fitAddon) {
         const dimensions = fitAddon.proposeDimensions();
         if (dimensions) {
+          // Send resize as JSON message (separate from AttachAddon's raw data stream)
           wsConnection.send(JSON.stringify({
             type: 'resize',
             data: {
