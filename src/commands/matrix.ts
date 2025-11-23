@@ -23,14 +23,15 @@ const matrixCommand: Command = {
 
     // Track drop positions for each column
     const drops: number[] = new Array(cols).fill(0);
+    const speeds: number[] = new Array(cols).fill(0);
 
-    // Initialize drops at random positions
+    // Initialize drops at random positions with random speeds
     for (let i = 0; i < cols; i++) {
-      drops[i] = Math.floor(Math.random() * rows);
+      drops[i] = Math.floor(Math.random() * -rows); // Start above screen
+      speeds[i] = Math.random() * 0.5 + 0.5; // Speed between 0.5 and 1
     }
 
     let isRunning = true;
-    let frameCount = 0;
 
     // Set up key listener to exit
     const disposable = terminal.onData(() => {
@@ -49,35 +50,48 @@ const matrixCommand: Command = {
         return;
       }
 
-      frameCount++;
+      // Dim the entire screen by printing semi-transparent black
+      // This creates the fading trail effect
+      terminal.write('\x1b[H'); // Move to home
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          // Randomly clear some characters to create the fading effect
+          if (Math.random() > 0.95) {
+            terminal.write(`\x1b[${row + 1};${col + 1}H `);
+          }
+        }
+      }
 
       // Draw the matrix rain
       for (let i = 0; i < cols; i++) {
-        // Random character
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        const y = drops[i];
+        const y = Math.floor(drops[i]);
 
-        // Only draw if within bounds
+        // Draw the bright head of the drop
         if (y >= 0 && y < rows) {
-          // Move cursor to position
-          terminal.write(`\x1b[${y + 1};${i + 1}H`);
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          terminal.write(`\x1b[${y + 1};${i + 1}H\x1b[1;32m${char}`);
+        }
 
-          // Bright green for the head of the drop
-          if (frameCount % 2 === 0) {
-            terminal.write('\x1b[1;32m' + char);
-          } else {
-            // Darker green for trail
-            terminal.write('\x1b[32m' + char);
+        // Draw fading trail (3-5 characters behind)
+        const trailLength = 5;
+        for (let j = 1; j < trailLength; j++) {
+          const trailY = y - j;
+          if (trailY >= 0 && trailY < rows) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            // Fade from bright to dark green
+            const brightness = Math.max(0, 32 - j * 5);
+            terminal.write(`\x1b[${trailY + 1};${i + 1}H\x1b[38;5;${brightness}m${char}`);
           }
         }
 
-        // Randomly reset drop to top
-        if (drops[i] > rows && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-
         // Move drop down
-        drops[i]++;
+        drops[i] += speeds[i];
+
+        // Reset drop to top when it goes off screen
+        if (drops[i] > rows + 10) {
+          drops[i] = Math.random() * -20;
+          speeds[i] = Math.random() * 0.5 + 0.5;
+        }
       }
 
       // Reset text color
