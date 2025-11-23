@@ -234,24 +234,29 @@ const TerminalComponent = (props: TerminalProps) => {
           // Enter key
           terminal?.write('\r\n');
         if (currentLine.trim()) {
-          const result = shell.executeCommand(currentLine);
-          
-          // Check if this is a WebSocket connection request
-          if (result.websocketUrl) {
-            connectWebSocket(result.websocketUrl);
+          // Execute command asynchronously
+          shell.executeCommand(currentLine, terminal).then((result) => {
+            // Check if this is a WebSocket connection request
+            if (result.websocketUrl) {
+              connectWebSocket(result.websocketUrl);
+              currentLine = '';
+              cursorPosition = 0;
+              return;
+            }
+
+            if (result.output) {
+              terminal?.write(result.output);
+            }
             currentLine = '';
             cursorPosition = 0;
-            return;
-          }
-          
-          if (result.output) {
-              // Handle clear command specially
-              if (currentLine.trim() === 'clear') {
-                terminal?.clear();
-              } else {
-                terminal?.write(result.output);
-              }
-            }
+            terminal?.write(shell.getPrompt());
+          }).catch((error) => {
+            terminal?.write(`Error: ${error}\r\n`);
+            currentLine = '';
+            cursorPosition = 0;
+            terminal?.write(shell.getPrompt());
+          });
+          return;
           }
           currentLine = '';
           cursorPosition = 0;

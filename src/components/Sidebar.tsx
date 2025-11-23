@@ -41,8 +41,7 @@ const Sidebar = (props: SidebarProps) => {
             />
           </div>
           <p class="bio-text">
-            Developer experience = design. I hire for passion, not résumés.
-            I build for the team, the users, and the code that lasts.
+            Developer experience is the way. I hire for passion.
             Let’s make the right thing the easiest thing.
           </p>
         </section>

@@ -1,10 +1,7 @@
 import linksConfig from '../config/links.json';
-
-export interface CommandResult {
-  output: string;
-  exitCode: number;
-  websocketUrl?: string; // If set, indicates WebSocket connection should be initiated
-}
+import { CommandRegistry } from './CommandRegistry';
+import type { CommandResult, CommandContext } from '../commands/types';
+import type { Terminal } from '@xterm/xterm';
 
 /**
  * Creates a clickable hyperlink in the terminal using OSC 8 escape sequences
@@ -26,9 +23,11 @@ class Shell {
   private history: string[] = [];
   private historyIndex: number = -1;
   private fileSystem: FileSystemNode;
+  private commandRegistry: CommandRegistry;
 
   constructor() {
     this.fileSystem = this.createDefaultFileSystem();
+    this.commandRegistry = new CommandRegistry();
   }
 
   private createDefaultFileSystem(): FileSystemNode {
@@ -70,7 +69,8 @@ class Shell {
     return root;
   }
 
-  private getCurrentDirectory(): FileSystemNode {
+  // Public API for commands to access shell state
+  getCurrentDirectory(): FileSystemNode {
     let current = this.fileSystem;
     for (const segment of this.currentPath) {
       const next = current.children?.get(segment);
@@ -80,6 +80,26 @@ class Shell {
       current = next;
     }
     return current;
+  }
+
+  getCurrentPath(): string[] {
+    return [...this.currentPath]; // Return copy for safety
+  }
+
+  setCurrentPath(path: string[]): void {
+    this.currentPath = path;
+  }
+
+  getFileSystem(): FileSystemNode {
+    return this.fileSystem;
+  }
+
+  getHistoryList(): string[] {
+    return [...this.history]; // Return copy
+  }
+
+  getCommandRegistry(): CommandRegistry {
+    return this.commandRegistry;
   }
 
   getPrompt(): string {
@@ -113,7 +133,7 @@ class Shell {
     }
   }
 
-  executeCommand(input: string): CommandResult {
+  async executeCommand(input: string, terminal?: Terminal): Promise<CommandResult> {
     const trimmed = input.trim();
     if (!trimmed) {
       return { output: '', exitCode: 0 };
@@ -121,135 +141,40 @@ class Shell {
 
     this.addToHistory(trimmed);
     const parts = trimmed.split(/\s+/);
-    const command = parts[0].toLowerCase();
+    const commandName = parts[0].toLowerCase();
     const args = parts.slice(1);
 
-    switch (command) {
-      case 'help':
-        return this.help();
-      case 'clear':
-        return { output: '\x1b[2J\x1b[H', exitCode: 0 }; // ANSI clear screen
-      case 'ls':
-        return this.ls(args);
-      case 'cd':
-        return this.cd(args);
-      case 'pwd':
-        return this.pwd();
-      case 'cat':
-        return this.cat(args);
-      case 'echo':
-        return this.echo(args);
-      case 'whoami':
-        return { output: 'genar\n', exitCode: 0 };
-      case 'date':
-        return { output: new Date().toString() + '\n', exitCode: 0 };
-      case 'history':
-        return this.showHistory();
-      case 'ssh':
-        return this.ssh(args);
-      case 'exit':
-        return { output: 'Goodbye!\n', exitCode: 0 };
-      default:
-        return {
-          output: `Command not found: ${command}. Type 'help' for available commands.\n`,
-          exitCode: 1,
-        };
-    }
+    const context: CommandContext = {
+      shell: this,
+      terminal,
+    };
+
+    return this.commandRegistry.execute(commandName, args, context);
   }
 
-  private help(): CommandResult {
-    const helpText = `
-Available commands:
-  help          - Show this help message
-  clear         - Clear the terminal screen
-  ls [dir]      - List directory contents
-  cd [dir]      - Change directory
-  pwd           - Print working directory
-  cat [file]    - Display file contents
-  echo [text]   - Print text to terminal
-  whoami        - Display current user
-  date          - Display current date and time
-  history       - Show command history
-  ssh [url]     - Connect to SSH server via WebSocket
-  exit          - Exit the terminal
+  async getCompletions(input: string): Promise<string[]> {
+    const parts = input.trim().split(/\s+/);
+    const commandName = parts[0].toLowerCase();
 
-Use arrow keys to navigate command history.
-`;
-    return { output: helpText, exitCode: 0 };
+    // Command name completion
+    if (parts.length === 1) {
+      return this.commandRegistry
+        .getCommandNames()
+        .filter((name) => name.startsWith(commandName));
+    }
+
+    // Argument completion
+    const args = parts.slice(1, -1);
+    const currentArg = parts[parts.length - 1];
+
+    const context: CommandContext = {
+      shell: this,
+    };
+
+    return this.commandRegistry.getSuggestions(commandName, args, currentArg, context);
   }
 
-  private ls(args: string[]): CommandResult {
-    const targetPath = args[0];
-    let targetDir = this.getCurrentDirectory();
-
-    if (targetPath) {
-      const resolved = this.resolvePath(targetPath);
-      if (!resolved || resolved.type !== 'directory') {
-        return { output: `ls: cannot access '${targetPath}': No such file or directory\n`, exitCode: 1 };
-      }
-      targetDir = resolved;
-    }
-
-    if (!targetDir.children || targetDir.children.size === 0) {
-      return { output: '', exitCode: 0 };
-    }
-
-    const entries = Array.from(targetDir.children.values())
-      .map(node => {
-        const suffix = node.type === 'directory' ? '/' : '';
-        return node.name + suffix;
-      })
-      .sort()
-      .join('  ');
-
-    return { output: entries + '\n', exitCode: 0 };
-  }
-
-  private cd(args: string[]): CommandResult {
-    const target = args[0] || '/';
-    
-    if (target === '/') {
-      this.currentPath = [];
-      return { output: '', exitCode: 0 };
-    }
-
-    if (target === '..') {
-      if (this.currentPath.length > 0) {
-        this.currentPath.pop();
-      }
-      return { output: '', exitCode: 0 };
-    }
-
-    if (target.startsWith('/')) {
-      // Absolute path
-      const segments = target.split('/').filter(s => s);
-      this.currentPath = [];
-      for (const segment of segments) {
-        const result = this.cd([segment]);
-        if (result.exitCode !== 0) {
-          return result;
-        }
-      }
-      return { output: '', exitCode: 0 };
-    }
-
-    // Relative path
-    const currentDir = this.getCurrentDirectory();
-    const targetNode = currentDir.children?.get(target);
-    
-    if (!targetNode) {
-      return { output: `cd: no such file or directory: ${target}\n`, exitCode: 1 };
-    }
-
-    if (targetNode.type !== 'directory') {
-      return { output: `cd: not a directory: ${target}\n`, exitCode: 1 };
-    }
-
-    this.currentPath.push(target);
-    return { output: '', exitCode: 0 };
-  }
-
-  private resolvePath(path: string): FileSystemNode | null {
+  resolvePath(path: string): FileSystemNode | null {
     if (path === '/') {
       return this.fileSystem;
     }
@@ -279,66 +204,6 @@ Use arrow keys to navigate command history.
     return current;
   }
 
-  private pwd(): CommandResult {
-    const path = this.currentPath.length === 0 ? '/' : '/' + this.currentPath.join('/');
-    return { output: path + '\n', exitCode: 0 };
-  }
-
-  private cat(args: string[]): CommandResult {
-    if (args.length === 0) {
-      return { output: 'cat: missing file operand\n', exitCode: 1 };
-    }
-
-    const filename = args[0];
-    const currentDir = this.getCurrentDirectory();
-    const file = currentDir.children?.get(filename);
-
-    if (!file) {
-      return { output: `cat: ${filename}: No such file or directory\n`, exitCode: 1 };
-    }
-
-    if (file.type !== 'file') {
-      return { output: `cat: ${filename}: Is a directory\n`, exitCode: 1 };
-    }
-
-    return { output: (file.content || '') + '\n', exitCode: 0 };
-  }
-
-  private echo(args: string[]): CommandResult {
-    return { output: args.join(' ') + '\n', exitCode: 0 };
-  }
-
-  private showHistory(): CommandResult {
-    if (this.history.length === 0) {
-      return { output: '', exitCode: 0 };
-    }
-    const historyText = this.history
-      .map((cmd, idx) => `${idx + 1}  ${cmd}`)
-      .join('\n');
-    return { output: historyText + '\n', exitCode: 0 };
-  }
-
-  private ssh(args: string[]): CommandResult {
-    // Default production WebSocket URL (to be set manually)
-    const DEFAULT_WS_URL = 'ws://localhost:8080/ws';
-    
-    // Parse URL from arguments or use default
-    const url = args.length > 0 ? args[0] : DEFAULT_WS_URL;
-    
-    // Validate URL format
-    if (!url.startsWith('ws://') && !url.startsWith('wss://')) {
-      return {
-        output: `ssh: Invalid WebSocket URL. Must start with ws:// or wss://\n`,
-        exitCode: 1,
-      };
-    }
-    
-    return {
-      output: `Connecting to ${url}...\n`,
-      exitCode: 0,
-      websocketUrl: url,
-    };
-  }
 
   getBanner(): string {
     // Generate social links dynamically from config
