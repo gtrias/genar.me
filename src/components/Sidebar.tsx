@@ -1,7 +1,8 @@
-import { For, Dynamic } from 'solid-js/web';
+import { For, Show, Dynamic } from 'solid-js/web';
 import * as PhosphorIcons from 'phosphor-solid';
 import { X } from 'phosphor-solid';
-import linksConfig from '../config/links.json';
+import { identity } from '../brand/identity.js';
+import { socialLinks, writingLink } from '../config/links';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -36,34 +37,31 @@ const Sidebar = (props: SidebarProps) => {
           <div class="bio-avatar">
             <img
               src="/genar-avatar.png"
-              alt="Genar Trias Ortiz"
+              alt={identity.name}
               class="avatar-image"
             />
           </div>
-          <p class="bio-text">
-            Developer experience is the way. I hire for passion.
-            Let’s make the right thing the easiest thing.
-          </p>
+          <p class="bio-text">{identity.bio.short}</p>
         </section>
 
         {/* Social Links Section */}
         <section class="sidebar-section social-section">
           <h3 class="section-title">Connect</h3>
           <nav class="social-links">
-            <For each={linksConfig.social}>
+            <For each={socialLinks}>
               {(link) => (
                 <a
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="social-link"
-                  title={link.name}
+                  title={link.label}
                 >
                   <span class="social-icon">
                     <Dynamic component={getIcon(link.icon)} size={20} weight="regular" />
                   </span>
                   <span class="social-label">
-                    {link.username || link.name}
+                    {link.text}
                   </span>
                 </a>
               )}
@@ -72,23 +70,27 @@ const Sidebar = (props: SidebarProps) => {
         </section>
 
         {/* Articles Section */}
-        <section class="sidebar-section articles-section">
-          <h3 class="section-title">Writing</h3>
-          <a
-            href={linksConfig.articles.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="articles-link"
-          >
-            <span class="articles-icon">
-              <Dynamic component={getIcon(linksConfig.articles.icon)} size={22} weight="regular" />
-            </span>
-            <span class="articles-label">{linksConfig.articles.name}</span>
-            <span class="articles-arrow">
-              <PhosphorIcons.ArrowRight size={16} weight="bold" />
-            </span>
-          </a>
-        </section>
+        <Show when={writingLink}>
+          {(writing) => (
+            <section class="sidebar-section articles-section">
+              <h3 class="section-title">Writing</h3>
+              <a
+                href={writing().url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="articles-link"
+              >
+                <span class="articles-icon">
+                  <Dynamic component={getIcon(writing().icon)} size={22} weight="regular" />
+                </span>
+                <span class="articles-label">{writing().text}</span>
+                <span class="articles-arrow">
+                  <PhosphorIcons.ArrowRight size={16} weight="bold" />
+                </span>
+              </a>
+            </section>
+          )}
+        </Show>
       </div>
     </aside>
   );

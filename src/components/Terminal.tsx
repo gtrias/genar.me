@@ -1,6 +1,5 @@
 import { onMount, createSignal } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
-import { AttachAddon } from '@xterm/addon-attach';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
@@ -22,13 +21,13 @@ const TerminalComponent = (props: TerminalProps) => {
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
-  let wsConnection: WebSocket | null = null;
-  let attachAddon: AttachAddon | null = null;
-  let isWebSocketMode = false;
-  let localModeDisposable: { dispose: () => void } | null = null; // Store local mode handler
 
   onMount(() => {
     if (!terminalContainer) return;
+
+    // The banner is ~54 columns wide; shrink the font on narrow screens so it never wraps.
+    // Monospace glyphs are ~0.6em wide.
+    const fontSizeFor = (width: number) => Math.max(8, Math.min(18, Math.floor(width / (56 * 0.6))));
 
     // Initialize terminal
     terminal = new Terminal({
@@ -38,7 +37,7 @@ const TerminalComponent = (props: TerminalProps) => {
         foreground: '#d4d4d4',
         cursor: '#aeafad',
       },
-      fontSize: 18,
+      fontSize: fontSizeFor(terminalContainer.clientWidth),
       fontFamily: 'Consolas, "Courier New", monospace',
       allowTransparency: false,
       convertEol: true,
@@ -99,129 +98,10 @@ const TerminalComponent = (props: TerminalProps) => {
       terminal.write(shell.getPrompt());
     }, 100);
 
-    // WebSocket connection function
-    const connectWebSocket = (url: string) => {
-      try {
-        // Close any existing connection first
-        if (wsConnection) {
-          console.warn('⚠️  Closing existing WebSocket connection before creating new one');
-          wsConnection.close();
-          wsConnection = null;
-        }
-        
-        terminal?.write(`\r\nConnecting to ${url}...\r\n`);
-        const ws = new WebSocket(url);
-        
-        ws.onopen = () => {
-          console.log('═══════════════════════════════════════');
-          console.log('WebSocket connected successfully');
-          console.log('═══════════════════════════════════════');
-          isWebSocketMode = true;
-          wsConnection = ws;
-          
-          // Simple debug: just log that a message is being sent
-          console.log('🔌 WebSocket created and will be passed to AttachAddon');
-          console.log('   readyState:', ws.readyState, '(', ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState], ')');
-          
-          // CRITICAL: Dispose local mode handler BEFORE loading AttachAddon
-          // AttachAddon needs exclusive control of terminal.onData()
-          if (localModeDisposable) {
-            console.log('⚠️  Disposing local mode handler to give AttachAddon exclusive control');
-            localModeDisposable.dispose();
-            localModeDisposable = null;
-            console.log('✓ Local mode handler disposed');
-          }
-          
-          // Send initial resize message BEFORE attaching (resize is handled separately)
-          // NOTE: We send this BEFORE AttachAddon so it doesn't try to display it as terminal output
-          if (terminal && fitAddon) {
-            const dimensions = fitAddon.proposeDimensions();
-            if (dimensions) {
-              const resizeMsg = JSON.stringify({
-                type: 'resize',
-                data: {
-                  cols: dimensions.cols,
-                  rows: dimensions.rows,
-                },
-              });
-              console.log('📐 Sending initial resize:', resizeMsg);
-              ws.send(resizeMsg);
-            }
-          }
-          
-          // Use AttachAddon to handle terminal I/O automatically
-          if (terminal) {
-            // AttachAddon handles input/output automatically - sends raw data, not JSON  
-            console.log('🔧 Creating AttachAddon with options:', { bidirectional: true });
-            attachAddon = new AttachAddon(ws, { bidirectional: true });
-            console.log('✓ AttachAddon created, now loading...');
-            terminal.loadAddon(attachAddon);
-            console.log('✓ AttachAddon loaded - terminal is now interactive');
-            console.log('✓ AttachAddon now has EXCLUSIVE control of terminal I/O');
-            console.log('  - All keyboard input goes directly to WebSocket as raw bytes');
-            console.log('  - All WebSocket output goes directly to terminal with ANSI colors');
-          }
-          
-          // NOTE: Do NOT set ws.onmessage here! AttachAddon needs to handle all messages
-          // to properly display terminal output with colors and handle input.
-          // Resize is handled separately (sent directly on WebSocket, not through AttachAddon).
-        };
-        
-        ws.onerror = (error) => {
-          console.error('🔴 WebSocket ERROR:', {
-            error: error,
-            type: error.type,
-            target: error.target,
-            readyState: ws.readyState,
-            url: ws.url
-          });
-          terminal?.write(`\r\nWebSocket error occurred. Reconnection failed.\r\n`);
-          if (attachAddon) {
-            attachAddon.dispose();
-            attachAddon = null;
-          }
-          isWebSocketMode = false;
-          wsConnection = null;
-          
-          // Re-register local mode handler
-          if (terminal) {
-            registerLocalModeHandler();
-          }
-          terminal?.write(shell.getPrompt());
-        };
-        
-        ws.onclose = () => {
-          console.log('WebSocket closed');
-          if (attachAddon) {
-            attachAddon.dispose(); // Clean up AttachAddon
-            attachAddon = null;
-          }
-          isWebSocketMode = false;
-          wsConnection = null;
-          
-          // Re-register local mode handler
-          if (terminal) {
-            registerLocalModeHandler();
-          }
-          terminal?.write('\r\n\r\nDisconnected from SSH server.\r\n');
-          terminal?.write(shell.getPrompt());
-        };
-      } catch (error) {
-        terminal?.write(`\r\nFailed to connect: ${error}\r\n`);
-        terminal?.write(shell.getPrompt());
-      }
-    };
-    
-
-    // Register local mode input handler
-    const registerLocalModeHandler = () => {
+    // Input handler: a local line editor in front of the shell
+    const registerInputHandler = () => {
       if (!terminal) return;
-      
-      console.log('📝 Registering local mode input handler');
-      localModeDisposable = terminal.onData((data) => {
-        // This handler is ONLY for local mode
-        // When WebSocket/AttachAddon is active, this handler is disposed
-        
+      terminal.onData((data) => {
         // Ignore input if paused
         if (isPaused()) {
           return;
@@ -236,14 +116,6 @@ const TerminalComponent = (props: TerminalProps) => {
         if (currentLine.trim()) {
           // Execute command asynchronously
           shell.executeCommand(currentLine, terminal).then((result) => {
-            // Check if this is a WebSocket connection request
-            if (result.websocketUrl) {
-              connectWebSocket(result.websocketUrl);
-              currentLine = '';
-              cursorPosition = 0;
-              return;
-            }
-
             if (result.output) {
               terminal?.write(result.output);
             }
@@ -348,39 +220,21 @@ const TerminalComponent = (props: TerminalProps) => {
       });
     };
 
-    // Register the local mode handler initially
-    registerLocalModeHandler();
+    registerInputHandler();
 
     // Mark terminal as ready for CRT scene
     setTerminalReady(terminal);
 
     // Handle window resize
     const handleResize = () => {
+      if (terminal && terminalContainer) terminal.options.fontSize = fontSizeFor(terminalContainer.clientWidth);
       fitAddon?.fit();
-      
-      // If WebSocket is connected, send resize message (AttachAddon doesn't handle resize)
-      if (isWebSocketMode && wsConnection && wsConnection.readyState === WebSocket.OPEN && fitAddon) {
-        const dimensions = fitAddon.proposeDimensions();
-        if (dimensions) {
-          // Send resize as JSON message (separate from AttachAddon's raw data stream)
-          wsConnection.send(JSON.stringify({
-            type: 'resize',
-            data: {
-              cols: dimensions.cols,
-              rows: dimensions.rows,
-            },
-          }));
-        }
-      }
     };
     window.addEventListener('resize', handleResize);
 
     // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (wsConnection) {
-        wsConnection.close();
-      }
       terminal?.dispose();
     };
   });
@@ -396,9 +250,7 @@ const TerminalComponent = (props: TerminalProps) => {
       } else {
         terminal.options.disableStdin = false;
         terminal.write('\r\n\x1b[32m[RESUMED]\x1b[0m\r\n');
-        if (!isWebSocketMode) {
-          terminal.write(shell.getPrompt());
-        }
+        terminal.write(shell.getPrompt());
       }
     }
   };

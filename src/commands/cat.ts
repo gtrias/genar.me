@@ -23,8 +23,7 @@ const catCommand: Command = {
     }
 
     const filename = args[0];
-    const currentDir = shell.getCurrentDirectory();
-    const file = currentDir.children?.get(filename);
+    const file = shell.resolvePath(filename);
 
     if (!file) {
       return { output: `cat: ${filename}: No such file or directory\n`, exitCode: 1 };

@@ -4,7 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <title>Solid App</title>
+    <!-- %brand.*% placeholders are filled from genar-brand identity by vite.config.ts -->
+    <title>%brand.name%</title>
+    <meta name="description" content="%brand.bio%" />
+    <link rel="canonical" href="%brand.site%/" />
+    <link rel="icon" type="image/png" href="/genar-avatar.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%brand.site%/" />
+    <meta property="og:title" content="%brand.name%" />
+    <meta property="og:description" content="%brand.bio%" />
+    <meta property="og:image" content="%brand.site%/og.png" />
+    <meta property="og:image:alt" content="A retro CRT monitor showing Genar's terminal" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

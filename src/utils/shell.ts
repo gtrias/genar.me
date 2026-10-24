@@ -1,4 +1,5 @@
-import linksConfig from '../config/links.json';
+import { projects as brandProjects } from '../brand/projects.js';
+import { socialLinks, writingLink } from '../config/links';
 import { CommandRegistry } from './CommandRegistry';
 import type { CommandResult, CommandContext } from '../commands/types';
 import type { Terminal } from '@xterm/xterm';
@@ -381,6 +382,20 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
       });
     }
 
+    // projects/ and articles/ come from genar-brand, so they match the GitHub profile
+    for (const project of brandProjects) {
+      const lines = [`# ${project.name}`, '', project.tagline, '', project.url];
+      if (project.repo && project.repo !== project.url) lines.push(`Source: ${project.repo}`);
+      projects.children?.set(`${project.id}.md`, { name: `${project.id}.md`, type: 'file', content: lines.join('\n') });
+    }
+    if (writingLink) {
+      articles.children?.set('README.md', {
+        name: 'README.md',
+        type: 'file',
+        content: `# Articles\n\nI write at ${writingLink.url}`,
+      });
+    }
+
     if (genar.children) {
       genar.children.set('projects', projects);
       genar.children.set('work', work);
@@ -543,11 +558,9 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
 
 
   getBanner(): string {
-    // Generate social links dynamically from config
-    const socialLinks = linksConfig.social.map((link) => {
-      const displayText = link.username || link.name;
-      return `║    • ${createHyperlink(link.url, displayText)}`;
-    }).join('\n');
+    const links = [...socialLinks, ...(writingLink ? [writingLink] : [])]
+      .map((link) => `║    • ${createHyperlink(link.url, link.text)}`)
+      .join('\n');
 
     return `
 ╔═══════════════════════════════════════════════════╗
@@ -562,11 +575,10 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
 ║         Welcome to My personal computer           ║
 ║                                                   ║
 ║  Type 'help' to see available commands            ║
-║  Type 'ssh' to connect to SSH server              ║
 ║  Use arrow keys to navigate command history       ║
 ║                                                   ║
 ║  Links:                                           ║
-${socialLinks}
+${links}
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 

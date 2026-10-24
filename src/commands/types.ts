@@ -4,7 +4,6 @@ import type Shell from '../utils/shell';
 export interface CommandResult {
   output: string;
   exitCode: number;
-  websocketUrl?: string; // Special case for SSH-like commands
 }
 
 export interface CommandContext {

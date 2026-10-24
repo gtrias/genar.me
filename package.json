@@ -5,19 +5,15 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:go\"",
+    "dev": "vite",
     "dev:vite": "vite",
-    "dev:go": "nodemon --watch ssh-server --ext go --exec \"cd ssh-server && go build -o genar-ssh && ./genar-ssh\"",
     "build": "vite build",
-    "build:go": "cd ssh-server && go mod tidy && go build -o genar-ssh",
     "deploy": "npm run build && npx wrangler pages deploy",
     "serve": "vite preview"
   },
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
-    "concurrently": "^9.2.1",
-    "nodemon": "^3.1.11",
     "solid-devtools": "^0.34.3",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
@@ -27,7 +23,6 @@
   },
   "dependencies": {
     "@types/three": "^0.181.0",
-    "@xterm/addon-attach": "^0.11.0",
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/addon-web-links": "^0.11.0",
