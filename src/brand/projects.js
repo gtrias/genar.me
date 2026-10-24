@@ -13,16 +13,14 @@ export const projects = [
     "name": "deplayer",
     "kind": "product",
     "tagline": "Local-first media player in the browser, across your files, Subsonic, WebTorrent and more.",
-    "url": "https://deplayer.app",
-    "featured": true
+    "url": "https://deplayer.app"
   },
   {
     "id": "slidetime",
     "name": "SlideTime",
     "kind": "product",
     "tagline": "Local-first markdown presentations, free and interactive.",
-    "url": "https://slidetime.app",
-    "featured": true
+    "url": "https://slidetime.app"
   },
   {
     "id": "refstash",
@@ -36,7 +34,8 @@ export const projects = [
     "name": "Mythgrow",
     "kind": "product",
     "tagline": "A virtual creature game with AI companions that hatch from eggs.",
-    "url": "https://mythgrow.site"
+    "url": "https://mythgrow.site",
+    "featured": true
   },
   {
     "id": "openenroth-vita",
@@ -76,6 +75,7 @@ export const projects = [
     "name": "Age of Slop",
     "kind": "product",
     "tagline": "Post-apocalyptic RTS in the browser, fully local, with every unit and building made procedurally.",
-    "url": "https://ageofslop.app"
+    "url": "https://ageofslop.app",
+    "featured": true
   }
 ];

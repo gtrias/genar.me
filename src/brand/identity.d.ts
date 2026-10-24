@@ -10,6 +10,7 @@ export interface BrandIdentity {
   thesis: string;
   pillars: string[];
   bio: { short: string; medium: string; long: string; longPlain: string };
+  intro: string[];
   avatar?: string;
   links: BrandLink[];
 }

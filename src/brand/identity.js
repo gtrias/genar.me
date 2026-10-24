@@ -18,6 +18,10 @@ export const identity = {
     "long": "What I care about is building things: finding the right abstraction for a\nproblem and turning it into a software product people actually use.\n\nA good abstraction makes the rest of the system obvious. A bad one makes every\nchange expensive. Most of my work is the patient part in between: modelling\nthe domain, keeping interfaces small, and letting tests and continuous delivery\nkeep the design honest as the product grows.\n\nTools change; I use whatever gets the job done, from automation to AI. What\nkeeps me hooked is the creative side of software development, and every part\nof the craft around it.\n\nFree software supporter, happy vim user and automation addict.\n",
     "longPlain": "What I care about is building things: finding the right abstraction for a problem and turning it into a software product people actually use.\n\nA good abstraction makes the rest of the system obvious. A bad one makes every change expensive. Most of my work is the patient part in between: modelling the domain, keeping interfaces small, and letting tests and continuous delivery keep the design honest as the product grows.\n\nTools change; I use whatever gets the job done, from automation to AI. What keeps me hooked is the creative side of software development, and every part of the craft around it.\n\nFree software supporter, happy vim user and automation addict."
   },
+  "intro": [
+    "Hi, I'm Genar. I enjoy creativity by building software.",
+    "Free software supporter, happy vim user and automation addict."
+  ],
   "avatar": "assets/avatar.png",
   "links": [
     {
