@@ -33,6 +33,8 @@ const App: Component = () => {
         class="terminal-container flex-1 transition-all duration-300"
         style={{
           'max-width': '1360px',
+          // Breathing room so the monitor sits on the page instead of touching its edges
+          padding: 'clamp(24px, 7vh, 80px) clamp(16px, 4vw, 72px)',
         }}
       >
         <Terminal
