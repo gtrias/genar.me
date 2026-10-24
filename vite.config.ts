@@ -8,7 +8,7 @@ import { identity } from './src/brand/identity.js';
 function brandHtml(): Plugin {
   const values: Record<string, string> = {
     name: identity.name,
-    bio: identity.bio.short,
+    bio: identity.intro.join(' '),
     site: identity.site,
   };
   return {

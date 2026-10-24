@@ -41,7 +41,7 @@ const Sidebar = (props: SidebarProps) => {
               class="avatar-image"
             />
           </div>
-          <p class="bio-text">{identity.bio.short}</p>
+          <For each={identity.intro}>{(line) => <p class="bio-text">{line}</p>}</For>
         </section>
 
         {/* Social Links Section */}

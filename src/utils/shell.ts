@@ -1,3 +1,4 @@
+import { identity } from '../brand/identity.js';
 import { projects as brandProjects } from '../brand/projects.js';
 import { socialLinks, writingLink } from '../config/links';
 import { CommandRegistry } from './CommandRegistry';
@@ -572,16 +573,14 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
 ║     ╚██████╔╝███████╗██║ ╚████║██║  ██║██║  ██║   ║
 ║      ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ║
 ║                                                   ║
-║         Welcome to My personal computer           ║
-║                                                   ║
 ║  Type 'help' to see available commands            ║
 ║  Use arrow keys to navigate command history       ║
 ║                                                   ║
 ║  Links:                                           ║
 ${links}
-║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 
+${identity.intro.join('\n')}
 `;
   }
 }
