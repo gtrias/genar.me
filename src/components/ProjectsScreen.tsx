@@ -17,6 +17,10 @@ const groups = [...new Set(projects.map((p) => p.kind))].map((kind) => ({
   items: projects.filter((p) => p.kind === kind),
 }));
 
+// ASCII rules, longer than any screen is wide: CSS cuts them at the edge of the text area
+const RULE = '─'.repeat(160);
+const SEPARATOR = '┄'.repeat(160);
+
 /**
  * The project list shown on the glass in place of the terminal, for visitors who don't use a shell:
  * plain links in the phosphor colours, laid over the terminal's text area. The terminal keeps running
@@ -51,12 +55,26 @@ const ProjectsScreen = () => (
         <For each={groups}>
           {(group) => (
             <section class="crt-projects-group" aria-label={group.title}>
-              <h3>{group.title}</h3>
+              {/* "── APPS ─────": the rule runs to the edge and is cut there. No-break spaces, since
+                  flex items drop their edge spaces */}
+              <h3>
+                <span aria-hidden="true">{'──\u00a0'}</span>
+                {group.title}
+                <span class="crt-projects-rule" aria-hidden="true">
+                  {'\u00a0' + RULE}
+                </span>
+              </h3>
               <ul>
                 <For each={group.items}>
-                  {(project) => (
+                  {(project, i) => (
                     <li>
+                      <Show when={i() > 0}>
+                        <div class="crt-projects-sep" aria-hidden="true">
+                          {SEPARATOR}
+                        </div>
+                      </Show>
                       <a href={project.url} target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">› </span>
                         {project.name}
                         <span aria-hidden="true"> ↗</span>
                       </a>

@@ -351,13 +351,27 @@ body {
   outline: none;
 }
 
+/* "── APPS ──────": a box-drawing rule from the title to the edge of the text area */
 .crt-projects h3 {
-  margin-bottom: 0.3em;
+  display: flex;
+  margin-bottom: 0.35em;
+  overflow: hidden;
+  white-space: nowrap;
   color: color-mix(in srgb, var(--phosphor-fg) 55%, var(--phosphor-dim));
 }
 
+.crt-projects h3 > [aria-hidden] {
+  letter-spacing: 0;
+}
+
+.crt-projects-rule {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .crt-projects-group + .crt-projects-group {
-  margin-top: 1em;
+  margin-top: 1.2em;
 }
 
 .crt-projects ul {
@@ -366,8 +380,14 @@ body {
   list-style: none;
 }
 
-.crt-projects li + li {
-  margin-top: 0.45em;
+/* dashed rule between projects, fainter than the group rules */
+.crt-projects-sep {
+  margin: 0.3em 0;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1;
+  color: var(--phosphor-dim);
+  text-shadow: none;
 }
 
 .crt-projects a {
@@ -375,8 +395,10 @@ body {
   text-decoration: none;
 }
 
+/* the tagline lines up under the name, past its "› " marker */
 .crt-projects p {
   margin: 0;
+  padding-left: 2ch;
   color: color-mix(in srgb, var(--phosphor-fg) 72%, var(--phosphor-dim));
 }
 
