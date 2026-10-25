@@ -79,13 +79,13 @@ body {
   overflow: hidden;
 }
 
-/* Raised cream frame around the screen */
+/* Raised cream lip around the screen opening */
 .crt-bezel::before {
   content: '';
   position: absolute;
-  inset: 22px 26px 74px;
+  inset: 12px 16px 62px;
   z-index: 0;
-  border-radius: 34px;
+  border-radius: 42px;
   background:
     var(--grime) 40px 60px / 320px,
     linear-gradient(180deg, var(--housing-hi), var(--housing) 60%, var(--housing-lo));
@@ -97,18 +97,23 @@ body {
     inset 0 0 22px rgba(110, 84, 44, 0.22);
 }
 
-/* Dark recess the tube sits in */
+/* Inner bezel: light-grey plastic sloping down to the tube (lit from above, so the top face is
+   brightest), leaving only a thin black ring around the glass */
 .crt-bezel::after {
   content: '';
   position: absolute;
-  inset: 38px 42px 90px;
+  inset: 22px 28px 74px;
   z-index: 1;
-  border-radius: 26px;
-  background: var(--recess);
+  border: 20px solid transparent;
+  border-radius: 34px;
+  /* Black ring fills the padding box; the border box carries the cool grey slope (kept clean so it
+     reads apart from the cream housing) */
+  background:
+    linear-gradient(var(--recess), var(--recess)) padding-box,
+    linear-gradient(180deg, #f3f2ee 0%, #dedcd6 18%, #c4c2bc 70%, #9d9b95 100%) border-box;
   box-shadow:
-    inset 0 5px 12px rgba(0, 0, 0, 0.85),
-    0 -1px 0 rgba(0, 0, 0, 0.25),
-    0 2px 0 rgba(255, 255, 255, 0.6);
+    0 0 0 1px rgba(60, 50, 35, 0.35),
+    inset 0 3px 6px rgba(0, 0, 0, 0.85);
 }
 
 /* Front panel: vent grille, power button, status lamp */
@@ -186,22 +191,13 @@ body {
   box-shadow: none;
 }
 
-.clip-path-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
-
-/* Inner screen area - the actual display surface */
+/* Glass: a rounded rectangle filling the opening; the shader adds the curvature */
 .crt-screen {
   position: relative;
   /* Ensure it fills the inner area created by bezel padding */
   width: 100%;
   height: 100%;
-  /* Apply SVG clip-path for curvature effect */
-  clip-path: url(#crtPath);
+  border-radius: 22px;
   overflow: hidden;
   /* Ensure content is above the bezel highlight */
   z-index: 2;
@@ -492,17 +488,18 @@ body {
 
   .crt-bezel {
     border-radius: 16px 16px 0 0;
-    padding: 34px 32px 84px;
+    padding: 40px 38px 90px;
   }
 
   .crt-bezel::before {
-    inset: 12px 12px 62px;
-    border-radius: 26px;
+    inset: 8px 8px 58px;
+    border-radius: 32px;
   }
 
   .crt-bezel::after {
-    inset: 22px 22px 72px;
-    border-radius: 20px;
+    inset: 18px 16px 68px;
+    border-width: 14px;
+    border-radius: 26px;
   }
 
   .crt-vent {
