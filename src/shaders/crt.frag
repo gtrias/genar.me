@@ -50,7 +50,19 @@ void main() {
   
   // Sample texture with very subtle chromatic aberration
   vec3 screenColor = chromaticAberration(uTexture, distortedUv, 0.0003);
-  
+
+  // Phosphor bloom: lit glyphs bleed a soft halo onto the glass. Only light above the dark screen
+  // colour contributes, so the background itself is not lifted.
+  vec3 bloom = vec3(0.0);
+  for (int i = 0; i < 8; i++) {
+    float a = float(i) * 0.785398;
+    vec2 dir = vec2(cos(a), sin(a)) / uResolution;
+    bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 2.0, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.25;
+    bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 5.0, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.6;
+  }
+  // Mostly the wide taps: a soft halo that leaves the strokes thin
+  screenColor += bloom * 0.14;
+
   // Apply scanlines
   float scanline = scanlines(vUv, uScanlineOpacity);
   screenColor *= scanline;

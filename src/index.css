@@ -1,18 +1,18 @@
 @import 'tailwindcss';
 
-/* 1979 console: aged cream moulded housing for the monitor, worn metal side panel, Phillips screws. */
+/* 1979 console, rebuilt from the approved mock (retrofuturism-1, 1536x1024): aged cream monitor,
+   worn metal side panel, Phillips screws. Sizes use container units so the proportions measured on
+   the mock hold at any size: cqh/cqw of .console-monitor for the monitor, of .console for the panel. */
 :root {
   --page: #1b1b19;
   --housing-hi: #e4dcc8;
   --housing: #d6ccb5;
-  --housing-lo: #bdb299;
+  --housing-lo: #c2b79e;
   --housing-edge: #8d846f;
-  --metal-hi: #8e887d;
-  --metal: #79736a;
-  --metal-lo: #615c55;
-  --slot: #2c2924;
-  --recess: #151713;
-  --ink: #26221c;
+  --metal-hi: #7a7367;
+  --metal: #665f55;
+  --metal-lo: #534d45;
+  --ink: #2a261f;
   --amber: #ffb23e;
   --lamp-green: #43f06c;
   --power-red: #e0322b;
@@ -39,141 +39,133 @@ body {
 }
 
 .console {
+  container-type: size;
   display: flex;
   width: min(100%, 1480px);
   height: calc(100vh - 2 * var(--page-pad-y));
   min-height: 460px;
-  border-radius: 16px;
+  border-radius: 14px;
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.55),
     0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
+/* Mock: monitor 1162px of 1536 (75.6%). The housing stops 24px short of the bottom (of 1024),
+   leaving the dark shadow of the stand under it. */
 .console-monitor {
+  container-type: size;
   flex: 1;
   min-width: 0;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(180deg, #34312b, #1a1916);
 }
 
-/* Monitor housing: aged cream plastic with a screw in each corner */
+/* Monitor housing. Padding = the glass box measured on the mock (x 106-1059, y 126-813 of the
+   1162x1000 housing in a 1024 tall console); CRTFrame draws the lip, slope and gasket into it. */
 .crt-bezel {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 97.7%;
   background:
-    var(--screw) 14px 14px / 18px no-repeat,
-    var(--screw) right 14px top 14px / 18px no-repeat,
-    var(--screw) 14px calc(100% - 14px) / 18px no-repeat,
-    var(--screw) right 14px bottom 14px / 18px no-repeat,
+    var(--screw) 2cqw 2.1cqh / auto 3.1cqh no-repeat,
+    var(--screw) right 2cqw top 2.1cqh / auto 3.1cqh no-repeat,
+    var(--screw) left 1.6cqw bottom 3.9cqh / auto 3.1cqh no-repeat,
+    var(--screw) right 1.6cqw bottom 3.9cqh / auto 3.1cqh no-repeat,
+    /* bottom chamfer of the moulding */
+    linear-gradient(to top, rgba(70, 55, 35, 0.55) 0 2.8cqh, rgba(255, 255, 255, 0.35) 2.8cqh 3.1cqh, transparent 3.1cqh),
     var(--grime) 0 0 / 320px,
     radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(120, 95, 55, 0.18) 100%),
     linear-gradient(180deg, var(--housing-hi) 0%, var(--housing) 55%, var(--housing-lo) 100%);
-  border-radius: 16px 0 0 16px;
-  padding: 48px 54px 100px;
+  border-radius: 14px 0 0 4px;
+  padding: 12.3cqh 8.9cqw 18.3cqh 9.1cqw;
   box-sizing: border-box;
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 0 2px rgba(40, 32, 20, 0.45),
+    inset 0 1.2cqh 0 -0.8cqh rgba(255, 255, 255, 0.55),
     inset 0 -3px 0 rgba(0, 0, 0, 0.14),
-    inset 2px 0 0 rgba(255, 255, 255, 0.3),
+    /* rounded side edges of the moulding turning away from the light */
+    inset 1.4cqw 0 1.6cqw -1.2cqw rgba(255, 255, 255, 0.35),
+    inset -1.4cqw 0 1.6cqw -1.1cqw rgba(60, 46, 28, 0.35),
     /* dirt collected along the edges */
     inset 0 0 36px rgba(110, 84, 44, 0.2);
   overflow: hidden;
 }
 
-/* Raised cream lip around the screen opening */
-.crt-bezel::before {
-  content: '';
+/* Moulded frame around the tube (lip, slope, gasket, glass shading), drawn by CRTFrame.tsx */
+.crt-frame {
   position: absolute;
-  inset: 12px 16px 62px;
-  z-index: 0;
-  border-radius: 42px;
-  background:
-    var(--grime) 40px 60px / 320px,
-    linear-gradient(180deg, var(--housing-hi), var(--housing) 60%, var(--housing-lo));
-  box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.28),
-    0 1px 1px rgba(0, 0, 0, 0.25),
-    inset 0 2px 1px rgba(255, 255, 255, 0.7),
-    inset 0 -3px 3px rgba(0, 0, 0, 0.18),
-    inset 0 0 22px rgba(110, 84, 44, 0.22);
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* Inner bezel: light-grey plastic sloping down to the tube (lit from above, so the top face is
-   brightest), leaving only a thin black ring around the glass */
-.crt-bezel::after {
-  content: '';
-  position: absolute;
-  inset: 22px 28px 74px;
-  z-index: 1;
-  border: 20px solid transparent;
-  border-radius: 34px;
-  /* Black ring fills the padding box; the border box carries the cool grey slope (kept clean so it
-     reads apart from the cream housing) */
-  background:
-    linear-gradient(var(--recess), var(--recess)) padding-box,
-    linear-gradient(180deg, #f3f2ee 0%, #dedcd6 18%, #c4c2bc 70%, #9d9b95 100%) border-box;
-  box-shadow:
-    0 0 0 1px rgba(60, 50, 35, 0.35),
-    inset 0 3px 6px rgba(0, 0, 0, 0.85);
-}
-
-/* Front panel: vent grille, power button, status lamp */
+/* Front panel: vent grille (x 85-335, y 890-940 on the mock), power button and status lamp */
 .crt-vent {
   position: absolute;
-  left: 54px;
-  bottom: 28px;
-  width: min(180px, 30%);
-  height: 28px;
-  background: repeating-linear-gradient(90deg, #2b271f 0 5px, transparent 5px 12px);
-  opacity: 0.8;
+  left: 7.3cqw;
+  bottom: 6cqh;
+  width: 21.5cqw;
+  height: 5cqh;
+  background: repeating-linear-gradient(90deg, #26221b 0 0.8cqh, transparent 0.8cqh 2cqh);
+  box-shadow: inset 0 0.4cqh 0.4cqh rgba(0, 0, 0, 0.25);
+  opacity: 0.85;
   border-radius: 2px;
 }
 
 .crt-power,
 .crt-lamp {
   position: absolute;
-  bottom: 24px;
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #4a443a, #24211c);
+  bottom: 5.5cqh;
+  width: 5cqh;
+  height: 5cqh;
+  border-radius: 0.5cqh;
+  /* light metal surround */
+  background: linear-gradient(180deg, #e2ded5, #b7b1a5);
   box-shadow:
-    inset 0 2px 3px rgba(0, 0, 0, 0.75),
-    0 1px 0 rgba(255, 255, 255, 0.55);
+    0 0.15cqh 0 rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(60, 50, 35, 0.4),
+    inset 0 -0.2cqh 0.2cqh rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }
 
 .crt-power {
-  right: 104px;
+  right: 13.5cqw;
   border: 0;
   padding: 0;
   cursor: pointer;
 }
 
 .crt-lamp {
-  right: 56px;
+  right: 7.5cqw;
 }
 
 .crt-power::before,
 .crt-lamp::before {
   content: '';
   position: absolute;
-  inset: 6px;
-  border-radius: 3px;
+  inset: 18%;
+  border-radius: 0.3cqh;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
+/* Glowing caps: a round hot spot inside the square cap, darkening to the rim, like a bulb behind
+   tinted plastic */
 .crt-power::before {
-  background: radial-gradient(circle at 40% 35%, #ff7a6e, var(--power-red) 55%, #8f1712);
-  box-shadow: 0 0 10px rgba(224, 50, 43, 0.45);
+  background: radial-gradient(circle at 50% 50%, #ffe0c8 0 10%, #ff7448 26%, #d82a1d 52%, #7c120c 82%, #4a0906 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    inset 0 0 0.6cqh rgba(0, 0, 0, 0.5),
+    0 0 1.6cqh rgba(255, 70, 50, 0.55);
   transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .crt-power:active::before {
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
 .crt-power.is-off::before {
-  background: radial-gradient(circle at 40% 35%, #8a3a33, #5a1612 60%, #3a0d0a);
-  box-shadow: none;
+  background: radial-gradient(circle at 45% 40%, #8a3a33, #5a1612 60%, #3a0d0a);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .crt-power:focus-visible {
@@ -182,22 +174,25 @@ body {
 }
 
 .crt-lamp::before {
-  background: radial-gradient(circle at 40% 35%, #b6ffc6, var(--lamp-green) 55%, #138a33);
-  box-shadow: 0 0 12px rgba(67, 240, 108, 0.55);
+  background: radial-gradient(circle at 50% 50%, #f0ffe8 0 10%, #86ff74 26%, #2ccc3a 52%, #0e6a1a 82%, #073c0e 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    inset 0 0 0.6cqh rgba(0, 0, 0, 0.45),
+    0 0 1.8cqh rgba(80, 255, 120, 0.6);
 }
 
 .crt-lamp.is-off::before {
   background: #173d22;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-/* Glass: a rounded rectangle filling the opening; the shader adds the curvature */
+/* Glass box: CRTFrame covers everything outside the tube outline, so no clipping here; the shader
+   adds the curvature to the picture */
 .crt-screen {
   position: relative;
   /* Ensure it fills the inner area created by bezel padding */
   width: 100%;
   height: 100%;
-  border-radius: 22px;
   overflow: hidden;
   /* Ensure content is above the bezel highlight */
   z-index: 2;
@@ -284,104 +279,126 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Side panel: worn metal bolted to the monitor */
+/* Side panel: worn metal bolted to the monitor (x 1168-1536 on the mock). Vertical sizes are cqh of
+   .console (mock height 1024). */
 .console-panel {
-  width: clamp(220px, 16vw, 256px);
+  width: 24.4%;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 26px 18px;
+  padding: 5.9cqh 3cqw 5.8cqh;
   box-sizing: border-box;
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 14px 14px 0;
   background:
-    var(--screw) 10px 10px / 16px no-repeat,
-    var(--screw) right 10px top 10px / 16px no-repeat,
-    var(--screw) 10px calc(100% - 10px) / 16px no-repeat,
-    var(--screw) right 10px bottom 10px / 16px no-repeat,
+    var(--screw) 2cqw 2.4cqh / auto 2.4cqh no-repeat,
+    var(--screw) right 2cqw top 2.4cqh / auto 2.4cqh no-repeat,
     var(--metal-tex) 0 0 / 320px,
     linear-gradient(180deg, var(--metal-hi) 0%, var(--metal) 50%, var(--metal-lo) 100%);
   box-shadow:
-    inset 1px 0 0 rgba(0, 0, 0, 0.45),
-    inset 2px 0 0 rgba(255, 255, 255, 0.12),
-    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+    inset 4px 0 0 rgba(20, 18, 15, 0.75),
+    inset 5px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 0 0 2px rgba(20, 18, 15, 0.35);
 }
 
 /* Screwed-on plate */
 .panel-plate {
   position: relative;
-  border-radius: 6px;
-  padding: 16px;
+  border-radius: 0.8cqh;
   background:
-    var(--screw) 6px 6px / 14px no-repeat,
-    var(--screw) right 6px top 6px / 14px no-repeat,
-    var(--screw) 6px calc(100% - 6px) / 14px no-repeat,
-    var(--screw) right 6px bottom 6px / 14px no-repeat,
+    var(--screw) 1cqh 1cqh / auto 2.1cqh no-repeat,
+    var(--screw) right 1cqh top 1cqh / auto 2.1cqh no-repeat,
+    var(--screw) 1cqh calc(100% - 1cqh) / auto 2.1cqh no-repeat,
+    var(--screw) right 1cqh bottom 1cqh / auto 2.1cqh no-repeat,
     var(--metal-tex) 30px 50px / 320px,
-    linear-gradient(180deg, #7a746a, #67625a);
+    linear-gradient(180deg, #7b7468, #5f594f);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 1px rgba(15, 13, 10, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(0, 0, 0, 0.35),
-    0 2px 3px rgba(0, 0, 0, 0.35);
+    0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.4);
 }
 
+/* Avatar plate: 280px tall on the mock, window inset ~32px */
 .panel-id {
-  padding: 24px;
+  height: 27.3cqh;
+  padding: 3.1cqh;
+  box-sizing: border-box;
 }
 
-/* The avatar is 64x64 pixel art. It ships pre-scaled 4x with hard edges and the browser only ever
-   scales it down, so every pixel stays the same size even on fractional device pixel ratios. */
+.panel-window {
+  height: 100%;
+  border-radius: 0.5cqh;
+  overflow: hidden;
+  background: #0b2a17;
+  box-shadow:
+    0 0 0 0.35cqh #1d1b17,
+    0 0 0 0.7cqh #9a948a,
+    0 0.1cqh 0 0.75cqh rgba(255, 255, 255, 0.25);
+  position: relative;
+}
+
+.panel-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0.5cqh 1.2cqh rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+/* The avatar is 64x64 pixel art shipped pre-scaled 4x with hard edges; the browser only ever scales
+   it down, so every pixel stays the same size even on fractional device pixel ratios. Head and
+   shoulders sit low in the window with green showing above, as on the mock. */
 .panel-avatar {
   display: block;
-  width: 128px;
-  height: 128px;
-  margin-inline: auto;
-  border-radius: 6px;
-  background: #0d2a19;
-  /* Thick bevelled metal frame */
-  box-shadow:
-    inset 0 3px 8px rgba(0, 0, 0, 0.8),
-    0 0 0 3px #1f1c18,
-    0 0 0 7px #5a554d,
-    0 1px 0 8px rgba(255, 255, 255, 0.18),
-    0 -1px 0 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: scale(0.9);
+  transform-origin: center bottom;
 }
 
+/* Keys: 4 x 75px with 12px gaps on the mock */
 .panel-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px 14px;
+  gap: 1.2cqh;
+  margin-top: 3.4cqh;
 }
 
-/* One button = dark slot holding a lamp housing and a cream key */
+/* One key = raised metal bracket holding a lamp box and a cream key cap */
 .panel-button {
   display: flex;
   align-items: stretch;
-  gap: 5px;
-  min-height: 46px;
-  padding: 5px;
-  border-radius: 6px;
-  background: var(--slot);
+  gap: 0.6cqh;
+  height: 7.3cqh;
+  padding: 0.6cqh;
+  box-sizing: border-box;
+  border-radius: 0.7cqh;
+  background: linear-gradient(180deg, #8e877b, #5d574e);
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.7),
-    0 1px 0 rgba(255, 255, 255, 0.18);
+    0 0 0 1px rgba(10, 9, 7, 0.75),
+    0 0 0 0.35cqh rgba(30, 27, 23, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.5);
   color: var(--ink);
   text-decoration: none;
-  box-sizing: border-box;
 }
 
 .panel-lamp {
   flex-shrink: 0;
-  width: 34px;
-  border-radius: 4px;
+  aspect-ratio: 1;
+  height: 100%;
+  border-radius: 0.4cqh;
   background:
-    radial-gradient(circle at 50% 50%, #ffe3a8 0 3px, var(--amber) 5px, #a8600c 8px, transparent 9px),
-    linear-gradient(180deg, #3a362f, #1d1a16);
+    radial-gradient(circle at 50% 50%, #fff6d6 0 0.45cqh, #ffc24f 0.95cqh, #d47b12 1.35cqh, rgba(212, 123, 18, 0) 1.7cqh),
+    linear-gradient(180deg, #2f2b25, #171511);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 0 10px rgba(255, 178, 62, 0.25);
+    0 0 0 0.25cqh #8f887c,
+    inset 0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.7),
+    inset 0 0 1.8cqh rgba(255, 178, 62, 0.35);
   transition: box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -390,15 +407,15 @@ body {
   min-width: 0;
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  border-radius: 4px;
+  padding: 0 1.8cqh;
+  border-radius: 0.45cqh;
   background:
     var(--grime) 0 0 / 320px,
-    linear-gradient(180deg, var(--housing-hi), var(--housing) 65%, var(--housing-lo));
+    linear-gradient(180deg, #ece6d8, #d9d0bd 60%, #c4b9a2);
   box-shadow:
-    0 2px 0 var(--housing-edge),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 2px rgba(0, 0, 0, 0.12);
+    0 0.2cqh 0 #8b8270,
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -0.2cqh 0.2cqh rgba(0, 0, 0, 0.12);
   transition:
     transform 90ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 90ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -407,15 +424,15 @@ body {
 .panel-button:hover .panel-lamp,
 .panel-button:focus-visible .panel-lamp {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 0 14px rgba(255, 178, 62, 0.6),
-    0 0 12px rgba(255, 178, 62, 0.45);
+    inset 0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.6),
+    inset 0 0 2cqh rgba(255, 178, 62, 0.75),
+    0 0 1.4cqh rgba(255, 178, 62, 0.45);
 }
 
 .panel-button:active .panel-key {
-  transform: translateY(2px);
+  transform: translateY(0.2cqh);
   box-shadow:
-    0 0 0 var(--housing-edge),
+    0 0 0 #8b8270,
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     inset 0 -1px 1px rgba(0, 0, 0, 0.12);
 }
@@ -426,57 +443,74 @@ body {
 }
 
 .panel-label {
-  font: 800 14px/1 var(--label);
-  letter-spacing: 0.1em;
+  font: 800 2.3cqh/1 var(--label);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.panel-speaker {
-  flex: 1;
-  min-height: 0;
+/* Bottom plate: speaker slots and keypad (x 1185-1525, y 735-965 on the mock): wider than the
+   plates above, nearly reaching the panel edges */
+.panel-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6cqh;
+  height: 22.5cqh;
+  margin: auto -1.9cqw 0;
+  padding: 2.4cqh 3.4cqh;
+  box-sizing: border-box;
 }
 
-.panel-speaker::after {
-  content: '';
-  position: absolute;
-  inset: 26px 22px;
-  background: repeating-linear-gradient(180deg, #24211c 0 5px, transparent 5px 12px);
-  border-radius: 2px;
+.panel-speaker {
+  flex: 0 0 7.6cqh;
+  height: 13cqh;
+  background: repeating-linear-gradient(180deg, #1b1915 0 1cqh, transparent 1cqh 2.3cqh);
+  border-radius: 0.3cqh;
   opacity: 0.9;
 }
 
-/* Short screens: tighten the panel so it stays inside the housing */
-@media (min-width: 901px) and (max-height: 780px) {
-  .console-panel {
-    gap: 10px;
-    padding: 20px 14px;
-  }
-
-  .panel-id {
-    padding: 16px;
-  }
-
-  .panel-buttons {
-    gap: 8px;
-    padding: 14px 12px;
-  }
-
-  .panel-button {
-    min-height: 38px;
-    padding: 4px;
-  }
-
-  .panel-speaker {
-    display: none;
-  }
+.panel-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 5.4cqh);
+  gap: 0.6cqh;
 }
 
-/* Narrow screens: the panel folds under the monitor */
+.keypad-key {
+  width: 5.4cqh;
+  height: 5.4cqh;
+  border: 0;
+  border-radius: 0.6cqh;
+  background: linear-gradient(180deg, #3a3732, #1e1c19);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0.3cqh 0.3cqh rgba(0, 0, 0, 0.5);
+  color: #d9d4c9;
+  font: 700 2.2cqh/1 var(--label);
+  cursor: pointer;
+  transition: transform 90ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.keypad-key:active {
+  transform: translateY(0.2cqh);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.keypad-key:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Narrow screens: the panel folds under the monitor. The console no longer has a fixed height, so it
+   stops being a size container and the panel switches to plain pixel sizes. */
 @media (max-width: 900px) {
   .console {
+    container-type: normal;
     flex-direction: column;
     height: auto;
   }
@@ -487,61 +521,74 @@ body {
   }
 
   .crt-bezel {
-    border-radius: 16px 16px 0 0;
-    padding: 40px 38px 90px;
-  }
-
-  .crt-bezel::before {
-    inset: 8px 8px 58px;
-    border-radius: 32px;
-  }
-
-  .crt-bezel::after {
-    inset: 18px 16px 68px;
-    border-width: 14px;
-    border-radius: 26px;
-  }
-
-  .crt-vent {
-    left: 32px;
+    border-radius: 14px 14px 0 0;
   }
 
   .console-panel {
     width: auto;
-    flex-direction: row;
-    align-items: stretch;
-    border-radius: 0 0 16px 16px;
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 14px;
     padding: 22px 18px;
+    border-radius: 0 0 14px 14px;
+    background:
+      var(--metal-tex) 0 0 / 320px,
+      linear-gradient(180deg, var(--metal-hi) 0%, var(--metal) 50%, var(--metal-lo) 100%);
+    box-shadow: inset 0 4px 0 rgba(20, 18, 15, 0.75);
+  }
+
+  .panel-plate {
+    border-radius: 6px;
+    background:
+      var(--screw) 6px 6px / 14px no-repeat,
+      var(--screw) right 6px top 6px / 14px no-repeat,
+      var(--screw) 6px calc(100% - 6px) / 14px no-repeat,
+      var(--screw) right 6px bottom 6px / 14px no-repeat,
+      var(--metal-tex) 30px 50px / 320px,
+      linear-gradient(180deg, #8a8478, #6c675e);
   }
 
   .panel-id {
-    width: auto;
-    flex-shrink: 0;
-    align-self: flex-start;
-    padding: 18px;
+    height: 112px;
+    padding: 20px;
   }
 
-  .panel-avatar {
-    width: 64px;
-    height: 64px;
+  .panel-window {
+    border-radius: 4px;
+    box-shadow:
+      0 0 0 3px #1d1b17,
+      0 0 0 6px #9a948a;
   }
 
   .panel-buttons {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    padding: 16px;
+    margin-top: 0;
+    gap: 8px;
+  }
+
+  .panel-button {
+    height: 46px;
+    padding: 5px;
+    gap: 5px;
+    border-radius: 6px;
   }
 
   .panel-lamp {
-    width: 28px;
+    border-radius: 4px;
+    background:
+      radial-gradient(circle at 50% 50%, #fff2c8 0 3px, #ffc04d 7px, #c2700f 10px, rgba(194, 112, 15, 0) 12px),
+      linear-gradient(180deg, #34302a, #1b1915);
+  }
+
+  .panel-key {
+    padding: 0 14px;
+    border-radius: 4px;
   }
 
   .panel-label {
-    letter-spacing: 0.04em;
+    font-size: 15px;
   }
 
-  .panel-speaker {
+  .panel-bottom {
     display: none;
   }
 }

@@ -1,29 +1,44 @@
-import { onMount, createSignal } from 'solid-js';
+import { onMount, onCleanup, createSignal } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
+import CRTFrame from './CRTFrame';
 import CRTScene from './CRTScene';
 import Shell from '../utils/shell';
+import { KEYPAD_EVENT } from '../config/keypad';
 import { PHOSPHOR } from '../config/phosphor';
+import { XTERM_INSET, XTERM_SCROLLBAR } from '../config/screen';
+import { identity } from '../brand/identity.js';
+
+const MONO_FONT = '"JetBrains Mono"';
+// JetBrains Mono advance width, in em
+const GLYPH_WIDTH = 0.6;
+// The banner's longest line must fit on one row (the mock shows the intro unwrapped)
+const BANNER_COLUMNS = Math.max(...identity.intro.map((line) => line.length));
 
 const TerminalComponent = () => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
   let fitAddon: FitAddon | undefined;
+  let bezelEl: HTMLDivElement | undefined;
+  let screenEl: HTMLDivElement | undefined;
   const [terminalReady, setTerminalReady] = createSignal<Terminal | undefined>(undefined);
   const [isPaused, setIsPaused] = createSignal(false);
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
 
-  onMount(() => {
+  // xterm measures glyphs once, when it opens: start it only after the webfont is ready
+  const start = () => {
     if (!terminalContainer) return;
 
-    // The longest banner line is ~62 columns, but the barrel distortion magnifies the centre and pushes
-    // ~20% of the width past the visible edge; size the font for ~80 columns so lines never get cut.
-    // Monospace glyphs are ~0.6em wide.
-    const fontSizeFor = (width: number) => Math.max(8, Math.min(18, Math.floor(width / (80 * 0.6))));
+    // Largest font whose cell fits BANNER_COLUMNS across the text area. xterm snaps cells down to whole
+    // pixels, so aim the font at the middle of the whole-pixel cell we want (cell + 0.5).
+    const fontSizeFor = (width: number) => {
+      const cell = Math.floor((width - XTERM_SCROLLBAR) / BANNER_COLUMNS);
+      return Math.max(8, Math.min(26, (cell + 0.5) / GLYPH_WIDTH));
+    };
 
     // Initialize terminal
     terminal = new Terminal({
@@ -35,7 +50,7 @@ const TerminalComponent = () => {
         brightBlack: PHOSPHOR.dim,
       },
       fontSize: fontSizeFor(terminalContainer.clientWidth),
-      fontFamily: 'Consolas, "Courier New", monospace',
+      fontFamily: `${MONO_FONT}, Consolas, "Courier New", monospace`,
       allowTransparency: false,
       convertEol: true,
       scrollback: 1000,
@@ -45,10 +60,6 @@ const TerminalComponent = () => {
     // Initialize fit addon
     fitAddon = new FitAddon();
     terminal.loadAddon(fitAddon);
-
-    // Initialize canvas addon for canvas rendering
-    const canvasAddon = new CanvasAddon();
-    terminal.loadAddon(canvasAddon);
 
     // Set up link handler for OSC 8 escape sequences (official xterm.js way)
     const linkHandler = {
@@ -77,6 +88,9 @@ const TerminalComponent = () => {
 
     // Open terminal in container
     terminal.open(terminalContainer);
+
+    // Renderer addon, loaded after open() as in its README
+    terminal.loadAddon(new CanvasAddon());
 
     // Fit terminal to container
     fitAddon.fit();
@@ -222,18 +236,34 @@ const TerminalComponent = () => {
     // Mark terminal as ready for CRT scene
     setTerminalReady(terminal);
 
-    // Handle window resize
-    const handleResize = () => {
-      if (terminal && terminalContainer) terminal.options.fontSize = fontSizeFor(terminalContainer.clientWidth);
-      fitAddon?.fit();
-    };
-    window.addEventListener('resize', handleResize);
+    // The panel keypad types into the terminal like the keyboard does
+    onKeypad = (event: Event) => terminal?.input((event as CustomEvent<string>).detail);
+    window.addEventListener(KEYPAD_EVENT, onKeypad);
 
-    // Cleanup function
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      terminal?.dispose();
-    };
+    // Size the font from the container's real size. The container-unit layout can still settle after
+    // start() runs, and window resizes are not the only way it changes, so observe the element.
+    resizeObserver = new ResizeObserver(() => {
+      if (!terminal || !terminalContainer) return;
+      const fontSize = fontSizeFor(terminalContainer.clientWidth);
+      if (terminal.options.fontSize !== fontSize) terminal.options.fontSize = fontSize;
+      fitAddon?.fit();
+    });
+    resizeObserver.observe(terminalContainer);
+  };
+
+  let onKeypad: ((event: Event) => void) | undefined;
+  let resizeObserver: ResizeObserver | undefined;
+
+  onMount(() => {
+    // Fall back to the system monospace if the webfont fails to load
+    void document.fonts.load(`400 16px ${MONO_FONT}`).finally(start);
+  });
+
+  // Registered here, not inside start(): start() runs after an await, outside the component's owner
+  onCleanup(() => {
+    resizeObserver?.disconnect();
+    if (onKeypad) window.removeEventListener(KEYPAD_EVENT, onKeypad);
+    terminal?.dispose();
   });
 
   const togglePause = () => {
@@ -254,8 +284,8 @@ const TerminalComponent = () => {
 
   return (
     <div class="w-full h-full relative" style={{ 'min-height': '400px' }}>
-      {/* Bezel wrapper - CSS-styled bezel frame */}
-      <div class="crt-bezel w-full h-full relative">
+      {/* Housing: the screen sits in its padding, the moulded frame is drawn over it */}
+      <div ref={bezelEl} class="crt-bezel w-full h-full relative">
         {/* Front panel, below the screen: vent grille, power button, status lamp */}
         <div class="crt-vent" aria-hidden="true" />
         <button
@@ -268,7 +298,7 @@ const TerminalComponent = () => {
         />
         <div class="crt-lamp" classList={{ 'is-off': isPaused() }} title={isPaused() ? 'Terminal off' : 'Terminal on'} />
         {/* Inner screen area - fills the space inside the bezel padding */}
-        <div class="crt-screen w-full h-full relative">
+        <div ref={screenEl} class="crt-screen w-full h-full relative">
           {/* Screen background - sits behind all content */}
           <div 
             class="absolute inset-0"
@@ -281,16 +311,11 @@ const TerminalComponent = () => {
           <div
             ref={terminalContainer}
             class="absolute overflow-hidden"
-            style={{ 
+            style={{
               opacity: 0.01,
               'pointer-events': 'auto',
               'z-index': 1,
-              top: '25px',
-              left: '25px',
-              right: '25px',
-              bottom: '25px',
-              width: 'calc(100% - 50px)',
-              height: 'calc(100% - 50px)'
+              ...XTERM_INSET,
             }}
           />
           {/* CRT Scene overlay - renders the curved terminal */}
@@ -299,15 +324,16 @@ const TerminalComponent = () => {
             return term ? (
               <CRTScene 
                 terminal={term} 
-                curvature={0.15}
+                curvature={0.04}
                 scanlineOpacity={0.15}
-                vignetteStrength={0.3}
+                vignetteStrength={0.18}
               />
             ) : null;
           })()}
           {/* Curved screen effect overlay - creates convex CRT glass appearance */}
           <div class="crt-curve" />
         </div>
+        <CRTFrame bezel={() => bezelEl} screen={() => screenEl} />
       </div>
     </div>
   );

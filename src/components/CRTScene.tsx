@@ -5,6 +5,7 @@ import { createTerminalTexture, updateTerminalTexture } from '../utils/terminalT
 import vertShader from '../shaders/crt.vert?raw';
 import fragShader from '../shaders/crt.frag?raw';
 import { PHOSPHOR } from '../config/phosphor';
+import { SCREEN_INSET } from '../config/screen';
 
 interface CRTSceneProps {
   terminal: Terminal;
@@ -219,16 +220,11 @@ const CRTScene = (props: CRTSceneProps) => {
     <div
       ref={containerRef}
       class="absolute overflow-hidden"
-      style={{ 
+      style={{
         'pointer-events': 'none',
         'z-index': 2,
         background: 'transparent',
-        top: '25px',
-        left: '25px',
-        right: '25px',
-        bottom: '25px',
-        width: 'calc(100% - 50px)',
-        height: 'calc(100% - 50px)'
+        ...SCREEN_INSET,
       }}
     />
   );

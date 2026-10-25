@@ -1,7 +1,9 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Solid + Vite client lives in `src/` (`App.tsx`, `components/Terminal.tsx` for the CRT monitor and xterm UI, `components/ControlPanel.tsx` for the side panel with avatar and links, `utils/` for shell + texture helpers, `shaders/` for CRT visuals). The look is a 1979 console: cream housing and warm-grey panel styled in `src/index.css`, green-phosphor screen colours in `src/config/phosphor.ts` (shared by xterm, the screen backdrop and the WebGL clear colour).
+- Solid + Vite client lives in `src/` (`App.tsx`, `components/Terminal.tsx` for the CRT monitor and xterm UI, `components/CRTFrame.tsx` for the moulded bezel drawn as SVG over the glass, `components/ControlPanel.tsx` for the side panel with avatar, links and keypad, `utils/` for shell + texture helpers, `shaders/` for CRT visuals).
+- The look reproduces the approved mock `retrofuturism-1` (1979 console). Proportions measured on it live as container-unit sizes in `src/index.css` and as band widths in `CRTFrame.tsx`; keep them in sync with the mock rather than eyeballing. Green-phosphor colours are in `src/config/phosphor.ts`, the text area inside the glass in `src/config/screen.ts`.
+- The terminal font (self-hosted JetBrains Mono) is sized so the banner's longest intro line fits on one row; xterm snaps cells to whole device pixels and FitAddon always reserves 15px for a scrollbar, both accounted for in `Terminal.tsx` / `screen.ts`.
 - `src/brand/` is vendored from genar-brand by its propagate workflow: never edit it. Links, bio, projects and page metadata (`index.html` `%brand.*%` placeholders, filled in `vite.config.ts`) all read from it; change them in genar-brand.
 - `public/_redirects` sends the old 2017-2019 Hexo paths to `/`.
 - Top-level config lives in `vite.config.ts`, `tsconfig.json`, and package manager locks (`pnpm-lock.yaml`, `package-lock.json`, `bun.lock`).
@@ -17,7 +19,8 @@
 - Styling mixes Tailwind utility classes and handcrafted CSS; keep CRT theming in `src/index.css` or new module-scoped files.
 
 ## Testing Guidelines
-- No automated tests exist yet. For manual checks: `npm run build`, preview, ensure the terminal renders and accepts input (`help`, `ls projects`, `cat projects/<id>.md`) on desktop and a ~390px mobile viewport.
+- No automated tests exist yet. For manual checks: `npm run build`, preview, ensure the terminal renders and accepts input (`help`, `ls projects`, `cat projects/<id>.md`, keypad keys) on desktop and a ~390px mobile viewport.
+- Check rendering in a browser with a real device pixel ratio (e.g. Chromium with `--force-device-scale-factor`). Browsers that only emulate a fractional DPR confuse xterm's canvas sizing and cut the text off on the right.
 
 ## Commit & Pull Request Guidelines
 - Commit messages follow short, imperative subjects similar to current history (e.g., “Add Spectrum-style power button”). Keep them under ~72 chars; no trailing period.

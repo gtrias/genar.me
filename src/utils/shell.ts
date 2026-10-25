@@ -449,7 +449,8 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
 
   getPrompt(): string {
     const path = this.currentPath.length === 0 ? '/' : '/' + this.currentPath.join('/');
-    return `genar@terminal:${path}$ `;
+    // Show the home directory as ~, like a real shell
+    return `genar@terminal:${path.replace(/^\/home\/genar(?=\/|$)/, '~')}$ `;
   }
 
   addToHistory(command: string): void {
@@ -550,15 +551,14 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
   }
 
   getBanner(): string {
-    // Links live on the side panel; the screen only introduces me. Hint is dimmed (ANSI bright black).
+    // Links live on the side panel; the screen only introduces me. The logo is figlet "Calvin S" with a
+    // column between letters (as wide as on the mock), in bold (SGR 1).
     return `
-╔═╗╔═╗╔╗╔╔═╗╦═╗
-║ ╦║╣ ║║║╠═╣╠╦╝
-╚═╝╚═╝╝╚╝╩ ╩╩╚═
+\x1b[1m╔═╗ ╔═╗ ╔╗╔ ╔═╗ ╦═╗
+║ ╦ ║╣  ║║║ ╠═╣ ╠╦╝
+╚═╝ ╚═╝ ╝╚╝ ╩ ╩ ╩╚═\x1b[22m
 
 ${identity.intro.join('\n')}
-
-\x1b[90mType 'help' to look around.\x1b[39m
 
 `;
   }
