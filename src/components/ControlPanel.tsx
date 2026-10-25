@@ -2,8 +2,10 @@ import { For } from 'solid-js';
 import { identity } from '../brand/identity.js';
 import { socialLinks, writingLink } from '../config/links';
 import { KEYPAD_EVENT } from '../config/keypad';
+import { projectsOpen, toggleProjects } from './ProjectsScreen';
 
-// Four keys, as in the approved design; the X/Twitter link stays out of the panel.
+// The approved design's four link keys, plus PROJECTS on top, which shows the project list on the
+// screen; the X/Twitter link stays out of the panel.
 const buttons = [...socialLinks.filter((l) => l.id !== 'twitter'), ...(writingLink ? [writingLink] : [])];
 const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
@@ -18,6 +20,17 @@ const ControlPanel = () => (
     </div>
 
     <nav class="panel-buttons">
+      <button
+        type="button"
+        class="panel-button"
+        aria-expanded={projectsOpen()}
+        onClick={toggleProjects}
+      >
+        <span class="panel-lamp" aria-hidden="true" />
+        <span class="panel-key">
+          <span class="panel-label">Projects</span>
+        </span>
+      </button>
       <For each={buttons}>
         {(link) => (
           <a href={link.url} target="_blank" rel="noopener noreferrer" class="panel-button">

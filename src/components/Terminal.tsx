@@ -4,6 +4,7 @@ import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
 import CRTFrame from './CRTFrame';
 import CRTScene from './CRTScene';
+import ProjectsScreen from './ProjectsScreen';
 import Shell from '../utils/shell';
 import { KEYPAD_EVENT } from '../config/keypad';
 import { PHOSPHOR } from '../config/phosphor';
@@ -343,6 +344,8 @@ const TerminalComponent = () => {
               />
             ) : null;
           })()}
+          {/* Project list for visitors who don't use the shell, opened from the panel */}
+          <ProjectsScreen />
           {/* Curved screen effect overlay - creates convex CRT glass appearance */}
           <div class="crt-curve" />
         </div>

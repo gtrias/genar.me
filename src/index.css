@@ -303,6 +303,111 @@ body {
   mix-blend-mode: multiply;
 }
 
+/* Project list shown on the glass instead of the terminal (ProjectsScreen.tsx): the terminal's
+   phosphor colours, type size and row pitch, with soft scanlines. Plain HTML, so it is not curved
+   like the shader's picture; the frame still hides its corners. */
+.crt-projects {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.18) 50%) 0 0 / 100% calc(100% / 121),
+    var(--phosphor-bg);
+  color: var(--phosphor-fg);
+  font: 300 max(12px, min(2cqw, 2.26cqh)) / 1.37 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  text-shadow: 0 0 0.35em rgba(60, 255, 130, 0.35);
+}
+
+/* the last lines fade out while there is more below; the bottom padding lets the end scroll clear */
+.crt-projects-body {
+  position: absolute;
+  box-sizing: border-box;
+  padding-bottom: 2.5em;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--phosphor-dim) transparent;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5em), transparent);
+}
+
+.crt-projects-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5em 1.5em;
+  margin-bottom: 0.7em;
+}
+
+.crt-projects h2,
+.crt-projects h3 {
+  margin: 0;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.crt-projects h2:focus {
+  outline: none;
+}
+
+.crt-projects h3 {
+  margin-bottom: 0.3em;
+  color: color-mix(in srgb, var(--phosphor-fg) 55%, var(--phosphor-dim));
+}
+
+.crt-projects-group + .crt-projects-group {
+  margin-top: 1em;
+}
+
+.crt-projects ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crt-projects li + li {
+  margin-top: 0.45em;
+}
+
+.crt-projects a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.crt-projects p {
+  margin: 0;
+  color: color-mix(in srgb, var(--phosphor-fg) 72%, var(--phosphor-dim));
+}
+
+.crt-projects-back {
+  padding: 0.25em 0.7em;
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+
+.crt-projects a:hover,
+.crt-projects a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.crt-projects-back:hover,
+.crt-projects-back:focus-visible {
+  background: color-mix(in srgb, var(--phosphor-fg) 14%, transparent);
+}
+
+.crt-projects a:focus-visible,
+.crt-projects-back:focus-visible {
+  outline: 1px solid var(--phosphor-fg);
+  outline-offset: 2px;
+}
+
 /* Side panel: worn metal plate bolted to the chassis beside the monitor (x 1176-1533, y 8-1001 on the
    mock; chassis around it). Vertical sizes are cqh of .console (mock height 1024). */
 .console-panel {
@@ -418,32 +523,38 @@ body {
   transform-origin: center top;
 }
 
-/* Keys: 4 x 80px with 7px gaps on the mock */
+/* Keys: the mock's block of 4 x 80px keys with 7px gaps, holding five keys scaled to 0.8 (64px, 5.6px
+   gaps) since PROJECTS joined the four links */
 .panel-buttons {
   display: flex;
   flex-direction: column;
-  gap: 0.7cqh;
+  gap: 0.56cqh;
   margin-top: 3.4cqh;
 }
 
 /* One key = dark metal bracket holding a lamp bezel and a key cap: bracket x 1212-1499, cap from
-   x 1287 and y +7 to -7 of the 80px row on the mock */
+   x 1287 and y +7 to -7 of the 80px row on the mock (sizes here are 0.8 of those) */
 .panel-button {
   display: flex;
   align-items: stretch;
-  height: 7.8cqh;
-  padding: 0.5cqh 0.5cqh 0.7cqh 0.6cqh;
+  width: 100%;
+  height: 6.21cqh;
+  padding: 0.4cqh 0.4cqh 0.56cqh 0.48cqh;
   box-sizing: border-box;
-  border-radius: 0.7cqh;
+  border: 0;
+  border-radius: 0.56cqh;
   background: linear-gradient(180deg, #5f564b, #3a332b 70%, #231e18);
   box-shadow:
     0 0 0 1px rgba(8, 6, 4, 0.9),
     0 0 0 0.25cqh rgba(30, 26, 20, 0.6),
     inset 0 0.2cqh 0 rgba(255, 245, 225, 0.3),
     inset 0 -1px 0 rgba(0, 0, 0, 0.45),
-    0 0.45cqh 0.45cqh rgba(0, 0, 0, 0.75);
+    0 0.4cqh 0.4cqh rgba(0, 0, 0, 0.75);
   color: var(--ink);
+  font: inherit;
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* Raised metal bezel (67px wide on the mock) lit along its top and left edges, with the lamp socket
@@ -451,29 +562,29 @@ body {
 .panel-lamp {
   position: relative;
   flex-shrink: 0;
-  width: 6.5cqh;
-  border-radius: 0.4cqh;
+  width: 5.2cqh;
+  border-radius: 0.35cqh;
   background: linear-gradient(180deg, #9a8d78, #857865 55%, #786b58);
   box-shadow:
-    inset 0.3cqh 0.3cqh 0 -0.05cqh rgba(255, 248, 230, 0.45),
+    inset 0.25cqh 0.25cqh 0 -0.05cqh rgba(255, 248, 230, 0.45),
     inset -1px -1px 0 rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(10, 8, 5, 0.7);
 }
 
-/* Socket: black edge, lower lip catching the light, and the amber lens (r 8px) in its dark ring */
+/* Socket: black edge, lower lip catching the light, and the amber lens in its dark ring */
 .panel-lamp::before {
   content: '';
   position: absolute;
-  inset: 1.27cqh 0.45cqh 1.27cqh 1.37cqh;
-  border-radius: 0.35cqh;
+  inset: 1.02cqh 0.36cqh 1.02cqh 1.1cqh;
+  border-radius: 0.3cqh;
   background:
-    radial-gradient(circle, #fefab0 0, #fef08c 0.29cqh, #fdd752 0.49cqh, #eb9f26 0.68cqh, #94501a 0.88cqh, #4a2814 1.07cqh, rgba(60, 40, 25, 0) 1.2cqh),
-    linear-gradient(180deg, rgba(255, 140, 40, 0.45), transparent 0.35cqh),
+    radial-gradient(circle, #fefab0 0, #fef08c 0.23cqh, #fdd752 0.39cqh, #eb9f26 0.54cqh, #94501a 0.7cqh, #4a2814 0.86cqh, rgba(60, 40, 25, 0) 0.96cqh),
+    linear-gradient(180deg, rgba(255, 140, 40, 0.45), transparent 0.28cqh),
     linear-gradient(180deg, #27221d, #302a23);
   box-shadow:
     0 0 0 1px #0d0b08,
-    0 0.25cqh 0 0.05cqh rgba(255, 240, 210, 0.5),
-    inset 0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.55);
+    0 0.2cqh 0 0.04cqh rgba(255, 240, 210, 0.5),
+    inset 0 0.25cqh 0.4cqh rgba(0, 0, 0, 0.55);
   transition: box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -482,9 +593,9 @@ body {
   min-width: 0;
   display: flex;
   align-items: center;
-  /* the label sits a little above the cap's centre and 23px in from its end, as on the mock */
-  padding: 0 1.8cqh 0.3cqh 2.25cqh;
-  border-radius: 0.45cqh;
+  /* the label sits a little above the cap's centre and 18px in from its end, as on the mock */
+  padding: 0 1.45cqh 0.24cqh 1.8cqh;
+  border-radius: 0.4cqh;
   background:
     /* lit at the end by the lamp, falling into shade towards the far end */
     linear-gradient(90deg, rgba(255, 250, 235, 0.12), rgba(255, 250, 235, 0) 45%, rgba(40, 30, 15, 0.05) 85%, rgba(40, 30, 15, 0.1) 100%),
@@ -495,22 +606,24 @@ body {
     0 0 0 1px rgba(10, 8, 5, 0.85),
     0 0 0 0.3cqh rgba(25, 20, 14, 0.45),
     inset 1px 0 0 rgba(255, 250, 235, 0.35),
-    inset 0 0.45cqh 0 rgba(255, 250, 235, 0.3),
-    inset 0 -0.5cqh 0.05cqh rgba(30, 22, 12, 0.68),
-    inset -0.5cqh 0 0.05cqh rgba(30, 22, 12, 0.55);
+    inset 0 0.36cqh 0 rgba(255, 250, 235, 0.3),
+    inset 0 -0.4cqh 0.05cqh rgba(30, 22, 12, 0.68),
+    inset -0.4cqh 0 0.05cqh rgba(30, 22, 12, 0.55);
   transition:
     transform 90ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 90ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* lit while hovered, focused, or while the screen it opened is showing */
 .panel-button:hover .panel-lamp::before,
-.panel-button:focus-visible .panel-lamp::before {
+.panel-button:focus-visible .panel-lamp::before,
+.panel-button[aria-expanded='true'] .panel-lamp::before {
   box-shadow:
     0 0 0 1px #0d0b08,
-    0 0.25cqh 0 0.05cqh rgba(255, 240, 210, 0.5),
-    inset 0 0.3cqh 0.5cqh rgba(0, 0, 0, 0.4),
-    inset 0 0 2cqh rgba(255, 178, 62, 0.45),
-    0 0 1.4cqh rgba(255, 178, 62, 0.4);
+    0 0.2cqh 0 0.04cqh rgba(255, 240, 210, 0.5),
+    inset 0 0.25cqh 0.4cqh rgba(0, 0, 0, 0.4),
+    inset 0 0 1.6cqh rgba(255, 178, 62, 0.45),
+    0 0 1.2cqh rgba(255, 178, 62, 0.4);
 }
 
 .panel-button:active .panel-key {
@@ -527,7 +640,7 @@ body {
 }
 
 .panel-label {
-  font: 800 2.5cqh/1 var(--label);
+  font: 800 2.1cqh/1 var(--label);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   overflow: hidden;
