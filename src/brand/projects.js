@@ -9,25 +9,12 @@ export const projects = [
     "featured": true
   },
   {
-    "id": "deplayer",
-    "name": "deplayer",
+    "id": "age-of-slop",
+    "name": "Age of Slop",
     "kind": "product",
-    "tagline": "Local-first media player in the browser, across your files, Subsonic, WebTorrent and more.",
-    "url": "https://deplayer.app"
-  },
-  {
-    "id": "slidetime",
-    "name": "SlideTime",
-    "kind": "product",
-    "tagline": "Local-first markdown presentations, free and interactive.",
-    "url": "https://slidetime.app"
-  },
-  {
-    "id": "refstash",
-    "name": "REFSTASH",
-    "kind": "product",
-    "tagline": "A stash for UI references, to collect and organise design inspiration.",
-    "url": "https://refstash.app"
+    "tagline": "Post-apocalyptic RTS in the browser, fully local, with every unit and building made procedurally.",
+    "url": "https://ageofslop.app",
+    "featured": true
   },
   {
     "id": "mythgrow",
@@ -38,13 +25,36 @@ export const projects = [
     "featured": true
   },
   {
+    "id": "deplayer",
+    "name": "deplayer",
+    "kind": "product",
+    "tagline": "Local-first media player in the browser, across your files, Subsonic, WebTorrent and more.",
+    "url": "https://deplayer.app",
+    "featured": true
+  },
+  {
+    "id": "slidetime",
+    "name": "SlideTime",
+    "kind": "product",
+    "tagline": "Local-first markdown presentations, free and interactive.",
+    "url": "https://slidetime.app",
+    "featured": true
+  },
+  {
+    "id": "refstash",
+    "name": "REFSTASH",
+    "kind": "product",
+    "tagline": "A stash for UI references, to collect and organise design inspiration.",
+    "url": "https://refstash.app",
+    "featured": true
+  },
+  {
     "id": "openenroth-vita",
     "name": "OpenEnroth for PS Vita",
     "kind": "oss",
     "tagline": "Native PS Vita port of OpenEnroth, so Might and Magic VII runs on the Vita.",
     "url": "https://github.com/gtrias/OpenEnroth/releases/tag/vita-v0.1",
-    "repo": "https://github.com/gtrias/OpenEnroth",
-    "featured": true
+    "repo": "https://github.com/gtrias/OpenEnroth"
   },
   {
     "id": "tmuxgotchi",
@@ -63,19 +73,19 @@ export const projects = [
     "repo": "https://github.com/gtrias/dev-service-discovery"
   },
   {
+    "id": "genar-review",
+    "name": "genar-review",
+    "kind": "oss",
+    "tagline": "Code review skill for any coding agent that pushes back on needless complexity and AI slop.",
+    "url": "https://github.com/gtrias/genar-review",
+    "repo": "https://github.com/gtrias/genar-review"
+  },
+  {
     "id": "fika",
     "name": "Genar | Fika",
     "kind": "writing",
     "tagline": "Long-form writing on building software, local AI and working as an indie developer.",
     "url": "https://genar.fika.bar",
-    "featured": true
-  },
-  {
-    "id": "age-of-slop",
-    "name": "Age of Slop",
-    "kind": "product",
-    "tagline": "Post-apocalyptic RTS in the browser, fully local, with every unit and building made procedurally.",
-    "url": "https://ageofslop.app",
     "featured": true
   }
 ];
