@@ -1,17 +1,9 @@
 import { identity } from '../brand/identity.js';
 import { projects as brandProjects } from '../brand/projects.js';
-import { socialLinks, writingLink } from '../config/links';
+import { writingLink } from '../config/links';
 import { CommandRegistry } from './CommandRegistry';
 import type { CommandResult, CommandContext } from '../commands/types';
 import type { Terminal } from '@xterm/xterm';
-
-/**
- * Creates a clickable hyperlink in the terminal using OSC 8 escape sequences
- * This is the official xterm.js way to create clickable links
- */
-function createHyperlink(url: string, text: string): string {
-  return `\x1b]8;;${url}\x1b\\${text}\x1b]8;;\x1b\\`;
-}
 
 export interface FileSystemNode {
   name: string;
@@ -557,27 +549,17 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
     return current;
   }
 
-
   getBanner(): string {
-    const links = [...socialLinks, ...(writingLink ? [writingLink] : [])]
-      .map((link) => `║    • ${createHyperlink(link.url, link.text)}`)
-      .join('\n');
-
+    // Links live on the side panel; the screen only introduces me. Hint is dimmed (ANSI bright black).
     return `
-╔═══════════════════════════════════════════════════╗
-║                                                   ║
-║  ╔═╗╔═╗╔╗╔╔═╗╦═╗                                  ║
-║  ║ ╦║╣ ║║║╠═╣╠╦╝                                  ║
-║  ╚═╝╚═╝╝╚╝╩ ╩╩╚═                                  ║
-║                                                   ║
-║  Type 'help' to see available commands            ║
-║  Use arrow keys to navigate command history       ║
-║                                                   ║
-║  Links:                                           ║
-${links}
-╚═══════════════════════════════════════════════════╝
+╔═╗╔═╗╔╗╔╔═╗╦═╗
+║ ╦║╣ ║║║╠═╣╠╦╝
+╚═╝╚═╝╝╚╝╩ ╩╩╚═
 
 ${identity.intro.join('\n')}
+
+\x1b[90mType 'help' to look around.\x1b[39m
+
 `;
   }
 }

@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Solid + Vite client lives in `src/` (`App.tsx`, `components/Terminal.tsx` for the xterm UI, `utils/` for shell + texture helpers, `shaders/` for CRT visuals). Styling is centralized in `src/index.css` with Tailwind v4 utilities.
+- Solid + Vite client lives in `src/` (`App.tsx`, `components/Terminal.tsx` for the CRT monitor and xterm UI, `components/ControlPanel.tsx` for the side panel with avatar and links, `utils/` for shell + texture helpers, `shaders/` for CRT visuals). The look is a 1979 console: cream housing and warm-grey panel styled in `src/index.css`, green-phosphor screen colours in `src/config/phosphor.ts` (shared by xterm, the screen backdrop and the WebGL clear colour).
 - `src/brand/` is vendored from genar-brand by its propagate workflow: never edit it. Links, bio, projects and page metadata (`index.html` `%brand.*%` placeholders, filled in `vite.config.ts`) all read from it; change them in genar-brand.
 - `public/_redirects` sends the old 2017-2019 Hexo paths to `/`.
 - Top-level config lives in `vite.config.ts`, `tsconfig.json`, and package manager locks (`pnpm-lock.yaml`, `package-lock.json`, `bun.lock`).

@@ -4,6 +4,7 @@ import type { Terminal } from '@xterm/xterm';
 import { createTerminalTexture, updateTerminalTexture } from '../utils/terminalTexture';
 import vertShader from '../shaders/crt.vert?raw';
 import fragShader from '../shaders/crt.frag?raw';
+import { PHOSPHOR } from '../config/phosphor';
 
 interface CRTSceneProps {
   terminal: Terminal;
@@ -50,7 +51,7 @@ const CRTScene = (props: CRTSceneProps) => {
       renderer.setSize(width, height);
       renderer.setPixelRatio(window.devicePixelRatio);
       // Set clear color to match terminal background
-      renderer.setClearColor(0x1e1e1e, 1);
+      renderer.setClearColor(PHOSPHOR.background, 1);
       containerRef.appendChild(renderer.domElement);
 
       // Create a default texture (1x1 black pixel) as fallback

@@ -3,16 +3,11 @@ import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
-import { CaretLeft, CaretRight } from 'phosphor-solid';
 import CRTScene from './CRTScene';
 import Shell from '../utils/shell';
+import { PHOSPHOR } from '../config/phosphor';
 
-interface TerminalProps {
-  onToggleSidebar: () => void;
-  sidebarVisible: boolean;
-}
-
-const TerminalComponent = (props: TerminalProps) => {
+const TerminalComponent = () => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
   let fitAddon: FitAddon | undefined;
@@ -25,17 +20,19 @@ const TerminalComponent = (props: TerminalProps) => {
   onMount(() => {
     if (!terminalContainer) return;
 
-    // The banner is ~54 columns wide; shrink the font on narrow screens so it never wraps.
+    // The longest banner line is ~62 columns, but the barrel distortion magnifies the centre and pushes
+    // ~20% of the width past the visible edge; size the font for ~80 columns so lines never get cut.
     // Monospace glyphs are ~0.6em wide.
-    const fontSizeFor = (width: number) => Math.max(8, Math.min(18, Math.floor(width / (56 * 0.6))));
+    const fontSizeFor = (width: number) => Math.max(8, Math.min(18, Math.floor(width / (80 * 0.6))));
 
     // Initialize terminal
     terminal = new Terminal({
       cursorBlink: true,
       theme: {
-        background: '#1e1e1e',
-        foreground: '#d4d4d4',
-        cursor: '#aeafad',
+        background: PHOSPHOR.background,
+        foreground: PHOSPHOR.foreground,
+        cursor: PHOSPHOR.cursor,
+        brightBlack: PHOSPHOR.dim,
       },
       fontSize: fontSizeFor(terminalContainer.clientWidth),
       fontFamily: 'Consolas, "Courier New", monospace',
@@ -266,38 +263,17 @@ const TerminalComponent = (props: TerminalProps) => {
       </svg>
       {/* Bezel wrapper - CSS-styled bezel frame */}
       <div class="crt-bezel w-full h-full relative">
-        {/* LED indicator light */}
-        <div
-          class="spectrum-led"
-          title={isPaused() ? 'Terminal off' : 'Terminal on'}
-          style={{
-            '--led-color': isPaused() ? '#330000' : '#00ff00',
-            '--led-glow': isPaused() ? 'transparent' : 'rgba(0, 255, 0, 0.6)',
-          }}
-        />
-        {/* Sidebar toggle button - only visible when sidebar is hidden */}
-        {!props.sidebarVisible && (
-          <button
-            type="button"
-            onClick={props.onToggleSidebar}
-            class="sidebar-toggle-button"
-            title="Show sidebar"
-          >
-            <span class="sidebar-toggle-icon">
-              <CaretRight size={16} weight="bold" />
-            </span>
-          </button>
-        )}
-        {/* Spectrum-style red power button */}
+        {/* Front panel, below the screen: vent grille, power button, status lamp */}
+        <div class="crt-vent" aria-hidden="true" />
         <button
           type="button"
           onClick={togglePause}
-          class="spectrum-button"
+          class="crt-power"
+          classList={{ 'is-off': isPaused() }}
+          aria-pressed={isPaused()}
           title={isPaused() ? 'Resume terminal' : 'Pause terminal'}
-          style={{
-            '--button-color': isPaused() ? '#8B0000' : '#DC143C',
-          }}
         />
+        <div class="crt-lamp" classList={{ 'is-off': isPaused() }} title={isPaused() ? 'Terminal off' : 'Terminal on'} />
         {/* Inner screen area - fills the space inside the bezel padding */}
         <div class="crt-screen w-full h-full relative">
           {/* Screen background - sits behind all content */}
@@ -305,9 +281,7 @@ const TerminalComponent = (props: TerminalProps) => {
             class="absolute inset-0"
           style={{
             'z-index': 0,
-            background: '#1e1e1e',
-            'background-image': 
-              'radial-gradient(circle at 20% 30%, rgba(30, 30, 30, 0.8) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(25, 25, 25, 0.6) 0%, transparent 50%)'
+            background: PHOSPHOR.background,
           }}
           />
           {/* Terminal container - very low opacity so canvas renders but is nearly invisible */}

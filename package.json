@@ -28,7 +28,6 @@
     "@xterm/addon-web-links": "^0.11.0",
     "@xterm/xterm": "^5.3.0",
     "html2canvas": "^1.4.1",
-    "phosphor-solid": "^1.1.5",
     "solid-js": "^1.9.9",
     "three": "^0.181.2"
   }
