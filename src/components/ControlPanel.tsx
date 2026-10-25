@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { identity } from '../brand/identity.js';
 import { socialLinks, writingLink } from '../config/links';
 import { KEYPAD_EVENT } from '../config/keypad';
-import { projectsOpen, toggleProjects } from './ProjectsScreen';
+import { projectsOpen, toggleProjects } from '../state/projectsScreen';
 
 // The approved design's four link keys, plus PROJECTS on top, which shows the project list on the
 // screen; the X/Twitter link stays out of the panel.

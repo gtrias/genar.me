@@ -1,7 +1,8 @@
-import { createSignal, For, Show } from 'solid-js';
+import { For, Show } from 'solid-js';
 import { projects, type BrandProjectKind } from '../brand/projects.js';
 import { PHOSPHOR } from '../config/phosphor';
 import { SCREEN_INSET } from '../config/screen';
+import { closeProjects, projectsOpen } from '../state/projectsScreen';
 
 // Headings for each kind, in the order projects.yaml first lists them
 const KIND_TITLES: Record<BrandProjectKind, string> = {
@@ -16,32 +17,13 @@ const groups = [...new Set(projects.map((p) => p.kind))].map((kind) => ({
   items: projects.filter((p) => p.kind === kind),
 }));
 
-// Open state shared with the panel's PROJECTS key. Closing hands focus back to whatever opened it.
-const [open, setOpen] = createSignal(false);
-let returnFocus: HTMLElement | null = null;
-
-export const projectsOpen = open;
-
-export const closeProjects = () => {
-  if (!open()) return;
-  setOpen(false);
-  returnFocus?.focus();
-  returnFocus = null;
-};
-
-export const toggleProjects = () => {
-  if (open()) return closeProjects();
-  returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-  setOpen(true);
-};
-
 /**
  * The project list shown on the glass in place of the terminal, for visitors who don't use a shell:
  * plain links in the phosphor colours, laid over the terminal's text area. The terminal keeps running
  * underneath and comes back on Esc or "Back to terminal".
  */
 const ProjectsScreen = () => (
-  <Show when={open()}>
+  <Show when={projectsOpen()}>
     <section
       id="projects-screen"
       class="crt-projects"
