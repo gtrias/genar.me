@@ -1,24 +1,25 @@
 @import 'tailwindcss';
 
-/* 1979 console: cream moulded housing for the monitor, warm-grey metal side panel. */
+/* 1979 console: aged cream moulded housing for the monitor, worn metal side panel, Phillips screws. */
 :root {
   --page: #1b1b19;
-  --housing-hi: #e2d9c4;
-  --housing: #d3c9b1;
-  --housing-lo: #b9ae95;
+  --housing-hi: #e4dcc8;
+  --housing: #d6ccb5;
+  --housing-lo: #bdb299;
   --housing-edge: #8d846f;
-  --metal-hi: #9a948a;
-  --metal: #847e74;
-  --metal-lo: #6c675f;
-  --recess: #1a1c18;
-  --ink: #2a2620;
+  --metal-hi: #8e887d;
+  --metal: #79736a;
+  --metal-lo: #615c55;
+  --slot: #2c2924;
+  --recess: #151713;
+  --ink: #26221c;
   --amber: #ffb23e;
-  --amber-dim: #7a5216;
   --lamp-green: #43f06c;
   --power-red: #e0322b;
-  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  /* Faint moulded-plastic grain */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.27 0 0 0 0 0.2 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --label: 'DIN Alternate', Bahnschrift, 'Arial Narrow', system-ui, sans-serif;
+  --grime: url('/textures/grime.svg');
+  --metal-tex: url('/textures/metal.svg');
+  --screw: url('/textures/screw.svg');
   --page-pad-y: clamp(24px, 7vh, 80px);
   --page-pad-x: clamp(16px, 4vw, 72px);
 }
@@ -53,74 +54,98 @@ body {
   min-width: 0;
 }
 
-/* Monitor housing */
+/* Monitor housing: aged cream plastic with a screw in each corner */
 .crt-bezel {
   position: relative;
   width: 100%;
   height: 100%;
   background:
-    var(--grain),
+    var(--screw) 14px 14px / 18px no-repeat,
+    var(--screw) right 14px top 14px / 18px no-repeat,
+    var(--screw) 14px calc(100% - 14px) / 18px no-repeat,
+    var(--screw) right 14px bottom 14px / 18px no-repeat,
+    var(--grime) 0 0 / 320px,
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(120, 95, 55, 0.18) 100%),
     linear-gradient(180deg, var(--housing-hi) 0%, var(--housing) 55%, var(--housing-lo) 100%);
   border-radius: 16px 0 0 16px;
-  padding: 40px 44px 92px;
+  padding: 48px 54px 100px;
   box-sizing: border-box;
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.12),
-    inset 2px 0 0 rgba(255, 255, 255, 0.3);
+    inset 0 -3px 0 rgba(0, 0, 0, 0.14),
+    inset 2px 0 0 rgba(255, 255, 255, 0.3),
+    /* dirt collected along the edges */
+    inset 0 0 36px rgba(110, 84, 44, 0.2);
   overflow: hidden;
 }
 
-/* Recessed frame the screen sits in */
+/* Raised cream frame around the screen */
 .crt-bezel::before {
   content: '';
   position: absolute;
-  inset: 24px 28px 76px;
-  border-radius: 30px;
+  inset: 22px 26px 74px;
+  z-index: 0;
+  border-radius: 34px;
+  background:
+    var(--grime) 40px 60px / 320px,
+    linear-gradient(180deg, var(--housing-hi), var(--housing) 60%, var(--housing-lo));
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.28),
+    0 1px 1px rgba(0, 0, 0, 0.25),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 3px rgba(0, 0, 0, 0.18),
+    inset 0 0 22px rgba(110, 84, 44, 0.22);
+}
+
+/* Dark recess the tube sits in */
+.crt-bezel::after {
+  content: '';
+  position: absolute;
+  inset: 38px 42px 90px;
+  z-index: 1;
+  border-radius: 26px;
   background: var(--recess);
   box-shadow:
-    inset 0 4px 10px rgba(0, 0, 0, 0.75),
-    0 2px 0 rgba(255, 255, 255, 0.55),
-    0 -2px 0 rgba(0, 0, 0, 0.18),
-    0 0 0 6px var(--housing-lo),
-    0 0 0 7px rgba(0, 0, 0, 0.12);
+    inset 0 5px 12px rgba(0, 0, 0, 0.85),
+    0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 2px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* Front panel: vent grille, power button, status lamp */
 .crt-vent {
   position: absolute;
-  left: 44px;
-  bottom: 24px;
+  left: 54px;
+  bottom: 28px;
   width: min(180px, 30%);
-  height: 30px;
+  height: 28px;
   background: repeating-linear-gradient(90deg, #2b271f 0 5px, transparent 5px 12px);
-  opacity: 0.75;
+  opacity: 0.8;
   border-radius: 2px;
 }
 
 .crt-power,
 .crt-lamp {
   position: absolute;
-  bottom: 22px;
-  width: 34px;
-  height: 34px;
+  bottom: 24px;
+  width: 36px;
+  height: 36px;
   border-radius: 6px;
-  background: linear-gradient(180deg, #4a443a, #2a2620);
+  background: linear-gradient(180deg, #4a443a, #24211c);
   box-shadow:
-    inset 0 2px 3px rgba(0, 0, 0, 0.7),
-    0 1px 0 rgba(255, 255, 255, 0.5);
+    inset 0 2px 3px rgba(0, 0, 0, 0.75),
+    0 1px 0 rgba(255, 255, 255, 0.55);
   box-sizing: border-box;
 }
 
 .crt-power {
-  right: 92px;
+  right: 104px;
   border: 0;
   padding: 0;
   cursor: pointer;
 }
 
 .crt-lamp {
-  right: 46px;
+  right: 56px;
 }
 
 .crt-power::before,
@@ -263,44 +288,50 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Side panel bolted to the monitor */
+/* Side panel: worn metal bolted to the monitor */
 .console-panel {
-  width: clamp(212px, 15vw, 248px);
+  width: clamp(220px, 16vw, 256px);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 22px 18px;
+  padding: 26px 18px;
   box-sizing: border-box;
   border-radius: 0 16px 16px 0;
   background:
-    var(--grain),
+    var(--screw) 10px 10px / 16px no-repeat,
+    var(--screw) right 10px top 10px / 16px no-repeat,
+    var(--screw) 10px calc(100% - 10px) / 16px no-repeat,
+    var(--screw) right 10px bottom 10px / 16px no-repeat,
+    var(--metal-tex) 0 0 / 320px,
     linear-gradient(180deg, var(--metal-hi) 0%, var(--metal) 50%, var(--metal-lo) 100%);
   box-shadow:
-    inset 1px 0 0 rgba(0, 0, 0, 0.35),
-    inset 2px 0 0 rgba(255, 255, 255, 0.15),
-    inset 0 2px 0 rgba(255, 255, 255, 0.25);
+    inset 1px 0 0 rgba(0, 0, 0, 0.45),
+    inset 2px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Screwed-on plate: four screw heads drawn in the corners */
+/* Screwed-on plate */
 .panel-plate {
   position: relative;
   border-radius: 6px;
   padding: 16px;
   background:
-    radial-gradient(circle at 9px 9px, #4b463f 2.5px, #c9c3b8 3px, transparent 4px),
-    radial-gradient(circle at calc(100% - 9px) 9px, #4b463f 2.5px, #c9c3b8 3px, transparent 4px),
-    radial-gradient(circle at 9px calc(100% - 9px), #4b463f 2.5px, #c9c3b8 3px, transparent 4px),
-    radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), #4b463f 2.5px, #c9c3b8 3px, transparent 4px),
-    linear-gradient(180deg, #7b766d, #6a655d);
+    var(--screw) 6px 6px / 14px no-repeat,
+    var(--screw) right 6px top 6px / 14px no-repeat,
+    var(--screw) 6px calc(100% - 6px) / 14px no-repeat,
+    var(--screw) right 6px bottom 6px / 14px no-repeat,
+    var(--metal-tex) 30px 50px / 320px,
+    linear-gradient(180deg, #7a746a, #67625a);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-    0 1px 2px rgba(0, 0, 0, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 2px 3px rgba(0, 0, 0, 0.35);
 }
 
 .panel-id {
-  padding: 20px;
+  padding: 24px;
 }
 
 /* The avatar is 64x64 pixel art. It ships pre-scaled 4x with hard edges and the browser only ever
@@ -310,12 +341,15 @@ body {
   width: 128px;
   height: 128px;
   margin-inline: auto;
-  border-radius: 4px;
+  border-radius: 6px;
   background: #0d2a19;
+  /* Thick bevelled metal frame */
   box-shadow:
     inset 0 3px 8px rgba(0, 0, 0, 0.8),
-    0 0 0 4px #3a3631,
-    0 1px 0 4px rgba(255, 255, 255, 0.2);
+    0 0 0 3px #1f1c18,
+    0 0 0 7px #5a554d,
+    0 1px 0 8px rgba(255, 255, 255, 0.18),
+    0 -1px 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .panel-buttons {
@@ -325,31 +359,69 @@ body {
   padding: 20px 14px;
 }
 
+/* One button = dark slot holding a lamp housing and a cream key */
 .panel-button {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 0 14px 2px;
-  border-radius: 4px;
-  background: linear-gradient(180deg, var(--housing-hi), var(--housing) 70%, var(--housing-lo));
+  align-items: stretch;
+  gap: 5px;
+  min-height: 46px;
+  padding: 5px;
+  border-radius: 6px;
+  background: var(--slot);
   box-shadow:
-    0 3px 0 var(--housing-edge),
-    0 4px 4px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    inset 0 2px 4px rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.18);
   color: var(--ink);
   text-decoration: none;
+  box-sizing: border-box;
+}
+
+.panel-lamp {
+  flex-shrink: 0;
+  width: 34px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 50% 50%, #ffe3a8 0 3px, var(--amber) 5px, #a8600c 8px, transparent 9px),
+    linear-gradient(180deg, #3a362f, #1d1a16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 10px rgba(255, 178, 62, 0.25);
+  transition: box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.panel-key {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 4px;
+  background:
+    var(--grime) 0 0 / 320px,
+    linear-gradient(180deg, var(--housing-hi), var(--housing) 65%, var(--housing-lo));
+  box-shadow:
+    0 2px 0 var(--housing-edge),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.12);
   transition:
     transform 90ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 90ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.panel-button:active {
-  transform: translateY(3px);
+.panel-button:hover .panel-lamp,
+.panel-button:focus-visible .panel-lamp {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 14px rgba(255, 178, 62, 0.6),
+    0 0 12px rgba(255, 178, 62, 0.45);
+}
+
+.panel-button:active .panel-key {
+  transform: translateY(2px);
   box-shadow:
     0 0 0 var(--housing-edge),
-    0 1px 2px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.12);
 }
 
 .panel-button:focus-visible {
@@ -357,28 +429,9 @@ body {
   outline-offset: 3px;
 }
 
-.panel-lamp {
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #ffd89a, var(--amber) 50%, #b06a0e);
-  box-shadow:
-    0 0 0 3px #3a3631,
-    0 0 8px rgba(255, 178, 62, 0.35);
-  transition: box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.panel-button:hover .panel-lamp,
-.panel-button:focus-visible .panel-lamp {
-  box-shadow:
-    0 0 0 3px #3a3631,
-    0 0 14px rgba(255, 178, 62, 0.85);
-}
-
 .panel-label {
-  font: 700 13px/1 var(--mono);
-  letter-spacing: 0.12em;
+  font: 800 14px/1 var(--label);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -393,30 +446,31 @@ body {
 .panel-speaker::after {
   content: '';
   position: absolute;
-  inset: 22px 18px;
-  background: repeating-linear-gradient(180deg, #2f2b26 0 4px, transparent 4px 11px);
+  inset: 26px 22px;
+  background: repeating-linear-gradient(180deg, #24211c 0 5px, transparent 5px 12px);
   border-radius: 2px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* Short screens: tighten the panel so it stays inside the housing */
 @media (min-width: 901px) and (max-height: 780px) {
   .console-panel {
     gap: 10px;
-    padding: 16px 14px;
+    padding: 20px 14px;
   }
 
   .panel-id {
-    padding: 12px;
+    padding: 16px;
   }
 
   .panel-buttons {
     gap: 8px;
-    padding: 12px;
+    padding: 14px 12px;
   }
 
   .panel-button {
-    min-height: 36px;
+    min-height: 38px;
+    padding: 4px;
   }
 
   .panel-speaker {
@@ -438,16 +492,21 @@ body {
 
   .crt-bezel {
     border-radius: 16px 16px 0 0;
-    padding: 28px 26px 76px;
+    padding: 34px 32px 84px;
   }
 
   .crt-bezel::before {
-    inset: 14px 14px 62px;
-    border-radius: 22px;
+    inset: 12px 12px 62px;
+    border-radius: 26px;
+  }
+
+  .crt-bezel::after {
+    inset: 22px 22px 72px;
+    border-radius: 20px;
   }
 
   .crt-vent {
-    left: 26px;
+    left: 32px;
   }
 
   .console-panel {
@@ -455,14 +514,14 @@ body {
     flex-direction: row;
     align-items: stretch;
     border-radius: 0 0 16px 16px;
-    padding: 16px;
+    padding: 22px 18px;
   }
 
   .panel-id {
     width: auto;
     flex-shrink: 0;
     align-self: flex-start;
-    padding: 16px;
+    padding: 18px;
   }
 
   .panel-avatar {
@@ -473,8 +532,16 @@ body {
   .panel-buttons {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     padding: 16px;
+  }
+
+  .panel-lamp {
+    width: 28px;
+  }
+
+  .panel-label {
+    letter-spacing: 0.04em;
   }
 
   .panel-speaker {

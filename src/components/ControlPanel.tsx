@@ -17,7 +17,9 @@ const ControlPanel = () => {
           {(link) => (
             <a href={link.url} target="_blank" rel="noopener noreferrer" class="panel-button">
               <span class="panel-lamp" aria-hidden="true" />
-              <span class="panel-label">{link.text}</span>
+              <span class="panel-key">
+                <span class="panel-label">{link.text}</span>
+              </span>
             </a>
           )}
         </For>
