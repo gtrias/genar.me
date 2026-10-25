@@ -1,6 +1,7 @@
 import { identity } from '../brand/identity.js';
 import { projects as brandProjects } from '../brand/projects.js';
 import { writingLink } from '../config/links';
+import { LOGO } from '../config/logo';
 import { CommandRegistry } from './CommandRegistry';
 import type { CommandResult, CommandContext } from '../commands/types';
 import type { Terminal } from '@xterm/xterm';
@@ -551,14 +552,9 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
   }
 
   getBanner(): string {
-    // Links live on the side panel; the screen only introduces me. The logo is figlet "Calvin S" redrawn
-    // four cells wide with no spacer column, so the letters come out as wide and as tightly set as on
-    // the mock (box-drawing strokes sit mid-cell, so a 3-cell letter only shows 2 cells of width).
-    // Bold (SGR 1).
+    // Links live on the side panel; the screen only introduces me
     return `
-\x1b[1m╔══╗╔══╗╔═╗╔╔══╗╦══╗
-║ ═╦║═╣ ║ ║║╠══╣╠═╦╝
-╚══╝╚══╝╝ ╚╝╩  ╩╩ ╚═\x1b[22m
+${LOGO.join('\n')}
 
 ${identity.intro.join('\n')}
 

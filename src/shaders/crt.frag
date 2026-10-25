@@ -31,18 +31,6 @@ float vignette(vec2 uv, float strength) {
   return 1.0 - smoothstep(0.3, 1.0, dist) * strength;
 }
 
-// Chromatic aberration (very subtle, can be disabled)
-vec3 chromaticAberration(sampler2D tex, vec2 uv, float amount) {
-  // Reduce amount significantly or disable by returning normal sample
-  if (amount < 0.0001) {
-    return texture2D(tex, uv).rgb;
-  }
-  float r = texture2D(tex, uv + vec2(amount, 0.0)).r;
-  float g = texture2D(tex, uv).g;
-  float b = texture2D(tex, uv - vec2(amount, 0.0)).b;
-  return vec3(r, g, b);
-}
-
 void main() {
   // Apply barrel distortion to UV coordinates
   vec2 distortedUv = barrelDistortion(vUv, uCurvature);
@@ -50,12 +38,12 @@ void main() {
   // Clamp to prevent sampling outside texture
   distortedUv = clamp(distortedUv, 0.0, 1.0);
   
-  // Sample texture with very subtle chromatic aberration
-  vec3 screenColor = chromaticAberration(uTexture, distortedUv, 0.0003);
+  vec3 screenColor = texture2D(uTexture, distortedUv).rgb;
 
   // Phosphor bloom: lit glyphs bleed a soft glow onto the glass right around their strokes. Twelve
   // directions at two short radii keep the glow round; only light above the dark screen colour
-  // contributes, so the background itself is not lifted.
+  // contributes, so the background itself is not lifted. The glow is the phosphor's own saturated
+  // green, as on the mock, not the pale mint of the stroke cores.
   vec3 bloom = vec3(0.0);
   for (int i = 0; i < 12; i++) {
     float a = float(i) * 0.5235988;
@@ -63,11 +51,11 @@ void main() {
     bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 1.5, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.6;
     bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 3.5, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.4;
   }
-  screenColor += bloom * 0.055;
+  screenColor += bloom.g * vec3(0.0, 0.042, 0.009);
 
-  // Apply scanlines
+  // Scanlines darken the glass between the beam's lines; lit strokes bloom across them, as on the mock
   float scanline = scanlines(vUv, uScanlineOpacity);
-  screenColor *= scanline;
+  screenColor *= mix(scanline, 1.0, smoothstep(0.3, 0.8, screenColor.g));
   
   // Apply vignette
   float vig = vignette(vUv, uVignetteStrength);

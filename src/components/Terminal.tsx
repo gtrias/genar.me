@@ -1,6 +1,5 @@
 import { onMount, onCleanup, createSignal, For } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
-import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
 import CRTFrame from './CRTFrame';
@@ -16,13 +15,31 @@ const MONO_FONT = '"JetBrains Mono"';
 const GLYPH_WIDTH = 0.6;
 // Slots in the front vent grille, as on the mock
 const VENT_SLOTS = Array.from({ length: 11 });
-// The banner's longest line must fit on one row (the mock shows the intro unwrapped)
+// The text area is this many columns wide: the banner's longest line fills it, as on the mock
 const BANNER_COLUMNS = Math.max(...identity.intro.map((line) => line.length));
+// Narrowest cell, in CSS px; narrower text areas get fewer columns and wrap the banner
+const MIN_CELL = 5.5;
+// Row pitch over cell width, measured on the mock (31.75px rows, 13.9px cells)
+const PITCH_RATIO = 2.284;
+
+/**
+ * Grid for a text area, and the font size whose whole-pixel cell comes closest to it. The CRT view
+ * stretches the terminal canvas over the text area, so columns and rows land where the mock has them
+ * whatever xterm rounds its cells to.
+ */
+const gridFor = (width: number, height: number) => {
+  const cols = Math.max(1, Math.min(BANNER_COLUMNS, Math.floor(width / MIN_CELL)));
+  const cell = width / cols;
+  const rows = Math.max(1, Math.round(height / (cell * PITCH_RATIO)));
+  // xterm floors the glyph advance to device pixels: aim at the middle of the nearest whole one
+  const dpr = window.devicePixelRatio;
+  const deviceCell = Math.max(1, Math.round(cell * dpr));
+  return { cols, rows, fontSize: (deviceCell + 0.5) / dpr / GLYPH_WIDTH };
+};
 
 const TerminalComponent = () => {
   let terminalContainer: HTMLDivElement | undefined;
   let terminal: Terminal | undefined;
-  let fitAddon: FitAddon | undefined;
   let bezelEl: HTMLDivElement | undefined;
   let screenEl: HTMLDivElement | undefined;
   const [terminalReady, setTerminalReady] = createSignal<Terminal | undefined>(undefined);
@@ -35,12 +52,15 @@ const TerminalComponent = () => {
   const start = () => {
     if (!terminalContainer) return;
 
-    // Largest font whose cell fits BANNER_COLUMNS across the text area. xterm snaps cells down to whole
-    // pixels, so aim the font at the middle of the whole-pixel cell we want (cell + 0.5).
-    const fontSizeFor = (width: number) => {
-      const cell = Math.floor((width - XTERM_SCROLLBAR) / BANNER_COLUMNS);
-      return Math.max(8, Math.min(26, (cell + 0.5) / GLYPH_WIDTH));
+    // The container is a scrollbar wider than the text area the CRT view shows
+    const grid = () => gridFor(terminalContainer!.clientWidth - XTERM_SCROLLBAR, terminalContainer!.clientHeight);
+    const fitGrid = () => {
+      if (!terminal) return;
+      const { cols, rows, fontSize } = grid();
+      if (terminal.options.fontSize !== fontSize) terminal.options.fontSize = fontSize;
+      if (terminal.cols !== cols || terminal.rows !== rows) terminal.resize(cols, rows);
     };
+    const initial = grid();
 
     // Initialize terminal
     terminal = new Terminal({
@@ -51,17 +71,17 @@ const TerminalComponent = () => {
         cursor: PHOSPHOR.cursor,
         brightBlack: PHOSPHOR.dim,
       },
-      fontSize: fontSizeFor(terminalContainer.clientWidth),
+      fontSize: initial.fontSize,
+      cols: initial.cols,
+      rows: initial.rows,
       fontFamily: `${MONO_FONT}, Consolas, "Courier New", monospace`,
+      // Light: the mock's phosphor strokes are thin, with the glow doing the rest
+      fontWeight: 300,
       allowTransparency: false,
       convertEol: true,
       scrollback: 1000,
       disableStdin: false, // Ensure input is enabled
     });
-
-    // Initialize fit addon
-    fitAddon = new FitAddon();
-    terminal.loadAddon(fitAddon);
 
     // Set up link handler for OSC 8 escape sequences (official xterm.js way)
     const linkHandler = {
@@ -94,15 +114,9 @@ const TerminalComponent = () => {
     // Renderer addon, loaded after open() as in its README
     terminal.loadAddon(new CanvasAddon());
 
-    // Fit terminal to container
-    fitAddon.fit();
-
     // Wait a moment for terminal to be fully rendered, then display banner
     setTimeout(() => {
       if (!terminal) return;
-      
-      // Ensure terminal is still fitted
-      fitAddon?.fit();
       
       // Display banner
       terminal.write(shell.getBanner());
@@ -242,14 +256,9 @@ const TerminalComponent = () => {
     onKeypad = (event: Event) => terminal?.input((event as CustomEvent<string>).detail);
     window.addEventListener(KEYPAD_EVENT, onKeypad);
 
-    // Size the font from the container's real size. The container-unit layout can still settle after
+    // Size the grid from the container's real size. The container-unit layout can still settle after
     // start() runs, and window resizes are not the only way it changes, so observe the element.
-    resizeObserver = new ResizeObserver(() => {
-      if (!terminal || !terminalContainer) return;
-      const fontSize = fontSizeFor(terminalContainer.clientWidth);
-      if (terminal.options.fontSize !== fontSize) terminal.options.fontSize = fontSize;
-      fitAddon?.fit();
-    });
+    resizeObserver = new ResizeObserver(fitGrid);
     resizeObserver.observe(terminalContainer);
   };
 
@@ -258,7 +267,7 @@ const TerminalComponent = () => {
 
   onMount(() => {
     // Fall back to the system monospace if the webfont fails to load
-    void document.fonts.load(`400 16px ${MONO_FONT}`).finally(start);
+    void document.fonts.load(`300 16px ${MONO_FONT}`).finally(start);
   });
 
   // Registered here, not inside start(): start() runs after an await, outside the component's owner
@@ -328,7 +337,7 @@ const TerminalComponent = () => {
             return term ? (
               <CRTScene 
                 terminal={term} 
-                curvature={0.04}
+                curvature={0}
                 scanlineOpacity={0.25}
                 vignetteStrength={0.18}
               />

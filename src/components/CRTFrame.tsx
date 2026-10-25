@@ -28,6 +28,7 @@ interface Geometry {
   groove: string; // dark channel around the lip, outer edge
   lip: string; // raised cream lip, outer edge
   lipCrest: [string, string]; // band just inside the lip's outer edge
+  lipRoll: string; // inner edge of the band where the lip rolls over (its outer edge is `lip`)
   slopeCrest: string; // just outside the slope's outer edge (inner side of the lip)
   slope: string; // slope down into the tube, outer edge
   gasket: string; // black rubber gasket, outer edge
@@ -41,18 +42,19 @@ interface Geometry {
 // Band widths measured on the approved mock (retrofuturism-1), whose monitor is 1162x1000 px.
 // Thicker at the top than the bottom because the mock is seen slightly from above.
 const REF = { w: 1162, h: 1000 };
-const GASKET: Sides = { t: 29, r: 25, b: 18, l: 18 };
-const SLOPE: Sides = { t: 33, r: 20, b: 21, l: 23 };
-const LIP: Sides = { t: 17, r: 18, b: 15, l: 19 };
-const GROOVE = 5; // channel between the lip and the housing
+const GASKET: Sides = { t: 15, r: 17, b: 13, l: 18 };
+const SLOPE: Sides = { t: 32, r: 21, b: 22, l: 23 };
+const LIP: Sides = { t: 17, r: 21, b: 20, l: 19 };
+const GROOVE: Sides = { t: 3, r: 2.5, b: 2.5, l: 3 }; // crease between the lip and the housing
 const CREST = 3.5; // width of the highlight running along the lip
+const ROLL = 5; // width of the shading where the lip rolls over into the crease (right and bottom)
 
-// The groove sits in the lip's shadow: barely there at the top, deep at the bottom and right
+// The crease sits in the lip's shadow: lightest at the top, deepest at the bottom
 const GROOVE_FILL: Record<Side, string> = {
-  t: 'rgba(50, 38, 22, 0.3)',
-  r: 'rgba(35, 26, 14, 0.6)',
-  b: 'rgba(30, 22, 12, 0.85)',
-  l: 'rgba(50, 38, 22, 0.5)',
+  t: 'rgba(50, 38, 22, 0.55)',
+  r: 'rgba(35, 26, 14, 0.85)',
+  b: 'rgba(25, 18, 10, 0.95)',
+  l: 'rgba(50, 38, 22, 0.55)',
 };
 
 // The mock is lit from above and slightly to the left. Each face of the recess gets the colour
@@ -63,16 +65,29 @@ const SLOPE_FILL: Record<Side, string> = {
   b: 'url(#crt-slope-b)',
   l: 'url(#crt-slope-l)',
 };
+// The rubber is darkest where it meets the slope and catches a little light towards the glass
 const GASKET_FILL: Record<Side, string> = {
-  t: '#121211',
+  t: 'url(#crt-gasket-t)',
   r: '#1b1b1a',
   b: 'url(#crt-gasket-b)',
-  l: '#181817',
+  l: 'url(#crt-gasket-l)',
 };
 // The rounded lip catches the light on whichever side faces up and left: a crisp line along its
 // outer edge at the top and left, along its inner edge at the bottom, a faint sheen on the right
 const HIGHLIGHT = 'rgba(255, 251, 242, 0.8)';
-const LIP_OUTER_HI: Record<Side, string> = { t: HIGHLIGHT, r: 'transparent', b: 'transparent', l: HIGHLIGHT };
+const LIP_OUTER_HI: Record<Side, string> = {
+  t: HIGHLIGHT,
+  r: 'transparent',
+  b: 'transparent',
+  l: 'rgba(255, 251, 242, 0.45)',
+};
+// Where the lip faces away from the light it rolls over into shadow before the crease
+const LIP_ROLL: Record<Side, string> = {
+  t: 'transparent',
+  r: 'rgba(70, 52, 30, 0.55)',
+  b: 'rgba(70, 52, 30, 0.75)',
+  l: 'transparent',
+};
 const LIP_INNER_HI: Record<Side, string> = {
   t: 'transparent',
   r: 'rgba(255, 251, 242, 0.35)',
@@ -137,11 +152,12 @@ function geometry(width: number, height: number, glass: Box): Geometry {
   const slope = grow(glass, scale(sum(GASKET, SLOPE), k));
   const lip = grow(glass, scale(sum(sum(GASKET, SLOPE), LIP), k));
   const crest = CREST * k;
-  const groove = GROOVE * k;
+  const groove = scale(GROOVE, k);
+  const roll = ROLL * k;
   const inset = 1.2 * k; // the crest starts just inside the lip's edge
-  // The glass has big corners (radius ~14% of its height) and barely bowed edges; the openings
+  // The glass has big corners (radius ~13.6% of its height) and barely bowed edges; the openings
   // around it get tighter corners as they step outwards.
-  const r = Math.max(20, glass.h * 0.14);
+  const r = Math.max(20, glass.h * 0.136);
   return {
     width,
     height,
@@ -150,13 +166,14 @@ function geometry(width: number, height: number, glass: Box): Geometry {
     gasket: tubePath(gasket, r * 0.88, gasket.w * 0.008, gasket.h * 0.011),
     slope: tubePath(slope, r * 0.62, slope.w * 0.004, slope.h * 0.006),
     slopeCrest: tubePath(grow(slope, even(crest)), r * 0.62 + crest, slope.w * 0.004, slope.h * 0.006),
-    groove: tubePath(grow(lip, even(groove)), r * 0.55 + groove, 0, 0),
+    groove: tubePath(grow(lip, groove), r * 0.55 + groove.t, 0, 0),
     lip: tubePath(lip, r * 0.55, 0, 0),
     lipCrest: [
       tubePath(grow(lip, even(-inset)), r * 0.55 - inset, 0, 0),
       tubePath(grow(lip, even(-inset - crest)), r * 0.55 - inset - crest, 0, 0),
     ],
-    grooveRing: { outer: grow(lip, even(groove)), inner: lip },
+    lipRoll: tubePath(grow(lip, even(-roll)), r * 0.55 - roll, 0, 0),
+    grooveRing: { outer: grow(lip, groove), inner: lip },
     lipRing: { outer: lip, inner: slope },
     slopeRing: { outer: slope, inner: gasket },
     gasketRing: { outer: gasket, inner: glass },
@@ -221,11 +238,12 @@ const CRTFrame = (props: CRTFrameProps) => {
             <feGaussianBlur stdDeviation={std * g().k} />
           </filter>
         );
-        const vertical = (id: string, y1: number, y2: number, stops: [number, string][]) => (
-          <linearGradient id={id} gradientUnits="userSpaceOnUse" x1="0" y1={y1} x2="0" y2={y2}>
+        const gradient = (id: string, [x1, y1, x2, y2]: number[], stops: [number, string][]) => (
+          <linearGradient id={id} gradientUnits="userSpaceOnUse" x1={x1} y1={y1} x2={x2} y2={y2}>
             <For each={stops}>{([offset, color]) => <stop offset={offset} stop-color={color} />}</For>
           </linearGradient>
         );
+        const vertical = (id: string, y1: number, y2: number, stops: [number, string][]) => gradient(id, [0, y1, 0, y2], stops);
         const ring = (id: string, outer: string, inner: string) => (
           <clipPath id={id}>
             <path d={`${outer} ${inner}`} clip-rule="evenodd" />
@@ -242,12 +260,24 @@ const CRTFrame = (props: CRTFrameProps) => {
               {vertical('crt-slope-l', slope().y, slope().y + slope().h, [[0, '#6c6352'], [0.45, '#877f6c'], [1, '#837a67']])}
               {vertical('crt-slope-r', slope().y, slope().y + slope().h, [[0, '#998d77'], [0.45, '#aba08c'], [1, '#ada18b']])}
               {vertical('crt-slope-b', gasket().y + gasket().h, slope().y + slope().h, [[0, '#cfbfa6'], [1, '#dccfbd']])}
-              {vertical('crt-gasket-b', glass().y + glass().h, gasket().y + gasket().h, [[0, '#1e1e1d'], [1, '#3b3b3b']])}
-              {/* The black edge of the gasket fades out along the lit bottom */}
+              {vertical('crt-gasket-t', gasket().y, glass().y, [[0, '#000'], [0.75, '#1a1a19'], [1, '#0c0c0b']])}
+              {gradient('crt-gasket-l', [gasket().x, 0, glass().x, 0], [[0, '#040404'], [0.85, '#1f1f1e'], [1, '#0e0e0d']])}
+              {vertical('crt-gasket-b', glass().y + glass().h, gasket().y + gasket().h, [[0, '#3a3a39'], [0.8, '#2d2d2c'], [1, '#181817']])}
+              {/* The black edges of the gasket and the glass fade out along the lit bottom, where the
+                  rubber's inner lip catches the light instead */}
               <linearGradient id="crt-gasket-edge" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#000" stop-opacity="0.85" />
                 <stop offset="0.9" stop-color="#000" stop-opacity="0.85" />
                 <stop offset="1" stop-color="#000" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="crt-glass-edge" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#000" />
+                <stop offset="0.85" stop-color="#000" />
+                <stop offset="0.97" stop-color="#000" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="crt-glass-rim" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0.85" stop-color="#8a8a86" stop-opacity="0" />
+                <stop offset="1" stop-color="#8a8a86" stop-opacity="0.6" />
               </linearGradient>
               {/* Glare: a dark band under the bezel's shadow, then the reflection a little lower */}
               <linearGradient id="crt-glare" x1="0" y1="0" x2="0" y2="1">
@@ -259,12 +289,13 @@ const CRTFrame = (props: CRTFrameProps) => {
               {blur('crt-face-blur', 14)}
               {blur('crt-crest-blur', 10)}
               {blur('crt-gasket-blur', 4)}
-              {blur('crt-edge-blur', 2.5)}
+              {blur('crt-edge-blur', 1.5)}
+              {blur('crt-roll-blur', 1)}
               <filter id="crt-soft" x="-10%" y="-10%" width="120%" height="120%">
                 <feGaussianBlur stdDeviation="7" />
               </filter>
               <filter id="crt-drop" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx={3 * g().k} dy={7 * g().k} stdDeviation={6 * g().k} flood-color="#2a2014" flood-opacity="0.6" />
+                <feDropShadow dx={2 * g().k} dy={9 * g().k} stdDeviation={6 * g().k} flood-color="#2a2014" flood-opacity="0.7" />
               </filter>
               <clipPath id="crt-glass-clip">
                 <path d={g().glass} />
@@ -273,9 +304,16 @@ const CRTFrame = (props: CRTFrameProps) => {
               {ring('crt-lip-outer-clip', ...g().lipCrest)}
               {ring('crt-lip-inner-clip', g().slopeCrest, g().slope)}
               {ring('crt-gasket-clip', g().gasket, g().glass)}
-              {/* The slope rounds over into the lip instead of meeting it at a hard line */}
+              {/* The slope rounds over into the lip instead of meeting it at a hard line; it meets the
+                  gasket at a crisp edge */}
               <mask id="crt-slope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width={g().width} height={g().height}>
-                <path d={`${g().slope} ${g().gasket}`} fill-rule="evenodd" fill="#fff" filter="url(#crt-edge-blur)" />
+                <path d={g().slope} fill="#fff" filter="url(#crt-edge-blur)" />
+                <path d={g().gasket} fill="#000" />
+              </mask>
+              {/* The roll-over band: hard along the lip's outer edge, fading out towards its middle */}
+              <mask id="crt-roll-mask" maskUnits="userSpaceOnUse" x="0" y="0" width={g().width} height={g().height}>
+                <path d={g().lip} fill="#fff" />
+                <path d={g().lipRoll} fill="#000" filter="url(#crt-roll-blur)" />
               </mask>
             </defs>
 
@@ -285,6 +323,7 @@ const CRTFrame = (props: CRTFrameProps) => {
             <path d={`${g().lip} ${g().slope}`} fill-rule="evenodd" fill="url(#crt-grime)" />
             <Faces ring={g().lipRing} fill={LIP_OUTER_HI} blur="crt-crest-blur" clip="crt-lip-outer-clip" />
             <Faces ring={g().lipRing} fill={LIP_INNER_HI} blur="crt-crest-blur" clip="crt-lip-inner-clip" />
+            <Faces ring={g().lipRing} fill={LIP_ROLL} blur="crt-crest-blur" mask="crt-roll-mask" />
 
             {/* Slope down into the recess */}
             <Faces ring={g().slopeRing} fill={SLOPE_FILL} blur="crt-face-blur" mask="crt-slope-mask" />
@@ -307,7 +346,8 @@ const CRTFrame = (props: CRTFrameProps) => {
               />
               <path d={g().glass} fill="url(#crt-glare)" />
             </g>
-            <path d={g().glass} fill="none" stroke="#000" stroke-width={3.5 * g().k} />
+            <path d={g().glass} fill="none" stroke="url(#crt-glass-edge)" stroke-width={3.5 * g().k} />
+            <path d={g().glass} fill="none" stroke="url(#crt-glass-rim)" stroke-width={3 * g().k} clip-path="url(#crt-gasket-clip)" />
           </svg>
         );
       }}

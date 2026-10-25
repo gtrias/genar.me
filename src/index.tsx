@@ -1,6 +1,6 @@
 /* @refresh reload */
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource/jetbrains-mono/300.css';
+import '@fontsource/barlow-semi-condensed/600.css';
 import '@fontsource/barlow-semi-condensed/800.css';
 import './index.css';
 import '@xterm/xterm/css/xterm.css';

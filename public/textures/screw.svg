@@ -1,21 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <defs>
-    <!-- Countersink: in shadow at the top left, catching light at the bottom right -->
-    <linearGradient id="sink" x1="0.2" y1="0.15" x2="0.8" y2="0.85">
-      <stop offset="0" stop-color="#2c271f" stop-opacity="0.9"/>
-      <stop offset="0.6" stop-color="#5a5144" stop-opacity="0.7"/>
-      <stop offset="1" stop-color="#fffaf0" stop-opacity="0.75"/>
-    </linearGradient>
-    <radialGradient id="head" cx="40%" cy="34%" r="72%">
-      <stop offset="0" stop-color="#a49d90"/>
-      <stop offset="0.5" stop-color="#6d665b"/>
-      <stop offset="1" stop-color="#2f2b25"/>
+    <!-- Domed head: light where it faces the lamp above-left, dark bronze at its rim -->
+    <radialGradient id="head" cx="44%" cy="38%" r="64%">
+      <stop offset="0" stop-color="#b0a694"/>
+      <stop offset="0.35" stop-color="#8a8070"/>
+      <stop offset="0.75" stop-color="#554c41"/>
+      <stop offset="1" stop-color="#2c2620"/>
     </radialGradient>
+    <linearGradient id="seat" x1="0.25" y1="0.2" x2="0.75" y2="0.8">
+      <stop offset="0" stop-color="#16120e" stop-opacity="0.9"/>
+      <stop offset="0.7" stop-color="#2a241d" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#d9cfbd" stop-opacity="0.55"/>
+    </linearGradient>
   </defs>
-  <circle cx="16" cy="16" r="15.5" fill="url(#sink)"/>
-  <circle cx="16" cy="16" r="13.6" fill="#24201b"/>
-  <circle cx="16" cy="16" r="12.4" fill="url(#head)"/>
-  <!-- Phillips recess: lit on its lower right walls -->
-  <path d="M16.7 9.4v14M9.7 16.7h14" stroke="#b4ac9f" stroke-width="4.6" stroke-linecap="round" opacity="0.7"/>
-  <path d="M16 8.7v14M9 16h14" stroke="#0d0c0a" stroke-width="4.6" stroke-linecap="round"/>
+  <circle cx="16" cy="16" r="15.6" fill="url(#seat)"/>
+  <circle cx="16" cy="16" r="13.4" fill="#1d1914"/>
+  <circle cx="16" cy="16" r="12.6" fill="url(#head)"/>
+  <ellipse cx="12.6" cy="10.6" rx="4.2" ry="2.4" fill="#f4ecdc" opacity="0.28" transform="rotate(-30 12.6 10.6)"/>
+  <!-- Phillips recess: lit on its lower walls -->
+  <path d="M16.5 9.9v13M10 16.5h13" stroke="#e2d8c6" stroke-width="5.2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M16 9.2v13.6M9.2 16h13.6" stroke="#0c0a08" stroke-width="5.2" stroke-linecap="round"/>
 </svg>
