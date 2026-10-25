@@ -43,8 +43,8 @@ interface Geometry {
 // Thicker at the top than the bottom because the mock is seen slightly from above.
 const REF = { w: 1162, h: 1000 };
 const GASKET: Sides = { t: 15, r: 17, b: 13, l: 18 };
-const SLOPE: Sides = { t: 32, r: 21, b: 22, l: 23 };
-const LIP: Sides = { t: 17, r: 21, b: 20, l: 19 };
+const SLOPE: Sides = { t: 32, r: 21, b: 21, l: 23 };
+const LIP: Sides = { t: 17, r: 21, b: 19, l: 19 };
 const GROOVE: Sides = { t: 3, r: 2.5, b: 2.5, l: 3 }; // crease between the lip and the housing
 const CREST = 3.5; // width of the highlight running along the lip
 const ROLL = 5; // width of the shading where the lip rolls over into the crease (right and bottom)
@@ -155,15 +155,16 @@ function geometry(width: number, height: number, glass: Box): Geometry {
   const groove = scale(GROOVE, k);
   const roll = ROLL * k;
   const inset = 1.2 * k; // the crest starts just inside the lip's edge
-  // The glass has big corners (radius ~13.6% of its height) and barely bowed edges; the openings
-  // around it get tighter corners as they step outwards.
+  // The glass has big corners (radius ~12% of its height) and edges bowed out like the face of the
+  // tube (the top and bottom edges ~13px further out in the middle than at the corners on the mock);
+  // the openings around it bow less.
   const r = Math.max(20, glass.h * 0.136);
   return {
     width,
     height,
     k,
-    glass: tubePath(glass, r, glass.w * 0.005, glass.h * 0.0075),
-    gasket: tubePath(gasket, r * 0.88, gasket.w * 0.008, gasket.h * 0.011),
+    glass: tubePath(glass, r * 0.9, glass.w * 0.01, glass.h * 0.019),
+    gasket: tubePath(gasket, r * 0.76, gasket.w * 0.0095, gasket.h * 0.018),
     slope: tubePath(slope, r * 0.62, slope.w * 0.004, slope.h * 0.006),
     slopeCrest: tubePath(grow(slope, even(crest)), r * 0.62 + crest, slope.w * 0.004, slope.h * 0.006),
     groove: tubePath(grow(lip, groove), r * 0.55 + groove.t, 0, 0),
@@ -256,13 +257,16 @@ const CRTFrame = (props: CRTFrameProps) => {
               <pattern id="crt-grime" patternUnits="userSpaceOnUse" width="640" height="640">
                 <image href="/textures/grime.svg" width="640" height="640" />
               </pattern>
+              {/* The lip catches most light along the top */}
+              {vertical('crt-lip', g().lipRing.outer.y, g().lipRing.outer.y + g().lipRing.outer.h, [[0, '#d4c8b4'], [1, '#cbbfab']])}
               {/* Side slopes darken toward the top, the bottom one brightens toward the lip */}
               {vertical('crt-slope-l', slope().y, slope().y + slope().h, [[0, '#6c6352'], [0.45, '#877f6c'], [1, '#837a67']])}
               {vertical('crt-slope-r', slope().y, slope().y + slope().h, [[0, '#998d77'], [0.45, '#aba08c'], [1, '#ada18b']])}
-              {vertical('crt-slope-b', gasket().y + gasket().h, slope().y + slope().h, [[0, '#cfbfa6'], [1, '#dccfbd']])}
+              {vertical('crt-slope-b', gasket().y + gasket().h, slope().y + slope().h, [[0, '#cbbba2'], [1, '#e8dccb']])}
               {vertical('crt-gasket-t', gasket().y, glass().y, [[0, '#000'], [0.75, '#1a1a19'], [1, '#0c0c0b']])}
               {gradient('crt-gasket-l', [gasket().x, 0, glass().x, 0], [[0, '#040404'], [0.85, '#1f1f1e'], [1, '#0e0e0d']])}
-              {vertical('crt-gasket-b', glass().y + glass().h, gasket().y + gasket().h, [[0, '#3a3a39'], [0.8, '#2d2d2c'], [1, '#181817']])}
+              {/* The bottom of the rubber turns up towards the light where it meets the slope */}
+              {vertical('crt-gasket-b', glass().y + glass().h, gasket().y + gasket().h, [[0, '#2a2a29'], [0.5, '#2c2c2b'], [0.8, '#3c3b39'], [1, '#55524d']])}
               {/* The black edges of the gasket and the glass fade out along the lit bottom, where the
                   rubber's inner lip catches the light instead */}
               <linearGradient id="crt-gasket-edge" x1="0" y1="0" x2="0" y2="1">
@@ -277,7 +281,7 @@ const CRTFrame = (props: CRTFrameProps) => {
               </linearGradient>
               <linearGradient id="crt-glass-rim" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0.85" stop-color="#8a8a86" stop-opacity="0" />
-                <stop offset="1" stop-color="#8a8a86" stop-opacity="0.6" />
+                <stop offset="1" stop-color="#8a8a86" stop-opacity="0.35" />
               </linearGradient>
               {/* Glare: a dark band under the bezel's shadow, then the reflection a little lower */}
               <linearGradient id="crt-glare" x1="0" y1="0" x2="0" y2="1">
@@ -318,7 +322,7 @@ const CRTFrame = (props: CRTFrameProps) => {
             </defs>
 
             {/* Raised lip casting a shadow down and right onto the housing, in a groove */}
-            <path d={`${g().lip} ${g().glass}`} fill-rule="evenodd" fill="#cdc1ad" filter="url(#crt-drop)" />
+            <path d={`${g().lip} ${g().glass}`} fill-rule="evenodd" fill="url(#crt-lip)" filter="url(#crt-drop)" />
             <Faces ring={g().grooveRing} fill={GROOVE_FILL} blur="crt-crest-blur" clip="crt-groove-clip" />
             <path d={`${g().lip} ${g().slope}`} fill-rule="evenodd" fill="url(#crt-grime)" />
             <Faces ring={g().lipRing} fill={LIP_OUTER_HI} blur="crt-crest-blur" clip="crt-lip-outer-clip" />

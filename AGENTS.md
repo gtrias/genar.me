@@ -7,6 +7,7 @@
 - Fonts are self-hosted: JetBrains Mono Light (300) for the terminal, Barlow Semi Condensed (800 labels, 600 keypad digits) for the panel.
 - Terminal grid (`gridFor` in `Terminal.tsx`): the banner's longest intro line fills the text area and rows keep the mock's pitch. xterm only renders whole-pixel cells, so the WebGL view stretches its canvas over the text area to land the grid where the mock has it; no FitAddon.
 - The banner logo (`src/config/logo.ts`) is printed as double box-drawing text, but `utils/terminalTexture.ts` blanks those cells and strokes the logo itself with the mock's line weight, spacing and proportions.
+- The screen is curved on purpose, even though the mock's text is flat: the shader bulges the picture (`curvature={0.08}` in `Terminal.tsx`), normalised so the middle of each edge stays put and the text stays near the mock's positions; `CRTFrame.tsx` bows the glass and gasket outlines like the tube face. Don't flatten either to chase the mock.
 - `src/brand/` is vendored from genar-brand by its propagate workflow: never edit it. Links, bio, projects and page metadata (`index.html` `%brand.*%` placeholders, filled in `vite.config.ts`) all read from it; change them in genar-brand.
 - `public/_redirects` sends the old 2017-2019 Hexo paths to `/`.
 - Top-level config lives in `vite.config.ts`, `tsconfig.json`, and package manager locks (`pnpm-lock.yaml`, `package-lock.json`, `bun.lock`).

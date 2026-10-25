@@ -65,6 +65,8 @@ const CRTScene = (props: CRTSceneProps) => {
       material = new THREE.ShaderMaterial({
         uniforms: {
           uTexture: { value: defaultTexture },
+          // raw sRGB, like the texture: a THREE.Color would be converted to linear
+          uBackground: { value: new THREE.Vector3().fromArray([1, 3, 5].map((i) => parseInt(PHOSPHOR.background.slice(i, i + 2), 16) / 255)) },
           uCurvature: { value: curvature() },
           uScanlineOpacity: { value: scanlineOpacity() },
           uVignetteStrength: { value: vignetteStrength() },

@@ -337,7 +337,7 @@ const TerminalComponent = () => {
             return term ? (
               <CRTScene 
                 terminal={term} 
-                curvature={0}
+                curvature={0.08}
                 scanlineOpacity={0.25}
                 vignetteStrength={0.18}
               />

@@ -1,4 +1,5 @@
 uniform sampler2D uTexture;
+uniform vec3 uBackground;
 uniform float uCurvature;
 uniform float uScanlineOpacity;
 uniform float uVignetteStrength;
@@ -7,13 +8,22 @@ uniform float uTime;
 
 varying vec2 vUv;
 
-// Barrel distortion
+// Barrel distortion: the picture bulges like the face of the tube. Normalised so the middle of each
+// edge stays put: the text keeps its place and size on average (as on the mock), swelling a little
+// in the middle and drawn in towards the corners.
 vec2 barrelDistortion(vec2 uv, float strength) {
   vec2 center = vec2(0.5, 0.5);
   vec2 coord = uv - center;
   float dist = length(coord);
-  coord *= 1.0 + strength * dist * dist;
+  coord *= (1.0 + strength * dist * dist) / (1.0 + strength * 0.25);
   return coord + center;
+}
+
+// The terminal's picture at a distorted position. Beyond its edges lies empty screen, not its edge
+// pixels smeared outwards.
+vec3 picture(vec2 uv) {
+  vec2 inside = step(vec2(0.0), uv) * step(uv, vec2(1.0));
+  return mix(uBackground, texture2D(uTexture, clamp(uv, 0.0, 1.0)).rgb, inside.x * inside.y);
 }
 
 // Scanlines: a soft sinusoid with a fixed count across the screen (as on the mock, about 121), so
@@ -32,13 +42,8 @@ float vignette(vec2 uv, float strength) {
 }
 
 void main() {
-  // Apply barrel distortion to UV coordinates
   vec2 distortedUv = barrelDistortion(vUv, uCurvature);
-  
-  // Clamp to prevent sampling outside texture
-  distortedUv = clamp(distortedUv, 0.0, 1.0);
-  
-  vec3 screenColor = texture2D(uTexture, distortedUv).rgb;
+  vec3 screenColor = picture(distortedUv);
 
   // Phosphor bloom: lit glyphs bleed a soft glow onto the glass right around their strokes. Twelve
   // directions at two short radii keep the glow round; only light above the dark screen colour
@@ -48,8 +53,8 @@ void main() {
   for (int i = 0; i < 12; i++) {
     float a = float(i) * 0.5235988;
     vec2 dir = vec2(cos(a), sin(a)) / uResolution;
-    bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 1.5, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.6;
-    bloom += max(texture2D(uTexture, clamp(distortedUv + dir * 3.5, 0.0, 1.0)).rgb - vec3(0.05, 0.14, 0.07), 0.0) * 0.4;
+    bloom += max(picture(distortedUv + dir * 1.5) - vec3(0.05, 0.14, 0.07), 0.0) * 0.6;
+    bloom += max(picture(distortedUv + dir * 3.5) - vec3(0.05, 0.14, 0.07), 0.0) * 0.4;
   }
   screenColor += bloom.g * vec3(0.0, 0.042, 0.009);
 
