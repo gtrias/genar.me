@@ -8,6 +8,10 @@ import { render } from 'solid-js/web';
 import 'solid-devtools';
 
 import App from './App';
+import { installDevicePixelShim } from './dev/devicePixelShim';
+
+// Responsive mode in DevTools garbles the terminal without it; dropped from production builds
+if (import.meta.env.DEV) installDevicePixelShim();
 
 const root = document.getElementById('root');
 
