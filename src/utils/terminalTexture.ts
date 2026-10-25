@@ -51,8 +51,9 @@ export function createTerminalTexture(terminal: Terminal): THREE.CanvasTexture {
 
 /**
  * Adds one double-line box-drawing character to the current path: each arm is two lines running from
- * the cell edge to a small square around the centre (cx, cy), and the square's sides without an arm
- * close the outline, which gives the corners, tees and continuous outer lines of the mock's logo.
+ * the cell edge to a small square (left/top corner l, t; side `spacing`), and the square's sides
+ * without an arm close the outline, which gives the corners, tees and continuous outer lines of the
+ * mock's logo.
  */
 function traceDoubleLine(
   ctx: CanvasRenderingContext2D,
@@ -61,14 +62,12 @@ function traceDoubleLine(
   y: number,
   width: number,
   height: number,
-  cx: number,
-  cy: number,
-  halfGap: number,
+  l: number,
+  t: number,
+  spacing: number,
 ): void {
-  const l = cx - halfGap;
-  const r = cx + halfGap;
-  const t = cy - halfGap;
-  const b = cy + halfGap;
+  const r = l + spacing;
+  const b = t + spacing;
   const line = (x1: number, y1: number, x2: number, y2: number) => {
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -90,12 +89,12 @@ function traceDoubleLine(
 function drawLogos(ctx: CanvasRenderingContext2D, terminal: Terminal, cellWidth: number, cellHeight: number): void {
   const buffer = terminal.buffer.active;
   const text = (row: number) => buffer.getLine(buffer.viewportY + row)?.translateToString(true) ?? '';
-  const { cellWidth: logoCell, rowHeight, drop, halfGap, stroke } = LOGO_GEOMETRY;
+  const { cellWidth: logoCell, indent, rowHeight, drop, lineSpacing, stroke } = LOGO_GEOMETRY;
   const glyphWidth = cellWidth * logoCell;
   const glyphHeight = cellHeight * rowHeight;
   // Whole-pixel strokes on the pixel grid, so the thin lines stay crisp and at full brightness
   const lineWidth = Math.max(1, Math.round(stroke * cellWidth));
-  const gap = Math.max(1, Math.round(halfGap * cellWidth));
+  const spacing = Math.max(2, Math.round(lineSpacing * cellWidth));
   const offset = (lineWidth % 2) / 2;
   const snap = (v: number) => Math.round(v - offset) + offset;
 
@@ -111,11 +110,11 @@ function drawLogos(ctx: CanvasRenderingContext2D, terminal: Terminal, cellWidth:
       [...line].forEach((char, j) => {
         const arms = DOUBLE_LINE_ARMS[char];
         if (!arms) return;
-        const x = (col + j * logoCell) * cellWidth;
+        const x = (col + indent + j * logoCell) * cellWidth;
         const y = (top + drop) * cellHeight + i * glyphHeight;
-        const cx = snap(x + glyphWidth / 2);
-        const cy = snap(y + glyphHeight / 2);
-        traceDoubleLine(ctx, arms, x, y, glyphWidth, glyphHeight, cx, cy, gap);
+        const l = snap(x + (glyphWidth - spacing) / 2);
+        const t = snap(y + (glyphHeight - spacing) / 2);
+        traceDoubleLine(ctx, arms, x, y, glyphWidth, glyphHeight, l, t, spacing);
       });
     });
   }

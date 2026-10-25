@@ -45,6 +45,19 @@ void main() {
   vec2 distortedUv = barrelDistortion(vUv, uCurvature);
   vec3 screenColor = picture(distortedUv);
 
+  // Resampling the terminal's canvas onto the curved glass softens its strokes; sharpen them back to
+  // the mock's crisp glyphs
+  vec2 px = 1.0 / uResolution;
+  vec3 around = picture(distortedUv + vec2(px.x, 0.0)) + picture(distortedUv - vec2(px.x, 0.0))
+    + picture(distortedUv + vec2(0.0, px.y)) + picture(distortedUv - vec2(0.0, px.y));
+  screenColor = max(screenColor + 0.5 * (screenColor - around * 0.25), 0.0);
+
+  // Phosphor saturation: a green stroke's red and blue only come up near full brightness, so its
+  // edges are pure green and only the cores turn pale mint, as on the mock. Other hues are left alone.
+  float lit = clamp((screenColor.g - uBackground.g) / (1.0 - uBackground.g), 0.0, 1.0);
+  float green = smoothstep(0.0, 0.08, screenColor.g - max(screenColor.r, screenColor.b));
+  screenColor.rb = mix(screenColor.rb, uBackground.rb + (screenColor.rb - uBackground.rb) * lit, green);
+
   // Phosphor bloom: lit glyphs bleed a soft glow onto the glass right around their strokes. Twelve
   // directions at two short radii keep the glow round; only light above the dark screen colour
   // contributes, so the background itself is not lifted. The glow is the phosphor's own saturated

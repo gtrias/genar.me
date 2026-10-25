@@ -36,6 +36,7 @@ interface Geometry {
   grooveRing: Ring;
   lipRing: Ring;
   slopeRing: Ring;
+  slopeFaces: Ring; // splits the slope's faces: the lit bottom face wraps up into the corners
   gasketRing: Ring;
 }
 
@@ -48,6 +49,7 @@ const LIP: Sides = { t: 17, r: 21, b: 19, l: 19 };
 const GROOVE: Sides = { t: 3, r: 2.5, b: 2.5, l: 3 }; // crease between the lip and the housing
 const CREST = 3.5; // width of the highlight running along the lip
 const ROLL = 5; // width of the shading where the lip rolls over into the crease (right and bottom)
+const SLOPE_WRAP = 20; // how far the lit bottom slope wraps up the sides at its corners
 
 // The crease sits in the lip's shadow: lightest at the top, deepest at the bottom
 const GROOVE_FILL: Record<Side, string> = {
@@ -104,6 +106,8 @@ const even = (n: number): Sides => ({ t: n, r: n, b: n, l: n });
  * Splits a ring into its four faces along the mitre lines joining the corners of its outer and inner
  * boxes. Each face is stretched well past both edges so that blurring the set only softens the
  * mitres (the turn of the moulding around a corner), never the edges, which are clipped anyway.
+ * Inwards they reach far enough to fill a rounded inner corner even where the ring is thin (small
+ * screens) and the corner big.
  */
 function faces({ outer, inner }: Ring): Record<Side, string> {
   const corners = (b: Box) => [
@@ -115,16 +119,17 @@ function faces({ outer, inner }: Ring): Record<Side, string> {
   const o = corners(outer);
   const i = corners(inner);
   const out = o.map(([x, y], n) => [x + (x - i[n][0]) * 3, y + (y - i[n][1]) * 3]);
-  const inn = i.map(([x, y], n) => [x - (o[n][0] - x) * 3, y - (o[n][1] - y) * 3]);
+  const inn = i.map(([x, y], n) => [x - (o[n][0] - x) * 8, y - (o[n][1] - y) * 8]);
   const face = (a: number, b: number) => [out[a], out[b], inn[b], inn[a]].map((p) => p.join(',')).join(' ');
   return { t: face(0, 1), r: face(1, 2), b: face(2, 3), l: face(3, 0) };
 }
 
 /**
  * Rounded rectangle whose edges bow outward by `bx` (sides) and `by` (top/bottom), like the face of a
- * CRT tube. With zero bow it is a plain rounded rectangle. The bow peaks touch the box edges.
+ * CRT tube. With zero bow it is a plain rounded rectangle. The bow peaks touch the box edges. The top
+ * corners can be rounder than the bottom ones (`rb`), as the mock is seen slightly from above.
  */
-function tubePath({ x, y, w, h }: Box, r: number, bx: number, by: number): string {
+function tubePath({ x, y, w, h }: Box, r: number, bx: number, by: number, rb = r): string {
   const k = 0.5523; // cubic approximation of a quarter circle
   const left = x + bx;
   const top = y + by;
@@ -136,10 +141,10 @@ function tubePath({ x, y, w, h }: Box, r: number, bx: number, by: number): strin
     `M ${left + r} ${top}`,
     `Q ${cx} ${y - by} ${right - r} ${top}`,
     `C ${right - r + r * k} ${top} ${right} ${top + r - r * k} ${right} ${top + r}`,
-    `Q ${x + w + bx} ${cy} ${right} ${bottom - r}`,
-    `C ${right} ${bottom - r + r * k} ${right - r + r * k} ${bottom} ${right - r} ${bottom}`,
-    `Q ${cx} ${y + h + by} ${left + r} ${bottom}`,
-    `C ${left + r - r * k} ${bottom} ${left} ${bottom - r + r * k} ${left} ${bottom - r}`,
+    `Q ${x + w + bx} ${cy} ${right} ${bottom - rb}`,
+    `C ${right} ${bottom - rb + rb * k} ${right - rb + rb * k} ${bottom} ${right - rb} ${bottom}`,
+    `Q ${cx} ${y + h + by} ${left + rb} ${bottom}`,
+    `C ${left + rb - rb * k} ${bottom} ${left} ${bottom - rb + rb * k} ${left} ${bottom - rb}`,
     `Q ${x - bx} ${cy} ${left} ${top + r}`,
     `C ${left} ${top + r - r * k} ${left + r - r * k} ${top} ${left + r} ${top}`,
     'Z',
@@ -155,28 +160,30 @@ function geometry(width: number, height: number, glass: Box): Geometry {
   const groove = scale(GROOVE, k);
   const roll = ROLL * k;
   const inset = 1.2 * k; // the crest starts just inside the lip's edge
-  // The glass has big corners (radius ~12% of its height) and edges bowed out like the face of the
-  // tube (the top and bottom edges ~13px further out in the middle than at the corners on the mock);
-  // the openings around it bow less.
+  // The glass has big corners (radius ~14% of its height at the top, ~11% at the bottom) and edges
+  // bowed out like the face of the tube (the top and bottom edges ~13px further out in the middle than
+  // at the corners on the mock); the openings around it bow less.
   const r = Math.max(20, glass.h * 0.136);
+  const lipR = r * 0.76;
   return {
     width,
     height,
     k,
-    glass: tubePath(glass, r * 0.9, glass.w * 0.01, glass.h * 0.019),
-    gasket: tubePath(gasket, r * 0.76, gasket.w * 0.0095, gasket.h * 0.018),
-    slope: tubePath(slope, r * 0.62, slope.w * 0.004, slope.h * 0.006),
-    slopeCrest: tubePath(grow(slope, even(crest)), r * 0.62 + crest, slope.w * 0.004, slope.h * 0.006),
-    groove: tubePath(grow(lip, groove), r * 0.55 + groove.t, 0, 0),
-    lip: tubePath(lip, r * 0.55, 0, 0),
+    glass: tubePath(glass, r, glass.w * 0.01, glass.h * 0.019, r * 0.8),
+    gasket: tubePath(gasket, r * 0.62, gasket.w * 0.0095, gasket.h * 0.018),
+    slope: tubePath(slope, r * 0.52, slope.w * 0.004, slope.h * 0.006),
+    slopeCrest: tubePath(grow(slope, even(crest)), r * 0.52 + crest, slope.w * 0.004, slope.h * 0.006),
+    groove: tubePath(grow(lip, groove), lipR + groove.t, 0, 0),
+    lip: tubePath(lip, lipR, 0, 0),
     lipCrest: [
-      tubePath(grow(lip, even(-inset)), r * 0.55 - inset, 0, 0),
-      tubePath(grow(lip, even(-inset - crest)), r * 0.55 - inset - crest, 0, 0),
+      tubePath(grow(lip, even(-inset)), lipR - inset, 0, 0),
+      tubePath(grow(lip, even(-inset - crest)), lipR - inset - crest, 0, 0),
     ],
-    lipRoll: tubePath(grow(lip, even(-roll)), r * 0.55 - roll, 0, 0),
+    lipRoll: tubePath(grow(lip, even(-roll)), lipR - roll, 0, 0),
     grooveRing: { outer: grow(lip, groove), inner: lip },
     lipRing: { outer: lip, inner: slope },
     slopeRing: { outer: slope, inner: gasket },
+    slopeFaces: { outer: slope, inner: { ...gasket, h: gasket.h - SLOPE_WRAP * k } },
     gasketRing: { outer: gasket, inner: glass },
   };
 }
@@ -234,6 +241,8 @@ const CRTFrame = (props: CRTFrameProps) => {
         const slope = () => g().slopeRing.outer;
         const gasket = () => g().slopeRing.inner;
         const glass = () => g().gasketRing.inner;
+        // just outside the gasket's bottom-right corner
+        const sheen = () => ({ x: gasket().x + gasket().w - 18 * g().k, y: gasket().y + gasket().h - 4 * g().k });
         const blur = (id: string, std: number) => (
           <filter id={id} filterUnits="userSpaceOnUse" x="0" y="0" width={g().width} height={g().height}>
             <feGaussianBlur stdDeviation={std * g().k} />
@@ -290,6 +299,12 @@ const CRTFrame = (props: CRTFrameProps) => {
                 <stop offset="0.1" stop-color="#b8ffd0" stop-opacity="0.04" />
                 <stop offset="0.2" stop-color="#b8ffd0" stop-opacity="0" />
               </linearGradient>
+              {/* Gloss where the lit bottom slope turns up into the shaded right side */}
+              <radialGradient id="crt-sheen">
+                <stop offset="0" stop-color="#fffcf2" stop-opacity="0.8" />
+                <stop offset="0.5" stop-color="#fffcf2" stop-opacity="0.25" />
+                <stop offset="1" stop-color="#fffcf2" stop-opacity="0" />
+              </radialGradient>
               {blur('crt-face-blur', 14)}
               {blur('crt-crest-blur', 10)}
               {blur('crt-gasket-blur', 4)}
@@ -330,7 +345,16 @@ const CRTFrame = (props: CRTFrameProps) => {
             <Faces ring={g().lipRing} fill={LIP_ROLL} blur="crt-crest-blur" mask="crt-roll-mask" />
 
             {/* Slope down into the recess */}
-            <Faces ring={g().slopeRing} fill={SLOPE_FILL} blur="crt-face-blur" mask="crt-slope-mask" />
+            <Faces ring={g().slopeFaces} fill={SLOPE_FILL} blur="crt-face-blur" mask="crt-slope-mask" />
+            <ellipse
+              cx={sheen().x}
+              cy={sheen().y}
+              rx={46 * g().k}
+              ry={20 * g().k}
+              transform={`rotate(-25 ${sheen().x} ${sheen().y})`}
+              fill="url(#crt-sheen)"
+              mask="url(#crt-slope-mask)"
+            />
             <path d={`${g().slope} ${g().gasket}`} fill-rule="evenodd" fill="url(#crt-grime)" opacity="0.5" />
 
             {/* Rubber gasket, black along its edges */}

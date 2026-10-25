@@ -19,7 +19,9 @@
   --label: 'Barlow Semi Condensed', 'DIN Alternate', Bahnschrift, 'Arial Narrow', sans-serif;
   --grime: url('/textures/grime.svg');
   --metal-tex: url('/textures/metal.svg');
+  /* Screws: brighter heads in the cream housing, darker steel ones on the metal panel */
   --screw: url('/textures/screw.svg');
+  --screw-steel: url('/textures/screw-steel.svg');
   --page-pad-y: clamp(24px, 7vh, 80px);
   --page-pad-x: clamp(16px, 4vw, 72px);
 }
@@ -40,7 +42,7 @@ body {
 
 /* Same 3:2 frame as the mock (1536x1024), as large as the viewport allows. Its background is the
    chassis both units are mounted on: a dark slot between them, and along the bottom the plinth they
-   stand on (dark gap, lit front edge at y 1009, face). */
+   stand on (dark gap, lit front edge at y 1009, face); under the panel its edge sits 2px higher. */
 .console {
   container-type: size;
   display: flex;
@@ -50,7 +52,8 @@ body {
   border-radius: 14px;
   /* percentages: container units on .console itself would resolve against the viewport */
   background:
-    linear-gradient(to top, #312b24 0, #332d26 1.3%, #857b6c 1.42%, #2e2821 1.52%, #1a1611 1.62%, #0e0c09 1.75%, #0e0c09 2.9%, transparent 2.9%),
+    linear-gradient(to top, #3a332c 0, #3c352d 1.4%, #8f8574 1.56%, #3a332b 1.68%, #1a1611 1.8%, #0e0c09 1.9%, #0e0c09 2.9%, transparent 2.9%) right top / 24.4% 100% no-repeat,
+    linear-gradient(to top, #37302a 0, #39322b 1.3%, #857b6c 1.42%, #2e2821 1.52%, #1a1611 1.62%, #0e0c09 1.75%, #0e0c09 2.9%, transparent 2.9%),
     linear-gradient(90deg, transparent 75.6%, #5a5246 75.6%, #4a4339 75.72%, #0f0d0a 75.78%, #2a251f 75.86%, #4a4339 76.04%, #5a5246 76.2%, #5a5246 76.45%, transparent 76.5%),
     linear-gradient(270deg, #1b1813, #4b453d 0.17%);
   box-shadow:
@@ -83,8 +86,8 @@ body {
     /* rounded top and left edges of the moulding, their crowns catching the light just inside */
     linear-gradient(180deg, rgba(80, 64, 40, 0.5) 0, rgba(80, 64, 40, 0) 0.25cqh, rgba(255, 252, 245, 0.25) 0.5cqh, rgba(255, 252, 245, 0.8) 0.95cqh, rgba(255, 252, 245, 0.15) 1.2cqh, transparent 1.35cqh),
     linear-gradient(90deg, rgba(60, 48, 30, 0.3) 0, rgba(60, 48, 30, 0.05) 0.15cqw, rgba(255, 252, 245, 0.1) 0.35cqw, rgba(255, 252, 245, 0.25) 0.65cqw, transparent 0.9cqw),
-    /* bottom chamfer of the moulding, rolling away from the light */
-    linear-gradient(to top, rgba(25, 18, 10, 0.75) 0, rgba(25, 18, 10, 0.64) 0.45cqh, rgba(25, 18, 10, 0.56) 1.5cqh, rgba(25, 18, 10, 0.5) 2.24cqh, rgba(25, 18, 10, 0.3) 2.63cqh, rgba(25, 18, 10, 0.08) 2.85cqh, transparent 3.03cqh),
+    /* bottom chamfer of the moulding, rolling away from the light: a flat face under a crisp edge */
+    linear-gradient(to top, rgba(25, 18, 10, 0.75) 0, rgba(25, 18, 10, 0.62) 0.45cqh, rgba(25, 18, 10, 0.58) 1.5cqh, rgba(25, 18, 10, 0.58) 2.2cqh, rgba(25, 18, 10, 0.32) 2.6cqh, rgba(25, 18, 10, 0.08) 2.83cqh, transparent 3cqh),
     /* lit from the left */
     linear-gradient(90deg, rgba(255, 250, 240, 0.07) 0, rgba(255, 250, 240, 0.015) 3cqw, transparent 25cqw, rgba(60, 45, 25, 0.035) 100%),
     var(--grime) 0 0 / 640px,
@@ -314,8 +317,8 @@ body {
   box-sizing: border-box;
   border-radius: 1.6cqh;
   background:
-    var(--screw) 0.84cqw 1.79cqh / auto 2.5cqh no-repeat,
-    var(--screw) right 0.73cqw top 1.79cqh / auto 2.5cqh no-repeat,
+    var(--screw-steel) 0.78cqw 1.3cqh / auto 2.5cqh no-repeat,
+    var(--screw-steel) right 0.86cqw top 1.3cqh / auto 2.5cqh no-repeat,
     /* rivets under the avatar plate */
     radial-gradient(circle, #2a251e 0 0.28cqh, rgba(255, 245, 225, 0.3) 0.36cqh, transparent 0.44cqh) 1.17cqw 33.42cqh / 1cqh 1cqh no-repeat,
     radial-gradient(circle, #2a251e 0 0.28cqh, rgba(255, 245, 225, 0.3) 0.36cqh, transparent 0.44cqh) right 1.37cqw top 33.42cqh / 1cqh 1cqh no-repeat,
@@ -345,10 +348,10 @@ body {
   position: relative;
   border-radius: 0.8cqh;
   background:
-    var(--screw) var(--screw-x) var(--screw-top) / auto var(--screw-size) no-repeat,
-    var(--screw) right var(--screw-x) top var(--screw-top) / auto var(--screw-size) no-repeat,
-    var(--screw) left var(--screw-x) bottom var(--screw-bottom) / auto var(--screw-size) no-repeat,
-    var(--screw) right var(--screw-x) bottom var(--screw-bottom) / auto var(--screw-size) no-repeat,
+    var(--screw-steel) var(--screw-x) var(--screw-top) / auto var(--screw-size) no-repeat,
+    var(--screw-steel) right var(--screw-x) top var(--screw-top) / auto var(--screw-size) no-repeat,
+    var(--screw-steel) left var(--screw-x) bottom var(--screw-bottom) / auto var(--screw-size) no-repeat,
+    var(--screw-steel) right var(--screw-x) bottom var(--screw-bottom) / auto var(--screw-size) no-repeat,
     linear-gradient(90deg, rgba(255, 245, 225, 0.05), transparent 40%, rgba(0, 0, 0, 0.08)),
     var(--metal-tex) 30px 50px / 640px,
     linear-gradient(180deg, var(--plate-top), var(--plate-bottom));
@@ -479,8 +482,8 @@ body {
   min-width: 0;
   display: flex;
   align-items: center;
-  /* the label sits a little above the cap's centre, as on the mock */
-  padding: 0 1.8cqh 0.3cqh;
+  /* the label sits a little above the cap's centre and 23px in from its end, as on the mock */
+  padding: 0 1.8cqh 0.3cqh 2.25cqh;
   border-radius: 0.45cqh;
   background:
     /* lit at the end by the lamp, falling into shade towards the far end */
@@ -655,10 +658,10 @@ body {
   .panel-plate {
     border-radius: 6px;
     background:
-      var(--screw) 6px 6px / 14px no-repeat,
-      var(--screw) right 6px top 6px / 14px no-repeat,
-      var(--screw) 6px calc(100% - 6px) / 14px no-repeat,
-      var(--screw) right 6px bottom 6px / 14px no-repeat,
+      var(--screw-steel) 6px 6px / 14px no-repeat,
+      var(--screw-steel) right 6px top 6px / 14px no-repeat,
+      var(--screw-steel) 6px calc(100% - 6px) / 14px no-repeat,
+      var(--screw-steel) right 6px bottom 6px / 14px no-repeat,
       var(--metal-tex) 30px 50px / 640px,
       linear-gradient(180deg, #7d7164, #645a4e);
   }
