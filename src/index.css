@@ -303,12 +303,13 @@ body {
   padding: 20px;
 }
 
+/* The avatar is 64x64 pixel art. It ships pre-scaled 4x with hard edges and the browser only ever
+   scales it down, so every pixel stays the same size even on fractional device pixel ratios. */
 .panel-avatar {
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  image-rendering: pixelated;
+  width: 128px;
+  height: 128px;
+  margin-inline: auto;
   border-radius: 4px;
   background: #0d2a19;
   box-shadow:
@@ -409,11 +410,6 @@ body {
     padding: 12px;
   }
 
-  .panel-avatar {
-    width: 72%;
-    margin-inline: auto;
-  }
-
   .panel-buttons {
     gap: 8px;
     padding: 12px;
@@ -463,10 +459,15 @@ body {
   }
 
   .panel-id {
-    width: 96px;
+    width: auto;
     flex-shrink: 0;
     align-self: flex-start;
     padding: 16px;
+  }
+
+  .panel-avatar {
+    width: 64px;
+    height: 64px;
   }
 
   .panel-buttons {

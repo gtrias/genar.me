@@ -9,7 +9,7 @@ const ControlPanel = () => {
   return (
     <aside class="console-panel" aria-label="Links">
       <div class="panel-plate panel-id">
-        <img src="/genar-avatar.png" alt={identity.name} class="panel-avatar" width="64" height="64" />
+        <img src="/genar-avatar-4x.png" alt={identity.name} class="panel-avatar" width="128" height="128" />
       </div>
 
       <nav class="panel-plate panel-buttons">
