@@ -1,4 +1,4 @@
-import { onMount, onCleanup, createSignal } from 'solid-js';
+import { onMount, onCleanup, createSignal, For } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { CanvasAddon } from '@xterm/addon-canvas';
@@ -14,6 +14,8 @@ import { identity } from '../brand/identity.js';
 const MONO_FONT = '"JetBrains Mono"';
 // JetBrains Mono advance width, in em
 const GLYPH_WIDTH = 0.6;
+// Slots in the front vent grille, as on the mock
+const VENT_SLOTS = Array.from({ length: 11 });
 // The banner's longest line must fit on one row (the mock shows the intro unwrapped)
 const BANNER_COLUMNS = Math.max(...identity.intro.map((line) => line.length));
 
@@ -287,7 +289,9 @@ const TerminalComponent = () => {
       {/* Housing: the screen sits in its padding, the moulded frame is drawn over it */}
       <div ref={bezelEl} class="crt-bezel w-full h-full relative">
         {/* Front panel, below the screen: vent grille, power button, status lamp */}
-        <div class="crt-vent" aria-hidden="true" />
+        <div class="crt-vent" aria-hidden="true">
+          <For each={VENT_SLOTS}>{() => <span />}</For>
+        </div>
         <button
           type="button"
           onClick={togglePause}
@@ -325,7 +329,7 @@ const TerminalComponent = () => {
               <CRTScene 
                 terminal={term} 
                 curvature={0.04}
-                scanlineOpacity={0.15}
+                scanlineOpacity={0.25}
                 vignetteStrength={0.18}
               />
             ) : null;

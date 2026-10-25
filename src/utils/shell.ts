@@ -551,12 +551,14 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
   }
 
   getBanner(): string {
-    // Links live on the side panel; the screen only introduces me. The logo is figlet "Calvin S" with a
-    // column between letters (as wide as on the mock), in bold (SGR 1).
+    // Links live on the side panel; the screen only introduces me. The logo is figlet "Calvin S" redrawn
+    // four cells wide with no spacer column, so the letters come out as wide and as tightly set as on
+    // the mock (box-drawing strokes sit mid-cell, so a 3-cell letter only shows 2 cells of width).
+    // Bold (SGR 1).
     return `
-\x1b[1m╔═╗ ╔═╗ ╔╗╔ ╔═╗ ╦═╗
-║ ╦ ║╣  ║║║ ╠═╣ ╠╦╝
-╚═╝ ╚═╝ ╝╚╝ ╩ ╩ ╩╚═\x1b[22m
+\x1b[1m╔══╗╔══╗╔═╗╔╔══╗╦══╗
+║ ═╦║═╣ ║ ║║╠══╣╠═╦╝
+╚══╝╚══╝╝ ╚╝╩  ╩╩ ╚═\x1b[22m
 
 ${identity.intro.join('\n')}
 

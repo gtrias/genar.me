@@ -1,11 +1,11 @@
 // Text area inside the glass, shown by the WebGL canvas. Margins measured on the approved mock: text
-// starts ~5% in from the left glass edge, ends ~4% before the right one, and the banner sits ~16%
-// below the top edge.
+// starts ~6% in from the left glass edge and the logo sits ~16% below the top edge. Left and right
+// move together so the text area keeps the width the font size is fitted to.
 export const SCREEN_INSET = {
-  top: '9%',
-  right: '3.6%',
+  top: '7.9%',
+  right: '3.2%',
   bottom: '6%',
-  left: '5.2%',
+  left: '5.6%',
 } as const;
 
 // FitAddon always reserves a scrollbar's width on the right (xterm falls back to 15px even when the
