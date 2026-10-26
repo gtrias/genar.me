@@ -499,26 +499,33 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
     return this.commandRegistry.execute(commandName, args, context);
   }
 
+  // Completions for the word before the cursor; each one replaces that whole word.
+  // Directories end in '/' so the user can keep completing inside them.
   async getCompletions(input: string): Promise<string[]> {
-    const parts = input.trim().split(/\s+/);
-    const commandName = parts[0].toLowerCase();
-
-    // Command name completion
-    if (parts.length === 1) {
-      return this.commandRegistry
-        .getCommandNames()
-        .filter((name) => name.startsWith(commandName));
-    }
-
-    // Argument completion
-    const args = parts.slice(1, -1);
+    const parts = input.trimStart().split(/\s+/);
     const currentArg = parts[parts.length - 1];
 
-    const context: CommandContext = {
-      shell: this,
-    };
+    if (parts.length === 1) {
+      const prefix = currentArg.toLowerCase();
+      return this.commandRegistry.getCommandNames().filter((name) => name.startsWith(prefix));
+    }
 
+    const commandName = parts[0].toLowerCase();
+    const args = parts.slice(1, -1);
+    const context: CommandContext = { shell: this };
     return this.commandRegistry.getSuggestions(commandName, args, currentArg, context);
+  }
+
+  completePath(partial: string, want: 'file' | 'directory'): string[] {
+    const slash = partial.lastIndexOf('/');
+    const dirPart = partial.slice(0, slash + 1);
+    const namePart = partial.slice(slash + 1);
+    const dir = this.resolvePath(dirPart === '' ? '.' : dirPart);
+    if (!dir || dir.type !== 'directory') return [];
+    return Array.from(dir.children?.values() || [])
+      // Directories always qualify: a file may sit inside one
+      .filter((n) => n.name.startsWith(namePart) && (n.type === 'directory' || want === 'file'))
+      .map((n) => dirPart + n.name + (n.type === 'directory' ? '/' : ''));
   }
 
   resolvePath(path: string): FileSystemNode | null {

@@ -5,16 +5,8 @@ const lsCommand: Command = {
     name: 'ls',
     description: 'List directory contents',
     usage: 'ls [directory]',
-    getSuggestions: async (args, currentArg, { shell }) => {
-      if (args.length === 0) {
-        const dir = shell.getCurrentDirectory();
-        return Array.from(dir.children?.values() || [])
-          .filter((n) => n.type === 'directory')
-          .filter((n) => n.name.startsWith(currentArg))
-          .map((n) => n.name);
-      }
-      return [];
-    },
+    getSuggestions: async (args, currentArg, { shell }) =>
+      args.length === 0 ? shell.completePath(currentArg, 'directory') : [],
   },
 
   async execute(args, { shell }) {

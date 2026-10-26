@@ -5,16 +5,8 @@ const catCommand: Command = {
     name: 'cat',
     description: 'Display file contents',
     usage: 'cat [file]',
-    getSuggestions: async (args, currentArg, { shell }) => {
-      if (args.length === 0) {
-        const dir = shell.getCurrentDirectory();
-        return Array.from(dir.children?.values() || [])
-          .filter((n) => n.type === 'file')
-          .filter((n) => n.name.startsWith(currentArg))
-          .map((n) => n.name);
-      }
-      return [];
-    },
+    getSuggestions: async (args, currentArg, { shell }) =>
+      args.length === 0 ? shell.completePath(currentArg, 'file') : [],
   },
 
   async execute(args, { shell }) {

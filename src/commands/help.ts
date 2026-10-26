@@ -47,7 +47,7 @@ Usage: ${command.metadata.usage}
 Available commands:
 ${commands.map((cmd) => `  ${cmd.metadata.name.padEnd(12)} - ${cmd.metadata.description}`).join('\n')}
 
-Use arrow keys to navigate command history.
+Use arrow keys to navigate command history, Tab to complete.
 `;
 
     return { output: helpText, exitCode: 0 };

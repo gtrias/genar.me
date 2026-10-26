@@ -48,6 +48,51 @@ const TerminalComponent = () => {
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
+  // A Tab that found several matches and could not extend the word; the next Tab lists them
+  let tabListPending = false;
+
+  const insertText = (text: string) => {
+    const restOfLine = currentLine.slice(cursorPosition);
+    currentLine = currentLine.slice(0, cursorPosition) + text + restOfLine;
+    cursorPosition += text.length;
+    terminal?.write(text + restOfLine);
+    if (restOfLine.length > 0) terminal?.write('\x1b[' + restOfLine.length + 'D');
+  };
+
+  const complete = async () => {
+    const before = currentLine.slice(0, cursorPosition);
+    const matches = await shell.getCompletions(before);
+    // The line may have changed while suggestions were computed
+    if (isPaused() || currentLine.slice(0, cursorPosition) !== before || matches.length === 0) return;
+
+    const word = before.match(/\S*$/)![0];
+    let completion = matches.reduce((prefix, match) => {
+      let i = 0;
+      while (i < prefix.length && prefix[i] === match[i]) i++;
+      return prefix.slice(0, i);
+    });
+    if (matches.length === 1 && !completion.endsWith('/')) completion += ' ';
+
+    if (completion.length > word.length) {
+      tabListPending = false;
+      insertText(completion.slice(word.length));
+      return;
+    }
+    if (matches.length === 1) return;
+    if (!tabListPending) {
+      tabListPending = true;
+      return;
+    }
+
+    // Second Tab: list the candidates by their last path segment, then redraw the line
+    tabListPending = false;
+    const dirLength = word.lastIndexOf('/') + 1;
+    const restOfLine = currentLine.slice(cursorPosition);
+    terminal?.write('\r\n' + matches.map((match) => match.slice(dirLength)).join('  ') + '\r\n');
+    terminal?.write(shell.getPrompt() + currentLine);
+    if (restOfLine.length > 0) terminal?.write('\x1b[' + restOfLine.length + 'D');
+  };
+
 
   // xterm measures glyphs once, when it opens: start it only after the webfont is ready
   const start = () => {
@@ -136,9 +181,12 @@ const TerminalComponent = () => {
         }
 
         const code = data.charCodeAt(0);
+        if (data !== '\t') tabListPending = false;
 
         // Handle special keys
-        if (code === 13) {
+        if (data === '\t') {
+          void complete();
+        } else if (code === 13) {
           // Enter key
           terminal?.write('\r\n');
         if (currentLine.trim()) {
@@ -226,24 +274,7 @@ const TerminalComponent = () => {
           }
         } else if (code >= 32 && code <= 126) {
           // Printable characters
-          if (cursorPosition < currentLine.length) {
-            // Insert in middle of line
-            currentLine = currentLine.slice(0, cursorPosition) + data + currentLine.slice(cursorPosition);
-            cursorPosition++;
-            // Redraw the rest of the line
-            const restOfLine = currentLine.slice(cursorPosition);
-            terminal?.write(data);
-            terminal?.write(restOfLine);
-            // Move cursor back to correct position
-            if (restOfLine.length > 0) {
-              terminal?.write('\x1b[' + restOfLine.length + 'D');
-            }
-          } else {
-            // Append to end of line
-            currentLine += data;
-            cursorPosition++;
-            terminal?.write(data);
-          }
+          insertText(data);
         }
       });
     };

@@ -16,7 +16,7 @@ export interface CommandMetadata {
   description: string;
   usage: string;
 
-  // Optional: for future auto-completion
+  // Tab completion: candidates replacing currentArg (directories end in '/')
   getSuggestions?: (
     args: string[],
     currentArg: string,

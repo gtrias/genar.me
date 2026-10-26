@@ -64,7 +64,6 @@ export class CommandRegistry {
     }
   }
 
-  // For future auto-completion
   async getSuggestions(
     commandName: string,
     args: string[],
