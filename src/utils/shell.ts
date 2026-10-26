@@ -528,31 +528,21 @@ Progressed from Senior Software Engineer through Engineering Manager and Directo
       .map((n) => dirPart + n.name + (n.type === 'directory' ? '/' : ''));
   }
 
-  resolvePath(path: string): FileSystemNode | null {
-    if (path === '/') {
-      return this.fileSystem;
+  // Absolute segments for a path typed by the user: handles '/', '.', '..' and trailing slashes
+  normalizePath(path: string): string[] {
+    const segments = path.startsWith('/') ? [] : [...this.currentPath];
+    for (const segment of path.split('/')) {
+      if (segment === '..') segments.pop();
+      else if (segment && segment !== '.') segments.push(segment);
     }
+    return segments;
+  }
 
-    const segments = path.startsWith('/')
-      ? path.split('/').filter(s => s)
-      : [...this.currentPath, ...path.split('/').filter(s => s)];
-
+  resolvePath(path: string): FileSystemNode | null {
     let current = this.fileSystem;
-    for (const segment of segments) {
-      if (segment === '..') {
-        if (this.currentPath.length > 0) {
-          // This is a simplified version - in a real implementation, we'd track the path
-          return null;
-        }
-        continue;
-      }
-      if (segment === '.') {
-        continue;
-      }
+    for (const segment of this.normalizePath(path)) {
       const next = current.children?.get(segment);
-      if (!next) {
-        return null;
-      }
+      if (!next) return null;
       current = next;
     }
     return current;

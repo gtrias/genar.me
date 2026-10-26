@@ -48,8 +48,6 @@ const TerminalComponent = () => {
   const shell = new Shell();
   let currentLine = '';
   let cursorPosition = 0;
-  // A Tab that found several matches and could not extend the word; the next Tab lists them
-  let tabListPending = false;
 
   const insertText = (text: string) => {
     const restOfLine = currentLine.slice(cursorPosition);
@@ -74,25 +72,18 @@ const TerminalComponent = () => {
     if (matches.length === 1 && !completion.endsWith('/')) completion += ' ';
 
     if (completion.length > word.length) {
-      tabListPending = false;
       insertText(completion.slice(word.length));
       return;
     }
     if (matches.length === 1) return;
-    if (!tabListPending) {
-      tabListPending = true;
-      return;
-    }
 
-    // Second Tab: list the candidates by their last path segment, then redraw the line
-    tabListPending = false;
+    // The word can't grow: list the candidates by their last path segment, then redraw the line
     const dirLength = word.lastIndexOf('/') + 1;
     const restOfLine = currentLine.slice(cursorPosition);
     terminal?.write('\r\n' + matches.map((match) => match.slice(dirLength)).join('  ') + '\r\n');
     terminal?.write(shell.getPrompt() + currentLine);
     if (restOfLine.length > 0) terminal?.write('\x1b[' + restOfLine.length + 'D');
   };
-
 
   // xterm measures glyphs once, when it opens: start it only after the webfont is ready
   const start = () => {
@@ -181,7 +172,6 @@ const TerminalComponent = () => {
         }
 
         const code = data.charCodeAt(0);
-        if (data !== '\t') tabListPending = false;
 
         // Handle special keys
         if (data === '\t') {
