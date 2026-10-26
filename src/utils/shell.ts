@@ -6,7 +6,7 @@ import { CommandRegistry } from './CommandRegistry';
 import type { CommandResult, CommandContext } from '../commands/types';
 import type { Terminal } from '@xterm/xterm';
 
-export interface FileSystemNode {
+interface FileSystemNode {
   name: string;
   type: 'file' | 'directory';
   content?: string;
