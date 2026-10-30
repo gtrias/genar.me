@@ -1,7 +1,8 @@
 import { onMount, onCleanup } from 'solid-js';
 import * as THREE from 'three';
 import type { Terminal } from '@xterm/xterm';
-import { createTerminalTexture, updateTerminalTexture } from '../utils/terminalTexture';
+import { createTerminalTexture, renderScreensaver, updateTerminalTexture } from '../utils/terminalTexture';
+import { activeScreensaver } from '../state/screensaver';
 import vertShader from '../shaders/crt.vert?raw';
 import fragShader from '../shaders/crt.frag?raw';
 import { PHOSPHOR } from '../config/phosphor';
@@ -105,13 +106,20 @@ const CRTScene = (props: CRTSceneProps) => {
       // Render loop
       let lastUpdateTime = 0;
       const UPDATE_INTERVAL = 100; // Update texture every 100ms
-      
+      const SAVER_INTERVAL = 33; // Screensavers move, so they redraw about 30 times a second
+
       const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
 
         // Update texture periodically
         const now = Date.now();
-        if (texture && now - lastUpdateTime > UPDATE_INTERVAL) {
+        const saver = activeScreensaver();
+        if (texture && saver) {
+          if (now - lastUpdateTime > SAVER_INTERVAL) {
+            renderScreensaver(texture, saver, performance.now());
+            lastUpdateTime = now;
+          }
+        } else if (texture && now - lastUpdateTime > UPDATE_INTERVAL) {
           updateTerminalTexture(texture);
           lastUpdateTime = now;
         }

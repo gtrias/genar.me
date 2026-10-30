@@ -1,26 +1,13 @@
 import { Terminal } from '@xterm/xterm';
 import * as THREE from 'three';
 import { PHOSPHOR } from '../config/phosphor';
-import { LOGO, LOGO_GEOMETRY } from '../config/logo';
+import { LOGO } from '../config/logo';
+import type { SaverName } from '../config/screensavers';
+import { createSaver } from '../screensavers';
+import type { SaverGrid, SaverInstance } from '../screensavers/types';
+import { strokeLogos, type LogoPlacement } from './logoStroke';
 
 const BLINK_MS = 530;
-
-type Arms = readonly [up: boolean, right: boolean, down: boolean, left: boolean];
-
-// Arms of the double-line box-drawing characters the logo is made of
-const DOUBLE_LINE_ARMS: Record<string, Arms> = {
-  '═': [false, true, false, true],
-  '║': [true, false, true, false],
-  '╔': [false, true, true, false],
-  '╗': [false, false, true, true],
-  '╚': [true, true, false, false],
-  '╝': [true, false, false, true],
-  '╠': [true, true, true, false],
-  '╣': [true, false, true, true],
-  '╦': [false, true, true, true],
-  '╩': [true, true, false, true],
-  '╬': [true, true, true, true],
-};
 
 /**
  * three.js texture showing the terminal. The canvas renderer (xterm-addon-canvas) draws text,
@@ -50,78 +37,56 @@ export function createTerminalTexture(terminal: Terminal): THREE.CanvasTexture {
 }
 
 /**
- * Adds one double-line box-drawing character to the current path: each arm is two lines running from
- * the cell edge to a small square (left/top corner l, t; side `spacing`), and the square's sides
- * without an arm close the outline, which gives the corners, tees and continuous outer lines of the
- * mock's logo.
- */
-function traceDoubleLine(
-  ctx: CanvasRenderingContext2D,
-  [up, right, down, left]: Arms,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  l: number,
-  t: number,
-  spacing: number,
-): void {
-  const r = l + spacing;
-  const b = t + spacing;
-  const line = (x1: number, y1: number, x2: number, y2: number) => {
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-  };
-  if (up) { line(l, y, l, t); line(r, y, r, t); }
-  else line(l, t, r, t);
-  if (down) { line(l, y + height, l, b); line(r, y + height, r, b); }
-  else line(l, b, r, b);
-  if (left) { line(x, t, l, t); line(x, b, l, b); }
-  else line(l, t, l, b);
-  if (right) { line(x + width, t, r, t); line(x + width, b, r, b); }
-  else line(r, t, r, b);
-}
-
-/**
- * Redraws every banner logo in the viewport (also one partly scrolled off the top): blanks the cells
- * xterm drew it in and strokes it with the mock's double lines and proportions.
+ * Redraws every banner logo in the viewport (also one partly scrolled off the top).
  */
 function drawLogos(ctx: CanvasRenderingContext2D, terminal: Terminal, cellWidth: number, cellHeight: number): void {
   const buffer = terminal.buffer.active;
   const text = (row: number) => buffer.getLine(buffer.viewportY + row)?.translateToString(true) ?? '';
-  const { cellWidth: logoCell, indent, rowHeight, drop, lineSpacing, stroke } = LOGO_GEOMETRY;
-  const glyphWidth = cellWidth * logoCell;
-  const glyphHeight = cellHeight * rowHeight;
-  // Whole-pixel strokes on the pixel grid, so the thin lines stay crisp and at full brightness
-  const lineWidth = Math.max(1, Math.round(stroke * cellWidth));
-  const spacing = Math.max(2, Math.round(lineSpacing * cellWidth));
-  const offset = (lineWidth % 2) / 2;
-  const snap = (v: number) => Math.round(v - offset) + offset;
-
-  ctx.beginPath();
+  const placements: LogoPlacement[] = [];
   for (let top = 1 - LOGO.length; top < terminal.rows; top++) {
     if (buffer.viewportY + top < 0) continue;
     const col = text(top).indexOf(LOGO[0]);
     if (col < 0 || LOGO.some((line, i) => text(top + i).indexOf(line) !== col)) continue;
-
-    ctx.fillStyle = PHOSPHOR.background;
-    LOGO.forEach((line, i) => {
-      ctx.fillRect(col * cellWidth, (top + i) * cellHeight, line.length * cellWidth, cellHeight);
-      [...line].forEach((char, j) => {
-        const arms = DOUBLE_LINE_ARMS[char];
-        if (!arms) return;
-        const x = (col + indent + j * logoCell) * cellWidth;
-        const y = (top + drop) * cellHeight + i * glyphHeight;
-        const l = snap(x + (glyphWidth - spacing) / 2);
-        const t = snap(y + (glyphHeight - spacing) / 2);
-        traceDoubleLine(ctx, arms, x, y, glyphWidth, glyphHeight, l, t, spacing);
-      });
-    });
+    placements.push({ col, top });
   }
-  ctx.lineWidth = lineWidth;
-  ctx.lineCap = 'square';
-  ctx.strokeStyle = PHOSPHOR.logo;
-  ctx.stroke();
+  strokeLogos(ctx, placements, cellWidth, cellHeight);
+}
+
+/**
+ * Draws a screensaver instead of the terminal into the texture's canvas and flags it for upload.
+ * The terminal underneath is untouched; the instance lives in the texture and is rebuilt when the
+ * grid changes (a resize recreates the texture, so it starts over then too).
+ */
+export function renderScreensaver(texture: THREE.CanvasTexture, name: SaverName, time: number): void {
+  const target = texture.image as HTMLCanvasElement;
+  const data = texture.userData as {
+    layers: HTMLCanvasElement[];
+    terminal: Terminal;
+    saver?: { key: string; instance: SaverInstance };
+  };
+  const [text] = data.layers;
+  if (target.width !== text.width || target.height !== text.height) {
+    target.width = text.width;
+    target.height = text.height;
+  }
+  const ctx = target.getContext('2d');
+  if (!ctx) return;
+  const { cols, rows } = data.terminal;
+  const grid: SaverGrid = {
+    width: target.width,
+    height: target.height,
+    cols,
+    rows,
+    cellWidth: target.width / cols,
+    cellHeight: target.height / rows,
+  };
+  const key = `${name}:${grid.width}x${grid.height}:${cols}x${rows}`;
+  if (data.saver?.key !== key) data.saver = { key, instance: createSaver(name, grid) };
+
+  ctx.fillStyle = PHOSPHOR.background;
+  ctx.fillRect(0, 0, target.width, target.height);
+  data.saver.instance.draw(ctx, time);
+  texture.needsUpdate = true;
 }
 
 /**
@@ -130,6 +95,7 @@ function drawLogos(ctx: CanvasRenderingContext2D, terminal: Terminal, cellWidth:
 export function updateTerminalTexture(texture: THREE.CanvasTexture): void {
   const target = texture.image as HTMLCanvasElement;
   const { layers, terminal } = texture.userData as { layers: HTMLCanvasElement[]; terminal: Terminal };
+  delete texture.userData.saver;
   const [text, ...overlays] = layers;
   if (target.width !== text.width || target.height !== text.height) {
     target.width = text.width;

@@ -22,7 +22,7 @@ const helpCommand: Command = {
       const registry = shell.getCommandRegistry();
       const command = registry.get(commandName);
 
-      if (!command) {
+      if (!command || command.metadata.hidden) {
         return {
           output: `Unknown command: ${commandName}\n`,
           exitCode: 1,

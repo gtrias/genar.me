@@ -1,3 +1,4 @@
+import { blockScreensaver } from '../state/screensaver';
 import type { Command } from './types';
 
 const matrixCommand: Command = {
@@ -31,6 +32,8 @@ const matrixCommand: Command = {
       speeds[i] = Math.random() * 0.5 + 0.5; // Speed between 0.5 and 1
     }
 
+    // The idle timer keeps off the glass while the rain falls
+    const releaseScreensaver = blockScreensaver();
     let isRunning = true;
 
     // Set up key listener to exit
@@ -47,6 +50,7 @@ const matrixCommand: Command = {
         // Show cursor and clear screen
         terminal.write('\x1b[?25h\x1b[2J\x1b[H');
         disposable.dispose();
+        releaseScreensaver();
         return;
       }
 

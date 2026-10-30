@@ -1,4 +1,4 @@
-import { onMount, onCleanup, createSignal, For } from 'solid-js';
+import { onMount, onCleanup, createSignal, createEffect, For } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
@@ -10,6 +10,7 @@ import { KEYPAD_EVENT } from '../config/keypad';
 import { PHOSPHOR } from '../config/phosphor';
 import { XTERM_INSET, XTERM_SCROLLBAR } from '../config/screen';
 import { identity } from '../brand/identity.js';
+import { blockScreensaver, watchIdle } from '../state/screensaver';
 
 const MONO_FONT = '"JetBrains Mono"';
 // JetBrains Mono advance width, in em
@@ -288,8 +289,15 @@ const TerminalComponent = () => {
   let resizeObserver: ResizeObserver | undefined;
 
   onMount(() => {
+    // The idle timer and the wake handling live as long as the screen does
+    onCleanup(watchIdle());
     // Fall back to the system monospace if the webfont fails to load
     void document.fonts.load(`300 16px ${MONO_FONT}`).finally(start);
+  });
+
+  // A paused terminal is off: no screensaver starts on it
+  createEffect(() => {
+    if (isPaused()) onCleanup(blockScreensaver());
   });
 
   // Registered here, not inside start(): start() runs after an await, outside the component's owner

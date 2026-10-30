@@ -32,12 +32,13 @@ export class CommandRegistry {
     return this.commands.has(commandName);
   }
 
+  // Hidden commands run when typed but stay out of help and tab completion
   getAll(): Command[] {
-    return Array.from(this.commands.values());
+    return Array.from(this.commands.values()).filter((command) => !command.metadata.hidden);
   }
 
   getCommandNames(): string[] {
-    return Array.from(this.commands.keys());
+    return this.getAll().map((command) => command.metadata.name);
   }
 
   async execute(
