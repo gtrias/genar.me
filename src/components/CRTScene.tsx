@@ -6,7 +6,7 @@ import { activeScreensaver } from '../state/screensaver';
 import vertShader from '../shaders/crt.vert?raw';
 import fragShader from '../shaders/crt.frag?raw';
 import { PHOSPHOR } from '../config/phosphor';
-import { SCREEN_INSET } from '../config/screen';
+import { TEXT_AREA_UV } from '../config/screen';
 
 interface CRTSceneProps {
   terminal: Terminal;
@@ -72,6 +72,9 @@ const CRTScene = (props: CRTSceneProps) => {
           uScanlineOpacity: { value: scanlineOpacity() },
           uVignetteStrength: { value: vignetteStrength() },
           uResolution: { value: new THREE.Vector2(width, height) },
+          // text area within the glass as uv (x0, y0, x1, y1); the canvas covers the whole glass so the
+          // scanlines and vignette reach every edge of it
+          uTextArea: { value: new THREE.Vector4(...TEXT_AREA_UV) },
           uTime: { value: 0 },
         },
         vertexShader: vertShader,
@@ -234,7 +237,7 @@ const CRTScene = (props: CRTSceneProps) => {
         'pointer-events': 'none',
         'z-index': 2,
         background: 'transparent',
-        ...SCREEN_INSET,
+        inset: 0,
       }}
     />
   );

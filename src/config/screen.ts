@@ -7,6 +7,9 @@ export const SCREEN_INSET = {
   left: '6%',
 } as const;
 
+// The same area as uv on the whole glass (x0, y0, x1, y1; y up), for the shader
+export const TEXT_AREA_UV = [0.06, 0.0534, 1 - 0.0419, 1 - 0.0921] as const;
+
 // xterm keeps a scrollbar's width (15px, even when hidden) inside its container
 export const XTERM_SCROLLBAR = 15;
 

@@ -4,6 +4,7 @@ uniform float uCurvature;
 uniform float uScanlineOpacity;
 uniform float uVignetteStrength;
 uniform vec2 uResolution;
+uniform vec4 uTextArea;
 uniform float uTime;
 
 varying vec2 vUv;
@@ -42,12 +43,15 @@ float vignette(vec2 uv, float strength) {
 }
 
 void main() {
-  vec2 distortedUv = barrelDistortion(vUv, uCurvature);
+  vec2 areaMin = uTextArea.xy;
+  vec2 areaSize = uTextArea.zw - uTextArea.xy;
+  // The picture is distorted within the text area; scanlines and vignette use the whole glass
+  vec2 distortedUv = barrelDistortion((vUv - areaMin) / areaSize, uCurvature);
   vec3 screenColor = picture(distortedUv);
 
   // Resampling the terminal's canvas onto the curved glass softens its strokes; sharpen them back to
   // the mock's crisp glyphs
-  vec2 px = 1.0 / uResolution;
+  vec2 px = 1.0 / (uResolution * areaSize);
   vec3 around = picture(distortedUv + vec2(px.x, 0.0)) + picture(distortedUv - vec2(px.x, 0.0))
     + picture(distortedUv + vec2(0.0, px.y)) + picture(distortedUv - vec2(0.0, px.y));
   screenColor = max(screenColor + 0.5 * (screenColor - around * 0.25), 0.0);
@@ -65,7 +69,7 @@ void main() {
   vec3 bloom = vec3(0.0);
   for (int i = 0; i < 12; i++) {
     float a = float(i) * 0.5235988;
-    vec2 dir = vec2(cos(a), sin(a)) / uResolution;
+    vec2 dir = vec2(cos(a), sin(a)) / (uResolution * areaSize);
     bloom += max(picture(distortedUv + dir * 1.5) - vec3(0.05, 0.14, 0.07), 0.0) * 0.6;
     bloom += max(picture(distortedUv + dir * 3.5) - vec3(0.05, 0.14, 0.07), 0.0) * 0.4;
   }
