@@ -5,7 +5,7 @@ A personal site presented as a 1979 green-phosphor console: a shell on the CRT g
 ## Language
 
 **Screensaver**:
-A full-screen animation shown on the glass in place of the terminal. Three exist: starfield, bouncing logo, scope.
+A full-screen animation shown on the glass in place of the terminal. Thirteen exist, from starfield to marquee.
 _Avoid_: Idle animation, screen blanker
 
 **Idle**:

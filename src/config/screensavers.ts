@@ -1,5 +1,19 @@
 // Screensavers on the glass: the easter egg. Names are what the hidden `screensaver` command accepts.
-export const SCREENSAVERS = ['starfield', 'logo', 'scope'] as const;
+export const SCREENSAVERS = [
+  'starfield',
+  'logo',
+  'scope',
+  'matrix',
+  'pipes',
+  'maze',
+  'life',
+  'clock',
+  'fire',
+  'snake',
+  'pong',
+  'mystify',
+  'marquee',
+] as const;
 export type SaverName = (typeof SCREENSAVERS)[number];
 
 // Without input for this long, the screen starts a screensaver

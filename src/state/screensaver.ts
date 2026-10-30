@@ -56,8 +56,14 @@ export const blockScreensaver = (): (() => void) => {
 
 // Input that counts as activity, and wakes a running screensaver
 const WAKE_EVENTS = ['keydown', 'pointerdown', 'touchstart'] as const;
-// Rest of the same input, swallowed so a wake never reaches the shell, a link or a key
+// The rest of the wake input, swallowed once each so a wake never reaches the shell, a link or a key
+const LEFTOVERS: Record<(typeof WAKE_EVENTS)[number], string[]> = {
+  keydown: ['keypress', 'keyup'],
+  pointerdown: ['mousedown', 'mouseup', 'pointerup', 'click'],
+  touchstart: ['touchend', 'mousedown', 'mouseup', 'click'],
+};
 const SWALLOW_EVENTS = ['keypress', 'keyup', 'mousedown', 'mouseup', 'pointerup', 'touchend', 'click'] as const;
+// An owed event that never comes (a key without a keypress) expires, so the next input is not eaten
 const SWALLOW_MS = 700;
 
 /**
@@ -66,6 +72,7 @@ const SWALLOW_MS = 700;
  */
 export const watchIdle = (): (() => void) => {
   let swallowUntil = 0;
+  let owed = new Set<string>();
 
   const onWake = (event: Event) => {
     if (!active()) return;
@@ -73,10 +80,13 @@ export const watchIdle = (): (() => void) => {
     event.stopPropagation();
     if (performance.now() - startedAt < WAKE_GRACE_MS) return;
     swallowUntil = performance.now() + SWALLOW_MS;
+    owed = new Set(LEFTOVERS[event.type as keyof typeof LEFTOVERS]);
     stopScreensaver();
   };
   const onSwallow = (event: Event) => {
-    if (!active() && performance.now() >= swallowUntil) return;
+    if (!active()) {
+      if (performance.now() >= swallowUntil || !owed.delete(event.type)) return;
+    }
     event.preventDefault();
     event.stopPropagation();
   };
