@@ -114,7 +114,8 @@ body {
   pointer-events: none;
 }
 
-/* Front panel: vent grille (x 86-332, y 889-941 on the mock: 11 slots), power button and lamp */
+/* Front panel: vent grille (x 86-332, y 889-941 on the mock: 11 slots), power button and lamp, and
+   left of them a full-screen key that isn't on the mock, in a third socket at the same spacing */
 .crt-vent {
   position: absolute;
   left: 7.4cqw;
@@ -139,7 +140,8 @@ body {
 /* Lamp sockets pressed into the housing (51px, centred y 918 on the mock): their top and left walls in
    shadow, catching light along the bottom */
 .crt-power,
-.crt-lamp {
+.crt-lamp,
+.crt-fullscreen {
   position: absolute;
   bottom: 5.46cqh;
   width: 5.05cqh;
@@ -153,11 +155,52 @@ body {
   box-sizing: border-box;
 }
 
-.crt-power {
-  right: 13.21cqw;
+.crt-power,
+.crt-fullscreen {
   border: 0;
   padding: 0;
   cursor: pointer;
+}
+
+.crt-power {
+  right: 13.21cqw;
+}
+
+.crt-fullscreen {
+  right: 19.36cqw;
+}
+
+/* a dark keycap like the panel keypad's, its corner marks in the same cream as the digits */
+.crt-fullscreen::before {
+  content: '';
+  position: absolute;
+  inset: 14%;
+  border-radius: 0.35cqh;
+  background: linear-gradient(180deg, #211f1b, #12100e);
+  box-shadow:
+    0 0 0 0.2cqh #17110c,
+    inset 0 0.25cqh 0 -0.05cqh rgba(190, 180, 160, 0.45);
+  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.crt-fullscreen svg {
+  position: absolute;
+  inset: 33%;
+  fill: none;
+  stroke: #d6c8a8;
+  stroke-width: 1.8;
+  stroke-linecap: square;
+  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.crt-fullscreen:active::before,
+.crt-fullscreen:active svg {
+  transform: scale(0.92);
+}
+
+.crt-fullscreen:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
 }
 
 .crt-lamp {
@@ -223,6 +266,18 @@ body {
   /* Add padding to ensure text fits within curved bounds */
   padding: 25px;
   box-sizing: border-box;
+}
+
+/* Full screen: the glass fills the display. Its corners have no frame to hide them, so they round off
+   like the tube's over the black backdrop. The project list keeps its type's share of the glass: the
+   size .crt-projects sets in units of the monitor, rescaled to the glass (83.9% of the monitor's
+   width, 69% of its height), which is now the viewport. */
+.crt-screen:fullscreen {
+  border-radius: 2.5vmin;
+}
+
+.crt-screen:fullscreen .crt-projects {
+  font-size: max(12px, min(2.38vw, 3.28vh));
 }
 
 /* Enhanced screen curvature effect - Improved barrel distortion vignette */

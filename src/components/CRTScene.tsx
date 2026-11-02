@@ -142,6 +142,9 @@ const CRTScene = (props: CRTSceneProps) => {
       animate();
 
       let resizeTimeout: number | undefined;
+      // What the view was last sized for: the observer reports the size it starts with, and a resize
+      // can be reported by both the window and the observer
+      let sizedFor = `${containerRef.clientWidth}x${containerRef.clientHeight}@${window.devicePixelRatio}`;
 
       // Handle resize
       const handleResize = () => {
@@ -149,6 +152,9 @@ const CRTScene = (props: CRTSceneProps) => {
         
         const width = containerRef.clientWidth;
         const height = containerRef.clientHeight;
+        const size = `${width}x${height}@${window.devicePixelRatio}`;
+        if (size === sizedFor) return;
+        sizedFor = size;
         
         renderer.setSize(width, height);
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -186,11 +192,16 @@ const CRTScene = (props: CRTSceneProps) => {
         }, 100); // Wait for terminal layout to stabilize
       };
 
+      // The window reports zoom (a new pixel ratio); the observer reports the glass changing size on
+      // its own, as when it goes full screen without the window resizing
       window.addEventListener('resize', handleResize);
+      const resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(containerRef);
       
       // Store cleanup function in a way accessible to onCleanup
       const cleanup = () => {
         window.removeEventListener('resize', handleResize);
+        resizeObserver.disconnect();
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
         }

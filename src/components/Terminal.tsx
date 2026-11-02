@@ -1,4 +1,4 @@
-import { onMount, onCleanup, createSignal, createEffect, For } from 'solid-js';
+import { onMount, onCleanup, createSignal, createEffect, For, Show } from 'solid-js';
 import { Terminal } from '@xterm/xterm';
 import { CanvasAddon } from '@xterm/addon-canvas';
 import { WebLinksAddon } from '@xterm/addon-web-links';
@@ -11,6 +11,7 @@ import { PHOSPHOR } from '../config/phosphor';
 import { XTERM_INSET, XTERM_SCROLLBAR } from '../config/screen';
 import { identity } from '../brand/identity.js';
 import { blockScreensaver, watchIdle } from '../state/screensaver';
+import { projectsOpen } from '../state/projectsScreen';
 
 const MONO_FONT = '"JetBrains Mono"';
 // JetBrains Mono advance width, in em
@@ -323,14 +324,31 @@ const TerminalComponent = () => {
     }
   };
 
+  // The glass alone fills the display, the terminal regridding to it; Esc or the browser's own
+  // control brings the console back. Focus follows onto the glass, since the key is left outside it.
+  const enterFullscreen = async () => {
+    await screenEl?.requestFullscreen();
+    if (projectsOpen()) document.getElementById('projects-title')?.focus();
+    else terminal?.focus();
+  };
+
   return (
     <div class="w-full h-full relative" style={{ 'min-height': '400px' }}>
       {/* Housing: the screen sits in its padding, the moulded frame is drawn over it */}
       <div ref={bezelEl} class="crt-bezel w-full h-full relative">
-        {/* Front panel, below the screen: vent grille, power button, status lamp */}
+        {/* Front panel, below the screen: vent grille, full-screen key, power button, status lamp */}
         <div class="crt-vent" aria-hidden="true">
           <For each={VENT_SLOTS}>{() => <span />}</For>
         </div>
+        {/* Not every browser lets a page go full screen (iPhone Safari doesn't) */}
+        <Show when={document.fullscreenEnabled}>
+          <button type="button" onClick={enterFullscreen} class="crt-fullscreen" title="Full screen">
+            {/* four corner marks, like a viewfinder */}
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" />
+            </svg>
+          </button>
+        </Show>
         <button
           type="button"
           onClick={togglePause}
