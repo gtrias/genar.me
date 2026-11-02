@@ -308,8 +308,12 @@ const TerminalComponent = () => {
     terminal?.dispose();
   });
 
+  // Only switching the set off and on animates the picture; it comes up already on at page load
+  const [powerCycled, setPowerCycled] = createSignal(false);
+
   const togglePause = () => {
     const paused = !isPaused();
+    setPowerCycled(true);
     setIsPaused(paused);
     
     if (terminal) {
@@ -379,20 +383,26 @@ const TerminalComponent = () => {
               ...XTERM_INSET,
             }}
           />
-          {/* CRT Scene overlay - renders the curved terminal */}
-          {(() => {
-            const term = terminalReady();
-            return term ? (
-              <CRTScene 
-                terminal={term} 
-                curvature={0.08}
-                scanlineOpacity={0.25}
-                vignetteStrength={0.18}
-              />
-            ) : null;
-          })()}
-          {/* Project list for visitors who don't use the shell, opened from the panel */}
-          <ProjectsScreen />
+          {/* The picture: collapses to a line and a dot when the set is switched off, opens back out
+              when it comes on. The screen behind it stays, dark. */}
+          <div
+            class="crt-picture"
+            classList={{ 'is-off': isPaused(), 'is-on': !isPaused() && powerCycled() }}
+          >
+            {(() => {
+              const term = terminalReady();
+              return term ? (
+                <CRTScene 
+                  terminal={term} 
+                  curvature={0.08}
+                  scanlineOpacity={0.25}
+                  vignetteStrength={0.18}
+                />
+              ) : null;
+            })()}
+            {/* Project list for visitors who don't use the shell, opened from the panel */}
+            <ProjectsScreen />
+          </div>
           {/* Curved screen effect overlay - creates convex CRT glass appearance */}
           <div class="crt-curve" />
         </div>
