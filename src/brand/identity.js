@@ -4,7 +4,7 @@ export const identity = {
   "shortName": "Genar Trias",
   "site": "https://genar.me",
   "handle": "gtrias",
-  "headline": "Software engineer. I design the abstractions and build the products, and I keep both simple enough to change.",
+  "headline": "Software Engineer, Full-Time Builder",
   "thesis": "Software as a creative craft",
   "pillars": [
     "Software design & abstractions",
