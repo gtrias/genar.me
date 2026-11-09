@@ -1,9 +1,15 @@
-# Cloudflare Pages configuration
-name = "genar-me"
+# Cloudflare Workers configuration, used by the "Workers Builds: genar" git
+# integration: its deploy command runs `npx wrangler versions upload`, which
+# uploads `dist` as static assets for the `genar` Worker.
+#
+# The production site still runs on the Cloudflare Pages project `genar-me`
+# (`npm run deploy` passes the project name explicitly); this file does not
+# describe that project.
+#
+# Redirects and headers (public/_redirects, public/_headers) are copied to
+# dist by Vite and are honored by both Pages and Workers static assets.
+name = "genar"
 compatibility_date = "2025-11-03"
-pages_build_output_dir = "dist"
 
-# Note: For Cloudflare Pages, redirects and headers should be in:
-# - public/_redirects (will be copied to dist/_redirects)
-# - public/_headers (will be copied to dist/_headers)
-# These files are handled automatically by Cloudflare Pages.
+[assets]
+directory = "./dist"
