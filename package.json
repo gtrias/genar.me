@@ -8,7 +8,7 @@
     "dev": "vite",
     "dev:vite": "vite",
     "build": "vite build",
-    "deploy": "npm run build && npx wrangler pages deploy",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name genar-me",
     "serve": "vite preview"
   },
   "license": "MIT",
@@ -28,7 +28,6 @@
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-web-links": "^0.11.0",
     "@xterm/xterm": "^5.3.0",
-    "html2canvas": "^1.4.1",
     "solid-js": "^1.9.9",
     "three": "^0.181.2"
   }

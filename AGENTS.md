@@ -23,7 +23,8 @@
 - Install: `npm install` (pnpm/yarn also fine).
 - Dev server: `npm run dev` (Vite on http://localhost:3000).
 - Production build: `npm run build` (bundle in `dist/`). Preview with Pages semantics (redirects): `npx wrangler pages dev dist`.
-- Deploy: `npm run deploy` (Cloudflare Pages project `genar-me`, serves genar.me).
+- Deploy: `npm run deploy` (Cloudflare Pages project `genar-me`, serves genar.me; the project name is passed explicitly because `wrangler.toml` describes the Worker, not this Pages project).
+- CI is the Cloudflare Workers Builds check `Workers Builds: genar`: it runs `bun install --frozen-lockfile`, then `npm run build`, then `npx wrangler versions upload` with `wrangler.toml` (assets-only Worker `genar` serving `dist/`). Any package.json dependency change must be committed with an updated `bun.lock`, or the frozen install fails the build.
 
 ## Coding Style & Naming Conventions
 - TypeScript/TSX uses 2-space indent, semicolons, and `const` by default. Components and files are PascalCase in `components/` and camelCase utilities in `utils/`. Keep Solid patterns (signals/hooks) and prefer descriptive variable names over abbreviations.
